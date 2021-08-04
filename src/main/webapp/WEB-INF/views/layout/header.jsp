@@ -16,7 +16,7 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <style>
-    *{text-align: center;}
+    navcon *{text-align: center;}
     #navibar{
         background-color:/* #325288;*/ #114E60;
         border-bottom:4.5px solid #dff1e4 ;
@@ -33,6 +33,7 @@
 </head>
 <body>
    <!-- 네비바 -->
+   <div class="navcon">
     <nav class="navbar navbar-expand-lg navbar-dark p-0 pl-2 pr-2" id="navibar">
         <a class="navbar-brand p-2 mr-5" href="/">
             <img src="<spring:url value='/resources/img_home/logo02_dark.png'/>" id="naviimg">
@@ -77,6 +78,6 @@
           </form>
         </div>
     </nav>
-
+</div>
 </body>
 </html>
