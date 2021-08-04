@@ -22,16 +22,7 @@
 </script>
 <style>
     *{text-align: center;}
-    #navibar{
-        background-color:/* #325288;*/ #114E60;
-        border-bottom:4.5px solid #dff1e4 ;
-    }
-    #naviimg{height:50px;}
-    .nav-item{height:75px;padding-left: 12px;padding-right: 12px;}
-    .nav-item>a{color:#FDFAF6;}
-    .nav-item>a{color:#FDFAF6;}
-    #mypage{color:#FDFAF6;}
-    .active{background-color: #124352;}
+ 
     
     /* 메인 페이지 */
     .main-one{
@@ -77,57 +68,11 @@
     }
     .look:hover{background-color: #dff1e4;color:rgb(0, 0, 0);cursor:pointer;}
 
-    .footer{width:100%;height:35vh;background-color: rgb(40, 40, 40);}
-    .footer *{color:lightgray;}
-    .footerimg{width: 210px;}
+    
 </style>
 </head>
 <body>
-   <!-- 네비바 -->
-    <nav class="navbar navbar-expand-lg navbar-dark p-0 pl-2 pr-2" id="navibar">
-        <a class="navbar-brand p-2 mr-5" href="/">
-            <img src="<spring:url value='/resources/img_home/logo02_dark.png'/>" id="naviimg">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="line-height:60px;">
-          <ul class="navbar-nav mr-auto" style="display: flex;">
-            <li class="nav-item" id="main">
-              <a class="nav-link" href="/" style="color:#FDFAF6;">메인</a>
-            </li>
-            <li class="nav-item" id="meal">
-              <a class="nav-link" href="meal/main" style="color:#FDFAF6;">식단관리</a>
-            </li>
-            <li class="nav-item dropdown" id="chat">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#FDFAF6;">메신저</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/chat/findFriend">친구 찾기</a>
-                    <a class="dropdown-item" href="/chat/myChat">내 채팅방</a>
-                </div>
-            </li>
-            <li class="nav-item" id="free">
-                <a class="nav-link" href="#" style="color:#FDFAF6;">자유게시판</a>
-            </li>
-            <li class="nav-item" id="mail">
-                <a class="nav-link" href="#" style="color:#FDFAF6;">메일</a>
-            </li>
-            <li class="nav-item" id="stats">
-                <a class="nav-link" href="#" style="color:#FDFAF6;">통계</a>
-            </li>
-        </ul>
-          <form class="form-inline my-2 my-lg-0 dropdown" id="loginNavi">
-            <a class="nav-link dropdown-toggle" id="mypage" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                마이페이지
-            </a>
-            <div class="dropdown-menu dropdown-menu-left dropdown-menu-lg-right"  aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">프로필 수정</a>
-                <a class="dropdown-item" href="#">회원정보 수정</a>
-                <a class="dropdown-item" href="#">로그아웃</a>
-            </div>  
-          </form>
-        </div>
-    </nav>
+  <jsp:include page="layout/header.jsp"/>
 
   <!-- 메인 페이지 -->
     <div class="main-one">
@@ -252,27 +197,6 @@
         </div>
     </div>
 
-    <div class="footer pt-4 pl-5 pb-3">
-        <div class="row m-0">
-            <div class="col-4 p-2">
-                <img src="<spring:url value='/resources/img_home/logo02_dark.png'/>" class="footerimg">
-            </div>
-            <div class="col-6 p-2">
-                <p style="text-align:left;font-size:15px;">
-                    항상 영양사님들을 위하는 마음으로<br>
-                    홈페이지를 운영합니다.</p>
-                <h5 class="mt-4 mb-4" style="text-align:left;">
-                    company &nbsp;&nbsp; | &nbsp;&nbsp; Business &nbsp;&nbsp; | &nbsp;&nbsp; Gallery &nbsp;&nbsp; | &nbsp;&nbsp; Contact Us
-                </h5>
-            </div>
-        </div>
-        <div class="row m-0">
-            <div class="col-12">
-                <p class="mt-3 mb-0"style="font-size:small;">
-                    Copyright 2021 HI!급식 Corp. All rights reserved
-                </p>
-            </div>
-        </div>
-    </div>
+  <jsp:include page="layout/footer.jsp"/>
 </body>
 </html>
