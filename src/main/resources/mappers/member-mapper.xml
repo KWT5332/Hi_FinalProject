@@ -4,4 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="Member">
+
+<insert id="insert">
+	insert into hi_member
+	values(#{email},#{pw},#{name},#{school},#{gender},#{age},null,null,#{phone},sysdate)
+</insert>
+
+
+
+
 </mapper>
