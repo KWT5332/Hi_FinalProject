@@ -197,7 +197,8 @@ navcon * {
 							<div
 								class="dropdown-menu  dropdown-menu-left dropdown-menu-lg-right"
 								aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" href="#">프로필 수정</a> <a
+								<!-- 회원가입 될때까지 임시 -->
+								<a class="dropdown-item" href="/mem/join">프로필 수정</a> <a
 									class="dropdown-item" href="#">회원정보 수정</a> <a
 									class="dropdown-item" href="#">로그아웃</a>
 							</div>
