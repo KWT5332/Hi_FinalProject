@@ -4,4 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="Member">
+
+<insert id="join">
+	insert into hi_member
+	values(#{email},#{pw},#{name},#{school},#{gender},#{age},null,null,#{phone},sysdate)
+</insert>
+<select id="login" resultType="kh.spring.dto.MemberDTO">
+	select * from hi_member where email=#{email} and pw=#{pw}
+</select>
+
+
+
+
 </mapper>

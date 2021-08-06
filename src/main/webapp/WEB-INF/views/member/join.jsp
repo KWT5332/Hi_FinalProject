@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>홈페이지</title>
+<title>회원가입</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -41,12 +41,14 @@
       AOS.init();
       $("#main").addClass("active");
    })
+   /* 완성후 바꾸기 */
 </script>
 </head>
 <body>
   <jsp:include page="../layout/header.jsp"/>
+  <form action="/mem/joinProc">
    <div class="join_container container-fluid">
-        <div class="profile">
+        <div class="profile mr-5 ml-5">
             <div class="title incon row m-5">
                 <h2 class="col-12">회원가입</h2>
                 <hr class="col-12">
@@ -57,7 +59,7 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-sm-6 col-md-4 col-lg-4">
-                            <input type="text" class="form-control inp_id ">
+                            <input type="text" class="form-control inp_id " name="email">
                         </div>
                         <div class="col-sm-5 col-md-3 col-lg-2 ">
                             <button type="button" class="btn btn-success btn_email">인증번호 발송</button>
@@ -112,7 +114,7 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-12 col-sm-5 col-lg-5">
-                            <input type="text" class="form-control inp_id ">
+                            <input type="text" class="form-control inp_id " name="pw">
                         </div>
                         <div class="col-12 col-sm-7 col-lg-6">
                             <div class="form-control  exex">비번일치 여부</div>
@@ -132,9 +134,19 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-sm-5 col-md-2 ">
-                            <input type="text" class="form-control  ">
+                            <input type="text" class="form-control  " name="name">
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="id_pw_con incon row m-5">
+                <h5 class="col-12 mb-4">성별</h5>
+                <div class="input-group row">
+                    <select type="select" class=" custom-select col-sm-5 col-md-2 ml-4" name="gender" id="inputGroupSelect01">
+                        <option selected>선택</option>
+                        <option value="man">남성</option>
+                        <option value="woman">여성</option>
+                    </select>
                 </div>
             </div>
             <div class="id_pw_con incon row m-5">
@@ -157,7 +169,7 @@
                         <div class="col-12 mt-3">
                             <div class="row">
                                 <div class="col-10 col-md-4">
-                                    <input type="text" class="form-control  ">
+                                    <input type="text" class="form-control  " name="school">
                                 </div>
                                 <div class="col-12 col-md-8">
                                     <div class="form-control  exex">예시 - 무학여고, 마산중 (공백없이 입력해주세요) </div>
@@ -170,7 +182,7 @@
             <div class="id_pw_con incon row m-5">
                 <h5 class="col-12 mb-4">나이대</h5>
                 <div class="input-group row">
-                    <select type="select" class=" custom-select col-sm-5 col-md-2 ml-4" id="inputGroupSelect01">
+                    <select type="select" name="age" class=" custom-select col-sm-5 col-md-2 ml-4" id="inputGroupSelect01">
                         <option selected>선택</option>
                         <option value="20">20대</option>
                         <option value="30">30대</option>
@@ -187,7 +199,7 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-10 col-md-4">
-                            <input type="text" class="form-control  ">
+                            <input type="text" class="form-control  " name="phone">
                         </div>
                         <div class="col-12 col-md-8">
                             <div class="form-control  exex">연락처 형식 일치 여부 </div>
@@ -202,7 +214,7 @@
         </div>
         <div class="empty"></div>
     </div>
-   
+   </form>
    <jsp:include page="../layout/footer.jsp"/>
   
 </body>
