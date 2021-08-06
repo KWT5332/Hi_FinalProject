@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Meal">
+	<insert id="insert">
+		insert into meal_menu values (#{month}, #{meal_date}, #{title}, #{school}, #{writer}, #{menu1},
+		#{menu2}, #{menu3}, #{menu4}, #{menu5}, #{menu6}, #{oriName}, #{sysName})
+	</insert>
+	
+	<select id="selectList" resultType="kh.spring.dto.MealDTO">
+		select * from (select row_number() over (order by meal_date desc) rnum, month, meal_date, title, school,
+		writer, menu1, menu2, menu3, menu4, menu5, menu6 from meal_menu where writer=#{writer}) 
+		where rnum between ${start} and ${end} order by 3 desc
+	</select>
+	
+	<select id="listCount" resultType="int">
+		select count(*) from meal_menu where writer=#{writer} 
+	</select>
+	
+</mapper>
