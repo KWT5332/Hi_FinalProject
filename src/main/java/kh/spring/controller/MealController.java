@@ -69,6 +69,6 @@ public class MealController {
 
 		service.addMeal(dto, file, realPath); 
 
-		return "meal/addMeal";
+		return "redirect:/meal/addmeal";
 	}
 }
