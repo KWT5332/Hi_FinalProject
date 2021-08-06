@@ -14,12 +14,12 @@ public class MemberDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	public int login(Map<String, String> param) {
+	public int join(MemberDTO dto) {
+		return mybatis.insert("Member.join", dto);
+	}
+	public MemberDTO login(Map<String, String> param) {
 		return mybatis.selectOne("Member.login",param);
 	}
 	
-	public int insert(MemberDTO dto) {
-		return mybatis.insert("Member.insert", dto);
-	}
 	
 }

@@ -57,8 +57,10 @@ navcon * {
 	<!-- 네비바 -->
 	<div class="navcon">
 		<c:choose>
-			<c:when test="${login.email != null }">
-<%-- 			<c:when test="${login.email == null }"> 이게맞으나 일단 테스트차--%>
+			<%-- <c:when test="${login.email != null }"> --%>
+			
+			<c:when test="${login.email == null }"> 
+
 				<!-- 로그인 안했을 때   ########이쪽은 링크 건들지말기 로그인 안되었을때니까!!-->
 				<nav class="navbar navbar-expand-lg navbar-dark p-0 pl-2 pr-2"
 					id="navibar">
@@ -97,13 +99,13 @@ navcon * {
 						</ul>
 						<form class="form-inline my-2 my-lg-0" id="loginNavi">
 						<!-- 여기 멤버 링크 -->
-							<a class="mr-sm-2 m-0" style="width: 70px;" href="">로그인</a> <a
-								class="mr-sm-2 m-0" style="width: 70px;" href="/mem/join">회원가입</a>
+							<a class="mr-sm-2 m-0" style="width: 70px;" href="/mem/loginForm">로그인</a> <a
+								class="mr-sm-2 m-0" style="width: 70px;" href="/mem/joinForm">회원가입</a>
 						</form>
 					</div>
 				</nav>
 			</c:when>
-			<c:when test="${login.id =='admin'}">
+			<c:when test="${login.email =='admin'}">
 				<!-- 관리자로 로그인 할떄 -->
 				<!-- #######자기 링크 넣기  -->
 				<nav class="navbar navbar-expand-lg navbar-dark p-0 pl-2 pr-2"
@@ -198,7 +200,7 @@ navcon * {
 								class="dropdown-menu  dropdown-menu-left dropdown-menu-lg-right"
 								aria-labelledby="navbarDropdownMenuLink">
 								<!-- 회원가입 될때까지 임시 -->
-								<a class="dropdown-item" href="/mem/joinForm">프로필 수정</a> <a
+								<a class="dropdown-item" href="#">프로필 수정</a> <a
 									class="dropdown-item" href="#">회원정보 수정</a> <a
 									class="dropdown-item" href="#">로그아웃</a>
 							</div>
