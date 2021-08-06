@@ -17,11 +17,10 @@
 <script>
    $(function(){
       AOS.init();
-      $("#main").addClass("active");
    })
 </script>
 <style>
-    .footer{width:100%;height:35vh;background-color: rgb(40, 40, 40);}
+    .footer{width:100%;height:35vh;background-color: rgb(40, 40, 40);text-align:center;}
     .footer *{color:lightgray;}
     .footerimg{width: 210px;}
 </style>

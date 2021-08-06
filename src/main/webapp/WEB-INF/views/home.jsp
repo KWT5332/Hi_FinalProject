@@ -17,12 +17,11 @@
 <script>
    $(function(){
       AOS.init();
-      $("#main").addClass("active");
    })
 </script>
 <style>
     *{text-align: center;}
- 
+	#main{background-color: #124352;}
     
     /* 메인 페이지 */
     .main-one{
@@ -67,8 +66,6 @@
         line-height: 50px;
     }
     .look:hover{background-color: #dff1e4;color:rgb(0, 0, 0);cursor:pointer;}
-
-    
 </style>
 </head>
 <body>

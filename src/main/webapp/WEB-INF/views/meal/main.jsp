@@ -13,15 +13,13 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
-
+	#meal{background-color: #124352;}
 </style>
 <script>
 	$(function(){
 		$("#addMeal").on("click",function(){
 			location.href = "/meal/addmeal";
 		})
-		
-		$("#meal").addClass("active");
 	})
 </script>
 </head>
