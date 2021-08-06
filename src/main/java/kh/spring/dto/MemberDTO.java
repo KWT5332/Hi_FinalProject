@@ -1,5 +1,7 @@
 package kh.spring.dto;
 
+import java.sql.Date;
+
 public class MemberDTO {
 	private String email;
 	private String pw;
@@ -9,11 +11,16 @@ public class MemberDTO {
 	private String age;
 	private String oriName;
 	private String sysName;
+	private String phone;
+	private Date reg_date;
 	
-	public MemberDTO() {}
+	public MemberDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public MemberDTO(String email, String pw, String name, String school, String gender, String age, String oriName,
-			String sysName) {
+			String sysName, String phone, Date reg_date) {
 		super();
 		this.email = email;
 		this.pw = pw;
@@ -23,6 +30,8 @@ public class MemberDTO {
 		this.age = age;
 		this.oriName = oriName;
 		this.sysName = sysName;
+		this.phone = phone;
+		this.reg_date = reg_date;
 	}
 
 	public String getEmail() {
@@ -87,5 +96,21 @@ public class MemberDTO {
 
 	public void setSysName(String sysName) {
 		this.sysName = sysName;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Date getReg_date() {
+		return reg_date;
+	}
+
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
 	}
 }
