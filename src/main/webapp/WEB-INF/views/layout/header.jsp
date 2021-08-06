@@ -32,7 +32,6 @@ navcon * {
     #loginNavi>a:hover{background-color: #124352;}
     #loginNavi>a:visited{color: #FDFAF6;}
     #mypage{color:#FDFAF6;}
-    .active{background-color: #124352;}
 </style>
 <script>
    $(function(){

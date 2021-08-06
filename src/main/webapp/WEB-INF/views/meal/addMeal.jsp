@@ -11,17 +11,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 <style>
-    *{box-sizing: border-box;text-align: center;}
-    #navibar{
-        background-color:/* #325288;*/ #114E60;
-        border-bottom:4.5px solid #dff1e4 ;
-    }
-    #naviimg{height:50px;}
-    .nav-item{height:75px;padding-left: 8px;padding-right: 8px;}
-    .nav-item>a{color:#FDFAF6;}
-    .nav-item>a{color:#FDFAF6;}
-    #mypage{color:#FDFAF6;}
-    .active{background-color: #124352;}
+	#meal{background-color: #124352;}
+	*{text-align:center;}
 
     /* 메인 스타일 */
     .custom-file-label::after {
@@ -40,8 +31,10 @@
     #test:hover{background-color: rgb(233, 236, 239);}
 
     .use{background-color:#dff1e4;color:rgb(70, 70, 70);}
-    .use:hover{font-weight: 700;border:1px solid #114E60;color:#114E60;}
+        #use{background-color:#dff1e4;color:rgb(70, 70, 70);}
+    .use:hover{font-weight:700;border:1px solid #114E60;color:#114E60;}
     .menu{line-height:38px;}
+    .date{line-height:38px;}
     
     .footer{width:100%;height:35vh;background-color: rgb(40, 40, 40);}
     .footer *{color:lightgray;}
@@ -49,7 +42,6 @@
 </style>
 <script>
     $(function(){
-        $("#meal").addClass("active");
         
         // 식단 메뉴 추가
         let i = 2;
@@ -205,7 +197,7 @@
                     <table border="1" class="w-100 table table-bordered">
                         <tr>
                             <th class="p-2" width="25%">등록자</th>
-                            <td class="p-2" width="75%">${login.writer }</td>
+                            <td class="p-2" width="75%">${login.name }</td>
                             <!-- 세션에 담긴 이름 출력 -->
                         </tr>
                         <tr>
@@ -280,7 +272,7 @@
 								<c:if test="${not empty list.menu5}">,${list.menu5}</c:if>
 								<c:if test="${not empty list.menu6}">,${list.menu6}</c:if>
                             </td>
-                            <td class="p-2"><button class="btn use">사용</button></td>
+                            <td class="p-2"><button class="btn use" id="use">사용</button></td>
                         </tr>	
                         </c:forEach>
                     </table>
