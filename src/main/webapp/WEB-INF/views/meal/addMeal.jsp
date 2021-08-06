@@ -165,6 +165,7 @@
             		
             		let btn = $("<button>");
             		btn.addClass("btn use");
+            		btn.attr("id","use");
             		btn.append("사용");
             		
     				foot.append(btn);
@@ -280,10 +281,6 @@
             </div>
         </div>
     </div>
-    
-<!--     <div class="back-drop">
-    	<img src="./svg/spinner-solid.svg"/>
-    </div> -->
     
  <jsp:include page="../layout/footer.jsp"/>
 </body>
