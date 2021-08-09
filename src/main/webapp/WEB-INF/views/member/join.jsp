@@ -47,8 +47,10 @@
 <body>
   <jsp:include page="../layout/header.jsp"/>
   <form action="/mem/joinProc">
-   <div class="join_container container-fluid">
-        <div class="profile mr-5 ml-5">
+   <div class="join_container container p-5">
+<!--    <div class="join_container container-fluid"> -->
+        <div class="profile">
+        <!-- <div class="profile mr-5 ml-5"> -->
             <div class="title incon row m-5">
                 <h2 class="col-12">회원가입</h2>
                 <hr class="col-12">
