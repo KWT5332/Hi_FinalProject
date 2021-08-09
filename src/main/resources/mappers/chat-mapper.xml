@@ -27,4 +27,8 @@
 	<select id="searchRoomNumber2" resultType="int">
 		select room_number from chat_room where user2=#{user1} and user1=#{user2} 
 	</select>
+	
+	<select id="receiver" resultType="kh.spring.dto.MemberDTO">
+		select * from hi_member where email=#{value}
+	</select>
 </mapper>

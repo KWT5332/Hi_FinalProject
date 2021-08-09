@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import kh.spring.dao.ChatDAO;
 import kh.spring.dto.MemberDTO;
 
 @Service
+@Component
 public class ChatService {
 
 	@Autowired
@@ -63,8 +65,8 @@ public class ChatService {
 		return dao.searchRoomNumber2(param);
 	}
 
-	// 청아를 위한 
-	public void test() {
-
+	// 채팅 상대방 정보 담기
+	public MemberDTO receiver(String email) {
+		return dao.receiver(email);
 	}
 }

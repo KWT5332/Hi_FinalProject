@@ -42,20 +42,29 @@ public class ChatController {
 	}
 
 	@RequestMapping("toChat")
-	public String toChat(String user2) {
+	public String toChat(String user2, Model model) {
+		// Session에 담긴 로그인한 사람 정보 가져와서 이메일 정보만 user1에 담기
+		System.out.println(user2);
 		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
 		String user1 = mdto.getEmail();
-		int room_number;
+		
+		model.addAttribute("user2",user2);
+
+		// 채팅하려는 사람 정보 담기
+		//MemberDTO receiver = service.receiver(user2);
+		//session.setAttribute("receiver", receiver);
+		
+		int room_number = 0;
 
 		System.out.println(" 로그인한 사람 이메일 : " + user1);
 		System.out.println(" 채팅하고자 하는 사람 : " + user2);
 
 		int result1 = service.searchRoom1(user1, user2);
 		int result2 = service.searchRoom2(user1, user2);
-		
+
 		int result = (result1 + result2);
 		System.out.println("0보다 크면 방이 있는 것 :" + result);
-		
+
 		if(result == 0) {
 			int createRoom_result = service.createRoom(user1,user2);
 			if(createRoom_result>0) {
@@ -74,6 +83,7 @@ public class ChatController {
 				System.out.println("user2 방번호" + room_number );
 			}
 		}
+		// "chat/toChat?room_number="+room_number;
 		return "chat/toChat";
 	}
 }

@@ -7,6 +7,10 @@
 <meta charset="UTF-8">
 <title>상대방과 채팅하기</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 </head>
 <style>
 	/* */
@@ -49,11 +53,17 @@
 </style>
 <script>
     $(function(){
+    	
+    	let user2 = '${user2}';
+    	let ws = new WebSocket("ws://59.6.83.84/toChat/user2/"+ user2);
+    	
+    	// http://59.6.83.84/
         
         function updateScroll(){
 			var element = document.getElementById("chat_contents");
 			element.scrollTop = element.scrollHeight;
 		}
+        
         $("#send").on("click",function(e){
             $("#message").focus();
             let message = $("#message").val();
@@ -101,9 +111,29 @@
                 message_box.append(message_contents);
                 $("#chat_contents").append(message_box);
                 updateScroll(); 
+                
+                ws.send(message);
             }    
         }
-    })     
+    })
+    
+    ws.onmessage = function(event){
+        	let data = JSON.parse(event.data);
+        	let reciver_box = $("<div>");
+        	reciver_box.addClass("row mb-4 reciver_box");
+        	
+        	let reciver_id = $("<div>");
+        	reciver_id.addClass("col-4");
+        	reciver_id.aappend(data.name);
+        	
+        	let reciver_message = $("<div>");
+        	reciver_message.addClass("col-8");
+        	reciver_message.aappend(data.message);
+        	
+        	reciver_box.append(reciver_id);
+        	reciver_box.append(reciver_message);
+        	 $("#chat_contents").append(reciver_box);
+        } 
 })
 </script>
 <body>
