@@ -15,51 +15,56 @@ public class ChatService {
 
 	@Autowired
 	private ChatDAO dao;
-	
+
 	public List<MemberDTO> search(String category, String keyword){
 		Map<String,String> param = new HashMap<>();
 		param.put("keyword", keyword);
 		param.put("category",category );
 		return dao.search(param);
 	}
-	
+
 	public int searchRoom1(String user1,String user2) {
 		Map<String,String> param = new HashMap<>();
 		param.put("user1", user1);
 		param.put("user2", user2);
-		
+
 		return dao.searchRoom1(param);
 	}
-	
+
 	public int searchRoom2(String user1,String user2) {
 		Map<String,String> param = new HashMap<>();
 		param.put("user1", user1);
 		param.put("user2", user2);
-		
+
 		return dao.searchRoom2(param);
 	}
-	
+
 	public int createRoom(String user1, String user2) {
 		Map<String,String> param = new HashMap<>();
 		param.put("user1", user1);
 		param.put("user2", user2);
-		
+
 		return dao.createRoom(param);
 	}
-	
+
 	public int searchRoomNumber(String user1, String user2) {
 		Map<String,String> param = new HashMap<>();
 		param.put("user1", user1);
 		param.put("user2", user2);
-		
+
 		return dao.searchRoomNumber(param);
 	}
-	
+
 	public int searchRoomNumber2(String user1, String user2) {
 		Map<String,String> param = new HashMap<>();
 		param.put("user1", user1);
 		param.put("user2", user2);
-		
+
 		return dao.searchRoomNumber2(param);
+	}
+
+	// 청아를 위한 
+	public void test() {
+
 	}
 }

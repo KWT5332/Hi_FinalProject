@@ -40,4 +40,8 @@ public class ChatDAO {
 	public int searchRoomNumber2(Map<String,String> param) {
 		return mybatis.selectOne("Chat.searchRoomNumber2", param);
 	}
+	
+	public void test() {
+		
+	}
 }
