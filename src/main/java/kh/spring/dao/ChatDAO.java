@@ -41,7 +41,8 @@ public class ChatDAO {
 		return mybatis.selectOne("Chat.searchRoomNumber2", param);
 	}
 	
-	public void test() {
-		
+	// 채팅 상대방 정보 담기
+	public MemberDTO receiver(String email) {
+		return mybatis.selectOne("Chat.receiver",email);
 	}
 }
