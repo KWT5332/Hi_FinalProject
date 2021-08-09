@@ -20,7 +20,8 @@ import kh.spring.configurator.HttpSessionConfigurator;
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.ChatService;
 
-@ServerEndpoint(value="/toChat/user2/{user2}", configurator = HttpSessionConfigurator.class)
+// value="/toChat/user2/{user2}"
+@ServerEndpoint(value="/toChat/room_number/{room_number}", configurator = HttpSessionConfigurator.class)
 public class ChatEndPoint {
 	
 	private static Set<Session> clients = Collections.synchronizedSet(new HashSet<>());
@@ -40,7 +41,6 @@ public class ChatEndPoint {
 	@OnMessage
 	public void onMessage(Session self,String message) {
 		System.out.println(message);
-		String id = (String)hsession.getAttribute("loginID");
 
 		//dao.insert(new ChatDTO(0,id,message,null));
 		synchronized(clients) {

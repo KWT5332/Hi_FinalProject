@@ -50,14 +50,46 @@
 	border-width: 26px;
 	margin-left: -26px;
 }
+
+    /* 상대방 말풍선*/
+    .receiver_box {
+	position: relative;
+	background: white;
+	border: 4px solid #c2e1f5;
+}
+.receiver_box:after, .receiver_box:before {
+	top: 100%;
+	left: 10%;
+	border: solid transparent;
+	content: "";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.receiver_box:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-top-color: #88b7d5;
+	border-width: 20px;
+	margin-left: -20px;
+}
+.receiver_box:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-top-color: #c2e1f5;
+	border-width: 26px;
+	margin-left: -26px;
+}
 </style>
 <script>
     $(function(){
     	
-    	let user2 = '${user2}';
-    	let ws = new WebSocket("ws://59.6.83.84/toChat/user2/"+ user2);
+    	// url이 상대방 이메일일때 웹소켓 연결되는 코드
+    	//let user2 = '${user2}';
+    	//let ws = new WebSocket("ws://59.6.83.84/toChat/user2/"+ user2);
     	
-    	// http://59.6.83.84/
+    	let room_number = '${room_number}';
+    	let ws =  new WebSocket("ws://59.6.83.84/toChat/room_number/"+ room_number);
         
         function updateScroll(){
 			var element = document.getElementById("chat_contents");
@@ -86,6 +118,8 @@
                 message_box.append(message_contents);
                 $("#chat_contents").append(message_box);
                 updateScroll(); 
+                
+                ws.send(message);
             }
                    
         })
@@ -118,21 +152,23 @@
     })
     
     ws.onmessage = function(event){
+        	console.log(event.data);
         	let data = JSON.parse(event.data);
         	let reciver_box = $("<div>");
-        	reciver_box.addClass("row mb-4 reciver_box");
+        	reciver_box.addClass("row mb-4 receiver_box");
         	
         	let reciver_id = $("<div>");
         	reciver_id.addClass("col-4");
-        	reciver_id.aappend(data.name);
+        	reciver_id.append(data.name);
         	
         	let reciver_message = $("<div>");
         	reciver_message.addClass("col-8");
-        	reciver_message.aappend(data.message);
+        	reciver_message.append(data.message);
         	
         	reciver_box.append(reciver_id);
         	reciver_box.append(reciver_message);
-        	 $("#chat_contents").append(reciver_box);
+        	$("#chat_contents").append(reciver_box);
+        	updateScroll(); 
         } 
 })
 </script>

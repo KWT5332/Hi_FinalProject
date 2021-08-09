@@ -48,7 +48,7 @@ public class ChatController {
 		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
 		String user1 = mdto.getEmail();
 		
-		model.addAttribute("user2",user2);
+		//model.addAttribute("user2",user2);
 
 		// 채팅하려는 사람 정보 담기
 		//MemberDTO receiver = service.receiver(user2);
@@ -83,7 +83,15 @@ public class ChatController {
 				System.out.println("user2 방번호" + room_number );
 			}
 		}
-		// "chat/toChat?room_number="+room_number;
+		
+		return "redirect:/chat/toChatRoom?room_number="+room_number;
+	}
+	
+	// 채팅방 url에 채팅방 번호 붙여서 보내려고 만든 컨트롤러 
+	@RequestMapping("toChatRoom")
+	public String toChatRomm(String room_number,Model model) {
+		System.out.println(room_number);
+		model.addAttribute("room_number",room_number);
 		return "chat/toChat";
 	}
 }
