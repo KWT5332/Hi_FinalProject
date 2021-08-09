@@ -19,4 +19,11 @@
 		select count(*) from meal_menu where writer=#{writer} 
 	</select>
 	
+	<select id="excelDownload" resultType="kh.spring.dto.MealDTO">
+		select * from meal_menu where month=#{month} and school=#{school}
+	</select>
+	
+	<select id="search" resultType="kh.spring.dto.MealDTO">
+		select * from meal_menu where menu1 %%
+	</select>
 </mapper>
