@@ -10,6 +10,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 </head>
 <style>
 	*{box-sizing: border-box;}
@@ -95,10 +97,14 @@
         			</c:forEach> 
         		</c:when>
         		<c:when test="${keyword != null and fn:length(list) == 0 }">
+        			<div class="row">
         			<div class=col-12><h4 id="noFriend">검색 대상이 없습니다.</h4></div>
+        			</div>
         		</c:when>
        			<c:otherwise>
+       				<div class="row">
        				<div class="col-12"><h4 id="friend">친구를 찾아보세요</h4></div>
+       				</div>
         		</c:otherwise>
         	</c:choose>
         </div>
