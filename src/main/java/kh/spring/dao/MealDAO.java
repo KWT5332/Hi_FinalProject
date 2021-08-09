@@ -26,4 +26,12 @@ public class MealDAO {
 	public int listCount(String writer) {
 		return mybatis.selectOne("Meal.listCount", writer);
 	}
+	
+	public List<MealDTO> excelDownloadList(Map<String, String> param) {
+		return mybatis.selectList("Meal.excelDownload", param);
+	}
+	
+	public List<MealDTO> search(String keyword) {
+		return mybatis.selectList("Meal.search", keyword);
+	}
 }
