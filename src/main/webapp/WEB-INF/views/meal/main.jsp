@@ -17,23 +17,43 @@
 </style>
 <script>
 	$(function(){
+	    // 검색
+	    $("#search").on("keydown",function(e){
+	        if(e.keyCode==13 && e.shiftKey == false){ 
+	              let keyword = $("#search").val();
+	              console.log(keyword);
+	                return false;
+	        }
+	    });
+	    
+	    // 파일이름 출력
+	    var fileTarget = $(".filebox .upload-hidden"); 
+	      
+		fileTarget.on("change", function(){ // 값이 변경되면 
+	        if(window.FileReader){ // modern browser 
+				var filename = $(this)[0].files[0].name; 
+	        } else { // old IE 
+	            var filename = $(this).val().split("/").pop().split("\\").pop(); // 파일명만 추출 
+	        } 
+	        
+	        // 추출한 파일명 삽입 
+	        $(this).siblings(".upload-name").val(filename); 
+		});
+
+	    // 엑셀 업로드 양식 다운받기
+		$("excelform").on("click",function(){
+			location.href = "/excel/excelform";
+		});
+
+		// 식단추가페이지 이동
 		$("#addMeal").on("click",function(){
 			location.href = "/meal/addmeal";
-		})
-		
+		});
+
+		// 한달 식단표 다운로드
 		$("#download").on("click",function(){
-			location.href = "/meal/excelDowload?month=08";
-		})
-		
-      	$("#search").on("keydown",function(e){
-        	if(e.keyCode==13 && e.shiftKey == false){ 
-            	let keyword = $("#search").val();
-              	
-            	location.href = "/meal/searchlist?keyword=" + keyword;
-            	
-                return false;
-        	}
-      	})
+			location.href = "/excel/excelDowload?month=08";
+		});
 	})
 </script>
 </head>
