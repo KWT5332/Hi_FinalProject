@@ -14,7 +14,7 @@
 	</insert>
 
 	<select id="boardList" resultType="kh.spring.dto.BoardDTO">
-		select * from board
+		select * from board order by seq desc
 	</select>
 
 	<delete id="boardDelete">

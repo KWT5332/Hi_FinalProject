@@ -23,49 +23,51 @@
 	align: center;
 }
 
-#main {
+#doardcon #main {
 	width: 100%;
 }
 
-h2 {
+#doardcon h2 {
 	width: 100%;
 	text-align: center;
 }
-
-table {
+#doardcon table {
 	width: 90%;
 	text-align: center;
 }
 
-#head {
+#doardcon #head {
 	height: 50px;
 	background-color: rgba(100, 148, 237, 0.699);
 }
 
-#body {
+#doardcon #body {
 	height: 40px;
 }
 
-#footer {
+#doardcon #footer {
 	width: 90%;
 	margin: auto;
 }
 
-#navi {
+
+#doardcon #navi {
 	line-height: 35px;
 }
 
-#backdiv {
+#doardcon #backdiv {
 	text-align: right;
 }
 
-#search {
+#doardcon #search {
 	text-align: right;
 }
 
-.hit {
+#free{background-color: #124352;}
+
+#doardcon .hit {
 	animation-name: blink;
-	animation-duration: 1.5s;
+	animation-duration: 1.0s;
 	animation-timing-function: ease;
 	animation-iteration-count: infinite; /* 위 속성들을 한 줄로 표기하기 */
 	/* -webkit-animation: blink 1.5s ease infinite; */
@@ -75,7 +77,7 @@ table {
 
 </style>
 <script>
-	&(function(){
+	$(function(){
 		$("#addwrite").on("click",function(){
 			location.href="/bod/boardWrite";
 		})
@@ -84,7 +86,9 @@ table {
 </script>
 </head>
 <body>
-	<div class="container p-3">
+<jsp:include page="../layout/header.jsp"/>
+<div id="doardcon">
+	<div class="container p-3 mb-5 mt-5">
 		<div class="row pt-4" id="main">
 			<h2>
 				<strong>자유게시판</strong>
@@ -131,11 +135,13 @@ table {
 			</c:forEach>
 		</table>
 		<div id="footer" class="row pt-2">
-			<div class="col-2 p-0" id="write">
+			<div class="col-12 p-0" id="write" style="text-align: right;">
 				<input type="button" value="글 쓰기" id="addwrite"
 					class="btn btn-primary">
 			</div>
 		</div>
 	</div>
+	</div>
+ <jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>
