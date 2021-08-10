@@ -177,7 +177,15 @@
 <jsp:include page="../layout/header.jsp"/>
 <div class="container">
         <div class="row box">
+        	<!-- 과거 채팅방 기록 -->
             <div class="col-12 chat_contents" id="chat_contents">
+            <c:forEach var="i" items="${list}">
+            	<div>${i.contents}</div>
+            	<div>${i.sender}</div>
+            	<div>${i.receiver}</div>
+            	<div>${i.time}</div>
+            	<div>${receiver_name}</div>
+            </c:forEach>
             </div>
         </div>
         <div class="row">

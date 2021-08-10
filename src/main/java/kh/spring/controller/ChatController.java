@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kh.spring.dto.Chat_MessageDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.ChatService;
 
@@ -90,9 +91,16 @@ public class ChatController {
 	
 	// 채팅방 url에 채팅방 번호 붙여서 보내려고 만든 컨트롤러 
 	@RequestMapping("toChatRoom")
-	public String toChatRomm(String room_number,Model model) {
-		System.out.println(room_number);
+	public String toChatRomm(int room_number,Model model) {
 		model.addAttribute("room_number",room_number);
+		
+		List<Chat_MessageDTO> list = service.messageList(room_number);
+		model.addAttribute("list",list);
+		
+		MemberDTO receiver = (MemberDTO)session.getAttribute("receiver");
+		String receiver_name = receiver.getName();
+		model.addAttribute("receiver_name",receiver_name);
+		
 		return "chat/toChat";
 	}
 }

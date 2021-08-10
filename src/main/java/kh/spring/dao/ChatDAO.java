@@ -51,4 +51,8 @@ public class ChatDAO {
 	public int messageInsert(Chat_MessageDTO dto) {
 		return mybatis.insert("Chat.messageInsert", dto);
 	}
+	
+	public List<Chat_MessageDTO> messageList(int room_number){
+		return mybatis.selectList("Chat.messageList", room_number);
+	}
 }

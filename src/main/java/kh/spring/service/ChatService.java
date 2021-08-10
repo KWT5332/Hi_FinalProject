@@ -74,4 +74,8 @@ public class ChatService {
 	public int messageInsert(Chat_MessageDTO dto) {
 		return dao.messageInsert(dto);
 	}
+	
+	public List<Chat_MessageDTO> messageList(int room_number){
+		return dao.messageList(room_number);
+	}
 }
