@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 
 import kh.spring.dto.MealDTO;
 import kh.spring.dto.MemberDTO;
+import kh.spring.service.ExcelService;
 import kh.spring.service.MealService;
 
 @Controller
@@ -31,7 +32,7 @@ public class MealController {
 	
 	@RequestMapping("Main") // 식단관리 메인페이지
 	public String Main() {
-		return "meal/NewFile";
+		return "meal/main";
 	}
 	
 	@RequestMapping("addmeal") // 식단추가페이지로 넘어가기(5개 가지고 가기)
@@ -62,7 +63,8 @@ public class MealController {
 		return String.valueOf(result);
 	}
 	
-	@RequestMapping("addmealProc") // 식단추가
+	// 식단추가
+	@RequestMapping("addmealProc")
 	public String addmealProc(MealDTO dto, MultipartFile file) throws Exception {
 		String realPath = session.getServletContext().getRealPath("files");
 		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
@@ -75,15 +77,7 @@ public class MealController {
 		return "redirect:/meal/addmeal";
 	}
 	
-	// db저장되어있는 식단 엑셀 다운로드
-	@RequestMapping("excelDowload")
-	public void excelDownload(String month, HttpServletResponse response) throws IOException {
-		MealDTO mdto = (MealDTO)session.getAttribute("login");
-		String school = mdto.getSchool();
-		
-		service.excelDownload(month, school, response);
-	}
-	
+	// 검색
 	@RequestMapping("searchlist")
 	public String search(String keyword, Model model) {
 		System.out.println(keyword);
@@ -94,4 +88,6 @@ public class MealController {
 		
 		return "meal/search";
 	}
+	
+
 }

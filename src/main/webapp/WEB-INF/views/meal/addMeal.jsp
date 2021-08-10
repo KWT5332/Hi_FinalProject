@@ -36,12 +36,24 @@
     .menu{line-height:38px;}
     .date{line-height:38px;}
     
-    .footer{width:100%;height:35vh;background-color: rgb(40, 40, 40);}
-    .footer *{color:lightgray;}
-    .footerimg{width: 210px;}
+
 </style>
 <script>
     $(function(){
+    	
+        // 사진 추가시 파일 이름 불러오기
+        var fileTarget = $("#inputGroupFile01"); 
+        
+        fileTarget.on("change", function(){ // 값이 변경되면         
+            if(window.FileReader){ // modern browser 
+            var filename = $(this)[0].files[0].name; 
+            } else { // old IE 
+            var filename = $(this).val().split("/").pop().split("\\").pop(); // 파일명만 추출 
+            } 
+                     
+            $("#fileName").text(filename); // 추출한 파일명 삽입
+        });
+    	
         // 식단 메뉴 추가
         let i = 2;
         $("#button-addon2").on("click",function(){
