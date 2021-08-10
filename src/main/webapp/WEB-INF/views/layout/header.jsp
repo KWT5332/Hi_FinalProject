@@ -108,13 +108,13 @@ navcon * {
 								<a class="nav-link" href="/" style="color: #FDFAF6;">메인</a>
 							</li>
 							<li class="nav-item" id="meal">
-								<a class="nav-link" href="meal/main" style="color: #FDFAF6;">식단관리</a>
+								<a class="nav-link" href="/meal/Main" style="color: #FDFAF6;">식단관리</a>
 							</li>
 							<li class="nav-item dropdown" id="chat">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #FDFAF6;">메신저</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="/chat/findFriend">친구 찾기</a> 
-									<a class="dropdown-item" href="/chat/findFriend">내 채팅방</a>
+									<a class="dropdown-item" href="/chat/myChatList">내 채팅방</a>
 								</div>
 							</li>
 							<li class="nav-item" id="free">
@@ -152,13 +152,13 @@ navcon * {
 								<a class="nav-link" href="/" style="color: #FDFAF6;">메인</a>
 							</li>
 							<li class="nav-item" id="meal">
-								<a class="nav-link" href="meal/main" style="color: #FDFAF6;">식단관리</a>
+								<a class="nav-link" href="/meal/Main" style="color: #FDFAF6;">식단관리</a>
 							</li>
 							<li class="nav-item dropdown" id="chat">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #FDFAF6;">메신저</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="/chat/findFriend">친구 찾기</a> 
-									<a class="dropdown-item" href="/chat/findFriend">내 채팅방</a>
+									<a class="dropdown-item" href="/chat/myChatList">내 채팅방</a>
 								</div>
 							</li>
 							<li class="nav-item" id="free">
