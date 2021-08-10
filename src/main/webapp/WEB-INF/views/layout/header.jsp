@@ -118,7 +118,7 @@ navcon * {
 								</div>
 							</li>
 							<li class="nav-item" id="free">
-								<a class="nav-link" href="/bod/boardWrite" style="color: #FDFAF6;">자유게시판</a>
+								<a class="nav-link" href="/bod/boardList" style="color: #FDFAF6;">자유게시판</a>
 							</li>
 							<li class="nav-item" id="mail">
 								<a class="nav-link" href="#" style="color: #FDFAF6;">메일</a>
@@ -162,7 +162,7 @@ navcon * {
 								</div>
 							</li>
 							<li class="nav-item" id="free">
-								<a class="nav-link" href="/bod/boardWrite" style="color: #FDFAF6;">자유게시판</a>
+								<a class="nav-link" href="/bod/boardList" style="color: #FDFAF6;">자유게시판</a>
 							</li>
 							<li class="nav-item" id="mail">
 								<a class="nav-link" href="#" style="color: #FDFAF6;">메일</a>

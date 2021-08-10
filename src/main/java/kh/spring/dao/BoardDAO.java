@@ -32,13 +32,18 @@ public class BoardDAO {
 		return mybatis.selectOne("Board.seqNextval");
 	}
 
-	public int getTotalCount() {
-		return mybatis.selectOne("Board.getTotalCount");
+	public List<BoardDTO> boardList(){
+		return mybatis.selectList("Board.boardList");
+	}
+	public int delete(int seq) {
+		return mybatis.delete("Board.boardDelete", seq);
 	}
 
-	public List<BoardDTO> boardList(Map<String,Integer> param){
-		return mybatis.selectList("Board.boardList",param);
+	public int modify(BoardDTO dto) {
+		return mybatis.update("Board.boardModify", dto);
 	}
+
+
 
 
 }

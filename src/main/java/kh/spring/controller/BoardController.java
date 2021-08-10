@@ -28,12 +28,12 @@ public class BoardController {
 		return "board/boardWrite";
 	}
 	
-	@RequestMapping("boardList")
-	public String boardList() {
-		System.out.println(" hi");
-		return "board/boardList";
-	}
-	
+//	@RequestMapping("boardList") 리스트 페이지 확인용
+//	public String boardList() {
+//		System.out.println(" hi");
+//		return "board/boardList";
+//	}
+//	
 	@RequestMapping("writeProc")
 	public String writeProc(String title, String content) throws Exception{
 		   
@@ -46,17 +46,9 @@ public class BoardController {
 		return "redirect:/bod/boardList";
 	}
 	
-//	@RequestMapping("boardList") 
-//	public String boardlist(int cpage, String key, String word, Model model) {
-//		System.out.println("요청페이지 : " + cpage);
-//
-//		List<BoardDTO> list = bservice.boardlist(cpage); 
-//		List<String> navi = bservice.navi(cpage);
-//
-//		model.addAttribute("list", list);
-//		model.addAttribute("navis", navi);
-//
-//		return "board/boardList";
-//	}
-
+	@RequestMapping("boardList") 
+	public String boardlist( Model model) {
+		model.addAttribute("list", bservice.boardList());
+		return "board/boardList";
+	}
 }
