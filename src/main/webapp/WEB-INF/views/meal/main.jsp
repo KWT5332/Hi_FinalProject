@@ -20,7 +20,7 @@
 		$("#addMeal").on("click",function(){
 			location.href = "/meal/addmeal";
 		})
-		
+
 		$("#download").on("click",function(){
 			location.href = "/meal/excelDowload?month=08";
 		})

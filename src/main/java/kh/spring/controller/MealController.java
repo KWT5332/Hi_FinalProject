@@ -31,7 +31,7 @@ public class MealController {
 	
 	@RequestMapping("Main") // 식단관리 메인페이지
 	public String Main() {
-		return "meal/main";
+		return "meal/NewFile";
 	}
 	
 	@RequestMapping("addmeal") // 식단추가페이지로 넘어가기(5개 가지고 가기)

@@ -42,7 +42,6 @@
 </style>
 <script>
     $(function(){
-
         // 식단 메뉴 추가
         let i = 2;
         $("#button-addon2").on("click",function(){
