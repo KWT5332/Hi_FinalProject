@@ -2,23 +2,30 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="Board">
-	<select id="seqNextval" resultType="int"> <!--  select 태그만 resultType이 들어간다 -->
-      select board_seq.nextval from dual 
-   </select>
-	
+	<select id="seqNextval" resultType="int"> <!-- select 태그만 resultType이 들어간다 -->
+		select board_seq.nextval from dual
+	</select>
+
 	<insert id="boardWrite">
-		insert into board values (${seq},#{title},#{content},#{writer},sysdate,0)
+		insert into board values
+		(${seq},#{title},#{content},#{writer},sysdate,0)
 	</insert>
 
-   <select id="boardList" resultType="kh.spring.dto.BoardDTO">
-      select * from (select row_number() over (order by seq desc) as rnum, seq, title, content, writer, write_date, view_count from board) where rnum between ${startNum} and ${endNum} 
-   </select>
-   
-   <select id="getTotalCount" resultType="int">
-      select count(*) from board
-   </select>
+	<select id="boardList" resultType="kh.spring.dto.BoardDTO">
+		select * from board
+	</select>
+
+	<delete id="boardDelete">
+		delete board where seq=${value}
+	</delete>
+
+	<update id="boardModify">
+		update board set title=#{title}, content=#{content}, write_date=sysdate
+		where seq=${seq}
+	</update>
+
 
 
 
