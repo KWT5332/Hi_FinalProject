@@ -11,12 +11,14 @@ import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.JsonObject;
 
 import kh.spring.configurator.ApplicationContextProvider;
 import kh.spring.configurator.HttpSessionConfigurator;
+import kh.spring.dto.Chat_MessageDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.ChatService;
 
@@ -38,19 +40,26 @@ public class ChatEndPoint {
 		clients.add(session);
 	}
 	
+	// onMessage 에서 파라미터를 하나 더 받고 싶지만 되지 않아 @PathParam을 사용하여 @ServerEndpoint에 있는 {room_number} 값을 가져옴 
+	// 참고 예제 사이트 : https://3167.tistory.com/2
+	
 	@OnMessage
-	public void onMessage(Session self,String message) {
-		System.out.println(message);
-
-		//dao.insert(new ChatDTO(0,id,message,null));
+	public void onMessage(Session self, String message, @PathParam("room_number") int room_number) {
+		
+		MemberDTO senderInfo = (MemberDTO)hsession.getAttribute("login");
+		String sender_name = senderInfo.getName();
+		String sender = senderInfo.getEmail();
+		
+		MemberDTO receiverInfo = (MemberDTO)hsession.getAttribute("receiver");
+		String receiver = receiverInfo.getEmail();
+		
+		service.messageInsert(new Chat_MessageDTO(0,sender,receiver,message,null,room_number));
 		synchronized(clients) {
 			for(Session client : clients) {
 				if(client != self) {
 					
 					JsonObject json = new JsonObject();
-					MemberDTO receiver = (MemberDTO)hsession.getAttribute("login");
-					String name = receiver.getName();
-					json.addProperty("name", name);
+					json.addProperty("name", sender_name);
 					json.addProperty("message", message);
 					try {
 						client.getBasicRemote().sendText(json.toString());
@@ -65,6 +74,7 @@ public class ChatEndPoint {
 	@OnClose
 	public void onClose(Session session) {
 		clients.remove(session);
+		hsession.removeAttribute("receiver");
 		System.out.println("client disconnected");
 	}
 }
