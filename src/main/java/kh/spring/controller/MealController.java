@@ -1,7 +1,9 @@
 package kh.spring.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,7 @@ public class MealController {
 		return "meal/addMeal";
 	}
 	
+	// 무한 스크롤, 최근 저장한 식단 불러오기
 	@ResponseBody
 	@RequestMapping(value="historyList", produces="text/html;charset=utf8")
 	public String historyList(String pageNum, Model model) {
@@ -70,5 +73,24 @@ public class MealController {
 		service.addMeal(dto, file, realPath); 
 
 		return "redirect:/meal/addmeal";
+	}
+	
+	// db저장되어있는 식단 엑셀 다운로드
+	@RequestMapping("excelDowload")
+	public void excelDownload(String month, HttpServletResponse response) throws IOException {
+		MealDTO mdto = (MealDTO)session.getAttribute("login");
+		String school = mdto.getSchool();
+		
+		service.excelDownload(month, school, response);
+	}
+	
+	@RequestMapping("searchlist")
+	public String search(String keyword, Model model) {
+		System.out.println(keyword);
+		List<MealDTO> list = service.search(keyword);
+		
+		model.addAttribute("list", list);
+		
+		return "meal/search";
 	}
 }
