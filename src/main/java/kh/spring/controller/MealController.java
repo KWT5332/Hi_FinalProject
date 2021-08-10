@@ -89,6 +89,7 @@ public class MealController {
 		System.out.println(keyword);
 		List<MealDTO> list = service.search(keyword);
 		
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("list", list);
 		
 		return "meal/search";
