@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import kh.spring.dao.ChatDAO;
+import kh.spring.dto.Chat_MessageDTO;
 import kh.spring.dto.MemberDTO;
 
 @Service
@@ -68,5 +69,9 @@ public class ChatService {
 	// 채팅 상대방 정보 담기
 	public MemberDTO receiver(String email) {
 		return dao.receiver(email);
+	}
+	
+	public int messageInsert(Chat_MessageDTO dto) {
+		return dao.messageInsert(dto);
 	}
 }

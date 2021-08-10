@@ -48,7 +48,7 @@
 	            <div class="input-group-prepend">
 	              <span class="input-group-text"><i class="fas fa-search"></i></span>
 	            </div>
-	            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="search">
+	            <input type="search" class="form-control" aria-label="Amount (to the nearest dollar)" id="search">
 	          </div>
 	        </div>
 	        <div class="col-sm-6 col-md-6 col-lg-2 p-0 pt-1 pl-2" style="text-align: left;">

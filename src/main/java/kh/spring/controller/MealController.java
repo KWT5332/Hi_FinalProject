@@ -29,8 +29,8 @@ public class MealController {
 	@Autowired
 	private HttpSession session;
 	
-	@RequestMapping("main") // 식단관리 메인페이지
-	public String main() {
+	@RequestMapping("Main") // 식단관리 메인페이지
+	public String Main() {
 		return "meal/main";
 	}
 	
@@ -89,6 +89,7 @@ public class MealController {
 		System.out.println(keyword);
 		List<MealDTO> list = service.search(keyword);
 		
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("list", list);
 		
 		return "meal/search";

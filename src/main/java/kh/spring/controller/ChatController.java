@@ -51,8 +51,9 @@ public class ChatController {
 		//model.addAttribute("user2",user2);
 
 		// 채팅하려는 사람 정보 담기
-		//MemberDTO receiver = service.receiver(user2);
-		//session.setAttribute("receiver", receiver);
+		MemberDTO receiver = service.receiver(user2);
+		session.setAttribute("receiver", receiver);
+		System.out.println(receiver);
 		
 		int room_number = 0;
 

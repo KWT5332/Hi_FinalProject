@@ -11,7 +11,9 @@ public class BoardDTO {
 	private Date write_date;
 	private int view_count;
 	
-	
+	public BoardDTO() {
+		super();
+	}
 	
 
 
