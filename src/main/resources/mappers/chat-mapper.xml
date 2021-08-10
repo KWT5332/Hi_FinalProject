@@ -31,4 +31,8 @@
 	<select id="receiver" resultType="kh.spring.dto.MemberDTO">
 		select * from hi_member where email=#{value}
 	</select>
+	
+	<insert id="messageInsert">
+		insert into chat_message values(chat_message_seq.nextval,#{sender},#{receiver},#{contents},current_timestamp,${room_number})
+	</insert>
 </mapper>

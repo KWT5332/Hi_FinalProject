@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>홈페이지</title>
+<title>나의 채팅방</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -25,23 +25,11 @@
 </head>
 <body>
   <jsp:include page="../layout/header.jsp"/>
-  
-  본인바디 영역 컨테이너주고 그안에서 하시면 됩니다<br><br>
-  
-   스타일은 선택자 지정할 때 무조건 가장큰 부모 컨테이너를 잡고 <br><br>
-  
-  
-  .나만의클래스이름 (자손중) .스타일줄아이 {<br>
-  스타일스티일<br>
-  }<br><br>
-  
-  이렇게 지정해주시면 됩니당 그래야 나중에 안엉키고 좋다고합니당<br>
-  
-  이기본 JSP틀은복붙!!<br><br>
-  
-  
-  
-  
+  <div class="container p-3" id="container">
+		<div class="row m-0 header">
+            <div class="col-12 box_title"><h4 id="title">나랑 채팅한 사람 목록</h4></div>
+        </div>
+   </div>
    
    <jsp:include page="../layout/footer.jsp"/>
   
