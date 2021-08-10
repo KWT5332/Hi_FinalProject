@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <style>
+<style>
         * {box-sizing: border-box;}
         /* div {
             border: 1px solid black;
@@ -35,13 +35,48 @@
         .join_container .exex { border: none;}
         .join_container .con_btn_join{text-align: center;}
         .join_container .empty{ height: 150px;}
-    </style>
+        
+        /* 중복아이디 존재하지 않는경우 */
+		.join_container .id_input_re_1{
+			color : green;
+			display : none;
+		}
+		/* 중복아이디 존재하는 경우 */
+		.join_container .id_input_re_2{
+			color : red;
+			display : none;
+		}
+</style>
 <script>
    $(function(){
       AOS.init();
       $("#main").addClass("active");
-   })
+
    /* 완성후 바꾸기 */
+   
+	$('#Email_input').on("propertychange change keyup paste input", function(){
+		var memberId = $('#Email_input').val();			// .id_input에 입력되는 값
+		var data = {memberId : memberId}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+		
+		$.ajax({
+			type : "post",
+			url : "/mem/EmailChk",
+			data : data,
+			success : function(result){
+				 console.log("성공 여부" + result);
+				 if(result != 'fail'){
+						$('.id_input_re_1').css("display","inline-block");
+						$('.id_input_re_2').css("display", "none");				
+					} else {
+						$('.id_input_re_2').css("display","inline-block");
+						$('.id_input_re_1').css("display", "none");				
+					}
+				
+			}
+		}); 
+
+	});
+})   
 </script>
 </head>
 <body>
@@ -61,14 +96,15 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-sm-6 col-md-4 col-lg-4">
-                            <input type="text" class="form-control inp_id " name="email">
+                            <input type="text" class="form-control inp_id " id="Email_input" name="email">
                         </div>
                         <div class="col-sm-5 col-md-3 col-lg-2 ">
                             <button type="button" class="btn btn-success btn_email">인증번호 발송</button>
 
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-6">
-                            <div class="form-control  exex">이메일 맞는지</div>
+                            <div class="form-control  exex id_input_re_1">사용 가능한 아이디입니다.</div>
+                            <div class="form-control  exex id_input_re_2">아이디가 이미 존재합니다.</div>
                             <div class="col-md-1 col-lg-none"></div>
                         </div>
                     </div>
@@ -82,7 +118,7 @@
                             <input type="text" class="form-control inp_id ">
                         </div>
                         <div class="col-sm-5 col-md-3 col-lg-2 ">
-                            <button type="button" class="btn btn-success btn_email">이메일 인증</button>
+                            <button type="button" class="btn btn-success btn_email mail_check_wrap">이메일 인증</button>
 
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-6">
