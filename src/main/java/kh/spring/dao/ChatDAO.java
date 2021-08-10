@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.spring.dto.Chat_MessageDTO;
 import kh.spring.dto.MemberDTO;
 
 @Repository
@@ -44,5 +45,10 @@ public class ChatDAO {
 	// 채팅 상대방 정보 담기
 	public MemberDTO receiver(String email) {
 		return mybatis.selectOne("Chat.receiver",email);
+	}
+	
+	// 채팅 메세지 DB에 저장
+	public int messageInsert(Chat_MessageDTO dto) {
+		return mybatis.insert("Chat.messageInsert", dto);
 	}
 }
