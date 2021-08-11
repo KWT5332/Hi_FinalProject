@@ -1,5 +1,6 @@
 package kh.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.spring.dto.Chat_MessageDTO;
+import kh.spring.dto.Chat_RoomDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.ChatService;
 
@@ -28,8 +30,17 @@ public class ChatController {
 	}
 
 	@RequestMapping("myChatList")
-	public String myChat() {
+	public String myChat(Model model) {
 		System.out.println("나의 채팅방");
+		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
+		String login_email = mdto.getEmail();
+		
+		List<Chat_RoomDTO> infoList = service.chatListInfo(login_email);
+		
+		if(infoList.size()>0) {
+			model.addAttribute("infoList",infoList);
+		}
+		
 		return "chat/myChatList";
 	}
 
@@ -89,6 +100,8 @@ public class ChatController {
 		return "redirect:/chat/toChatRoom?room_number="+room_number;
 	}
 	
+	//
+	
 	// 채팅방 url에 채팅방 번호 붙여서 보내려고 만든 컨트롤러 
 	@RequestMapping("toChatRoom")
 	public String toChatRomm(int room_number,Model model) {
@@ -98,9 +111,20 @@ public class ChatController {
 		model.addAttribute("list",list);
 		
 		MemberDTO receiver = (MemberDTO)session.getAttribute("receiver");
-		String receiver_name = receiver.getName();
-		model.addAttribute("receiver_name",receiver_name);
+		
+		if(receiver == null) {
+//			MemberDTO receiver2 = service.receiver(user2);
+//			session.setAttribute("receiver", receiver2);
+//			String receiver2_name = receiver2.getName();
+//			model.addAttribute("receiver_name", receiver2_name);
+// 			룸넘버로 검색을 해 
+		}else {
+			String receiver_name = receiver.getName();
+			model.addAttribute("receiver_name",receiver_name);
+		}
+		
 		
 		return "chat/toChat";
 	}
+
 }

@@ -53,7 +53,7 @@ public class ChatEndPoint {
 		MemberDTO receiverInfo = (MemberDTO)hsession.getAttribute("receiver");
 		String receiver = receiverInfo.getEmail();
 		
-		//service.messageInsert(new Chat_MessageDTO(0,sender,receiver,message,null,room_number));
+		service.messageInsert(new Chat_MessageDTO(0,sender,receiver,message,null,room_number));
 		synchronized(clients) {
 			for(Session client : clients) {
 				if(client != self) {

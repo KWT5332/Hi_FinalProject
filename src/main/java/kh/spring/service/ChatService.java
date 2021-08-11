@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import kh.spring.dao.ChatDAO;
 import kh.spring.dto.Chat_MessageDTO;
+import kh.spring.dto.Chat_RoomDTO;
 import kh.spring.dto.MemberDTO;
 
 @Service
@@ -77,5 +78,10 @@ public class ChatService {
 	
 	public List<Chat_MessageDTO> messageList(int room_number){
 		return dao.messageList(room_number);
+	}
+	
+	// 나의 채팅방 리스트
+	public List<Chat_RoomDTO> chatListInfo(String login_email){
+		return dao.chatListInfo(login_email);
 	}
 }

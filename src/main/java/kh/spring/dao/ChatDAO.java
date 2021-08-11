@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.Chat_MessageDTO;
+import kh.spring.dto.Chat_RoomDTO;
 import kh.spring.dto.MemberDTO;
 
 @Repository
@@ -55,4 +56,11 @@ public class ChatDAO {
 	public List<Chat_MessageDTO> messageList(int room_number){
 		return mybatis.selectList("Chat.messageList", room_number);
 	}
+	
+	// 나의 채팅방 리스트
+	public List<Chat_RoomDTO> chatListInfo(String login_email){
+		return mybatis.selectList("Chat.chatListInfo",login_email);
+	}
+	
+	
 }

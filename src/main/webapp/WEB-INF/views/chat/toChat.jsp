@@ -180,11 +180,15 @@
         	<!-- 과거 채팅방 기록 -->
             <div class="col-12 chat_contents" id="chat_contents">
             <c:forEach var="i" items="${list}">
-            	<div>${i.contents}</div>
-            	<div>${i.sender}</div>
-            	<div>${i.receiver}</div>
-            	<div>${i.time}</div>
-            	<div>${receiver_name}</div>
+            	<c:choose>
+            		<c:when test="${i.sender == login.email}">
+            				<div>내가 쓴 채팅 : ${i.contents}</div>
+            				<div>${i.time}</div>
+            		</c:when>
+            		<c:otherwise>
+            				<div>${receiver_name} : ${i.contents} 시간 : ${i.time} </div>
+            		</c:otherwise>
+            	</c:choose>
             </c:forEach>
             </div>
         </div>
