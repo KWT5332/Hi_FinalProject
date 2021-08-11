@@ -52,11 +52,21 @@ public class MemberController {
 		MemberDTO dto  = service.login(email, pw);
 		if(dto != null) {
 			session.setAttribute("login",dto);
+			// 세션 유지시간 1시간
+		    session.setMaxInactiveInterval(60*60) ;
 		}
 		return "redirect:/";
 	}
-	// 아이디 중복 검사
+	//로그아웃프록
+	@RequestMapping("logoutProc")
+	public String logoutProc() {
+		System.out.println("로그아웃");
+		session.invalidate();
+		return "redirect:/";
+	}
+	// 
 
+	// 아이디 중복 검사
 	@RequestMapping(value = "EmailChk", method = RequestMethod.POST)
 	@ResponseBody
 	public String memberIdChkPOST(String memberId) throws Exception{
