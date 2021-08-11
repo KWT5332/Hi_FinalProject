@@ -68,7 +68,6 @@
       $("#main").addClass("active");
 
       var code = "";                //이메일전송 인증번호 저장위한 코드
-      
    /* 완성후 바꾸기 */
    
 	$('#Email_input').on("propertychange change keyup paste input", function(){
