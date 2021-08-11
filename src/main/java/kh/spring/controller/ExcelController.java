@@ -1,6 +1,9 @@
 package kh.spring.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -8,8 +11,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import kh.spring.dto.MealDTO;
+import kh.spring.dto.MemberDTO;
 import kh.spring.service.ExcelService;
 
 @Controller
@@ -39,5 +46,20 @@ public class ExcelController {
 	}
 	
 	// 엑셀 업로드
-
+	@ResponseBody
+	@RequestMapping(value="excelupload", produces="text/html;charset=utf8")
+	public String excelupload(String fileName) throws IOException {
+		System.out.println(fileName);
+//		Map<String, Object> map = new HashMap<>();
+//		
+//		MemberDTO dto = (MemberDTO)session.getAttribute("login");
+//		
+//		Gson g = new Gson();
+//		
+//		int result = service.excelupload(dto, fileName);
+//		String result = g.toJson(list);
+//		
+//		return String.valueOf(result);
+		return "1";
+	}
 }
