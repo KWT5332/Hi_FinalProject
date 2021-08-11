@@ -25,4 +25,10 @@ public class MemberService {
 		param.put("pw", pw);
 		return dao.login(param);
 	}
+	
+	public int idCheck(String memberId){
+		return dao.idCheck(memberId);
+	}
+	
+	
 }

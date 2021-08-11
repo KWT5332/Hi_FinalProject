@@ -20,6 +20,8 @@ public class MemberDAO {
 	public MemberDTO login(Map<String, String> param) {
 		return mybatis.selectOne("Member.login",param);
 	}
-	
+	public int idCheck(String memberId) {
+		return mybatis.selectOne("Member.idCheck",memberId);
+	}
 	
 }
