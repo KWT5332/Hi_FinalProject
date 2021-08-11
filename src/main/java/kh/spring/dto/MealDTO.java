@@ -5,7 +5,6 @@ import java.sql.Date;
 public class MealDTO {
 	private String month;
 	private Date meal_date;
-	private String title;
 	private String school;
 	private String writer; // 아마 이메일
 	private String menu1;
@@ -21,12 +20,11 @@ public class MealDTO {
 		super();
 	}
 
-	public MealDTO(String month, Date meal_date, String title, String school, String writer, String menu1, String menu2,
+	public MealDTO(String month, Date meal_date, String school, String writer, String menu1, String menu2,
 			String menu3, String menu4, String menu5, String menu6, String oriName, String sysName) {
 		super();
 		this.month = month;
 		this.meal_date = meal_date;
-		this.title = title;
 		this.school = school;
 		this.writer = writer;
 		this.menu1 = menu1;
@@ -53,14 +51,6 @@ public class MealDTO {
 
 	public void setMeal_date(Date meal_date) {
 		this.meal_date = meal_date;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getSchool() {

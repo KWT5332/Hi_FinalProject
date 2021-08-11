@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>식단 관리</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -15,6 +15,7 @@
 <style>
 	#meal{background-color: #124352;}
 	*{text-align: center;box-sizing: border-box;}
+	
 	.filebox input[type="file"] { 
 		position: absolute; width: 1px; height: 1px; 
 	    padding: 0; margin: -1px; 
@@ -75,6 +76,19 @@
 	        
 	        // 추출한 파일명 삽입 
 	        $(this).siblings(".upload-name").val(filename); 
+	        
+	        console.log(filename);
+	        
+	        if(confirm("선택하신 파일을 업로드 하시겠습니까?")){
+	            $.ajax({
+	            	type:"POST",
+	            	url:"/excel/excelupload",
+	            	data:{"fileName" : filename},
+	            	dataType:"json"
+	            }).done(function(resp){
+	            	
+	            })
+	        }
 		});
 
 	    // 엑셀 업로드 양식 다운받기
@@ -110,12 +124,12 @@
         </div>
         
         <div class="col-12 col-sm-12 col-md-6 col-lg-9 p-0" id="excleupload">
-          <div class="filebox" style="text-align: right;">
-            <input class="upload-name" value="파일선택" disabled="disabled">
-            <label for="excelName" class="mb-0">엑셀 업로드</label>
-            <input type="file" id="excelName" class="upload-hidden">
-            <button class="btn btn-outline-secondary btn-sm ml-4 mt-1" id="excelform">엑셀 업로드양식 다운</button>
-          </div>
+			<div class="filebox" style="text-align: right;">
+				<input class="upload-name" value="파일선택" disabled="disabled">
+				<label for="excelName" class="mb-0">엑셀 업로드</label>
+	            <input type="file" id="excelName" class="upload-hidden">
+                <button class="btn btn-outline-secondary btn-sm ml-4 mt-1" id="excelform">엑셀 업로드양식 다운</button>
+          	</div>
         </div>
 
       </div>
