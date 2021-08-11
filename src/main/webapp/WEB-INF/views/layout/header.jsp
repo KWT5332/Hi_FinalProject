@@ -177,7 +177,7 @@ navcon * {
 								<!-- 회원가입 될때까지 임시 -->
 								<a class="dropdown-item" href="#">프로필 수정</a> 
 								<a class="dropdown-item" href="#">회원정보 수정</a> 
-								<a class="dropdown-item" href="#">로그아웃</a>
+								<a class="dropdown-item" href="/mem/logoutProc">로그아웃</a>
 							</div>
 						</form>
 					</div>
