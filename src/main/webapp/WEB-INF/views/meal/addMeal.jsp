@@ -20,7 +20,6 @@
     }
     #first{background-color:#dff1e4;border-radius: 12px;;}
     #addmeal{background-color:white;}
-    #title{width:99%;}
     input{text-align: left;}
     input[id^="menu"]{width:94.5%;}
     #submit{border: 1px solid #114E60;background-color: #114E60;color:white;width:200px;}   
@@ -76,9 +75,7 @@
 
         // 식단 등록하기
         $("#submit").on("click",function(){        	
-        	if($("#title").val() == null || $("#title").val() == "" || $("#title").val() == " ") {
-        		alert("제목을 입력해 주세요.");
-        	}else if($("#menu1").val() == null || $("#menu1").val() == "" || $("#menu1").val() == " " 
+			if($("#menu1").val() == null || $("#menu1").val() == "" || $("#menu1").val() == " " 
         			|| $("#menu2").val() == null || $("#menu2").val() == "" || $("#menu2").val() == " ") {
         		alert("식단 메뉴를 2개 이상 등록해 주세요.");
         	}else{
@@ -215,12 +212,6 @@
                         <tr>
                             <th class="p-2" style="line-height: 30px;">날짜</th>
                             <td class="p-2"><input type="date" id="meal_date" name="meal_date"></td>
-                        </tr>
-                        <tr>
-                            <th class="p-2" style="line-height: 38px;">제목</th>
-                            <td class="p-2">
-                                <input type="text" class="pl-2 form-control" id="title" name="title" placeholder="식단 제목을 입력해주세요.">
-                            </td>
                         </tr>
                         <tr>
                             <td class="p-2">
