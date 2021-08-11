@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import kh.spring.dao.MealDAO;
 import kh.spring.dto.MealDTO;
+import kh.spring.dto.MemberDTO;
 
 @Service
 public class ExcelService {
@@ -200,4 +201,13 @@ public class ExcelService {
 	}
 	
 	// 엑셀에 저장되어 있는 식단 db에 업로드
+	public int excelupload(MemberDTO dto, String filename) {
+		
+		
+		
+		
+		
+		
+		return 1;
+	}
 }

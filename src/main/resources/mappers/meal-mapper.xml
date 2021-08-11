@@ -5,12 +5,12 @@
   
 <mapper namespace="Meal">
 	<insert id="insert">
-		insert into meal_menu values (#{month}, #{meal_date}, #{title}, #{school}, #{writer}, #{menu1},
+		insert into meal_menu values (#{month}, #{meal_date}, #{school}, #{writer}, #{menu1},
 		#{menu2}, #{menu3}, #{menu4}, #{menu5}, #{menu6}, #{oriName}, #{sysName})
 	</insert>
 	
 	<select id="selectList" resultType="kh.spring.dto.MealDTO">
-		select * from (select row_number() over (order by meal_date desc) rnum, month, meal_date, title, school,
+		select * from (select row_number() over (order by meal_date desc) rnum, month, meal_date, school,
 		writer, menu1, menu2, menu3, menu4, menu5, menu6 from meal_menu where writer=#{writer}) 
 		where rnum between ${start} and ${end} order by 3 desc
 	</select>
