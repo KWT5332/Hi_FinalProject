@@ -14,6 +14,43 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
 	#meal{background-color: #124352;}
+	*{text-align: center;box-sizing: border-box;}
+	.filebox input[type="file"] { 
+		position: absolute; width: 1px; height: 1px; 
+	    padding: 0; margin: -1px; 
+	    overflow: hidden; 
+	    clip:rect(0,0,0,0); border: 0; 
+    } 
+    .filebox label { 
+		display: inline-block; 
+		padding: .5em .75em; 
+		color: white;
+		font-size: inherit; 
+		line-height: normal; 
+		vertical-align: middle; 
+		background-color: darkgray;
+		cursor: pointer; 
+		border: 1px solid #ebebeb; 
+		border-bottom-color: #e2e2e2; 
+		border-radius: .25em; 
+    } 
+    
+    /* named upload */ 
+    .filebox .upload-name { 
+		display: inline-block; 
+		padding: .5em .75em; /* label의 패딩값과 일치 */ 
+		font-size: inherit; 
+		font-family: inherit; 
+		line-height: normal; 
+		vertical-align: middle; 
+		background-color: white;
+		border: 1px solid #ebebeb; 
+		border-bottom-color: #e2e2e2; 
+		border-radius: .25em; 
+		-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+		-moz-appearance: none; 
+		appearance: none; 
+    }
 </style>
 <script>
 	$(function(){
@@ -62,26 +99,37 @@
     
     <!-- 메인 -->
     <div class="container p-5">
-		<div class="row m-0">
-	        <div class="col-12 col-sm-6 col-md-6 col-lg-3 p-0 pt-1" style="text-align: left;">
-	          <div class="input-group" style="text-align: left;">
-	            <div class="input-group-prepend">
-	              <span class="input-group-text"><i class="fas fa-search"></i></span>
-	            </div>
-	            <input type="search" class="form-control" aria-label="Amount (to the nearest dollar)" id="search">
-	          </div>
-	        </div>
-	        <div class="col-sm-6 col-md-6 col-lg-2 p-0 pt-1 pl-2" style="text-align: left;">
-	          <button class="btn btn-secondary" id="addMeal">식단 추가</button>
-	        </div>
-	        <div class="col-sm-12 col-md-6 col-lg-3 pl-4">
-	          <h1 style="text-align: left;">&lt; &nbsp; 7월 &nbsp; &gt;</h1>
-	        </div>
-	        <div class="col-12 col-sm-12 col-md-6 col-lg-4 p-0 pt-1" style="text-align: right;">
-	          <button class="btn btn-secondary">액셀 업로드</button>
-	          <button class="btn btn-secondary" id="download">엑셀 다운로드</button>
-	        </div>
-		</div>
+      <div class="row m-0 mb-4">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3 p-0" style="text-align: left;">
+          <div class="input-group" style="text-align: left;">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="search">
+          </div>
+        </div>
+        
+        <div class="col-12 col-sm-12 col-md-6 col-lg-9 p-0" id="excleupload">
+          <div class="filebox" style="text-align: right;">
+            <input class="upload-name" value="파일선택" disabled="disabled">
+            <label for="excelName" class="mb-0">엑셀 업로드</label>
+            <input type="file" id="excelName" class="upload-hidden">
+            <button class="btn btn-outline-secondary btn-sm ml-4 mt-1" id="excelform">엑셀 업로드양식 다운</button>
+          </div>
+        </div>
+
+      </div>
+      <div class="row m-0">
+        <div class="col-sm-6 col-md-6 col-lg-2 p-0 pt-1" style="text-align: left;">
+          <button class="btn btn-secondary" id="addMeal">식단 추가하기</button>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-8 pl-4 pt-1">
+          <h1>&lt; &nbsp; 7월 &nbsp; &gt;</h1>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-2 p-0 pt-1" style="text-align: right;">
+          <button class="btn btn-secondary" id="download">엑셀 다운로드</button>
+        </div>
+      </div>
     </div>
     
 	<jsp:include page="../layout/footer.jsp"/>
