@@ -57,13 +57,14 @@ public class MemberController {
 		}
 		return "redirect:/";
 	}
-	//로그아웃
+	//로그아웃프록
 	@RequestMapping("logoutProc")
 	public String logoutProc() {
 		System.out.println("로그아웃");
 		session.invalidate();
 		return "redirect:/";
 	}
+	// 
 
 	// 아이디 중복 검사
 	@RequestMapping(value = "EmailChk", method = RequestMethod.POST)
