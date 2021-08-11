@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <style>
+<style>
         * {box-sizing: border-box;}
         /* div {
             border: 1px solid black;
@@ -35,13 +35,96 @@
         .join_container .exex { border: none;}
         .join_container .con_btn_join{text-align: center;}
         .join_container .empty{ height: 150px;}
-    </style>
+        
+        /* 중복아이디 존재하지 않는경우 */
+		.join_container .id_input_re_1{
+			color : green;
+			display : none;
+		}
+		/* 중복아이디 존재하는 경우 */
+		.join_container .id_input_re_2{
+			color : red;
+			display : none;
+		}
+		
+ 
+		.join_container #mail_check_input_box_false{
+    		background-color:#ebebe4;
+		}
+ 
+		.join_container #mail_check_input_box_true{
+    		background-color:white;
+		}
+		.join_container .correct{
+    		color : green;
+		}
+		.join_container .incorrect{
+    		color : red;
+		}
+</style>
 <script>
    $(function(){
       AOS.init();
       $("#main").addClass("active");
-   })
+
+      var code = "";                //이메일전송 인증번호 저장위한 코드
+      
    /* 완성후 바꾸기 */
+   
+	$('#Email_input').on("propertychange change keyup paste input", function(){
+		var memberId = $('#Email_input').val();			// .id_input에 입력되는 값
+		var data = {memberId : memberId}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+		
+		$.ajax({
+			type : "post",
+			url : "/mem/EmailChk",
+			data : data,
+			success : function(result){
+				 console.log("성공 여부" + result);
+				 if(result != 'fail'){
+						$('.id_input_re_1').css("display","inline-block");
+						$('.id_input_re_2').css("display", "none");				
+					} else {
+						$('.id_input_re_2').css("display","inline-block");
+						$('.id_input_re_1').css("display", "none");				
+					}
+				
+			}
+		}); 
+
+	});
+	/* 인증번호 이메일 전송 */
+	$(".mail_check_button").click(function(){
+		 var email = $(".mail_input").val();        // 입력한 이메일
+		 var cehckBox = $(".mail_check_input");        // 인증번호 입력란
+		 var boxWrap = $(".mail_check_input_box");    // 인증번호 입력란 박스
+		 
+		 $.ajax({
+		        type:"GET",
+		        url:"/mem/mailCheck?email=" + email,
+		        success:function(data){
+		        	console.log("data : " + data);//확인 후 삭제
+		        	cehckBox.attr("disabled",false);
+		        	boxWrap.attr("id", "mail_check_input_box_true");
+		        	code = data;
+		        }
+		    });
+	});
+
+	/* 인증번호 비교 */
+	$(".mail_check_input").blur(function(){
+		var inputCode = $(".mail_check_input").val();        // 입력코드    
+	    var checkResult = $("#mail_check_input_box_warn");    // 비교 결과 
+	    
+	    if(inputCode == code){                            // 일치할 경우
+	        checkResult.html("인증번호가 일치합니다.");
+	        checkResult.attr("class", "correct");        
+	    } else {                                            // 일치하지 않을 경우
+	        checkResult.html("인증번호를 다시 확인해주세요.");
+	        checkResult.attr("class", "incorrect");
+	    }   
+	});
+})   
 </script>
 </head>
 <body>
@@ -61,14 +144,15 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-sm-6 col-md-4 col-lg-4">
-                            <input type="text" class="form-control inp_id " name="email">
+                            <input type="text" class="form-control inp_id mail_input" id="Email_input" name="email">
                         </div>
                         <div class="col-sm-5 col-md-3 col-lg-2 ">
-                            <button type="button" class="btn btn-success btn_email">인증번호 발송</button>
+                            <button type="button" class="btn btn-success btn_email mail_check_button">인증번호 발송</button>
 
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-6">
-                            <div class="form-control  exex">이메일 맞는지</div>
+                            <div class="form-control  exex id_input_re_1">사용 가능한 아이디입니다.</div>
+                            <div class="form-control  exex id_input_re_2">아이디가 이미 존재합니다.</div>
                             <div class="col-md-1 col-lg-none"></div>
                         </div>
                     </div>
@@ -77,16 +161,16 @@
             <div class="id_pw_con incon row m-5">
                 <h5 class="col-12  mb-4">이메일 인증 번호 입력</h5>
                 <div class="col-12">
-                    <div class="row">
-                        <div class="col-sm-6 col-md-2 col-lg-2">
-                            <input type="text" class="form-control inp_id ">
+                    <div class="row mail_check_wrap">
+                        <div class="col-sm-6 col-md-2 col-lg-2 mail_check_input_box" id="mail_check_input_box_false">
+                            <input type="text" class="form-control inp_id mail_check_input"  disabled="disabled">
                         </div>
                         <div class="col-sm-5 col-md-3 col-lg-2 ">
                             <button type="button" class="btn btn-success btn_email">이메일 인증</button>
 
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-6">
-                            <div class="form-control  exex">인증번호 맞는지</div>
+                            <div class="form-control  exex" id="mail_check_input_box_warn">인증번호 맞는지</div>
                             <div class="col-md-1 col-lg-none"></div>
                         </div>
                     </div>
