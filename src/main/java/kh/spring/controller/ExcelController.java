@@ -50,15 +50,16 @@ public class ExcelController {
 	@RequestMapping(value="excelupload", produces="text/html;charset=utf8")
 	public String excelupload(String fileName) throws IOException {
 		System.out.println(fileName);
-		Map<String, Object> map = new HashMap<>();
-		
-		MemberDTO dto = (MemberDTO)session.getAttribute("login");
-		
-		Gson g = new Gson();
-		
-		List<MealDTO> list = service.excelupload(dto, fileName);
-		String result = g.toJson(list);
-		
-		return String.valueOf(result);
+//		Map<String, Object> map = new HashMap<>();
+//		
+//		MemberDTO dto = (MemberDTO)session.getAttribute("login");
+//		
+//		Gson g = new Gson();
+//		
+//		int result = service.excelupload(dto, fileName);
+//		String result = g.toJson(list);
+//		
+//		return String.valueOf(result);
+		return "1";
 	}
 }
