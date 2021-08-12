@@ -62,5 +62,9 @@ public class ChatDAO {
 		return mybatis.selectList("Chat.chatListInfo",login_email);
 	}
 	
+	public Chat_RoomDTO findReceiver(int room_number) {
+		return mybatis.selectOne("Chat.findReceiver", room_number);
+	}
+	
 	
 }

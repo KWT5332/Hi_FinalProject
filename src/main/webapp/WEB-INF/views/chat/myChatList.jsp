@@ -47,13 +47,13 @@
         				 	<c:when test="${infoList.user1 == login.email}">
         				 		<div class="row">
         				 			<div class="col-6">${infoList.user2}</div>
-        				 			<div class="col-6">채팅하기</div>
+        				 			<div class="col-6"><a href="/chat/chatListToChat?room_number=${infoList.room_number}">채팅하기</a></div>
         				 		</div>
         				 	</c:when>
         				 	<c:otherwise>
         				 		<div class="row">
         				 			<div class="col-6">${infoList.user1}</div>
-        				 			<div class="col-6">채팅하기</div>
+        				 			<div class="col-6"><a href="/chat/chatListToChat?room_number=${infoList.room_number}">채팅하기</a></div>
         				 		</div>
         				 	</c:otherwise>
         				 </c:choose>

@@ -45,4 +45,8 @@
 		select * from chat_room where user1=#{value} or user2=#{value}
 	</select>
 	
+	<select id="findReceiver" resultType="kh.spring.dto.Chat_RoomDTO">
+		select * from chat_room where room_number=${value}
+	</select>
+	
 </mapper>

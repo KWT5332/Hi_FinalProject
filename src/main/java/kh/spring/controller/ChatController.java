@@ -1,6 +1,5 @@
 package kh.spring.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -100,7 +99,27 @@ public class ChatController {
 		return "redirect:/chat/toChatRoom?room_number="+room_number;
 	}
 	
-	//
+	//나의 채팅방에서 채팅하기로 가기 위한 칸트롤러
+	@RequestMapping("chatListToChat")
+	public String chatListToChat(int room_number) {
+		System.out.println("방번호" + room_number);
+		// 방번호로 상대방 찾기 
+		Chat_RoomDTO roomInfo = service.findReceiver(room_number);
+		
+		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
+		String loginUser = mdto.getEmail();
+		
+		if(loginUser.contentEquals(roomInfo.getUser1())) {
+			MemberDTO receiver = service.receiver(roomInfo.getUser2());
+			session.setAttribute("receiver", receiver);
+			System.out.println(receiver);
+		}else {
+			MemberDTO receiver = service.receiver(roomInfo.getUser1());
+			session.setAttribute("receiver", receiver);
+		}
+		
+		return "redirect:/chat/toChatRoom?room_number="+room_number;
+	}
 	
 	// 채팅방 url에 채팅방 번호 붙여서 보내려고 만든 컨트롤러 
 	@RequestMapping("toChatRoom")
@@ -112,17 +131,8 @@ public class ChatController {
 		
 		MemberDTO receiver = (MemberDTO)session.getAttribute("receiver");
 		
-		if(receiver == null) {
-//			MemberDTO receiver2 = service.receiver(user2);
-//			session.setAttribute("receiver", receiver2);
-//			String receiver2_name = receiver2.getName();
-//			model.addAttribute("receiver_name", receiver2_name);
-// 			룸넘버로 검색을 해 
-		}else {
 			String receiver_name = receiver.getName();
 			model.addAttribute("receiver_name",receiver_name);
-		}
-		
 		
 		return "chat/toChat";
 	}

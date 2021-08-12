@@ -84,4 +84,9 @@ public class ChatService {
 	public List<Chat_RoomDTO> chatListInfo(String login_email){
 		return dao.chatListInfo(login_email);
 	}
+	
+	// 채팅방번호로 상대방 정보 찾기
+	public Chat_RoomDTO findReceiver(int room_number) {
+		return dao.findReceiver(room_number);
+	}
 }
