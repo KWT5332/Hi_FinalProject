@@ -17,6 +17,10 @@
 		select * from board order by seq desc
 	</select>
 
+   <select id="boardView" resultType="kh.spring.dto.BoardDTO">
+      select * from board where seq=${value}
+   </select>
+
 	<delete id="boardDelete">
 		delete board where seq=${value}
 	</delete>
@@ -26,7 +30,9 @@
 		where seq=${seq}
 	</update>
 
-
+   <update id="updateViewcnt">
+      update board set view_count = view_count + 1 where seq = #{seq}
+   </update>
 
 
 

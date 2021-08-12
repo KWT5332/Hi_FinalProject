@@ -35,6 +35,11 @@ public class BoardDAO {
 	public List<BoardDTO> boardList(){
 		return mybatis.selectList("Board.boardList");
 	}
+
+	public BoardDTO boardView(int seq) {
+		return mybatis.selectOne("Board.boardView",seq);
+	}
+
 	public int delete(int seq) {
 		return mybatis.delete("Board.boardDelete", seq);
 	}
@@ -43,7 +48,9 @@ public class BoardDAO {
 		return mybatis.update("Board.boardModify", dto);
 	}
 
-
+	public int updateViewcnt (int seq) {
+		return mybatis.update("Board.updateViewcnt", seq);
+	}
 
 
 }
