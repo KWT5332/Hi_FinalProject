@@ -1,9 +1,7 @@
 package kh.spring.controller;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import kh.spring.dto.MealDTO;
 import kh.spring.dto.MemberDTO;
-import kh.spring.service.ExcelService;
 import kh.spring.service.MealService;
 
 @Controller
@@ -32,11 +30,14 @@ public class MealController {
 	
 	@RequestMapping("Main") // 식단관리 메인페이지
 	public String Main() {
+		System.out.println("식단관리 메인페이지");
 		return "meal/main";
 	}
 	
 	@RequestMapping("addmeal") // 식단추가페이지로 넘어가기(5개 가지고 가기)
 	public String addmeal(Model model) {
+		System.out.println("식단추가페이지로 가기");
+		
 		MemberDTO dto = (MemberDTO)session.getAttribute("login");
 		
 		int totalPageCount = service.totalMeal(dto.getName());
@@ -55,9 +56,11 @@ public class MealController {
 	public String historyList(String pageNum, Model model) {
 		MemberDTO dto = (MemberDTO)session.getAttribute("login");
 		
-		Gson g = new Gson();
+//		Gson g = new Gson();
+		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();	
 		
 		List<MealDTO> list = service.mealList(dto.getName(), pageNum);
+				
 		String result = g.toJson(list);
 		
 		return String.valueOf(result);
@@ -66,6 +69,8 @@ public class MealController {
 	// 식단추가
 	@RequestMapping("addmealProc")
 	public String addmealProc(MealDTO dto, MultipartFile file) throws Exception {
+		System.out.println("식단추가");
+		
 		String realPath = session.getServletContext().getRealPath("files");
 		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
 		
@@ -80,7 +85,8 @@ public class MealController {
 	// 검색
 	@RequestMapping("searchlist")
 	public String search(String keyword, Model model) {
-		System.out.println(keyword);
+		System.out.println("검색 : " + keyword);
+		
 		List<MealDTO> list = service.search(keyword);
 		
 		model.addAttribute("keyword", keyword);
