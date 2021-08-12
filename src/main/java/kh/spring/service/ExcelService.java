@@ -1,6 +1,8 @@
 package kh.spring.service;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +34,7 @@ public class ExcelService {
 	
 	// db저장되어있는 식단 엑셀 다운로드
 	public void excelDownload(String month, String school, HttpServletResponse response) throws IOException {		
-		Workbook wb = new XSSFWorkbook();
+		XSSFWorkbook wb = new XSSFWorkbook();
 		Sheet sheet = wb.createSheet(month + "월 식단표");
 		Row row = null;
 		Cell cell = null;
@@ -133,11 +135,12 @@ public class ExcelService {
 			sheet.setColumnWidth(i, (sheet.getColumnWidth(i)) + (short)1024); 
 			//이건 자동으로 조절 하면 너무 딱딱해 보여서 자동조정한 사이즈에 (short)512를 추가해 주니 한결 보기 나아졌다.
 		}
-			
+		
 		// 컨텐츠 타입과 파일명 지정
+		response.reset();
+		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(month + "월 " + school + " 식단표", "UTF-8") + ".xlsx");
 		response.setContentType("ms-vnd/excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + month + "월 " + school + " 식단표.xlsx");
-
+		
 		// Excel File Output
 		wb.write(response.getOutputStream());
 		wb.close();
@@ -160,12 +163,11 @@ public class ExcelService {
 		// title
 		row = sheet.createRow(rowNum++);
 		cell = row.createCell(0);
-		cell.setCellStyle(style); // title 셀 스타일 적용
 		cell.setCellValue("날짜는 2021-07-21 (월) 형식으로 작성, 파일이름은 07월 식단표로 작성 부탁드립니다.");
 		
 		// 빈행 추가
 		sheet.createRow(rowNum++); 
-		row = sheet.createRow(rowNum++); 
+		//row = sheet.createRow(rowNum++); 
 		
 		// Header
 		row = sheet.createRow(rowNum++);
@@ -192,8 +194,9 @@ public class ExcelService {
 		cell.setCellValue("메뉴6");
 		
 		// 컨텐츠 타입과 파일명 지정
+		response.reset();
+		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("식단 업로드 양식", "UTF-8") + ".xlsx");
 		response.setContentType("ms-vnd/excel");
-		response.setHeader("Content-Disposition", "attachment;filename=식단표 업로드 양식.xlsx");
 
 		// Excel File Output
 		wb.write(response.getOutputStream());
@@ -201,13 +204,15 @@ public class ExcelService {
 	}
 	
 	// 엑셀에 저장되어 있는 식단 db에 업로드
-	public int excelupload(MemberDTO dto, String filename) {
+	public int readExcelupload(MemberDTO dto, String filename) {
+		
+		List<MealDTO> list = new ArrayList<>();
+		
+//		workbook = new XSSFWorkbook();
 		
 		
 		
 		
-		
-		
-		return 1;
+		return dao.excelupload(list);
 	}
 }

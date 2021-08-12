@@ -19,7 +19,7 @@ public class MealDAO {
 		return mybatis.insert("Meal.insert", dto);
 	}
 	
-	public List<MealDTO> selectList(Map<String, Object> param) { // 5개 리스트 가져오기
+	public List<MealDTO> selectList(Map<String, Object> param) { // 최근저장한 식단, 5개 리스트 가져오기
 		return mybatis.selectList("Meal.selectList", param);
 	}
 	
@@ -33,5 +33,9 @@ public class MealDAO {
 	
 	public List<MealDTO> search(String keyword) {
 		return mybatis.selectList("Meal.search", keyword);
+	}
+	
+	public int excelupload(List<MealDTO> list) {
+		return mybatis.insert("Meal.excelupload", list);
 	}
 }
