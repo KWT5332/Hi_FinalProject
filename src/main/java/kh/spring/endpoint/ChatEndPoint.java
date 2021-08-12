@@ -74,7 +74,7 @@ public class ChatEndPoint {
 	@OnClose
 	public void onClose(Session session) {
 		clients.remove(session);
-		hsession.removeAttribute("receiver");
+		//hsession.removeAttribute("receiver");
 		System.out.println("client disconnected");
 	}
 }

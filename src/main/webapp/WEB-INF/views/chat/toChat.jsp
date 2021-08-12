@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -177,7 +178,19 @@
 <jsp:include page="../layout/header.jsp"/>
 <div class="container">
         <div class="row box">
+        	<!-- 과거 채팅방 기록 -->
             <div class="col-12 chat_contents" id="chat_contents">
+            <c:forEach var="i" items="${list}">
+            	<c:choose>
+            		<c:when test="${i.sender == login.email}">
+            				<div>내가 쓴 채팅 : ${i.contents}</div>
+            				<div>날짜 : ${i.time } 시간 : <fmt:formatDate value="${i.time }" pattern="HH:mm:ss"/></div>
+            		</c:when>
+            		<c:otherwise>
+            				<div>${receiver_name} : ${i.contents} ${i.time } 시간 : <fmt:formatDate value="${i.time }" pattern="HH:mm:ss"/> </div>
+            		</c:otherwise>
+            	</c:choose>
+            </c:forEach>
             </div>
         </div>
         <div class="row">

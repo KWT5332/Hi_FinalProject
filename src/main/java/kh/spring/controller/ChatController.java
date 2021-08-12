@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kh.spring.dto.Chat_MessageDTO;
+import kh.spring.dto.Chat_RoomDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.ChatService;
 
@@ -27,8 +29,17 @@ public class ChatController {
 	}
 
 	@RequestMapping("myChatList")
-	public String myChat() {
+	public String myChat(Model model) {
 		System.out.println("나의 채팅방");
+		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
+		String login_email = mdto.getEmail();
+		
+		List<Chat_RoomDTO> infoList = service.chatListInfo(login_email);
+		
+		if(infoList.size()>0) {
+			model.addAttribute("infoList",infoList);
+		}
+		
 		return "chat/myChatList";
 	}
 
@@ -88,11 +99,42 @@ public class ChatController {
 		return "redirect:/chat/toChatRoom?room_number="+room_number;
 	}
 	
+	//나의 채팅방에서 채팅하기로 가기 위한 칸트롤러
+	@RequestMapping("chatListToChat")
+	public String chatListToChat(int room_number) {
+		System.out.println("방번호" + room_number);
+		// 방번호로 상대방 찾기 
+		Chat_RoomDTO roomInfo = service.findReceiver(room_number);
+		
+		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
+		String loginUser = mdto.getEmail();
+		
+		if(loginUser.contentEquals(roomInfo.getUser1())) {
+			MemberDTO receiver = service.receiver(roomInfo.getUser2());
+			session.setAttribute("receiver", receiver);
+			System.out.println(receiver);
+		}else {
+			MemberDTO receiver = service.receiver(roomInfo.getUser1());
+			session.setAttribute("receiver", receiver);
+		}
+		
+		return "redirect:/chat/toChatRoom?room_number="+room_number;
+	}
+	
 	// 채팅방 url에 채팅방 번호 붙여서 보내려고 만든 컨트롤러 
 	@RequestMapping("toChatRoom")
-	public String toChatRomm(String room_number,Model model) {
-		System.out.println(room_number);
+	public String toChatRomm(int room_number,Model model) {
 		model.addAttribute("room_number",room_number);
+		
+		List<Chat_MessageDTO> list = service.messageList(room_number);
+		model.addAttribute("list",list);
+		
+		MemberDTO receiver = (MemberDTO)session.getAttribute("receiver");
+		
+			String receiver_name = receiver.getName();
+			model.addAttribute("receiver_name",receiver_name);
+		
 		return "chat/toChat";
 	}
+
 }

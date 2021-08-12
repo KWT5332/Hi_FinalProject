@@ -1,17 +1,19 @@
 package kh.spring.dto;
 
+import java.sql.Date;
+
 public class Chat_MessageDTO {
 
 	private int message_number;
 	private String sender;
 	private String receiver;
 	private String contents;
-	private String time;
+	private Date time;
 	private int room_number;
 	
 	public Chat_MessageDTO() {}
 
-	public Chat_MessageDTO(int message_number, String sender, String receiver, String contents, String time,
+	public Chat_MessageDTO(int message_number, String sender, String receiver, String contents, Date time,
 			int room_number) {
 		super();
 		this.message_number = message_number;
@@ -54,11 +56,11 @@ public class Chat_MessageDTO {
 		this.contents = contents;
 	}
 
-	public String getTime() {
+	public Date getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 

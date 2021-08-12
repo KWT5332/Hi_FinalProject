@@ -35,4 +35,18 @@
 	<insert id="messageInsert">
 		insert into chat_message values(chat_message_seq.nextval,#{sender},#{receiver},#{contents},current_timestamp,${room_number})
 	</insert>
+	
+	<select id="messageList" resultType="kh.spring.dto.Chat_MessageDTO">
+		select * from chat_message where room_number=${value}
+	</select>
+	
+	<!-- 채팅방 목록 -->
+	<select id="chatListInfo" resultType="kh.spring.dto.Chat_RoomDTO">
+		select * from chat_room where user1=#{value} or user2=#{value}
+	</select>
+	
+	<select id="findReceiver" resultType="kh.spring.dto.Chat_RoomDTO">
+		select * from chat_room where room_number=${value}
+	</select>
+	
 </mapper>
