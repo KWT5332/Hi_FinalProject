@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>식단 관리</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
-<script src="/resources/common/js/jquery.form.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -70,19 +69,32 @@
 	    var fileTarget = $(".filebox .upload-hidden"); 
 	      
 		fileTarget.on("change", function(){ // 값이 변경되면 
-	        if(window.FileReader){ // modern browser 
-				var filename = $(this)[0].files[0].name; 
-	        } else { // old IE 
-	            var filename = $(this).val().split("/").pop().split("\\").pop(); // 파일명만 추출 
-	        } 
+	        //if(window.FileReader){ // modern browser 
+			//	var filename = $(this)[0].files[0].name; 
+	        //} else { // old IE 
+	        //    var filename = $(this).val().split("/").pop().split("\\").pop(); // 파일명만 추출 
+	       // } 
 	        
 	        // 추출한 파일명 삽입 
-	        $(this).siblings(".upload-name").val(filename); 
-	        console.log(filename);
-	        
-	        
-	        
-	        
+			//jsp에서 FORM을 생성하여 넘기지 않았을때 스크립트에서 formData로 file을 가져올 수 있다.
+		    var formData = new FormData(); 
+		    formData.append("file", $(this)[0].files[0]); //배열로 되어있음 / formData는 Map과 같은 형태
+		        
+		    var fileName = formData.get('file').name;
+		    // 추출한 파일명 삽입 
+	        $(this).siblings(".upload-name").val(fileName); 
+		    
+		    if(formData.get('file').size >= 1048576) {
+		    	alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+		    	return false;
+		    }
+		    
+		    let regex = new RexExp("(.*?)\.xlsx");
+		    if(!regex.test(fileName)){
+		    	alert("확장자가 .xlsx인 파일만 업로드 가능합니다.");
+		    	return false;
+		    }
+
 	        if(confirm("선택하신 파일을 업로드 하시겠습니까?")){
 	            $.ajax({
 	            	type:"POST",
