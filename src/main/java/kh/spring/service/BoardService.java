@@ -31,12 +31,20 @@ public class BoardService {
 		return bdao.boardList();
 	}
 	
+	public BoardDTO boardView(int seq) {
+		return bdao.boardView(seq);
+	}
+	
 	public int delete(int seq) {
 		return bdao.delete(seq);
 	}
 	
 	public int modify(BoardDTO dto) {
 		return bdao.modify(dto);
+	}
+	
+	public int updateViewcnt(int seq) {
+		return bdao.updateViewcnt(seq);
 	}
 	
 }

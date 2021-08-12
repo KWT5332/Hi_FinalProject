@@ -1,7 +1,5 @@
 package kh.spring.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +48,13 @@ public class BoardController {
 	public String boardlist( Model model) {
 		model.addAttribute("list", bservice.boardList());
 		return "board/boardList";
+	}
+	
+	@RequestMapping("viewProc")
+	public String viewProc(int seq, Model model) {
+		BoardDTO dto = bservice.boardView(seq);
+		model.addAttribute("detail", dto);
+		bservice.updateViewcnt(seq);
+		return "board/boardView";
 	}
 }
