@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>식단 관리</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="/resources/common/js/jquery.form.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -60,7 +61,8 @@
 	        if(e.keyCode==13 && e.shiftKey == false){ 
 	              let keyword = $("#search").val();
 	              console.log(keyword);
-	                return false;
+	              location.href = "/meal/searchlist?keyword="+keyword;
+	       /*        return false; */
 	        }
 	    });
 	    
@@ -76,14 +78,16 @@
 	        
 	        // 추출한 파일명 삽입 
 	        $(this).siblings(".upload-name").val(filename); 
-	        
 	        console.log(filename);
+	        
+	        
+	        
 	        
 	        if(confirm("선택하신 파일을 업로드 하시겠습니까?")){
 	            $.ajax({
 	            	type:"POST",
 	            	url:"/excel/excelupload",
-	            	data:{"fileName" : filename},
+	            	data:{"fileName" : fileName},
 	            	dataType:"json"
 	            }).done(function(resp){
 	            	
@@ -92,7 +96,7 @@
 		});
 
 	    // 엑셀 업로드 양식 다운받기
-		$("excelform").on("click",function(){
+		$("#excelform").on("click",function(){
 			location.href = "/excel/excelform";
 		});
 
@@ -103,7 +107,7 @@
 
 		// 한달 식단표 다운로드
 		$("#download").on("click",function(){
-			location.href = "/excel/excelDowload?month=08";
+			location.href = "/excel/excelDowload?month=07";
 		});
 	})
 </script>
@@ -119,7 +123,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-search"></i></span>
             </div>
-            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="search">
+            <input type="search" class="form-control" aria-label="Amount (to the nearest dollar)" id="search">
           </div>
         </div>
         

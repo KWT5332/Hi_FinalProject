@@ -41,7 +41,7 @@
     $(function(){
     	
         // 사진 추가시 파일 이름 불러오기
-        var fileTarget = $("#inputGroupFile01"); 
+        var fileTarget = $("#inputGroupFile"); 
         
         fileTarget.on("change", function(){ // 값이 변경되면         
             if(window.FileReader){ // modern browser 
@@ -49,7 +49,7 @@
             } else { // old IE 
             var filename = $(this).val().split("/").pop().split("\\").pop(); // 파일명만 추출 
             } 
-                     
+
             $("#fileName").text(filename); // 추출한 파일명 삽입
         });
     	
@@ -74,8 +74,10 @@
         });
 
         // 식단 등록하기
-        $("#submit").on("click",function(){        	
-			if($("#menu1").val() == null || $("#menu1").val() == "" || $("#menu1").val() == " " 
+        $("#submit").on("click",function(){ 
+        	if($("#meal_date").val() == null || $("#meal_date").val() == "") {
+        		alert("날짜를 선택해주세요.");
+        	}else if($("#menu1").val() == null || $("#menu1").val() == "" || $("#menu1").val() == " " 
         			|| $("#menu2").val() == null || $("#menu2").val() == "" || $("#menu2").val() == " ") {
         		alert("식단 메뉴를 2개 이상 등록해 주세요.");
         	}else{
@@ -85,7 +87,7 @@
         })
         
         // 최근저장한 식단 사용
-        $(".use").on("click",function(){
+        $("body").on("click",".use",function(){
             for(let i=2;i<7;i++){
                 $("#menu"+i).remove();
             }
@@ -144,10 +146,10 @@
         		for(var i=0;i<resp.length;i++){
             		let tr = $("<tr>");
             		tr.addClass("test");
-
+            		
             		let date = $("<td>");
             		date.addClass("p-2");
-            		date.append(resp[i].meal_date);
+					date.append(resp[i].meal_date);
             		
             		let menu = $("<td>");
             		menu.addClass("p-2 menu");
@@ -235,7 +237,7 @@
                                     </div>
                                     <div class="custom-file">
                                         <input type="file" name="file" class="custom-file-input" id="inputGroupFile">
-                                        <label class="custom-file-label" for="inputGroupFile">관련 이미지를 업로드 하세요.</label>
+                                        <label class="custom-file-label" for="inputGroupFile" id="fileName">관련 이미지를 업로드 하세요.</label>
                                     </div>
                                 </div>
                             </td>
