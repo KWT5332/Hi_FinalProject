@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
@@ -26,19 +27,39 @@ $(document).ready(function() {
 	        lang : 'ko-KR'
 	  });
 	});
+	
+function goWrite(frm) {
+	var title = frm.title.value;
+	var content = frm.content.value;
+	
+	if (title.trim() == ''){
+		alert("제목을 입력해주세요");
+		return false;
+	}
+	if (content.trim() == ''){
+		alert("내용을 입력해주세요");
+		return false;
+	}
+	frm.submit();
+}
 
+$(function(){
+	$("#listBtn").on("click",function(){
+		location.href="/bod/boardList";
+	})
+})
 </script>
 </head>
 <body>
 <h2 style="text-align: center;">글 작성</h2><br><br><br>
 
-<div style="width: 60%; margin: auto;">
+<div class="row pt-4"style="width: 60%; margin: auto;">
 	<form method="post" action="/bod/writeProc">
 		<input type="text" name="title" style="width: 40%;" placeholder="제목"/>
 		<br><br>
 		<textarea id="summernote" name="content" placeholder="내용을 입력하세요."></textarea>
 		<input id="subBtn" type="submit" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/>
-		<input id="listBtn" type="button" value="글 목록" style="float: right;" onclick="goWrite(this.form)"/>
+		<input id="listBtn" type="button" value="글 목록" style="float: right;"/>
 	</form>
 </div>
 
