@@ -39,18 +39,26 @@
 </style>
 <script>
     $(function(){
-    	
-        // 사진 추가시 파일 이름 불러오기
-        var fileTarget = $("#inputGroupFile01"); 
-        
-        fileTarget.on("change", function(){ // 값이 변경되면         
-            if(window.FileReader){ // modern browser 
-            var filename = $(this)[0].files[0].name; 
-            } else { // old IE 
-            var filename = $(this).val().split("/").pop().split("\\").pop(); // 파일명만 추출 
-            } 
-                     
-            $("#fileName").text(filename); // 추출한 파일명 삽입
+		$("#inputGroupFile").on("change", function(){ // 값이 변경되면   
+//            if(window.FileReader){ // modern browser 
+//            var filename = $(this)[0].files[0].name; 
+//            } else { // old IE 
+//            var filename = $(this).val().split("/").pop().split("\\").pop(); // 파일명만 추출 
+//            } 
+			var file = $(this)[0].files[0];
+			
+			if(file.size >= 1048576) {
+			    	alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+			    	return false;
+			}
+			
+			let regex = new RexExp("(.*?)\.(jpg||png||gif)");
+			if(!regex.test(fileName)){
+			    alert("이미지 파일만 업로드 가능합니다.");
+			    return false;
+			}
+
+            $("#fileName").text(file.name); // 추출한 파일명 삽입
         });
     	
         // 식단 메뉴 추가
@@ -74,8 +82,10 @@
         });
 
         // 식단 등록하기
-        $("#submit").on("click",function(){        	
-			if($("#menu1").val() == null || $("#menu1").val() == "" || $("#menu1").val() == " " 
+        $("#submit").on("click",function(){ 
+        	if($("#meal_date").val() == null || $("#meal_date").val() == "") {
+        		alert("날짜를 선택해주세요.");
+        	}else if($("#menu1").val() == null || $("#menu1").val() == "" || $("#menu1").val() == " " 
         			|| $("#menu2").val() == null || $("#menu2").val() == "" || $("#menu2").val() == " ") {
         		alert("식단 메뉴를 2개 이상 등록해 주세요.");
         	}else{
@@ -85,7 +95,7 @@
         })
         
         // 최근저장한 식단 사용
-        $(".use").on("click",function(){
+        $("body").on("click",".use",function(){
             for(let i=2;i<7;i++){
                 $("#menu"+i).remove();
             }
@@ -144,10 +154,10 @@
         		for(var i=0;i<resp.length;i++){
             		let tr = $("<tr>");
             		tr.addClass("test");
-
+            		
             		let date = $("<td>");
             		date.addClass("p-2");
-            		date.append(resp[i].meal_date);
+					date.append(resp[i].meal_date);
             		
             		let menu = $("<td>");
             		menu.addClass("p-2 menu");
@@ -235,7 +245,7 @@
                                     </div>
                                     <div class="custom-file">
                                         <input type="file" name="file" class="custom-file-input" id="inputGroupFile">
-                                        <label class="custom-file-label" for="inputGroupFile">관련 이미지를 업로드 하세요.</label>
+                                        <label class="custom-file-label" for="inputGroupFile" id="fileName">관련 이미지를 업로드 하세요.</label>
                                     </div>
                                 </div>
                             </td>

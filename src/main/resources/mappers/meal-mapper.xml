@@ -9,10 +9,19 @@
 		#{menu2}, #{menu3}, #{menu4}, #{menu5}, #{menu6}, #{oriName}, #{sysName})
 	</insert>
 	
+	<!-- 엑셀 업로드 인서트 -->
+	<insert id="excelupload">
+		<foreach collection="list" item="type" index="index" separator=";">
+			insert into meal_menu values (#{month}, #{meal_date}, #{school}, #{writer}, #{menu1},
+			#{menu2}, #{menu3}, #{menu4}, #{menu5}, #{menu6}, #{oriName}, #{sysName})
+		</foreach>
+	</insert>
+	
+	
 	<select id="selectList" resultType="kh.spring.dto.MealDTO">
-		select * from (select row_number() over (order by meal_date desc) rnum, month, meal_date, school,
-		writer, menu1, menu2, menu3, menu4, menu5, menu6 from meal_menu where writer=#{writer}) 
-		where rnum between ${start} and ${end} order by 3 desc
+		select * from (select row_number() over (order by meal_date desc) rnum, month, 
+		meal_date, school, writer, menu1, menu2, menu3, menu4, menu5, menu6 
+		from meal_menu where writer=#{writer}) where rnum between ${start} and ${end} order by 3 desc
 	</select>
 	
 	<select id="listCount" resultType="int">
@@ -20,11 +29,13 @@
 	</select>
 	
 	<select id="excelDownload" resultType="kh.spring.dto.MealDTO">
-		select * from meal_menu where month=#{month} and school=#{school}
+		select * from meal_menu where month=#{month} and school=#{school} order by 2
 	</select>
 	
 	<select id="search" resultType="kh.spring.dto.MealDTO">
       select * from meal_menu where menu1 like '%${keyword}%' OR menu2 like '%${keyword}%' OR menu3 like '%${keyword}%' 
       OR menu4 like '%${keyword}%' OR menu5 like '%${keyword}%' OR menu6 like '%${keyword}%'
 	</select>
+	
+
 </mapper>
