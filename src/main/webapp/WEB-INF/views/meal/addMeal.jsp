@@ -39,18 +39,26 @@
 </style>
 <script>
     $(function(){
-    	
-        // 사진 추가시 파일 이름 불러오기
-        var fileTarget = $("#inputGroupFile"); 
-        
-        fileTarget.on("change", function(){ // 값이 변경되면         
-            if(window.FileReader){ // modern browser 
-            var filename = $(this)[0].files[0].name; 
-            } else { // old IE 
-            var filename = $(this).val().split("/").pop().split("\\").pop(); // 파일명만 추출 
-            } 
+		$("#inputGroupFile").on("change", function(){ // 값이 변경되면   
+//            if(window.FileReader){ // modern browser 
+//            var filename = $(this)[0].files[0].name; 
+//            } else { // old IE 
+//            var filename = $(this).val().split("/").pop().split("\\").pop(); // 파일명만 추출 
+//            } 
+			var file = $(this)[0].files[0];
+			
+			if(file.size >= 1048576) {
+			    	alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+			    	return false;
+			}
+			
+			let regex = new RexExp("(.*?)\.(jpg||png||gif)");
+			if(!regex.test(fileName)){
+			    alert("이미지 파일만 업로드 가능합니다.");
+			    return false;
+			}
 
-            $("#fileName").text(filename); // 추출한 파일명 삽입
+            $("#fileName").text(file.name); // 추출한 파일명 삽입
         });
     	
         // 식단 메뉴 추가

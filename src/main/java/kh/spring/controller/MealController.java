@@ -71,7 +71,7 @@ public class MealController {
 	public String addmealProc(MealDTO dto, MultipartFile file) throws Exception {
 		System.out.println("식단추가");
 		
-		String realPath = session.getServletContext().getRealPath("files");
+		String realPath = session.getServletContext().getRealPath("meal_img");
 		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
 		
 		dto.setWriter(mdto.getName());

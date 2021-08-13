@@ -1,5 +1,6 @@
 package kh.spring.service;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -204,15 +206,33 @@ public class ExcelService {
 	}
 	
 	// 엑셀에 저장되어 있는 식단 db에 업로드
-	public int readExcelupload(MemberDTO dto, String filename) {
+//	public int readExcelupload(MemberDTO dto, String fileName) {
 		
-		List<MealDTO> list = new ArrayList<>();
-		
-//		workbook = new XSSFWorkbook();
-		
-		
-		
-		
-		return dao.excelupload(list);
-	}
+//		List<MealDTO> list = new ArrayList<>();
+//		
+//		try {
+//			FileInputStream fis = new FileInputStream(fileName);
+//			Workbook workbook = null; // 초기화
+//			
+//			workbook = new XSSFWorkbook(fis);
+//			
+//			int numberOfSheets = workbook.getNumberOfSheets(); // 시트의 갯수 추출
+//			
+//			 for (int i = 0; i < numberOfSheets; i++) {
+//				 // 현재 sheet 반환
+//				 Sheet sheet = (XSSFSheet) workbook.getSheetAt(i);
+//	                
+//	            curRow = curSheet.getRow(3); // 두번째 행 추출
+//	 
+//	 // 두번째 행의 첫번째 Cell 값 가져오기
+//	                String wlobscd = curRow.getCell(0).getStringCellValue();
+//				 Sheet sheet = workbook.getSheetAt(i);
+//			 }
+//			
+//		}catch(Exception e) {
+//			
+//		}
+//
+//		return dao.excelupload(list);
+//	}
 }

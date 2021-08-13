@@ -50,7 +50,7 @@ public class ExcelController {
 		MemberDTO dto = (MemberDTO)session.getAttribute("login");
 		System.out.println(fileName);
 		
-		service.readExcelupload(dto, fileName);
+//		service.readExcelupload(dto, fileName);
 //		Map<String, Object> map = new HashMap<>();
 //		
 //		MemberDTO dto = (MemberDTO)session.getAttribute("login");
