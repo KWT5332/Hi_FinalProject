@@ -10,13 +10,13 @@
 	</insert>
 	
 	<!-- 엑셀 업로드 인서트 -->
-	<insert id="excelupload">
-		<foreach collection="list" item="type" index="index" separator=";">
-			insert into meal_menu values (#{month}, #{meal_date}, #{school}, #{writer}, #{menu1},
-			#{menu2}, #{menu3}, #{menu4}, #{menu5}, #{menu6}, #{oriName}, #{sysName})
+	<insert id="excelupload" parameterType="java.util.HashMap">
+		<foreach collection="list" item="item" separator=";">
+			insert into meal_menu values (#{item.month}, #{item.meal_date}, #{item.school}, #{item.writer}, 
+			#{item.menu1}, #{item.menu2}, #{item.menu3}, #{item.menu4}, #{item.menu5}, #{item.menu6},
+			#{item.oriName}, #{item.sysName})
 		</foreach>
 	</insert>
-	
 	
 	<select id="selectList" resultType="kh.spring.dto.MealDTO">
 		select * from (select row_number() over (order by meal_date desc) rnum, month, 

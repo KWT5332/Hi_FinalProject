@@ -1,12 +1,17 @@
 package kh.spring.service;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,10 +24,13 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.dao.MealDAO;
 import kh.spring.dto.MealDTO;
@@ -165,7 +173,7 @@ public class ExcelService {
 		// title
 		row = sheet.createRow(rowNum++);
 		cell = row.createCell(0);
-		cell.setCellValue("날짜는 2021-07-21 (월) 형식으로 작성, 파일이름은 07월 식단표로 작성 부탁드립니다.");
+		cell.setCellValue("월은 06,11 형식, 날짜는 2021-07-21 (월) 형식으로 작성 부탁드립니다. 메뉴는 최소 2개부터 최대 6개까지만 등록가능합니다.");
 		
 		// 빈행 추가
 		sheet.createRow(rowNum++); 
@@ -175,23 +183,26 @@ public class ExcelService {
 		row = sheet.createRow(rowNum++);
 		cell = row.createCell(0);
 		cell.setCellStyle(style);
-		cell.setCellValue("날짜");
+		cell.setCellValue("월");
 		cell = row.createCell(1);
 		cell.setCellStyle(style);
-		cell.setCellValue("메뉴1");		
+		cell.setCellValue("날짜");
 		cell = row.createCell(2);
 		cell.setCellStyle(style);
-		cell.setCellValue("메뉴2");		
+		cell.setCellValue("메뉴1");		
 		cell = row.createCell(3);
 		cell.setCellStyle(style);
-		cell.setCellValue("메뉴3");		
+		cell.setCellValue("메뉴2");		
 		cell = row.createCell(4);
 		cell.setCellStyle(style);
-		cell.setCellValue("메뉴4");		
+		cell.setCellValue("메뉴3");		
 		cell = row.createCell(5);
 		cell.setCellStyle(style);
-		cell.setCellValue("메뉴5");		
+		cell.setCellValue("메뉴4");		
 		cell = row.createCell(6);
+		cell.setCellStyle(style);
+		cell.setCellValue("메뉴5");		
+		cell = row.createCell(7);
 		cell.setCellStyle(style);
 		cell.setCellValue("메뉴6");
 		
@@ -206,33 +217,96 @@ public class ExcelService {
 	}
 	
 	// 엑셀에 저장되어 있는 식단 db에 업로드
-//	public int readExcelupload(MemberDTO dto, String fileName) {
+	public int excelupload(MemberDTO dto, MultipartFile file, String realPath) throws Exception {
+		System.out.println("service");
+		File filesPath = new File(realPath);
+		if(!filesPath.exists()) {
+			filesPath.mkdir();
+		}
+		String oriName = file.getOriginalFilename();
+		String sysName = UUID.randomUUID().toString().replace("-", "") + "_" + oriName;
+		file.transferTo(new File(filesPath.getAbsolutePath()+"/"+sysName));
 		
-//		List<MealDTO> list = new ArrayList<>();
-//		
-//		try {
-//			FileInputStream fis = new FileInputStream(fileName);
-//			Workbook workbook = null; // 초기화
-//			
-//			workbook = new XSSFWorkbook(fis);
-//			
-//			int numberOfSheets = workbook.getNumberOfSheets(); // 시트의 갯수 추출
-//			
-//			 for (int i = 0; i < numberOfSheets; i++) {
-//				 // 현재 sheet 반환
-//				 Sheet sheet = (XSSFSheet) workbook.getSheetAt(i);
-//	                
-//	            curRow = curSheet.getRow(3); // 두번째 행 추출
-//	 
-//	 // 두번째 행의 첫번째 Cell 값 가져오기
-//	                String wlobscd = curRow.getCell(0).getStringCellValue();
-//				 Sheet sheet = workbook.getSheetAt(i);
-//			 }
-//			
-//		}catch(Exception e) {
-//			
-//		}
-//
-//		return dao.excelupload(list);
-//	}
+		List<MealDTO> list = readExcel(filesPath.getAbsolutePath()+"/"+sysName);
+
+		for(MealDTO m : list) {
+			m.setSchool(dto.getSchool());
+			m.setWriter(dto.getName());
+			System.out.println(m.getMonth() + " : " + m.getMeal_date() + " : " + m.getSchool() + " : " 
+					+ m.getWriter() + " : " + m.getMenu1() + " : " + m.getMenu2() + " : " + m.getMenu3()
+					+ " : " + m.getMenu4() + " : " + m.getMenu5() + " : " + m.getMenu6()); 
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
+		return dao.excelupload(map);
+	}
+	
+	// 엑셀 읽는 코드
+	private List<MealDTO> readExcel(String filePath) throws Exception {
+		System.out.println("readExcel");
+		List<MealDTO> list = new ArrayList<>();
+
+		FileInputStream fis = new FileInputStream(filePath);
+
+		Workbook workbook = null; // 초기화
+
+		workbook = new XSSFWorkbook(fis);
+
+		XSSFRow curRow;
+
+		XSSFSheet sheet = (XSSFSheet) workbook.getSheetAt(0);
+		int totalRowNum = sheet.getPhysicalNumberOfRows();
+		System.out.println(totalRowNum);
+		//			int numberOfSheets = workbook.getNumberOfSheets(); // 시트의 갯수 추출
+
+		//			 for (int i = 0; i < numberOfSheets; i++) {
+		//				 // 현재 sheet 반환
+		//				 curSheet = (XSSFSheet) workbook.getSheetAt(i);
+
+		//4번째 행(row)부터 0~7셀(cell)을 1개의 dto에 담아야 한다. 
+		Loop1 : for(int i=3;i<totalRowNum;i++) { // 0부터 시작, 4번째 행(row) 추출
+			MealDTO dto = new MealDTO();
+			curRow = sheet.getRow(i); 
+
+			if(curRow.getCell(4) == null || curRow.getCell(4).equals("")) {
+				break Loop1;
+			}else {
+				dto.setMonth(curRow.getCell(0).getStringCellValue());
+
+				// String -> sql.date로 변경해서 dto.getMeal_date에 담기	
+				String Mealdate = curRow.getCell(1).getStringCellValue();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				Date date = new Date(sdf.parse(Mealdate).getTime());
+				dto.setMeal_date(date);
+				System.out.println(date);
+				
+				// menu1,2는 무조건 등록
+				dto.setMenu1(curRow.getCell(2).getStringCellValue());
+				dto.setMenu2(curRow.getCell(3).getStringCellValue());
+
+				if(curRow.getCell(4) == null || curRow.getCell(4).equals("")) {
+					dto.setMenu3("");
+				}else {dto.setMenu3(curRow.getCell(4).getStringCellValue());}
+
+				if(curRow.getCell(5) == null || curRow.getCell(5).equals("")) {
+					dto.setMenu4("");
+				}else {dto.setMenu4(curRow.getCell(5).getStringCellValue());}
+
+				if(curRow.getCell(6) == null || curRow.getCell(6).equals("")) {
+					dto.setMenu5("");
+				}else {dto.setMenu5(curRow.getCell(6).getStringCellValue());}
+
+				if(curRow.getCell(7) == null || curRow.getCell(7).equals("")) {
+					dto.setMenu6("");
+				}else {dto.setMenu6(curRow.getCell(7).getStringCellValue());}
+
+				list.add(dto);
+			}
+		}
+		fis.close();
+		
+		return list;
+	}
 }

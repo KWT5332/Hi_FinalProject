@@ -20,7 +20,7 @@ public class MealService {
 	private MealDAO dao;
 	
 	// 식단 추가
-	public void addMeal(MealDTO dto, MultipartFile file, String realPath)  throws Exception {
+	public void addMeal(MealDTO dto, MultipartFile file, String realPath) throws Exception {
 		File filesPath = new File(realPath);
 		if(!filesPath.exists()) {
 			filesPath.mkdir();

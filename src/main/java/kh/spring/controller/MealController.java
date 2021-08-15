@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import kh.spring.config.XSSFillterConfig;
 import kh.spring.dto.MealDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.MealService;
@@ -76,6 +77,13 @@ public class MealController {
 		
 		dto.setWriter(mdto.getName());
 		dto.setSchool(mdto.getSchool());
+		
+		dto.setMenu1(XSSFillterConfig.XSSFilter(dto.getMenu1()));
+		dto.setMenu2(XSSFillterConfig.XSSFilter(dto.getMenu2()));
+		dto.setMenu3(XSSFillterConfig.XSSFilter(dto.getMenu3()));
+		dto.setMenu4(XSSFillterConfig.XSSFilter(dto.getMenu4()));
+		dto.setMenu5(XSSFillterConfig.XSSFilter(dto.getMenu5()));
+		dto.setMenu6(XSSFillterConfig.XSSFilter(dto.getMenu6()));
 
 		service.addMeal(dto, file, realPath); 
 
@@ -85,15 +93,15 @@ public class MealController {
 	// 검색
 	@RequestMapping("searchlist")
 	public String search(String keyword, Model model) {
-		System.out.println("검색 : " + keyword);
+		String fillter = XSSFillterConfig.XSSFilter(keyword);
+		System.out.println("검색 : " + fillter);
 		
-		List<MealDTO> list = service.search(keyword);
+		List<MealDTO> list = service.search(fillter);
 		
-		model.addAttribute("keyword", keyword);
+		model.addAttribute("keyword", fillter); 
 		model.addAttribute("list", list);
 		
-		return "meal/search";
+		return "meal/search"; 
 	}
 	
-
 }
