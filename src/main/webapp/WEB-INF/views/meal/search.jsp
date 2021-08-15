@@ -5,11 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>식단 검색</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<!-- dataTable API -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
 	#meal{background-color: #124352;}
@@ -26,11 +29,35 @@ $(function(){
             return false;
     	}
   	})
+  	
+
+  	$('#table_id').DataTable({
+  		
+  	});
 })
 </script>
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"/>
+ 
+    <table id="table_id" class="display">
+	    <thead>
+	        <tr>
+	            <th>Column 1</th>
+	            <th>Column 2</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td>Row 1 Data 1</td>
+	            <td>Row 1 Data 2</td>
+	        </tr>
+	        <tr>
+	            <td>Row 2 Data 1</td>
+	            <td>Row 2 Data 2</td>
+	        </tr>
+	    </tbody>
+	</table>
     
     <!-- 메인 -->
     <div class="container p-5">
@@ -67,7 +94,7 @@ $(function(){
 		</c:forEach>	
         </div>    
     </div>
-    
-	<jsp:include page="../layout/footer.jsp"/>
+ 
+	<jsp:include page="../layout/footer.jsp"/> 
 </body>
 </html>

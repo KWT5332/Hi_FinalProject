@@ -35,7 +35,7 @@ public class MealDAO {
 		return mybatis.selectList("Meal.search", keyword);
 	}
 	
-	public int excelupload(List<MealDTO> list) {
-		return mybatis.insert("Meal.excelupload", list);
+	public int excelupload(Map<String, Object> map) {
+		return mybatis.insert("Meal.excelupload", map);
 	}
 }

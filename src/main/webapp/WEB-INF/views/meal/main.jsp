@@ -16,7 +16,7 @@
 	#meal{background-color: #124352;}
 	*{text-align: center;box-sizing: border-box;}
 	
-	.filebox input[type="file"] { 
+	#excelName{ 
 		position: absolute; width: 1px; height: 1px; 
 	    padding: 0; margin: -1px; 
 	    overflow: hidden; 
@@ -37,7 +37,7 @@
     } 
     
     /* named upload */ 
-    .filebox .upload-name { 
+    .upload-name { 
 		display: inline-block; 
 		padding: .5em .75em; /* label의 패딩값과 일치 */ 
 		font-size: inherit; 
@@ -77,8 +77,9 @@
 	        
 	        // 추출한 파일명 삽입 
 			//jsp에서 FORM을 생성하여 넘기지 않았을때 스크립트에서 formData로 file을 가져올 수 있다.
-		    var formData = new FormData(); 
-		    formData.append("file", $(this)[0].files[0]); //배열로 되어있음 / formData는 Map과 같은 형태
+        	var form = $("#frm")[0];       
+		    var formData = new FormData(form); 
+		    //formData.append("file", $(this)[0].files[0]); //배열로 되어있음 / formData는 Map과 같은 형태
 		        
 		    var fileName = formData.get('file').name;
 		    // 추출한 파일명 삽입 
@@ -88,18 +89,22 @@
 		    	alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
 		    	return false;
 		    }
-		    
-		    let regex = new RexExp("(.*?)\.xlsx");
+
+		    let regex = /(.*?)\.xlsx/;
 		    if(!regex.test(fileName)){
 		    	alert("확장자가 .xlsx인 파일만 업로드 가능합니다.");
 		    	return false;
 		    }
-
+			
 	        if(confirm("선택하신 파일을 업로드 하시겠습니까?")){
 	            $.ajax({
 	            	type:"POST",
+	            	enctype: "multipart/form-data",
 	            	url:"/excel/excelupload",
-	            	data:{"fileName" : fileName},
+	            	data:formData,
+	    			processData: false,
+	    			contentType: false,
+	    			cache: false,
 	            	dataType:"json"
 	            }).done(function(resp){
 	            	
@@ -140,12 +145,14 @@
         </div>
         
         <div class="col-12 col-sm-12 col-md-6 col-lg-9 p-0" id="excleupload">
-			<div class="filebox" style="text-align: right;">
+        <form id="frm" name="frm" method="POST" enctype="multipart/form-data">
+			<div class="filebox w-100" style="text-align: right;">
 				<input class="upload-name" value="파일선택" disabled="disabled">
 				<label for="excelName" class="mb-0">엑셀 업로드</label>
-	            <input type="file" id="excelName" class="upload-hidden">
-                <button class="btn btn-outline-secondary btn-sm ml-4 mt-1" id="excelform">엑셀 업로드양식 다운</button>
+				<input type="file" id="excelName" name="file" class="upload-hidden">
+                <button class="btn btn-outline-secondary btn-sm ml-4 mt-1" id="excelform" type="button">엑셀 업로드양식 다운</button>
           	</div>
+        </form>
         </div>
 
       </div>
