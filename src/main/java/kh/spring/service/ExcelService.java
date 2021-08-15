@@ -227,14 +227,13 @@ public class ExcelService {
 		String sysName = UUID.randomUUID().toString().replace("-", "") + "_" + oriName;
 		file.transferTo(new File(filesPath.getAbsolutePath()+"/"+sysName));
 		
-		List<MealDTO> list = readExcel(filesPath.getAbsolutePath()+"/"+sysName);
+		List<MealDTO> list = readExcel(dto, filesPath.getAbsolutePath()+"/"+sysName);
 
 		for(MealDTO m : list) {
-			m.setSchool(dto.getSchool());
-			m.setWriter(dto.getName());
 			System.out.println(m.getMonth() + " : " + m.getMeal_date() + " : " + m.getSchool() + " : " 
 					+ m.getWriter() + " : " + m.getMenu1() + " : " + m.getMenu2() + " : " + m.getMenu3()
-					+ " : " + m.getMenu4() + " : " + m.getMenu5() + " : " + m.getMenu6()); 
+					+ " : " + m.getMenu4() + " : " + m.getMenu5() + " : " + m.getMenu6() + " : " + m.getOriName()
+					+ " : " + m.getSysName() + "끝"); 
 		}
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -244,7 +243,7 @@ public class ExcelService {
 	}
 	
 	// 엑셀 읽는 코드
-	private List<MealDTO> readExcel(String filePath) throws Exception {
+	private List<MealDTO> readExcel(MemberDTO m, String filePath) throws Exception {
 		System.out.println("readExcel");
 		List<MealDTO> list = new ArrayList<>();
 
@@ -258,7 +257,7 @@ public class ExcelService {
 
 		XSSFSheet sheet = (XSSFSheet) workbook.getSheetAt(0);
 		int totalRowNum = sheet.getPhysicalNumberOfRows();
-		System.out.println(totalRowNum);
+		
 		//			int numberOfSheets = workbook.getNumberOfSheets(); // 시트의 갯수 추출
 
 		//			 for (int i = 0; i < numberOfSheets; i++) {
@@ -280,7 +279,9 @@ public class ExcelService {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				Date date = new Date(sdf.parse(Mealdate).getTime());
 				dto.setMeal_date(date);
-				System.out.println(date);
+				
+				dto.setSchool(m.getSchool());
+				dto.setWriter(m.getName());
 				
 				// menu1,2는 무조건 등록
 				dto.setMenu1(curRow.getCell(2).getStringCellValue());
@@ -301,6 +302,9 @@ public class ExcelService {
 				if(curRow.getCell(7) == null || curRow.getCell(7).equals("")) {
 					dto.setMenu6("");
 				}else {dto.setMenu6(curRow.getCell(7).getStringCellValue());}
+
+				dto.setOriName("");
+				dto.setSysName("");
 
 				list.add(dto);
 			}

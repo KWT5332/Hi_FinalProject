@@ -107,7 +107,8 @@
 	    			cache: false,
 	            	dataType:"json"
 	            }).done(function(resp){
-	            	
+	            	alert("엑셀 업로드 성공!");
+	            	$("#excelName").val("파일선택");
 	            })
 	        }
 		});
