@@ -53,7 +53,7 @@
 			}
 			
 			let regex = new RexExp("(.*?)\.(jpg||png||gif)");
-			if(!regex.test(fileName)){
+			if(!regex.test(file.Name)){
 			    alert("이미지 파일만 업로드 가능합니다.");
 			    return false;
 			}
