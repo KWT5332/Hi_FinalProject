@@ -127,11 +127,16 @@
 		$("#download").on("click",function(){
 			location.href = "/excel/excelDowload?month=07";
 		});
+		
+		$("#cal").on("click",function(){
+			location.href = "/meal/calendar";
+		});
 	})
 </script>
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"/>
+	<button id="cal">캘린더</button>
     
     <!-- 메인 -->
     <div class="container p-5">

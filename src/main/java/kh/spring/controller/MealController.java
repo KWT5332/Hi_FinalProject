@@ -28,6 +28,12 @@ public class MealController {
 
 	@Autowired
 	private HttpSession session;
+
+	@RequestMapping("calendar") 
+	public String calendar() {
+		System.out.println("캘린더");
+		return "meal/calendar";
+	}
 	
 	@RequestMapping("Main") // 식단관리 메인페이지
 	public String Main() {
