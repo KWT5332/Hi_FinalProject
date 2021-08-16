@@ -11,10 +11,12 @@
 	
 	<!-- 엑셀 업로드 인서트 -->
 	<insert id="excelupload" parameterType="java.util.HashMap">
-		<foreach collection="list" item="item" separator=";">
-			insert into meal_menu values (#{item.month}, #{item.meal_date}, #{item.school}, #{item.writer}, 
-			#{item.menu1}, #{item.menu2}, #{item.menu3}, #{item.menu4}, #{item.menu5}, #{item.menu6},
-			#{item.oriName}, #{item.sysName})
+		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
+			into meal_menu
+			values (#{item.month},#{item.meal_date},#{item.school},#{item.writer}, 
+			#{item.menu1},#{item.menu2},#{item.menu3, jdbcType=VARCHAR},#{item.menu4, jdbcType=VARCHAR},
+			#{item.menu5, jdbcType=VARCHAR},#{item.menu6, jdbcType=VARCHAR},
+			#{item.oriName, jdbcType=VARCHAR},#{item.sysName, jdbcType=VARCHAR})
 		</foreach>
 	</insert>
 	
