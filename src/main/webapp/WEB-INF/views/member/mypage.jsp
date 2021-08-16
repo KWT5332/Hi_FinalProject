@@ -141,7 +141,7 @@ input[type] {
 					<div class="row">
 						<div class="col-sm-6 col-md-6 col-lg-4">
 							<input type="text" class="form-control inp_id mail_input"
-								id="Email_input" name="email" disabled>
+								id="Email_input" name="email" disabled value=${login.email}>
 
 						</div>
 					</div>
@@ -152,7 +152,7 @@ input[type] {
 				<p class="col-12 mb-4">
 					-
 					<mark>기존 비밀번호</mark>
-					를 입력하여 확인합니다..
+					를 입력하여 확인합니다.
 				</p>
 				<div class="col-12">
 					<div class="row">
@@ -217,7 +217,7 @@ input[type] {
 				<div class="col-12">
 					<div class="row">
 						<div class="col-sm-12 col-md-6 col-lg-3">
-							<input type="text" class="form-control ">
+							<input type="text" class="form-control " value=${login.name}>
 
 						</div>
 						<div class="col-sm-12 col-md-6 col-lg-8 ">
@@ -234,7 +234,8 @@ input[type] {
 						<div class="col-12 mt-3">
 							<div class="row">
 								<div class="col-12 col-md-6 col-lg-4">
-									<input type="text" class="form-control  " name="school">
+									<input type="text" class="form-control  " name="school"
+										value=${login.school}>
 								</div>
 								<div class="col-12 col-md-6 col-lg-8 ">
 									<button type="button" class="btn btn-success  ">소속 학교
@@ -254,8 +255,11 @@ input[type] {
 			<div class="id_pw_con incon row m-5">
 				<h5 class="col-12 mb-4">나이대</h5>
 				<div class="input-group row">
+					<div class="col-sm-2 col-md-2">
+						<input type="text" class="form-control" value=${login.age}대 disabled>
+					</div>
 					<select type="select" name="age"
-						class=" custom-select col-sm-5 col-md-2 ml-4"
+						class=" custom-select col-sm-5 col-md-2"
 						id="inputGroupSelect01">
 						<option selected>선택</option>
 						<option value="20">20대</option>
@@ -279,32 +283,20 @@ input[type] {
 				</p>
 				<div class="col-12">
 					<div class="row">
-						<div class="col-2 col-md-2 ml-1 p-0">
-							<input type="text" class="form-control  " name="ph1">
+						<div class="col-3 col-md-5">
+							<input type="text" class="form-control  " name="phone"
+								value=${login.phone}>
 						</div>
-						<div class="col-1 col-md-1 ">
-							<p>-</p>
-						</div>
-						<div class="col-3 col-md-2 ml-1 p-0">
-							<input type="text" class="form-control  " name="ph2">
-						</div>
-						<div class="col-1 col-md-1 ">
-							<p>-</p>
-						</div>
-						<div class="col-3 col-md-2 ml-1 p-0">
-							<input type="text" class="form-control  " name="ph3">
+						<div class="col-6 col-md-5">
+							<button type="button" class="btn btn-success  ">연락처 변경하기</button>
 						</div>
 					</div>
-
-
 				</div>
 				<div class="row">
 					<div class="col-12 col-md-12">
 						<div class="form-control  exex">연락처 형식 일치 여부</div>
 					</div>
-					<div class="col-sm-5 col-md-6">
-						<button type="button" class="btn btn-success  ">연락처 변경하기</button>
-					</div>
+
 				</div>
 
 
