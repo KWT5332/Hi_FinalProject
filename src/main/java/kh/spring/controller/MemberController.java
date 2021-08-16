@@ -36,10 +36,8 @@ public class MemberController {
 		return "member/join";
 	}
 	@RequestMapping("joinProc")
-	public String joinProc(MemberDTO dto,String ph1,String ph2,String ph3) {
+	public String joinProc(MemberDTO dto) {
 		System.out.println("회원가입");
-		String phone= ph1+ph2+ph3;
-		dto.setPhone(phone);
 		service.join(dto);
 		return "redirect:/";
 	}
@@ -58,6 +56,11 @@ public class MemberController {
 		    session.setMaxInactiveInterval(60*60) ;
 		}
 		return "redirect:/";
+	}
+	@RequestMapping("mypage")
+	public String mypage() {
+		System.out.println("마페인");
+		return "member/mypage";
 	}
 	//로그아웃프록
 	@RequestMapping("logoutProc")
