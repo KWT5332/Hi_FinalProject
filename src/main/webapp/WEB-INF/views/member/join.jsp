@@ -387,20 +387,8 @@ input[type] {
 					</p>
 					<div class="col-12">
 						<div class="row">
-							<div class="col-2 col-md-2 ml-1 p-0">
-								<input type="text" class="form-control  " name="ph1">
-							</div>
-							<div class="col-1 col-md-1">
-								<p>-</p>
-							</div>
-							<div class="col-3 col-md-2 ml-1 p-0">
-								<input type="text" class="form-control  " name="ph2">
-							</div>
-							<div class="col-1 col-md-1 ">
-								<p>-</p>
-							</div>
-							<div class="col-3 col-md-2 ml-1 p-0">
-								<input type="text" class="form-control  " name="ph3">
+							<div class="col-3 col-md-5">
+								<input type="text" class="form-control  " name="phone">
 							</div>
 						</div>
 							

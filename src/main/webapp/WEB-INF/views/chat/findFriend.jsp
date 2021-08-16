@@ -42,6 +42,7 @@
     height:50px;
     border-radius:50%;
     background-color:gray;
+    text-align:center;
     }
 </style>
 <script>
@@ -83,7 +84,7 @@
         			<c:when test="${login.email != i.email }">
         			<div class="row m-0 list">
         				<div class="col-3 m-4 p-0" id="imgbox">
-        				 	<i class="fas fa-user-alt fa-2x mt-2 pl-2"></i>${i.name}
+        				 	<i class="fas fa-user-alt fa-2x mt-2 pl-0"></i>${i.name}
                 		</div>
         				<div class="col-3 m-4 p-2 email">${i.email}</div>
         				<div class="col-3 m-4 p-2">${i.school}</div>

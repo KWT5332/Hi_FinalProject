@@ -23,66 +23,7 @@
 
 	.chatRoom_name{text-align:center; max-width:950px; }
 	.chatRoom{border:1px solid black; background-color:rgb(255, 225, 148, 0.5); display:inline-block; width:400px; border-radius:20px;}
-    /* 말풍선*/
-    .message_box {
-	position: relative;
-	background: #88b7d5;
-	border: 4px solid #c2e1f5;
-}
-.message_box:after, .message_box:before {
-	top: 100%;
-	left: 90%;
-	border: solid transparent;
-	content: "";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
-
-.message_box:after {
-	border-color: rgba(136, 183, 213, 0);
-	border-top-color: #88b7d5;
-	border-width: 20px;
-	margin-left: -20px;
-}
-.message_box:before {
-	border-color: rgba(194, 225, 245, 0);
-	border-top-color: #c2e1f5;
-	border-width: 26px;
-	margin-left: -26px;
-}
-
-    /* 상대방 말풍선*/
-    .receiver_box {
-	position: relative;
-	background: white;
-	border: 4px solid #c2e1f5;
-}
-.receiver_box:after, .receiver_box:before {
-	top: 100%;
-	left: 10%;
-	border: solid transparent;
-	content: "";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
-
-.receiver_box:after {
-	border-color: rgba(136, 183, 213, 0);
-	border-top-color: #88b7d5;
-	border-width: 20px;
-	margin-left: -20px;
-}
-.receiver_box:before {
-	border-color: rgba(194, 225, 245, 0);
-	border-top-color: #c2e1f5;
-	border-width: 26px;
-	margin-left: -26px;
-}
-
+    
 .right{text-align:right; list-style: none; }
 .my_name{text-align:center; width:10%; border:0px; font-size:20px; font-weight: bold; background:#dff1e4;}
 .my_contents{display: inline-block; word-break:break-all; border:0px;}

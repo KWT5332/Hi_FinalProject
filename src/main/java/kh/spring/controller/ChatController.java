@@ -8,6 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import kh.spring.dto.Chat_MessageDTO;
 import kh.spring.dto.Chat_RoomDTO;
@@ -41,6 +46,19 @@ public class ChatController {
 		}
 		
 		return "chat/myChatList";
+	}
+	
+	@RequestMapping(value="lastChatProc", produces="text/html;charset=utf8", method=RequestMethod.POST)
+	@ResponseBody
+	public String lastChatProc(String roomN) {
+		int room_number = Integer.parseInt(roomN);
+		Chat_MessageDTO lastChat = service.lastChat(room_number);
+		
+		//Gson g = new Gson();
+		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		String result = g.toJson(lastChat);
+		
+		return String.valueOf(result);
 	}
 
 	@RequestMapping("search")
