@@ -66,5 +66,10 @@ public class ChatDAO {
 		return mybatis.selectOne("Chat.findReceiver", room_number);
 	}
 	
+	// 마지막 채팅 리스트
+	public Chat_MessageDTO lastChat(int room_number) {
+		return mybatis.selectOne("Chat.lastChat",room_number);
+	}
+	
 	
 }

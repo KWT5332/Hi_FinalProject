@@ -89,4 +89,9 @@ public class ChatService {
 	public Chat_RoomDTO findReceiver(int room_number) {
 		return dao.findReceiver(room_number);
 	}
+	
+	// 각 채팅방의 마지막 메세지
+	public Chat_MessageDTO lastChat(int room_number) {
+		return dao.lastChat(room_number);
+	}
 }

@@ -49,4 +49,8 @@
 		select * from chat_room where room_number=${value}
 	</select>
 	
+	<!-- 마지막 채팅 메세지 -->
+	<select id="lastChat" resultType="kh.spring.dto.Chat_MessageDTO">
+		select * from(select * from chat_message where room_number=${value} order by time DESC) where ROWNUM = 1
+	</select>
 </mapper>

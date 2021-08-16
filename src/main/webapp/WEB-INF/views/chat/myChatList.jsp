@@ -19,45 +19,105 @@
    })
 </script>
 <style>
+*{box-sizing:border-box;}
+.box_title{}
+div{border:1px solid black;}
 .list{
-    border:1px solid gray; 
-    height:500px; 
-    overflow:auto;
+border:1px solid gray; 
+height:500px; 
     }
+#no_list{
+height:100%;
+font-size:50px; 
+font-weight:bold; 
+line-height:500px;
+text-align:center;
+}
+.list_box{height:100%;}
+#container div>a{text-decoration:none;}
+.img_box{
+max-width:80px;
+min-width:80px;
+height:80px;
+border-radius:50%;
+text-align:center;}
+.img_profile{
+max-width:80px;
+min-width:80px;
+height:80px;
+border-radius:50%;
+}
+.contents{text-align:center; line-height:80px;}
 </style>
 </head>
 <body>
   <jsp:include page="../layout/header.jsp"/>
   <div class="container p-3" id="container">
 		<div class="row m-0 header">
-            <div class="col-12 box_title"><h4 id="title">나랑 채팅한 사람 목록</h4></div>
+            <div class="col-12 box_title"><h4 class="p-3" id="title">나의 채팅방 목록</h4></div>
         </div>
-        <div class="p-2 mt-3 list">
+        <div class="list m-0 p-3">
         	<c:choose>
-        	
         		<c:when test="${fn:length(infoList) == 0}">
-        			<div class="row">
-        				<div class="col-12"><a href="/chat/findFriend">채팅할 친구 찾기</a></div>
+        			<div class="row list_box m-0">
+        				<div class="col-12" id="no_list"><a href="/chat/findFriend">채팅할 친구 찾으러 가기</a></div>
         			</div>
         		</c:when>
-        		
         		<c:otherwise>
         			<c:forEach var="infoList" items="${infoList}">
         				 <c:choose>
         				 	<c:when test="${infoList.user1 == login.email}">
-        				 		<div class="row">
-        				 			<div class="col-6">${infoList.user2}</div>
-        				 			<div class="col-6"><a href="/chat/chatListToChat?room_number=${infoList.room_number}">채팅하기</a></div>
+        				 		<div class="row chat_list m-0">
+        				 			<div class="col-2 p-0 img_box">
+        				 				<img class="img_profile" src="/img/profile.png"/>
+        				 			</div>
+        				 			<div class="col-3 p-4 ${infoList.room_number}">${infoList.user2}</div>
+        				 			<script>
+        				 			 $.ajax({
+        				 		    	  url:"/chat/lastChatProc",
+        				 		    	  data:{roomN:"${infoList.room_number}"},
+        				 		    	  dataType:"json",
+        				 		    	  type:"POST"
+        				 		      }).done(function(resp){
+        				 		    	  if(resp.room_number == ${infoList.room_number}){
+        				 		    		let div = $("<div class='col-4 contents'>");
+        				 		    	  	div.append(resp.contents);
+        				 		    	  	let sub = $("<sub class='p-1'>");
+        				 		    	  	sub.append(resp.time);
+        				 		    	  	div.append(sub);
+        				 		    	  	$("."+${infoList.room_number}).after(div);
+        				 		    	  }  
+        				 		      });
+        				 			</script>
+        				 			<div class="col-3 p-4"><a href="/chat/chatListToChat?room_number=${infoList.room_number}">채팅하기</a></div>
         				 		</div>
         				 	</c:when>
         				 	<c:otherwise>
-        				 		<div class="row">
-        				 			<div class="col-6">${infoList.user1}</div>
-        				 			<div class="col-6"><a href="/chat/chatListToChat?room_number=${infoList.room_number}">채팅하기</a></div>
+        				 		<div class="row chat_list m-0">
+        				 			<div class="col-2 p-0 img_box">
+        				 				<img class="img_profile" src="/img/profile.png"/>
+        				 			</div>
+        				 			<div class="col-3 p-4 ${infoList.room_number}">${infoList.user1}</div>
+        				 			<script>
+        				 			 $.ajax({
+        				 		    	  url:"/chat/lastChatProc",
+        				 		    	  data:{roomN:"${infoList.room_number}"},
+        				 		    	  dataType:"json",
+        				 		    	  type:"POST"
+        				 		      }).done(function(resp){
+        				 		    		
+        				 		    		let div = $("<div class='col-4 contents'>");
+        				 		    	  	div.append(resp.contents);
+        				 		    	  	let sub = $("<sub class='p-1'>");
+        				 		    	  	sub.append(resp.time);
+        				 		    	  	div.append(sub);
+        				 		    	  	$("."+${infoList.room_number}).after(div);
+        				 		      });
+        				 			</script>
+        				 			<div class="col-3 p-4"><a href="/chat/chatListToChat?room_number=${infoList.room_number}">채팅하기</a></div>
         				 		</div>
         				 	</c:otherwise>
         				 </c:choose>
-        					
         			</c:forEach>
         		</c:otherwise>
         	</c:choose>
