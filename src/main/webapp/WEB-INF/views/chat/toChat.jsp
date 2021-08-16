@@ -81,6 +81,14 @@
 	border-width: 26px;
 	margin-left: -26px;
 }
+
+.right{text-align:right; list-style: none; }
+.right .my_chat{text-align:right; width:10%; border:0px; font-size:20px; font-weight: bold;}
+.my_contents{display: inline-block; word-break:break-all; border:0px;}
+
+.left{list-style: none;}
+.other_chat{border:0px; font-size:20px; font-weight: bold;}
+.other_contents{display: inline-block; word-break:break-all; border:0px;}
 </style>
 <script>
     $(function(){
@@ -100,18 +108,17 @@
         $("#send").on("click",function(e){
             $("#message").focus();
             let message = $("#message").val();
-            if(message==""){
-                return false;
-            }else if(message.replace(/\s|　/gi, '').length == 0){
+            
+            if(message.replace(/\s|　/gi, '').length == 0){
                 alert("내용을 입력해주세요");
-                $("#message").focus();
                 return false;
             }else{
                 $("#message").val("");
-            let message_box = $("<div>");
+                
+            	let message_box = $("<div>");
                 message_box.addClass("row mb-4 message_box")
 
-            let message_contents = $("<div>");
+            	let message_contents = $("<div>");
                 message_contents.addClass("col-12")
                 message_contents.css("text-align","right");
                 message_contents.append(message);
@@ -125,29 +132,28 @@
                    
         })
 
-        $("#message").on("keydown",function(e){
+        $("#message").on("keyup",function(e){
             if(e.keyCode==13 && e.shiftKey == false){
-                let message = $("#message").val();
-            if(message==""){
-                return false;
-            }else if(message.replace(/\s|　/gi, '').length == 0){
-                alert("내용입력");
-                return false;
-            }else{
-                $("#message").val("");
-            let message_box = $("<div>");
-                message_box.addClass("row mb-4 message_box")
-
-            let message_contents = $("<div>");
-                message_contents.addClass("col-12")
-                message_contents.css("text-align","right");
-                message_contents.append(message);
-
-                message_box.append(message_contents);
-                $("#chat_contents").append(message_box);
-                updateScroll(); 
+               	let message = $("#message").val();
+             	if(message.replace(/\s|　/gi, '').length == 0){
+                	alert("내용입력");
+                	return false;
+            	}else{
+                	$("#message").val("");
                 
-                ws.send(message);
+            		let message_box = $("<div>");
+                	message_box.addClass("row mb-4 message_box")
+
+           			let message_contents = $("<div>");
+                	message_contents.addClass("col-12")
+               		message_contents.css("text-align","right");
+                	message_contents.append(message);
+
+                	message_box.append(message_contents);
+                	$("#chat_contents").append(message_box);
+                	updateScroll();
+                
+                	ws.send(message);
             }    
         }
     })
@@ -183,11 +189,20 @@
             <c:forEach var="i" items="${list}">
             	<c:choose>
             		<c:when test="${i.sender == login.email}">
-            				<div>내가 쓴 채팅 : ${i.contents}</div>
-            				<div>날짜 : ${i.time } 시간 : <fmt:formatDate value="${i.time }" pattern="HH:mm:ss"/></div>
+            			<ul>
+            				<li class="right pr-4">
+            					<button class="my_chat" data-toggle="tooltip" data-placement="left" title="${i.time}">${login.name}</button>
+            					<div class="col-12 my_contents"><sub class="p-1"><fmt:formatDate value="${i.time}" pattern="HH:mm"/></sub>${i.contents}</div>
+            				</li>
+            			</ul>	
             		</c:when>
             		<c:otherwise>
-            				<div>${receiver_name} : ${i.contents} ${i.time } 시간 : <fmt:formatDate value="${i.time }" pattern="HH:mm:ss"/> </div>
+            			<ul>
+            				<li class="left">
+            					<button class="other_chat" data-toggle="tooltip" data-placement="right" title="${i.time}">${receiver_name}</button>
+            					<div class="col-12 other_contents">${i.contents}<sub class="p-1"><fmt:formatDate value="${i.time}" pattern="HH:mm"/></sub></div>
+            				</li>
+            			</ul>
             		</c:otherwise>
             	</c:choose>
             </c:forEach>
