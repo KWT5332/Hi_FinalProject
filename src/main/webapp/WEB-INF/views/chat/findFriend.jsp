@@ -34,8 +34,8 @@
     border-color: rgba(211, 248, 150, 0.075);
     box-shadow: 0px 0px 1px rgba(211, 248, 150, 0.075) inset, 0px 0px 8px rgba(151, 248, 24, 0.6);
     }
-    #friend{line-height:450px;}
-    #noFriend{line-height:450px;}
+    #friend{line-height:450px; text-align:center;}
+    #noFriend{line-height:450px; text-align:center;}
     #imgbox{
     max-width:50px;
     min-width:50px;
