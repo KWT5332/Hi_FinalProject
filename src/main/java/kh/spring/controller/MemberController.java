@@ -36,8 +36,10 @@ public class MemberController {
 		return "member/join";
 	}
 	@RequestMapping("joinProc")
-	public String joinProc(MemberDTO dto) {
+	public String joinProc(MemberDTO dto,String ph1,String ph2,String ph3) {
 		System.out.println("회원가입");
+		String phone= ph1+ph2+ph3;
+		dto.setPhone(phone);
 		service.join(dto);
 		return "redirect:/";
 	}
