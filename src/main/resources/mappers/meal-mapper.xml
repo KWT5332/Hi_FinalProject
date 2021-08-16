@@ -20,6 +20,10 @@
 		</foreach>
 	</insert>
 	
+	<select id="selectAll" resultType="kh.spring.dto.MealDTO">
+		select * from meal_menu where month=#{month}
+	</select>
+	
 	<select id="selectList" resultType="kh.spring.dto.MealDTO">
 		select * from (select row_number() over (order by meal_date desc) rnum, month, 
 		meal_date, school, writer, menu1, menu2, menu3, menu4, menu5, menu6 

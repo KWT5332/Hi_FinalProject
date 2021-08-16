@@ -6,12 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>홈페이지</title>
-
-<script>
-   $(function(){
-      AOS.init();
-   })
-</script>
 <style>
     .footer{width:100%;height:35vh;background-color: rgb(40, 40, 40);text-align:center;}
     .footer *{color:lightgray;}

@@ -19,6 +19,11 @@ public class MealService {
 	@Autowired
 	private MealDAO dao;
 	
+	// 리스트 가져오기
+	public List<MealDTO> getAllList(String month) {
+		return dao.getAllList(month);
+	}
+	
 	// 식단 추가
 	public void addMeal(MealDTO dto, MultipartFile file, String realPath) throws Exception {
 		File filesPath = new File(realPath);

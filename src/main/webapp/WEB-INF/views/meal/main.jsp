@@ -52,6 +52,10 @@
 		-moz-appearance: none; 
 		appearance: none; 
     }
+    #table{width:100%; text-align:center;}
+	td{height:200px;max-width: 25px;position: relative;}
+    .date{border: 1px solid black;padding:0px;position:absolute;top:1px;}
+    .menu{position:absolute;bottom:1px;width: 100%;padding-bottom: 15px;}
 </style>
 <script>
 	$(function(){
@@ -127,11 +131,19 @@
 		$("#download").on("click",function(){
 			location.href = "/excel/excelDowload?month=07";
 		});
+		
+		$("#cal").on("click",function(){
+			location.href = "/meal/calendar";
+		});
+		
+		// 달력 내용 넣어주기
+		console.log(list);
 	})
 </script>
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"/>
+	<button id="cal">캘린더</button>
     
     <!-- 메인 -->
     <div class="container p-5">
@@ -155,20 +167,124 @@
           	</div>
         </form>
         </div>
-
       </div>
+      
       <div class="row m-0">
         <div class="col-sm-6 col-md-6 col-lg-2 p-0 pt-1" style="text-align: left;">
           <button class="btn btn-secondary" id="addMeal">식단 추가하기</button>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-8 pl-4 pt-1">
-          <h1>&lt; &nbsp; 7월 &nbsp; &gt;</h1>
+          <h1 id="calNavi">&lt; &nbsp; 7월 &nbsp; &gt;</h1>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-2 p-0 pt-1" style="text-align: right;">
           <button class="btn btn-secondary" id="download">엑셀 다운로드</button>
         </div>
       </div>
+      
+      <div>
+      	 <table border="1" id="table" align="center">
+			<tr>
+				<th>일
+				<th>월
+				<th>화
+				<th>수
+				<th>목
+				<th>금
+				<th>토
+			</tr>
+		</table>
+      </div>
     </div>
+    
+	<script>
+		function strNum(num){ // 8월달 08로 출력하기 만드는 함수.
+			if(num<10){
+				return "0" + num;
+			}else{
+				return month;
+			}
+		}
+		
+		// 달력만들기.
+		const today = new Date();
+		
+		const year = today.getFullYear(); //2021
+		const month = today.getMonth()+1; // 배열이 0번부터 시작해서 +1 을 해준다! = 8
+		
+		let strMonth = strNum(month); 
+		console.log(strMonth);
+		
+		const nowDay = new Date(year, today.getMonth(), 1); // 이번년도, 이번달, 1일 세팅
+		const firstDate = 1;
+		const firstDay = nowDay.getDay(); // 1일의 요일 구하기
+		const lastDate = new Date(year, month, 0).getDate(); // 마지막 날 구하기
+		const lastDay = new Date(year, month, 0).getDay(); // 마지막날의 요일 구하기
+		
+		var dates = []; // 그 달의 날짜 뽑기
+		for(let i=1;i<lastDate+1;i++){
+			dates.push(i);
+		}
+
+		let week = Math.ceil(lastDate/7); // 몇주인지 구하기
+		
+		$("#calNavi").text("< " + year + "년 " + strMonth + "월 	>"); // title
+		
+		// 일, 월, 화, 수, 목, 금, 토 로 만들거임.
+		//첫주
+		if(firstDay == 0){
+			let row = document.getElementById("table").insertRow(-1); // tr만듬.
+			for(let i=0; i<7; i++){ 
+				let now = dates.shift();
+				let cell = row.insertCell();
+                cell.innerHTML="<div class='row m-0 w-100'><div class='col-12 col-sm-3 date'>"+now+"</div></div>";
+				cell.className = year + "-" + strMonth + "-" + strNum(now);
+			}
+		}else{
+			let row = document.getElementById("table").insertRow(-1); // tr만듬.
+			for(let i=0;i<firstDay;i++){ // 첫주 첫날 앞 빈칸 만들어주기
+				row.insertCell().innerHTML = "";
+			}
+			for(let j=firstDay; j<7; j++){ 
+				let now = dates.shift();
+				let cell = row.insertCell();
+				cell.innerHTML="<div class='row m-0 w-100'><div class='col-3 p-0 date'>"+now+"</div></div>";
+				cell.className = year + "-" + strMonth + "-" + strNum(now);
+			}
+		}
+		
+		// 중간주
+		for(let i=1;i<week-1;i++){
+			let row = document.getElementById("table").insertRow(-1); // tr만듬.
+			for(let i=0; i<7; i++){ 
+				let now = dates.shift();
+				let cell = row.insertCell();
+				cell.innerHTML="<div class='row m-0 w-100'><div class='col-3 p-0 date'>"+now+"</div></div>";
+				cell.className = year + "-" + strMonth + "-" + strNum(now);
+			}
+		}
+		
+		// 마지막주
+		if(lastDay == 6){
+			let row = document.getElementById("table").insertRow(-1); // tr만듬.
+			for(let i=0; i<7; i++){ 
+				let now = dates.shift();
+				let cell = row.insertCell();
+				cell.innerHTML="<div class='row m-0 w-100'><div class='col-3 p-0 date'>"+now+"</div></div>";
+				cell.className = year + "-" + strMonth + "-" + strNum(now);
+			}
+		}else{
+			let row = document.getElementById("table").insertRow(-1); // tr만듬.
+			for(let i=0;i<lastDay+1;i++){ // 첫주 첫날 앞 빈칸 만들어주기
+				let now = dates.shift();
+				let cell = row.insertCell();
+				cell.innerHTML="<div class='row m-0 w-100'><div class='col-3 p-0 date'>"+now+"</div></div>";
+				cell.className = year + "-" + strMonth + "-" + strNum(now);
+			}
+			for(let j=lastDay; j<6; j++){ 
+				row.insertCell().innerHTML = "";
+			}
+		}
+	</script>    
     
 	<jsp:include page="../layout/footer.jsp"/>
 </body>

@@ -15,6 +15,10 @@ public class MealDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
+	public List<MealDTO> getAllList(String month){
+		return mybatis.selectList("Meal.selectAll", month);
+	}
+	
 	public int insert(MealDTO dto) {
 		return mybatis.insert("Meal.insert", dto);
 	}
