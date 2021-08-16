@@ -28,7 +28,6 @@ public class ExcelController {
 	@Autowired
 	private HttpSession session;
 
-	
 	// db저장되어있는 식단 엑셀 다운로드
 	@RequestMapping("excelDowload")
 	public void excelDownload(String month, HttpServletResponse response) throws IOException {
@@ -50,13 +49,15 @@ public class ExcelController {
 	// 엑셀 업로드
 	@ResponseBody
 	@RequestMapping(value="excelupload", produces="text/html;charset=utf8")
-	public int excelupload(MultipartFile file) throws Exception {
+	public String excelupload(MultipartFile file) throws Exception {
 		System.out.println("엑셀 업로드");
 		
 		MemberDTO dto = (MemberDTO)session.getAttribute("login");;
 		
 		String realPath = session.getServletContext().getRealPath("excelupload");
 
-		return service.excelupload(dto, file, realPath);
+		int result = service.excelupload(dto, file, realPath);
+
+		return String.valueOf(result);
 	}
 }
