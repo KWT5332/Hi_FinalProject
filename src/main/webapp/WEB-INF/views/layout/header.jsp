@@ -164,11 +164,10 @@ navcon * {
 							</li>
 						</ul>
 						<form class="form-inline my-2 my-lg-0 dropdown" id="loginNavi">
-							<a class="nav-link dropdown-toggle" id="mypage" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 마이페이지 </a>
+							<a class="nav-link dropdown-toggle" id="mypage" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ${login.name } 님 환영 합니다!! </a>
 							<div class="dropdown-menu  dropdown-menu-left dropdown-menu-lg-right" aria-labelledby="navbarDropdownMenuLink">
 								<!-- 회원가입 될때까지 임시 -->
-								<a class="dropdown-item" href="#">프로필 수정</a> 
-								<a class="dropdown-item" href="#">회원정보 수정</a> 
+								<a class="dropdown-item" href="/mem/mypage">마이페이지</a> 
 								<a class="dropdown-item" href="/mem/logoutProc">로그아웃</a>
 							</div>
 						</form>
