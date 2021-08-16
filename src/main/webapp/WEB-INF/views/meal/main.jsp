@@ -137,7 +137,19 @@
 		});
 		
 		// 달력 내용 넣어주기
-		console.log(list);
+		$.ajax({
+			url:"/meal/calendar",
+			dataType:"json"
+		}).done(function(resp){
+			console.log(resp.length);
+			for(let i=0;i<resp.length;i++){
+				console.log(resp[i].meal_date);
+		        $("."+resp[i].meal_date).append(
+		        	"<div class='menu'>"+resp[i].menu1+"<br>"+resp[i].menu2+"<br>"+resp[i].menu3+"<br>"
+		        	+resp[i].menu4+"<br>"+resp[i].menu5+"<br>"+resp[i].menu6+"</div>"
+		       	);
+			}
+		})
 	})
 </script>
 </head>
@@ -169,7 +181,7 @@
         </div>
       </div>
       
-      <div class="row m-0">
+      <div class="row m-0 mb-4">
         <div class="col-sm-6 col-md-6 col-lg-2 p-0 pt-1" style="text-align: left;">
           <button class="btn btn-secondary" id="addMeal">식단 추가하기</button>
         </div>

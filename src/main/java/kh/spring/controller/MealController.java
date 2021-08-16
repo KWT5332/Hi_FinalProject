@@ -30,12 +30,6 @@ public class MealController {
 
 	@Autowired
 	private HttpSession session;
-
-	@RequestMapping("calendar") 
-	public String calendar() {
-		System.out.println("캘린더");
-		return "meal/calendar";
-	}
 	
 	@RequestMapping("Main") // 식단관리 메인페이지
 	public String Main(Model model) {
@@ -50,6 +44,29 @@ public class MealController {
 		model.addAttribute("list", list);
 		
 		return "meal/main";
+	}
+	
+	@ResponseBody
+	@RequestMapping("calendar") // 달력내용 가져오기
+	public String calendar(Model model) {
+		System.out.println("달력내용");
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("MM");
+		Date date = new Date(); // import java.util.Date;
+		String month = sdf.format(date);
+		System.out.println(month);
+		
+		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();	
+		
+		List<MealDTO> list = service.getAllList(month);
+		for(MealDTO m : list) {
+			System.out.println(m.getMeal_date() + " : " + m.getMenu1() + " : " + m.getMenu2()
+			+ " : " + m.getMenu3() + " : " + m.getMenu4() + " : " + m.getMenu5() + " : " + m.getMenu6());
+		}
+				
+		String result = g.toJson(list);
+		
+		return String.valueOf(result);
 	}
 	
 	@RequestMapping("addmeal") // 식단추가페이지로 넘어가기(5개 가지고 가기)
