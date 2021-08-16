@@ -1,5 +1,7 @@
 package kh.spring.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -36,8 +38,17 @@ public class MealController {
 	}
 	
 	@RequestMapping("Main") // 식단관리 메인페이지
-	public String Main() {
+	public String Main(Model model) {
 		System.out.println("식단관리 메인페이지");
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("MM");
+		Date date = new Date(); // import java.util.Date;
+		String month = sdf.format(date);
+		System.out.println(month);
+		
+		List<MealDTO> list = service.getAllList(month);
+		model.addAttribute("list", list);
+		
 		return "meal/main";
 	}
 	
