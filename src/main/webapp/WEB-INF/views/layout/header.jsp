@@ -116,7 +116,7 @@ navcon * {
 								<a class="nav-link" href="#" style="color: #FDFAF6;">메일</a>
 							</li>
 							<li class="nav-item" id="stats">
-								<a class="nav-link" href="#" style="color: #FDFAF6;">통계</a>
+								<a class="nav-link" href="/chart/chartHome" style="color: #FDFAF6;">통계</a>
 							</li>
 						</ul>
 						<form class="form-inline my-2 my-lg-0 dropdown" id="loginNavi">
@@ -160,7 +160,7 @@ navcon * {
 								<a class="nav-link" href="/mail/sendmail" style="color: #FDFAF6;">메일</a>
 							</li>
 							<li class="nav-item" id="stats">
-								<a class="nav-link" href="#" style="color: #FDFAF6;">통계</a>
+								<a class="nav-link" href="/chart/chartHome" style="color: #FDFAF6;">통계</a>
 							</li>
 						</ul>
 						<form class="form-inline my-2 my-lg-0 dropdown" id="loginNavi">
