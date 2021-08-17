@@ -210,7 +210,7 @@
             		<c:otherwise>
             			<ul>
             				<li class="left">
-            					<button class="other_name" data-toggle="tooltip" data-placement="right" title="${i.time}">${receiver_name}</button>
+            					<button type="button" class="other_name" data-toggle="tooltip" data-placement="right" title="${i.time}">${receiver_name}</button>
             					<div class="col-12 other_contents">${i.contents}<sub class="p-1"><fmt:formatDate value="${i.time}" pattern="HH:mm"/></sub></div>
             				</li>
             			</ul>

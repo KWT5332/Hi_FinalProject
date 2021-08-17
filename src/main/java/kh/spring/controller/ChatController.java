@@ -48,13 +48,13 @@ public class ChatController {
 		return "chat/myChatList";
 	}
 	
+	// 마지막 메세지 가져오는 ajax컨트롤러
 	@RequestMapping(value="lastChatProc", produces="text/html;charset=utf8", method=RequestMethod.POST)
 	@ResponseBody
 	public String lastChatProc(String roomN) {
 		int room_number = Integer.parseInt(roomN);
 		Chat_MessageDTO lastChat = service.lastChat(room_number);
 		
-		//Gson g = new Gson();
 		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		String result = g.toJson(lastChat);
 		
