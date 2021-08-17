@@ -56,15 +56,29 @@ input[type] {
 }
 </style>
 <script>
-					$(function () {
-						AOS.init();
-						$("#main").addClass("active");
-					})
-				</script>
+	$(function() {
+		AOS.init();
+		$("#main").addClass("active");
+
+		$(".btn_sendmail").click(function() {
+
+			alert();
+			$.ajax({
+				type : "GET",
+				url : "/mail/sendMailProc",
+				success : function() {
+					console.log("확인");
+				}
+			})
+
+		})
+	})
+</script>
 </head>
 
 <body>
 	<jsp:include page="../layout/header.jsp" />
+
 	<div class="sendmail_container container p-5">
 		<div class="studentcon row">
 			<table class="table m-5">
@@ -89,10 +103,10 @@ input[type] {
 			</table>
 		</div>
 		<div>
-			<button type="button" class="btn btn-success btn_sendmail ">전체학생에게
-				이메일 보내기</button>
+			<button class="btn btn-success btn_sendmail ">전체학생에게 이메일 보내기</button>
 		</div>
 	</div>
+
 	<jsp:include page="../layout/footer.jsp" />
 </body>
 </html>
