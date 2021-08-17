@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Chart">
+
+	<insert id="insert">
+		insert into st_feedback values(feedback_seq.nextval, #{feedback}, #{bestmenu}, #{worstmenu}, #{parent_email}, #{school})		
+	</insert>
+
+	<select id="selectAll" resultType="kh.spring.dto.ChartDTO">
+		select * from st_feedback
+	</select>
+	
+	
+	<!-- feedback -->
+	<select id="feed01" resultType="int">
+		select count(*) from st_feedback where feedback='very_good'
+	</select>
+	
+	<select id="feed02" resultType="int">
+		select count(*) from st_feedback where feedback='good'
+	</select>
+	
+	<select id="feed03" resultType="int">
+		select count(*) from st_feedback where feedback='normal'
+	</select>
+	
+	<select id="feed04" resultType="int">
+		select count(*) from st_feedback where feedback='very_bad'
+	</select>
+	
+	<select id="feed05" resultType="int">
+		select count(*) from st_feedback where feedback='bad'
+	</select>
+	
+	
+	<!-- best menu -->
+	<select id="best01" resultType="int">
+		select count(*) from st_feedback where bestmenu='korean'
+	</select>
+	
+	<select id="best02" resultType="int">
+		select count(*) from st_feedback where bestmenu='japanese'
+	</select>
+	
+	<select id="best03" resultType="int">
+		select count(*) from st_feedback where bestmenu='chinese'
+	</select>
+	
+	<select id="best04" resultType="int">
+		select count(*) from st_feedback where bestmenu='western'
+	</select>
+	
+	<select id="best05" resultType="int">
+		select count(*) from st_feedback where bestmenu='etc'
+	</select>
+	
+	
+	<!-- worst menu -->
+	<select id="worst01" resultType="int">
+		select count(*) from st_feedback where worstmenu='korean'
+	</select>
+	
+	<select id="worst02" resultType="int">
+		select count(*) from st_feedback where worstmenu='japanese'
+	</select>
+	
+	<select id="worst03" resultType="int">
+		select count(*) from st_feedback where worstmenu='chinese'
+	</select>
+	
+	<select id="worst04" resultType="int">
+		select count(*) from st_feedback where worstmenu='western'
+	</select>
+	
+	<select id="worst05" resultType="int">
+		select count(*) from st_feedback where worstmenu='etc'
+	</select>
+	
+</mapper>
