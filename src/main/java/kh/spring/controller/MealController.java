@@ -1,7 +1,8 @@
 package kh.spring.controller;
 
+import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -34,35 +35,22 @@ public class MealController {
 	@RequestMapping("Main") // 식단관리 메인페이지
 	public String Main(Model model) {
 		System.out.println("식단관리 메인페이지");
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("MM");
-		Date date = new Date(); // import java.util.Date;
-		String month = sdf.format(date);
-		System.out.println(month);
-		
-		List<MealDTO> list = service.getAllList(month);
-		model.addAttribute("list", list);
-		
 		return "meal/main";
 	}
 	
 	@ResponseBody
 	@RequestMapping("calendar") // 달력내용 가져오기
-	public String calendar(Model model) {
-		System.out.println("달력내용");
+	public String calendar(String month,Model model) {
+		System.out.println("달력내용 ajax");
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("MM");
-		Date date = new Date(); // import java.util.Date;
-		String month = sdf.format(date);
+//		SimpleDateFormat sdf = new SimpleDateFormat("MM");
+//		Date date = new Date(); // import java.util.Date;
+//		String month = sdf.format(date);
 		System.out.println(month);
 		
 		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();	
 		
 		List<MealDTO> list = service.getAllList(month);
-		for(MealDTO m : list) {
-			System.out.println(m.getMeal_date() + " : " + m.getMenu1() + " : " + m.getMenu2()
-			+ " : " + m.getMenu3() + " : " + m.getMenu4() + " : " + m.getMenu5() + " : " + m.getMenu6());
-		}
 				
 		String result = g.toJson(list);
 		
@@ -138,4 +126,33 @@ public class MealController {
 		return "meal/search"; 
 	}
 	
+	// 수정
+	@ResponseBody
+	@RequestMapping("update")
+	public String update(String meal_date,String menu1,String menu2,String menu3,String menu4,String menu5,String menu6) {
+		System.out.println("수정");
+
+		MealDTO dto = new MealDTO();
+		dto.setMenu1(XSSFillterConfig.XSSFilter(menu1));
+		dto.setMenu2(XSSFillterConfig.XSSFilter(menu2));
+		dto.setMenu3(XSSFillterConfig.XSSFilter(menu3));
+		dto.setMenu4(XSSFillterConfig.XSSFilter(menu4));
+		dto.setMenu5(XSSFillterConfig.XSSFilter(menu5));
+		dto.setMenu6(XSSFillterConfig.XSSFilter(menu6));
+		
+		service.update(meal_date, dto);
+		
+		return "1";
+	}
+	
+	// 삭제
+	@ResponseBody
+	@RequestMapping("delete")
+	public String delte(String meal_date) {
+		System.out.println("삭제");
+		System.out.println(meal_date);
+		service.delete(meal_date);
+		
+		return "1"; 
+	}
 }
