@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Mail">
+	<select id="mailList" resultType="string">
+		select stu_email from st_mail where school=#{value}
+	</select> 
+	
+	<insert id="addStudent">
+		insert into st_mail values(#{school},#{stu_name},#{stu_email})
+	</insert>
+	
+	<select id="studentList" resultType="kh.spring.dto.St_MailDTO">
+		select * from st_mail where school=#{value}
+	</select> 
+</mapper>
