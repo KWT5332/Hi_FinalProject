@@ -89,9 +89,9 @@
         			|| $("#menu2").val() == null || $("#menu2").val() == "" || $("#menu2").val() == " ") {
         		alert("식단 메뉴를 2개 이상 등록해 주세요.");
         	}else{
-        		$("#frm").attr("action","/meal/addmealProc");
-        		$("#frm").submit();
+      			
         	}
+        	
         })
         
         // 최근저장한 식단 사용
