@@ -27,13 +27,12 @@ public class MealService {
 	
 	//
 	public int isdateOk(Date meal_date) {
-		System.out.println(meal_date);
 		return dao.isdateOk(meal_date);
 	}
 	
 	// 식단 추가
 	public void addMeal(MealDTO dto, MultipartFile file, String realPath) throws Exception {
-		File filesPath = new File(realPath);
+		File filesPath = new File("C:/Users/김청아/Desktop/KH(21.03-08)/Eclipse/Spring/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Hi_FinalProject/resources/meal_img");
 		if(!filesPath.exists()) {
 			filesPath.mkdir();
 		}
@@ -48,6 +47,12 @@ public class MealService {
 		dto.setMonth(month);
 		dto.setOriName(oriName);
 		dto.setSysName(sysName);
+		
+		System.out.println(realPath);
+		System.out.println(oriName);
+		System.out.println(sysName);
+		System.out.println(filesPath.getAbsolutePath()+"/"+sysName);
+		System.out.println(realPath+"/"+sysName);
 		
 		if(dto.getMenu3() == null) {
 			dto.setMenu3("");

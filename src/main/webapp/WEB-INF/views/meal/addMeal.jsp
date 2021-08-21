@@ -39,7 +39,7 @@
 </style>
 <script>
     $(function(){
-		$("#inputGroupFile").on("change", function(){ // 값이 변경되면   
+		$("#inputGroupFile").on("change", function(){ // 값이 변경되면 
 //            if(window.FileReader){ // modern browser 
 //            var filename = $(this)[0].files[0].name; 
 //            } else { // old IE 
@@ -48,17 +48,26 @@
 			var file = $(this)[0].files[0];
 			
 			if(file.size >= 1048576) {
-			    	alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
-			    	return false;
-			}
-			
-			let regex = new RexExp("(.*?)\.(jpg||png||gif)");
-			if(!regex.test(file.Name)){
-			    alert("이미지 파일만 업로드 가능합니다.");
+			    alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
 			    return false;
 			}
 
+			let regex = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
+			if(!regex.test(file.name)){
+			    alert("이미지 파일만 업로드 가능합니다.");
+			    return false;
+			}
+			
             $("#fileName").text(file.name); // 추출한 파일명 삽입
+            
+            if(this.files && this.files[0]){
+            	var reader = new FileReader;
+            	reader.onload = function(data){
+            		$("#img").attr("src",data.target.result).width(500);
+            	}
+            	reader.readAsDataURL(this.files[0]);
+            }
+            
         });
     	
         // 식단 메뉴 추가
@@ -82,14 +91,30 @@
         });
 
         // 식단 등록하기
-        $("#submit").on("click",function(){ 
-        	if($("#meal_date").val() == null || $("#meal_date").val() == "") {
+        let isDateOk = true;
+        $("#meal_date").on("change", function(){ // 값이 변경되면 
+         	$.ajax({
+        		url:"/meal/isDateOk",
+        		data:{"meal_date":$(this).val()}
+        	}).done(function(resp){
+        		if(resp=="1"){
+        			alert("이미 식단이 짜여져 있는 날짜입니다. 다른 날짜를 선택해주세요.");
+        			isDateOk = false;
+        		}
+        	}) 
+        })
+        
+        $("#submit").on("click",function(){
+        	if(!isDateOk){
+        		alert("이미 식단이 짜여져 있는 날짜입니다. 다른 날짜를 선택해주세요.");
+        	}else if($("#meal_date").val() == null || $("#meal_date").val() == "") {
         		alert("날짜를 선택해주세요.");
         	}else if($("#menu1").val() == null || $("#menu1").val() == "" || $("#menu1").val() == " " 
         			|| $("#menu2").val() == null || $("#menu2").val() == "" || $("#menu2").val() == " ") {
         		alert("식단 메뉴를 2개 이상 등록해 주세요.");
         	}else{
-      			
+      			$("#frm").attr("action","/meal/addmealProc");
+      			$("#frm").submit();
         	}
         	
         })
@@ -249,6 +274,12 @@
                                     </div>
                                 </div>
                             </td>
+                        </tr>
+                        <tr>
+                        	<th class="p-2" >이미지 확인</th>
+                        	<td class="p-2">
+                        		<img id="img">
+                        	</td>
                         </tr>
                         <tr>
                             <td colspan="2" class="p-2" style="text-align:right;">

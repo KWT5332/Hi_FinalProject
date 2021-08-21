@@ -237,13 +237,16 @@
             })
             
             $("#delete").on("click",function(){ // 삭제버튼
-            	if(confirm("정말 삭제 하시겠습니까?")){
+            	let result = confirm("정말 삭제 하시겠습니까?")
+            	if(result){
             		$.ajax({
                 		url:"/meal/delete",
                 		data:{"meal_date":date}
                 	}).done(function(resp){
                     	thismenu.remove();
                 	})
+            	}else if(!result){
+            		$("#modal").modal("hide");
             	}
             })
         })
@@ -331,6 +334,9 @@
                 <input type="text" class="pl-2 mb-2 form-control" id="menu5" name="menu5">
                 <input type="text" class="pl-2 mb-2 form-control" id="menu6" name="menu6">
             </div>
+            <div class="modal-body">
+            	<img id="modal_img" src="/meal/display?fileName=52b9b15f41554752ac35e638debe03b9_3-1.jpg">
+            </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" id="delete">삭제</button>
             <button type="button" class="btn btn-primary" id="update">수정</button>
@@ -376,6 +382,7 @@
             		if(resp[i].menu6 != null){
             			menu.append("<br>"+resp[i].menu6);
             		}else{menu.append("<br><br>");}
+
             		
             		$("."+resp[i].meal_date).append(menu);
 				}
