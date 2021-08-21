@@ -10,7 +10,7 @@
 
 	<insert id="boardWrite">
 		insert into board values
-		(${seq},#{title},#{content},#{writer},sysdate,0)
+		(${seq},#{title},#{writer},sysdate,0,#{content})
 	</insert>
 
 	<select id="boardList" resultType="kh.spring.dto.BoardDTO">
