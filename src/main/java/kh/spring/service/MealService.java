@@ -32,7 +32,7 @@ public class MealService {
 	
 	// 식단 추가
 	public void addMeal(MealDTO dto, MultipartFile file, String realPath) throws Exception {
-		File filesPath = new File("C:/Users/김청아/Desktop/KH(21.03-08)/Eclipse/Spring/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Hi_FinalProject/resources/meal_img");
+		File filesPath = new File(realPath);
 		if(!filesPath.exists()) {
 			filesPath.mkdir();
 		}
