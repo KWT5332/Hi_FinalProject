@@ -131,6 +131,7 @@ public class MealService {
 	}
 	
 	public int delete(String meal_date) {
+		
 		System.out.println(meal_date);
 		return dao.delete(meal_date);
 	}
