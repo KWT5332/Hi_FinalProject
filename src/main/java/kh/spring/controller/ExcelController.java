@@ -56,8 +56,8 @@ public class ExcelController {
 		
 		String realPath = session.getServletContext().getRealPath("excelupload");
 
-		int result = service.excelupload(dto, file, realPath);
+		String month = service.excelupload(dto, file, realPath);
 
-		return String.valueOf(result);
+		return String.valueOf(month);
 	}
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="File">
+	<insert id="fileUpload" parameterType="java.util.HashMap">
+		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
+			into files
+			values (file_seq.nextval,#{oriname, jdbcType=VARCHAR},#{sysname, jdbcType=VARCHAR},${board_seq, jdbcType=NUMBER})
+		</foreach>
+	</insert>
+
+</mapper>

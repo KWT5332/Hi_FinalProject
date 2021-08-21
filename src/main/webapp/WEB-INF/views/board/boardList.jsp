@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Board List</title>
+<title>게시판 목록</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -86,7 +86,7 @@
 </script>
 </head>
 <body>
-<jsp:include page="../layout/header.jsp"/>
+
 <div id="doardcon">
 	<div class="container p-3 mb-5 mt-5">
 		<div class="row pt-4" id="main">
@@ -142,6 +142,6 @@
 		</div>
 	</div>
 	</div>
- <jsp:include page="../layout/footer.jsp"/>
+
 </body>
 </html>
