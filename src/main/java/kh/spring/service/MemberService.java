@@ -1,10 +1,13 @@
 package kh.spring.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.dao.MemberDAO;
 import kh.spring.dto.MemberDTO;
@@ -49,5 +52,9 @@ public class MemberService {
 		
 		return dao.pwck(map);
 	}
+	
+	public void imgupdate(MemberDTO dto) throws Exception {
+	      dao.imgupdate(dto);
+	   }
 	
 }

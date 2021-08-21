@@ -1,10 +1,15 @@
 package kh.spring.controller;
 
+import java.io.File;
+import java.io.OutputStream;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -12,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.MemberService;
@@ -173,6 +179,36 @@ public class MemberController {
 		return "member/mypage";
 	}
 	
-	
+	//
+//	@RequestMapping(value = "imguploas", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String imgupload(MultipartFile file, HttpServletResponse resp) throws Exception {
+//		String realPath = session.getServletContext().getRealPath("files");
+//		MemberDTO dto = (MemberDTO)session.getAttribute("login");
+//		
+//		File filesPath = new File(realPath);
+//	      if(!filesPath.exists()) {
+//	         filesPath.mkdir();
+//	      }
+//	      
+//	      String oriName = file.getOriginalFilename();
+//	      String sysName = UUID.randomUUID().toString().replace("-", "") + "_" + oriName;
+//	      file.transferTo(new File(filesPath.getAbsolutePath()+"/"+sysName));
+//	      
+//	      dto.setOriName(oriName);
+//	      dto.setSysName(sysName);
+//
+//	      service.imgupdate(dto);
+//		
+//	      resp.setContentType("application/octet-stream; charset=utf8");
+//	      resp.setHeader("content-Disposition", "attachment;filename=\"" + oriName + "\"");
+//
+//	      try (OutputStream sos = resp.getOutputStream();) {
+//	         //sos.wr;
+//	         sos.flush();
+//	      }
+//		
+//
+//	}
 
 }
