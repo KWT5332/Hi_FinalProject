@@ -197,14 +197,22 @@
         	let str = $(this).html();
             let arr = str.split("<br>");
             
-            for(let i=0;i<arr.length;i++){
+            for(let i=0;i<arr.length;i++){ // 메뉴 input에 넣어주기
                 $("#menu"+(i+1)).val(arr[i]);
             }
 
             let date = $(this).parent("td").attr("class"); // 날짜가져오기
             let darr = date.split("-");
-            console.log(darr[1]);
-            $(".modal-title").text(date);
+
+            $(".modal-title").text(date); // 날짜 모달title에 넣어주기
+            
+            let sysname = $(this).next(".sysname").val();
+            if(sysname!=""){
+            	$("#modal_img").attr("src","/meal/display?fileName="+sysname).width(400);
+            }else{
+            	
+            }
+            
             $("#modal").modal("show");
             
             $("#update").on("click",function(){ // 수정버튼
@@ -334,8 +342,8 @@
                 <input type="text" class="pl-2 mb-2 form-control" id="menu5" name="menu5">
                 <input type="text" class="pl-2 mb-2 form-control" id="menu6" name="menu6">
             </div>
-            <div class="modal-body">
-            	<img id="modal_img" src="/meal/display?fileName=52b9b15f41554752ac35e638debe03b9_3-1.jpg">
+            <div class="modal-body p-0 pb-2">
+            	<img id="modal_img">
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" id="delete">삭제</button>
@@ -383,8 +391,13 @@
             			menu.append("<br>"+resp[i].menu6);
             		}else{menu.append("<br><br>");}
 
+            		let hidden = $("<input>");
+            		hidden.attr("type","hidden");
+            		hidden.addClass("sysname");
+            		hidden.attr("value", resp[i].sysName);
             		
             		$("."+resp[i].meal_date).append(menu);
+            		$("."+resp[i].meal_date).append(hidden);
 				}
 			})
 		}
