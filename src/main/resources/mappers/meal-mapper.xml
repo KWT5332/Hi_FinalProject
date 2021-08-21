@@ -30,6 +30,10 @@
 		from meal_menu where writer=#{writer}) where rnum between ${start} and ${end} order by 3 desc
 	</select>
 	
+	<select id="isdateOk" resultType="int">
+		select count(*) from meal_menu where meal_date=#{meal_date} 
+	</select>
+	
 	<select id="listCount" resultType="int">
 		select count(*) from meal_menu where writer=#{writer} 
 	</select>

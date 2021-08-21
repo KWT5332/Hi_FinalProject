@@ -25,6 +25,12 @@ public class MealService {
 		return dao.getAllList(month);
 	}
 	
+	//
+	public int isdateOk(Date meal_date) {
+		System.out.println(meal_date);
+		return dao.isdateOk(meal_date);
+	}
+	
 	// 식단 추가
 	public void addMeal(MealDTO dto, MultipartFile file, String realPath) throws Exception {
 		File filesPath = new File(realPath);

@@ -242,7 +242,7 @@ public class ExcelService {
 		map.put("list", list);
 
 		dao.excelupload(map);
-		System.out.println(month[0]);
+		
 		return month[0];
 	}
 	

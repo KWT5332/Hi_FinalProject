@@ -20,6 +20,10 @@ public class MealDAO {
 		return mybatis.selectList("Meal.selectAll", month);
 	}
 	
+	public int isdateOk(Date meal_date) {
+		return mybatis.selectOne("Meal.isdateOk", meal_date);
+	}
+	
 	public int insert(MealDTO dto) {
 		return mybatis.insert("Meal.insert", dto);
 	}

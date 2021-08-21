@@ -1,8 +1,5 @@
 package kh.spring.controller;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -90,26 +87,33 @@ public class MealController {
 	}
 	
 	// 식단추가
-	@RequestMapping("addmealProc")
+	@ResponseBody
+	@RequestMapping(value="addmealProc", produces="text/html;charset=utf8")
 	public String addmealProc(MealDTO dto, MultipartFile file) throws Exception {
 		System.out.println("식단추가");
 		
-		String realPath = session.getServletContext().getRealPath("meal_img");
-		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
-		
-		dto.setWriter(mdto.getName());
-		dto.setSchool(mdto.getSchool());
-		
-		dto.setMenu1(XSSFillterConfig.XSSFilter(dto.getMenu1()));
-		dto.setMenu2(XSSFillterConfig.XSSFilter(dto.getMenu2()));
-		dto.setMenu3(XSSFillterConfig.XSSFilter(dto.getMenu3()));
-		dto.setMenu4(XSSFillterConfig.XSSFilter(dto.getMenu4()));
-		dto.setMenu5(XSSFillterConfig.XSSFilter(dto.getMenu5()));
-		dto.setMenu6(XSSFillterConfig.XSSFilter(dto.getMenu6()));
+		System.out.println(file);
+		int count = service.isdateOk(dto.getMeal_date());
+		if(count > 0) { // 이 meal_date에 등록된 식단이 있어?
+			return "0";
+		}else { // 없으면 식단 등록 가능
+			String realPath = session.getServletContext().getRealPath("meal_img");
+			MemberDTO mdto = (MemberDTO)session.getAttribute("login");
+			
+			dto.setWriter(mdto.getName());
+			dto.setSchool(mdto.getSchool());
+			
+			dto.setMenu1(XSSFillterConfig.XSSFilter(dto.getMenu1()));
+			dto.setMenu2(XSSFillterConfig.XSSFilter(dto.getMenu2()));
+			dto.setMenu3(XSSFillterConfig.XSSFilter(dto.getMenu3()));
+			dto.setMenu4(XSSFillterConfig.XSSFilter(dto.getMenu4()));
+			dto.setMenu5(XSSFillterConfig.XSSFilter(dto.getMenu5()));
+			dto.setMenu6(XSSFillterConfig.XSSFilter(dto.getMenu6()));
 
-		service.addMeal(dto, file, realPath); 
-
-		return "redirect:/meal/addmeal";
+			service.addMeal(dto, file, realPath); 
+			
+			return "1";
+		}
 	}
 	
 	// 검색
@@ -150,7 +154,7 @@ public class MealController {
 	@RequestMapping("delete")
 	public String delte(String meal_date) {
 		System.out.println("삭제");
-		System.out.println(meal_date);
+
 		service.delete(meal_date);
 		
 		return "1"; 

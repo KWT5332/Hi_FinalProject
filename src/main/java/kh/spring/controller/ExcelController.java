@@ -58,6 +58,6 @@ public class ExcelController {
 
 		String month = service.excelupload(dto, file, realPath);
 
-		return month;
+		return String.valueOf(month);
 	}
 }

@@ -53,7 +53,7 @@
 		appearance: none; 
     }
 	#calendar{width:100%; text-align:center;border: 1px solid rgb(130, 130, 130);border-collapse: collapse;}
-    th{height:40px;font-size: 18px;background-color:#e4faeb;border: 1px solid rgb(130, 130, 130);}
+    th{height:40px;font-size: 18px;background-color:rgb(255, 203, 72, 0.3);;border: 1px solid rgb(130, 130, 130);}
     tr{border: 1px solid rgb(130, 130, 130);}
 	td{height:200px;max-width: 25px;position:relative;padding:0px;border: 1px solid rgb(130, 130, 130);}
     .date{border-bottom: 1px solid rgb(130, 130, 130);border-right: 1px solid rgb(130, 130, 130);padding:0px;position:absolute;top:0px;}
@@ -110,24 +110,16 @@
 	        if(confirm("선택하신 파일을 업로드 하시겠습니까?")){
 	            $.ajax({
 	            	type:"POST",
-	            	enctype: "multipart/form-data",
 	            	url:"/excel/excelupload",
 	            	data:formData,
-	    			processData: false,
-	    			contentType: false,
-	    			cache: false,
-	            	dataType:"json"
+	    			processData: false, // data가 서버에 전달될때 String 형식아니고 "multipart/form-data"로 보내야됨
+	    			contentType: false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
+	    			cache:false
 	            }).done(function(resp){
-	            	alert(resp);
-	            	alert("엑셀 업로드 성공!");
-	            	$("#excelName").val("파일선택");
-	            	
-	                let str = $("#calNaviTitle").text();
-	                let arr = str.split(" "); // 띄어쓰기로 문자열 자르기
-
-	                const changeCal = new Date(arr[0].substr(0,4), arr[1].substr(0,2)-1, 1); // 배열이여서 1개 더 빼줘야 한다.
-	                
-	                calAjax(resp); // 다시 내용 넣기
+	            	console.log(resp);
+		            $(".upload-name").val("파일선택");
+		            $(".menu").remove(); // menu내용지우고
+			       	calAjax(resp); // 다시 내용 넣기
 	            })
 	        }
 		});
@@ -201,6 +193,7 @@
         
         // 등록되어 있는 식단 수정, 삭제
         $(document).on("click",".menu",function(){
+        	let thismenu = $(this);
         	let str = $(this).html();
             let arr = str.split("<br>");
             
@@ -209,6 +202,8 @@
             }
 
             let date = $(this).parent("td").attr("class"); // 날짜가져오기
+            let darr = date.split("-");
+            console.log(darr[1]);
             $(".modal-title").text(date);
             $("#modal").modal("show");
             
@@ -218,24 +213,38 @@
             		data:{"meal_date":date,"menu1":$("#menu1").val(),"menu2":$("#menu2").val(),"menu3":$("#menu3").val(),
             			"menu4":$("#menu4").val(),"menu5":$("#menu5").val(),"menu6":$("#menu6").val()}
             	}).done(function(resp){
-            		$(".menu").detach(); // menu내용지우고
-            		let arr = date.split("-");
-            		console.log(arr);
-            		calAjax(arr[1]); // 다시 menu넣기
+            		thismenu.html("");
+			        thismenu.append($("#menu1").val()+"<br>"+$("#menu2").val());
+			        
+            		if($("#menu3").val() != null){
+            			thismenu.append("<br>"+$("#menu3").val());
+            		}else{thismenu.append("<br>");}
+            		
+            		if($("#menu4").val() != null){
+            			thismenu.append("<br>"+$("#menu4").val());
+            		}else{thismenu.append("<br>");}
+            		
+            		if($("#menu5").val() != null){
+            			thismenu.append("<br>"+$("#menu5").val());
+            		}else{thismenu.append("<br>");}
+            		
+            		if($("#menu6").val() != null){
+            			thismenu.append("<br>"+$("#menu6").val());
+            		}else{thismenu.append("<br><br>");}
+            		
+            		$("#modal").modal("hide");
             	})
             })
             
             $("#delete").on("click",function(){ // 삭제버튼
-            	$.ajax({
-            		url:"/meal/delete",
-            		data:{"meal_date":date}
-            	}).done(function(resp){
-            		$(".menu").detach(); // menu내용지우고
-
-             		let arr = date.split("-");
-
-            		calAjax(arr[1]); // 다시 menu넣기
-            	})
+            	if(confirm("정말 삭제 하시겠습니까?")){
+            		$.ajax({
+                		url:"/meal/delete",
+                		data:{"meal_date":date}
+                	}).done(function(resp){
+                    	thismenu.remove();
+                	})
+            	}
             })
         })
 	})
