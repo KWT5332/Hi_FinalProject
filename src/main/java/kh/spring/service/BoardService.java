@@ -35,8 +35,8 @@ public class BoardService {
 		return bdao.boardView(seq);
 	}
 	
-	public int delete(int seq) {
-		return bdao.delete(seq);
+	public int boardDelete(int seq) {
+		return bdao.boardDelete(seq);
 	}
 	
 	public int modify(BoardDTO dto) {
