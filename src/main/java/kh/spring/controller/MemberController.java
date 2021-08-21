@@ -69,8 +69,6 @@ public class MemberController {
 		session.invalidate();
 		return "redirect:/";
 	}
-	// 
-
 	// 아이디 중복 검사
 	@RequestMapping(value = "EmailChk", method = RequestMethod.POST)
 	@ResponseBody
@@ -125,7 +123,56 @@ public class MemberController {
 		}
 		String num = Integer.toString(checkNum);
 		return num;
-		
 	}
+	//회원정보수정
+	@RequestMapping("modiName")
+	public String modiName(MemberDTO dto) {
+		service.modiName(dto);
+		session.invalidate();
+		session.setAttribute("login",dto);
+		return "member/mypage";
+	}
+	@RequestMapping("modiSchool")
+	public String modiSchool(MemberDTO dto) {
+		service.modiSchool(dto);
+		session.invalidate();
+		session.setAttribute("login",dto);
+		return "member/mypage";
+	}
+	@RequestMapping("modiPhone")
+	public String modiPhone(MemberDTO dto) {
+		service.modiPhone(dto);
+		session.invalidate();
+		session.setAttribute("login",dto);
+		return "member/mypage";
+	}
+	@RequestMapping("modiAge")
+	public String modiAge(MemberDTO dto) {
+		service.modiAge(dto);
+		session.invalidate();
+		session.setAttribute("login",dto);
+		return "member/mypage";
+	}
+	//비번
+	@RequestMapping(value = "pwck", method = RequestMethod.POST)
+	@ResponseBody
+	public String pwck(String email, String pw) {
+		int result = service.pwck(email, pw);
+		
+		if(result != 0) {
+			return "success";	
+		} else {
+			return "fail";	
+		}
+	}
+	@RequestMapping("modiPw")
+	public String modiPw(MemberDTO dto) {
+		service.modiPw(dto);
+		session.invalidate();
+		session.setAttribute("login",dto);
+		return "member/mypage";
+	}
+	
+	
 
 }

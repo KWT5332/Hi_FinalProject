@@ -368,12 +368,12 @@ input[type] {
 						<select type="select" name="age"
 							class=" custom-select col-sm-5 col-md-2 ml-4"
 							id="inputGroupSelect01">
-							<option selected>선택</option>
-							<option value="20">20대</option>
-							<option value="30">30대</option>
-							<option value="40">40대</option>
-							<option value="50">50대</option>
-							<option value="60">60대</option>
+							<option selected disabled>선택</option>
+							<option value="20대">20대</option>
+							<option value="30대">30대</option>
+							<option value="40대">40대</option>
+							<option value="50대">50대</option>
+							<option value="60대">60대</option>
 						</select>
 					</div>
 				</div>

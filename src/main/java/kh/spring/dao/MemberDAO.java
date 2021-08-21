@@ -23,5 +23,23 @@ public class MemberDAO {
 	public int idCheck(String memberId) {
 		return mybatis.selectOne("Member.idCheck",memberId);
 	}
+	public int modiName(MemberDTO dto) {
+		return mybatis.update("Member.modiName", dto);
+	}
+	public int modiSchool(MemberDTO dto) {
+		return mybatis.update("Member.modiSchool", dto);
+	}
+	public int modiPhone(MemberDTO dto) {
+		return mybatis.update("Member.modiPhone", dto);
+	}
+	public int modiAge(MemberDTO dto) {
+		return mybatis.update("Member.modiAge", dto);
+	}
+	public int modiPw(MemberDTO dto) {
+		return mybatis.update("Member.modiPw", dto);
+	}
+	public int pwck(Map<String, String> map) {
+		return mybatis.selectOne("Member.pwck",map);
+	}
 	
 }
