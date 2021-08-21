@@ -1,5 +1,6 @@
 package kh.spring.dao;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,10 @@ public class MealDAO {
 	
 	public List<MealDTO> getAllList(String month){
 		return mybatis.selectList("Meal.selectAll", month);
+	}
+	
+	public int isdateOk(Date meal_date) {
+		return mybatis.selectOne("Meal.isdateOk", meal_date);
 	}
 	
 	public int insert(MealDTO dto) {
@@ -41,5 +46,13 @@ public class MealDAO {
 	
 	public int excelupload(Map<String, Object> map) {
 		return mybatis.insert("Meal.excelupload", map);
+	}
+	
+	public int update(Map<String, Object> map) {
+		return mybatis.update("Meal.update", map);
+	}
+	
+	public int delete(String meal_date) {
+		return mybatis.delete("Meal.delete", meal_date);
 	}
 }

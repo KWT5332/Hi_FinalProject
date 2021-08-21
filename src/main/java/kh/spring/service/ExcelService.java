@@ -217,7 +217,7 @@ public class ExcelService {
 	}
 	
 	// 엑셀에 저장되어 있는 식단 db에 업로드
-	public int excelupload(MemberDTO dto, MultipartFile file, String realPath) throws Exception {
+	public String excelupload(MemberDTO dto, MultipartFile file, String realPath) throws Exception {
 		System.out.println("service");
 		File filesPath = new File(realPath);
 		if(!filesPath.exists()) {
@@ -228,8 +228,10 @@ public class ExcelService {
 		file.transferTo(new File(filesPath.getAbsolutePath()+"/"+sysName));
 		
 		List<MealDTO> list = readExcel(dto, filesPath.getAbsolutePath()+"/"+sysName);
-
+		String[] month = new String[1];
+		
 		for(MealDTO m : list) {
+			month[0] = m.getMonth();
 			System.out.println(m.getMonth() + " : " + m.getMeal_date() + " : " + m.getSchool() + " : " 
 					+ m.getWriter() + " : " + m.getMenu1() + " : " + m.getMenu2() + " : " + m.getMenu3()
 					+ " : " + m.getMenu4() + " : " + m.getMenu5() + " : " + m.getMenu6() + " : " + m.getOriName()
@@ -238,8 +240,10 @@ public class ExcelService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
+
+		dao.excelupload(map);
 		
-		return dao.excelupload(map);
+		return month[0];
 	}
 	
 	// 엑셀 읽는 코드
