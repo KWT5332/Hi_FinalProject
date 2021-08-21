@@ -1,6 +1,7 @@
 package kh.spring.service;
 
 import java.io.File;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,12 @@ public class MealService {
 	// 리스트 가져오기
 	public List<MealDTO> getAllList(String month) {
 		return dao.getAllList(month);
+	}
+	
+	//
+	public int isdateOk(Date meal_date) {
+		System.out.println(meal_date);
+		return dao.isdateOk(meal_date);
 	}
 	
 	// 식단 추가
@@ -94,5 +101,32 @@ public class MealService {
 	// 검색
 	public List<MealDTO> search(String keyword) {
 		return dao.search(keyword);
+	}
+	
+	// 수정
+	public int update(String meal_date, MealDTO dto) {
+		if(dto.getMenu3() == null) {
+			dto.setMenu3("");
+		}
+		if(dto.getMenu4() == null) {
+			dto.setMenu4("");
+		}
+		if(dto.getMenu5() == null) {
+			dto.setMenu5("");
+		}
+		if(dto.getMenu6() == null) {
+			dto.setMenu6("");
+		}
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("meal_date", meal_date);
+		map.put("dto", dto);
+		
+		return dao.update(map);
+	}
+	
+	public int delete(String meal_date) {
+		System.out.println(meal_date);
+		return dao.delete(meal_date);
 	}
 }

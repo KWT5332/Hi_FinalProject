@@ -40,7 +40,7 @@ public class BoardDAO {
 		return mybatis.selectOne("Board.boardView",seq);
 	}
 
-	public int delete(int seq) {
+	public int boardDelete(int seq) {
 		return mybatis.delete("Board.boardDelete", seq);
 	}
 

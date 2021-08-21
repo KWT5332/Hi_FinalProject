@@ -30,6 +30,10 @@
 		from meal_menu where writer=#{writer}) where rnum between ${start} and ${end} order by 3 desc
 	</select>
 	
+	<select id="isdateOk" resultType="int">
+		select count(*) from meal_menu where meal_date=#{meal_date} 
+	</select>
+	
 	<select id="listCount" resultType="int">
 		select count(*) from meal_menu where writer=#{writer} 
 	</select>
@@ -43,5 +47,12 @@
       OR menu4 like '%${keyword}%' OR menu5 like '%${keyword}%' OR menu6 like '%${keyword}%'
 	</select>
 	
-
+	<update id="update">
+		update meal_menu set menu1=#{dto.menu1}, menu2=#{dto.menu2}, menu3=#{dto.menu3}, menu4=#{dto.menu4},
+		menu5=#{dto.menu5},menu6=#{dto.menu6} where meal_date=#{meal_date}
+	</update>
+	
+	<delete id="delete">
+		delete from meal_menu where meal_date=#{meal_date}
+	</delete>
 </mapper>

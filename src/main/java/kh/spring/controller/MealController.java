@@ -1,7 +1,5 @@
 package kh.spring.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -30,26 +28,30 @@ public class MealController {
 
 	@Autowired
 	private HttpSession session;
-
-	@RequestMapping("calendar") 
-	public String calendar() {
-		System.out.println("캘린더");
-		return "meal/calendar";
-	}
 	
 	@RequestMapping("Main") // 식단관리 메인페이지
 	public String Main(Model model) {
 		System.out.println("식단관리 메인페이지");
+		return "meal/main";
+	}
+	
+	@ResponseBody
+	@RequestMapping("calendar") // 달력내용 가져오기
+	public String calendar(String month,Model model) {
+		System.out.println("달력내용 ajax");
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("MM");
-		Date date = new Date(); // import java.util.Date;
-		String month = sdf.format(date);
+//		SimpleDateFormat sdf = new SimpleDateFormat("MM");
+//		Date date = new Date(); // import java.util.Date;
+//		String month = sdf.format(date);
 		System.out.println(month);
 		
-		List<MealDTO> list = service.getAllList(month);
-		model.addAttribute("list", list);
+		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();	
 		
-		return "meal/main";
+		List<MealDTO> list = service.getAllList(month);
+				
+		String result = g.toJson(list);
+		
+		return String.valueOf(result);
 	}
 	
 	@RequestMapping("addmeal") // 식단추가페이지로 넘어가기(5개 가지고 가기)
@@ -85,26 +87,33 @@ public class MealController {
 	}
 	
 	// 식단추가
-	@RequestMapping("addmealProc")
+	@ResponseBody
+	@RequestMapping(value="addmealProc", produces="text/html;charset=utf8")
 	public String addmealProc(MealDTO dto, MultipartFile file) throws Exception {
 		System.out.println("식단추가");
 		
-		String realPath = session.getServletContext().getRealPath("meal_img");
-		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
-		
-		dto.setWriter(mdto.getName());
-		dto.setSchool(mdto.getSchool());
-		
-		dto.setMenu1(XSSFillterConfig.XSSFilter(dto.getMenu1()));
-		dto.setMenu2(XSSFillterConfig.XSSFilter(dto.getMenu2()));
-		dto.setMenu3(XSSFillterConfig.XSSFilter(dto.getMenu3()));
-		dto.setMenu4(XSSFillterConfig.XSSFilter(dto.getMenu4()));
-		dto.setMenu5(XSSFillterConfig.XSSFilter(dto.getMenu5()));
-		dto.setMenu6(XSSFillterConfig.XSSFilter(dto.getMenu6()));
+		System.out.println(file);
+		int count = service.isdateOk(dto.getMeal_date());
+		if(count > 0) { // 이 meal_date에 등록된 식단이 있어?
+			return "0";
+		}else { // 없으면 식단 등록 가능
+			String realPath = session.getServletContext().getRealPath("meal_img");
+			MemberDTO mdto = (MemberDTO)session.getAttribute("login");
+			
+			dto.setWriter(mdto.getName());
+			dto.setSchool(mdto.getSchool());
+			
+			dto.setMenu1(XSSFillterConfig.XSSFilter(dto.getMenu1()));
+			dto.setMenu2(XSSFillterConfig.XSSFilter(dto.getMenu2()));
+			dto.setMenu3(XSSFillterConfig.XSSFilter(dto.getMenu3()));
+			dto.setMenu4(XSSFillterConfig.XSSFilter(dto.getMenu4()));
+			dto.setMenu5(XSSFillterConfig.XSSFilter(dto.getMenu5()));
+			dto.setMenu6(XSSFillterConfig.XSSFilter(dto.getMenu6()));
 
-		service.addMeal(dto, file, realPath); 
-
-		return "redirect:/meal/addmeal";
+			service.addMeal(dto, file, realPath); 
+			
+			return "1";
+		}
 	}
 	
 	// 검색
@@ -121,4 +130,33 @@ public class MealController {
 		return "meal/search"; 
 	}
 	
+	// 수정
+	@ResponseBody
+	@RequestMapping("update")
+	public String update(String meal_date,String menu1,String menu2,String menu3,String menu4,String menu5,String menu6) {
+		System.out.println("수정");
+
+		MealDTO dto = new MealDTO();
+		dto.setMenu1(XSSFillterConfig.XSSFilter(menu1));
+		dto.setMenu2(XSSFillterConfig.XSSFilter(menu2));
+		dto.setMenu3(XSSFillterConfig.XSSFilter(menu3));
+		dto.setMenu4(XSSFillterConfig.XSSFilter(menu4));
+		dto.setMenu5(XSSFillterConfig.XSSFilter(menu5));
+		dto.setMenu6(XSSFillterConfig.XSSFilter(menu6));
+		
+		service.update(meal_date, dto);
+		
+		return "1";
+	}
+	
+	// 삭제
+	@ResponseBody
+	@RequestMapping("delete")
+	public String delte(String meal_date) {
+		System.out.println("삭제");
+
+		service.delete(meal_date);
+		
+		return "1"; 
+	}
 }
