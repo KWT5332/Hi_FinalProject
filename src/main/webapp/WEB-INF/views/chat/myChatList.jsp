@@ -20,7 +20,7 @@
 </script>
 <style>
 *{box-sizing:border-box;}
-.box_title{}
+.box_title{background-color:rgb(255, 203, 72, 0.3);}
 div{border:1px solid black;}
 .list{
 border:1px solid gray; 
@@ -54,7 +54,7 @@ border-radius:50%;
   <jsp:include page="../layout/header.jsp"/>
   <div class="container p-3" id="container">
 		<div class="row m-0 header">
-            <div class="col-12 box_title"><h4 class="p-3" id="title">나의 채팅방 목록</h4></div>
+            <div class="col-12 box_title"><h4 class="p-3" id="title">나의 채팅방 목록&nbsp;<i class="far fa-comment-dots"></i></h4></div>
         </div>
         <div class="list m-0 p-3">
         	<c:choose>
@@ -88,6 +88,14 @@ border-radius:50%;
         				 		    	  	$("."+${infoList.room_number}).after(div);
         				 		    	  }  
         				 		      });
+        				 			 $.ajax({
+        				 				 url:"/chat/findNameProc",
+        				 				 data:{findEmail:"${infoList.user2}"},
+        				 				 dataType:"json",
+      				 		    	  	 type:"POST"
+        				 			 }).done(function(resp){
+        				 				 
+        				 			 })
         				 			</script>
         				 			<div class="col-3 p-4"><a href="/chat/chatListToChat?room_number=${infoList.room_number}">채팅하기</a></div>
         				 		</div>

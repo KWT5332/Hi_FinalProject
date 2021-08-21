@@ -54,45 +54,83 @@ input[type] {
 .sendmail_container .studentcon {
 	text-align: center;
 }
+.studentAdd>div{width:100%;}
+.studentAdd>div>input{width:100%;}
 </style>
 <script>
-					$(function () {
-						AOS.init();
-						$("#main").addClass("active");
-					})
-				</script>
+	$(function() {
+		AOS.init();
+		$("#main").addClass("active");
+
+		$(".btn_sendmail").click(function() {
+			alert("전체 학생에게 메일을 발송합니다.");
+			$.ajax({
+				type : "GET",
+				url : "/mail/sendMailProc",
+				success : function() {
+					console.log("확인");
+				}
+			})
+		})
+		
+		$("#add").click(function(){
+			$.ajax({
+				type : "POST",
+				url : "/mail/addStudentProc",
+				data: $("#frm").serialize(),
+				success : function(){
+					$("#stu_name").val("");
+					$("#stu_email").val("");
+					location.reload();
+				}
+			})
+		})
+	})
+</script>
 </head>
 
 <body>
 	<jsp:include page="../layout/header.jsp" />
+
 	<div class="sendmail_container container p-5">
+		<form id="frm">
+		<div class="studentAdd row">
+			<div class="col-4">
+				<input type="text" name="stu_name" id="stu_name" placeholder="학생이름을 입력하세요">
+			</div>
+			<div class="col-4">
+				<input type="text" name="stu_email" id="stu_email" placeholder="학생이메일을 입력하세요">
+			</div>
+			<div class="col-4">
+				<!-- 사용자 학교 정보 넣기 -->
+				<input type="hidden" name="school" value="무학중">
+				<input type="button" id="add" value="학생 등록">
+			</div>
+		</div>
+		</form>
 		<div class="studentcon row">
 			<table class="table m-5">
 				<tr>
-					<td scope="col">#</td>
+					<td scope="col">번호</td>
 					<td scope="col">학생이름</td>
 					<td scope="col">소속학교</td>
 					<td scope="col">이메일</td>
 				</tr>
+				<c:forEach var="i" items="${studentList}" varStatus="status">
 				<tr>
-					<th scope="row">1</th>
-					<td>김순애</td>
-					<td>마산중</td>
-					<td>zlxl_3041@naver.com</td>
+					<td scope="col">${status.count}</td>
+					<td scope="col">${i.stu_name}</td>
+					<td scope="col">${i.school}</td>
+					<td scope="col">${i.stu_email}</td>
 				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>남희원</td>
-					<td>마산중</td>
-					<td>dlsdjwngml11@naver.com</td>
-				</tr>
+				</c:forEach>
 			</table>
 		</div>
 		<div>
-			<button type="button" class="btn btn-success btn_sendmail ">전체학생에게
-				이메일 보내기</button>
+			<button class="btn btn-success btn_sendmail">전체학생에게 이메일 보내기</button>
 		</div>
 	</div>
+
 	<jsp:include page="../layout/footer.jsp" />
 </body>
 </html>
