@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>마이페이지</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <link rel="stylesheet"
@@ -278,7 +278,9 @@ input[type] {
 		//청아파일코드
 	    $(".upload-hidden").on("change", function(){ // 값이 변경되면 
 	         var file = $(this)[0].files[0];
-	         
+	         var form = $("#frm_modi")[0];       
+			 var formData = new FormData(form); 
+
 	         if(file.size >= 1048576) {
 	             alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
 	             return false;
@@ -290,26 +292,21 @@ input[type] {
 	             return false;
 	         }
 	
-	         $(".upload-name").val(file.name); // 추출한 파일명 삽입
+	        $(".upload-name").val(file.name); // 추출한 파일명 삽입
 	         
-	         $.ajax({
-	             type:"POST",
-	             url:"/mem/imgupload",
-	             data:formData,
-	           	 processData: false, // data가 서버에 전달될때 String 형식아니고 "multipart/form-data"로 보내야됨
-	             contentType: false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
-	             cache:false
-	          }).done(function(resp){
+	        $.ajax({
+	            url:"/mem/imgupload",
+	            type:"POST",
+	            data:formData,
+	    		processData: false, // data가 서버에 전달될때 String 형식아니고 "multipart/form-data"로 보내야됨
+	    		contentType: false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
+	    		cache:false
+	         }).done(function(resp){
 	             console.log(resp);
-	             $(".upload-name").val("파일선택");
-	             $(".menu").remove(); // menu내용지우고
-	              calAjax(resp); // 다시 내용 넣기
+	             $(".img_profile").attr("src","/mem/display?fileName="+resp);
 	          })
         });
-		
-		
-
-	})
+     })
 </script>
 </head>
 <body>
@@ -327,14 +324,23 @@ input[type] {
 				<div class="id_pw_con incon row m-5 ">
 					<div class="col-1"></div>
 					<div class="img_con ml-3">
-						<img class="img_profile" src="/img/profile.png">
+					<c:choose>
+						<c:when test="${login.sysName == null}">
+							<img class="img_profile" src="/img/profile.png">
+						</c:when>
+						<c:otherwise>
+							<img class="img_profile" src="/mem/display?fileName=${login.sysName }">
+						</c:otherwise>
+					</c:choose>
+						<!-- <img class="img_profile" src=""> -->
+<!-- 						<img class="img_profile" src="/img/profile.png"> -->
 					</div>
 				</div>
 				<div class="id_pw_con incon row m-5 ">
 					<div>
 						<button type="button" class="btn btn-success   ">기본 이미지로
 							변경</button>
-						<button type="button" class="btn btn-success   ">프로필 이미지
+						<button type="button" class="btn btn-success" id="btn_profileUplode">프로필 이미지
 							변경</button>
 					</div>
 				</div>

@@ -7,28 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <style>
-* {
-	box-sizing: border-box;
-}
-
-/* div {
-            border: 1px solid black;
-        } */
+* {box-sizing: border-box;}
 select[type]:focus {
 	border-color: rgba(184, 223, 216, 0.5);
 	box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px
@@ -42,26 +30,51 @@ input[type]:focus {
 		rgb(184, 223, 216, 0.6);
 	outline: 0 none;
 }
-
-input[type] {
-	border-color: rgba(184, 223, 216, 0.5);
-}
-
-.sendmail_container .incon {
-	overflow: hidden;
-}
-
-.sendmail_container .studentcon {
-	text-align: center;
-}
+input[type] {border-color: rgba(184, 223, 216, 0.5);}
+.sendmail_container .incon {overflow: hidden;}
+.sendmail_container .studentcon {text-align: center;}
 .studentAdd>div{width:100%;}
 .studentAdd>div>input{width:100%;}
+/* 엑셀관련 스타일 */
+   #excelName{ 
+      position: absolute; width: 1px; height: 1px; 
+       padding: 0; margin: -1px; 
+       overflow: hidden; 
+       clip:rect(0,0,0,0); border: 0; 
+    } 
+    .filebox label { 
+      display: inline-block; 
+      padding: .5em .75em; 
+      color: white;
+      font-size: inherit; 
+      line-height: normal; 
+      vertical-align: middle; 
+      background-color: darkgray;
+      cursor: pointer; 
+      border: 1px solid #ebebeb; 
+      border-bottom-color: #e2e2e2; 
+      border-radius: .25em; 
+    } 
+    /* named upload */ 
+    .upload-name { 
+      display: inline-block; 
+      padding: .5em .75em; /* label의 패딩값과 일치 */ 
+      font-size: inherit; 
+      font-family: inherit; 
+      line-height: normal; 
+      vertical-align: middle; 
+      background-color: white;
+      border: 1px solid #ebebeb; 
+      border-bottom-color: #e2e2e2; 
+      border-radius: .25em; 
+      -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+      -moz-appearance: none; 
+      appearance: none; 
+    }
 </style>
 <script>
 	$(function() {
-		AOS.init();
-		$("#main").addClass("active");
-
+		/* 메일전체발송 */
 		$(".btn_sendmail").click(function() {
 			alert("전체 학생에게 메일을 발송합니다.");
 			$.ajax({
@@ -72,7 +85,7 @@ input[type] {
 				}
 			})
 		})
-		
+		/* 학생정보추가 */
 		$("#add").click(function(){
 			$.ajax({
 				type : "POST",
@@ -88,7 +101,6 @@ input[type] {
 	})
 </script>
 </head>
-
 <body>
 	<jsp:include page="../layout/header.jsp" />
 
@@ -126,9 +138,21 @@ input[type] {
 				</c:forEach>
 			</table>
 		</div>
-		<div>
-			<button class="btn btn-success btn_sendmail">전체학생에게 이메일 보내기</button>
-		</div>
+		<div class="row">
+			<div>
+				<button class="col-8 btn btn-success btn_sendmail">전체학생에게 이메일 보내기</button>
+			</div>
+			<div class="col-12 col-sm-12 col-md-6 col-lg-4 p-0" id="excleupload">
+	        	<form id="frm" name="frm" method="POST" enctype="multipart/form-data">
+	        	<div class="filebox w-100" style="text-align: right;">
+	         	     <input class="upload-name" value="파일선택" disabled="disabled">
+	           		 <label for="excelName" class="mb-0">엑셀 업로드</label>
+	            	 <input type="file" id="excelName" name="file" class="upload-hidden">
+	            	 <button class="btn btn-outline-secondary btn-sm ml-4 mt-1" id="excelform" type="button">엑셀 업로드양식 다운</button>
+	            </div>
+	        	</form>
+	        </div>
+        </div>
 	</div>
 
 	<jsp:include page="../layout/footer.jsp" />

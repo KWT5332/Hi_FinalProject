@@ -41,8 +41,8 @@ public class MemberDAO {
 	public int pwck(Map<String, String> map) {
 		return mybatis.selectOne("Member.pwck",map);
 	}
-	public int imgupdate(MemberDTO dto) {
-		return mybatis.update("Member.imgupdate",dto);
+	public int updateProfile(MemberDTO dto) {
+		return mybatis.update("Member.updateProfile",dto);
 	}
 	
 }

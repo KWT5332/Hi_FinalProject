@@ -1,19 +1,23 @@
 package kh.spring.controller;
 
 import java.io.File;
-import java.io.OutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Random;
-import java.util.UUID;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -210,5 +214,39 @@ public class MemberController {
 //		
 //
 //	}
+	// 식단추가
+	@ResponseBody
+	@RequestMapping(value="imgupload", produces="text/html;charset=utf8")
+	public String addmealProc(MultipartFile file, HttpServletResponse resp) throws Exception {
+		System.out.println("이미지 추가");
 
+		String realPath = session.getServletContext().getRealPath("profile_img");
+		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
+		String email = mdto.getEmail();
+
+		String sysName = service.updateProfile(mdto, file, realPath); 
+
+		return sysName;
+	}
+		
+	@RequestMapping("display")
+	@ResponseBody
+	public ResponseEntity<byte[]> getImage(String fileName){
+		String realPath = session.getServletContext().getRealPath("profile_img");
+		System.out.println(realPath);
+		File file = new File(realPath+"/"+fileName);
+		ResponseEntity<byte[]> result = null;
+
+		try {
+			HttpHeaders header = new HttpHeaders();
+			header.add("Content-type", Files.probeContentType(file.toPath()));
+
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+			System.out.println(result);
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }
