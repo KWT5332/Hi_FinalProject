@@ -31,6 +31,7 @@ input[type]:focus {
 	outline: 0 none;
 }
 input[type] {border-color: rgba(184, 223, 216, 0.5);}
+.sendmail_container{overflow: hidden;}
 .sendmail_container .incon {overflow: hidden;}
 .sendmail_container .studentcon {text-align: center;}
 .studentAdd>div{width:100%;}
@@ -98,6 +99,50 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 				}
 			})
 		})
+		/* 엑셀 업로드양식 다운 */
+		// 엑셀 업로드 양식 다운받기
+      $("#excelform").on("click",function(){
+         location.href = "/excel/excelformMail";
+      });
+		// 파일이름 출력
+	    var fileTarget = $(".filebox .upload-hidden"); 
+	         
+	    fileTarget.on("change", function(){ // 값이 변경되면 
+	           // 추출한 파일명 삽입 
+	         //jsp에서 FORM을 생성하여 넘기지 않았을때 스크립트에서 formData로 file을 가져올 수 있다.
+	           var form = $("#excelfrm")[0];       
+	          var formData = new FormData(form); 
+	          //formData.append("file", $(this)[0].files[0]); //배열로 되어있음 / formData는 Map과 같은 형태
+	              
+	          var fileName = formData.get('file').name;
+	          // 추출한 파일명 삽입 
+	           $(this).siblings(".upload-name").val(fileName); 
+	          
+	          if(formData.get('file').size >= 1048576) {
+	             alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+	             return false;
+	          }
+
+	          let regex = /(.*?)\.xlsx/;
+	          if(!regex.test(fileName)){
+	             alert("확장자가 .xlsx인 파일만 업로드 가능합니다.");
+	             return false;
+	          }
+	         
+	           if(confirm("선택하신 파일을 업로드 하시겠습니까?")){
+	               $.ajax({
+	                  type:"POST",
+	                  url:"/excel/exceluploadMail",
+	                  data:formData,
+	                processData: false, // data가 서버에 전달될때 String 형식아니고 "multipart/form-data"로 보내야됨
+	                contentType: false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
+	                cache:false
+	               }).done(function(resp){
+	                  console.log(resp);
+	                  $(".upload-name").val("파일선택");
+	               })
+	           }
+	      });
 	})
 </script>
 </head>
@@ -105,18 +150,34 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 	<jsp:include page="../layout/header.jsp" />
 
 	<div class="sendmail_container container p-5">
+        <div class="row mb-3 mt-5">
+			<div class="col-6 ">
+				<button class="btn btn-success btn_sendmail">전체학생에게 이메일 보내기</button>
+			</div>
+			<div class="col-6 " id="excleupload">
+			<!-- <div class="col-12 col-sm-12 col-md-6 col-lg-4 p-0" id="excleupload"> -->
+	        	<form id="excelfrm" name="excelfrm" method="POST" enctype="multipart/form-data">
+	        	<div class="filebox" style="text-align: right;">
+                    <button class="btn btn-outline-secondary btn " id="excelform" type="button">학생 정보 엑셀 업로드양식 다운</button>
+	         	     <input type="hidden" class= "upload-name " value="파일선택" disabled="disabled">
+	           		 <label for="excelName" class="mb-0">엑셀 업로드</label>
+	            	 <input type="file" id="excelName" name="file" class="upload-hidden">
+	            </div>
+	        	</form>
+	        </div>
+        </div>
 		<form id="frm">
 		<div class="studentAdd row">
 			<div class="col-4">
-				<input type="text" name="stu_name" id="stu_name" placeholder="학생이름을 입력하세요">
+				<input type="text" class="form-control" name="stu_name" id="stu_name" placeholder="학생이름을 입력하세요">
 			</div>
 			<div class="col-4">
-				<input type="text" name="stu_email" id="stu_email" placeholder="학생이메일을 입력하세요">
+				<input type="text" class="form-control" name="stu_email" id="stu_email" placeholder="학생이메일을 입력하세요">
 			</div>
 			<div class="col-4">
 				<!-- 사용자 학교 정보 넣기 -->
-				<input type="hidden" name="school" value="무학중">
-				<input type="button" id="add" value="학생 등록">
+				<!-- <input type="hidden" name="school" value="무학중"> -->
+				<input type="button" class="btn btn-outline-success" id="add" value="학생 등록">
 			</div>
 		</div>
 		</form>
@@ -138,21 +199,7 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 				</c:forEach>
 			</table>
 		</div>
-		<div class="row">
-			<div>
-				<button class="col-8 btn btn-success btn_sendmail">전체학생에게 이메일 보내기</button>
-			</div>
-			<div class="col-12 col-sm-12 col-md-6 col-lg-4 p-0" id="excleupload">
-	        	<form id="frm" name="frm" method="POST" enctype="multipart/form-data">
-	        	<div class="filebox w-100" style="text-align: right;">
-	         	     <input class="upload-name" value="파일선택" disabled="disabled">
-	           		 <label for="excelName" class="mb-0">엑셀 업로드</label>
-	            	 <input type="file" id="excelName" name="file" class="upload-hidden">
-	            	 <button class="btn btn-outline-secondary btn-sm ml-4 mt-1" id="excelform" type="button">엑셀 업로드양식 다운</button>
-	            </div>
-	        	</form>
-	        </div>
-        </div>
+		
 	</div>
 
 	<jsp:include page="../layout/footer.jsp" />

@@ -8,7 +8,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -24,7 +23,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.util.SystemOutLogger;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -32,15 +31,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import kh.spring.dao.MailDAO;
 import kh.spring.dao.MealDAO;
 import kh.spring.dto.MealDTO;
 import kh.spring.dto.MemberDTO;
+import kh.spring.dto.St_MailDTO;
 
 @Service
 public class ExcelService {
 	
 	@Autowired
 	private MealDAO dao;
+	
+	@Autowired
+	private MailDAO st_dao;
 	
 	// db저장되어있는 식단 엑셀 다운로드
 	public void excelDownload(String month, String school, HttpServletResponse response) throws IOException {		
@@ -317,4 +321,108 @@ public class ExcelService {
 		
 		return list;
 	}
+	
+	//승희 메일 엑셀업로드 양식
+	// 엑셀 업로드양식 다운
+		public void excelformMail(HttpServletResponse response) throws IOException {		
+			Workbook wb = new XSSFWorkbook();//엑셀파일 생성 .xlsx
+			Sheet sheet = wb.createSheet("sheet1");//하나의 시트 ("sheet1") 시트이름
+			Row row = null;//변수선언 가로 로우 
+			Cell cell = null;//콜스 느낌 한줄에 칸들
+			int rowNum = 0;//로우번호 아래로 123번째줄
+			
+			// 공통 스타일
+			CellStyle style = wb.createCellStyle(); // title 셀 스타일 설정
+			style.setAlignment(HorizontalAlignment.CENTER); // 가운데 정렬
+			style.setVerticalAlignment(VerticalAlignment.CENTER);//상하가운데정렬
+
+			// title-맨윗줄 1열
+			row = sheet.createRow(rowNum++);//로우 한칸 내려오면서 한줄 만든 느낌
+			cell = row.createCell(0);//한칸 만들어줌
+			//만든거에 선택 헤서 내용 삽입
+			cell.setCellValue("학생 이메일 업로드");
+			//cell.setCellValue("월은 06,11 형식, 날짜는 2021-07-21 (월) 형식으로 작성 부탁드립니다. 메뉴는 최소 2개부터 최대 6개까지만 등록가능합니다.");
+			
+			// 빈행 추가-2열 추가 빈공간
+			sheet.createRow(rowNum++); 
+			//row = sheet.createRow(rowNum++); 
+			
+			//본내용 
+			// Header
+			row = sheet.createRow(rowNum++);
+			cell = row.createCell(0);
+			cell.setCellStyle(style);
+			cell.setCellValue("학생 이름");
+			cell = row.createCell(1);
+			cell.setCellStyle(style);
+			cell.setCellValue("이메일");
+			
+			// 컨텐츠 타입과 파일명 지정
+			response.reset();
+			response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("학생 이메일 업로드 양식", "UTF-8") + ".xlsx");
+			response.setContentType("ms-vnd/excel");
+
+			// Excel File Output
+			wb.write(response.getOutputStream());
+			wb.close();
+		}
+		
+		// 승희엑셀에 저장되어 있는 식단 db에 업로드
+		public void exceluploadMail(MemberDTO dto, MultipartFile file, String realPath) throws Exception {
+			System.out.println("service");
+			File filesPath = new File(realPath);
+			if(!filesPath.exists()) {
+				filesPath.mkdir();
+			}
+			String oriName = file.getOriginalFilename();
+			String sysName = UUID.randomUUID().toString().replace("-", "") + "_" + oriName;
+			file.transferTo(new File(filesPath.getAbsolutePath()+"/"+sysName));
+			
+			List<St_MailDTO> list = readExcelMail(dto, filesPath.getAbsolutePath()+"/"+sysName);
+			
+			for(St_MailDTO m : list) {
+				System.out.println(m.getSchool() + " : " + m.getStu_name() + " : " + m.getStu_email());
+			}
+
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("list", list);
+
+			st_dao.excelupload(map);
+		}
+		
+		// 승희 엑셀 읽는 코드
+		private List<St_MailDTO> readExcelMail(MemberDTO m, String filePath) throws Exception {
+			System.out.println("readExcel");
+			List<St_MailDTO> list = new ArrayList<>();
+
+			FileInputStream fis = new FileInputStream(filePath);
+
+			Workbook workbook = null; // 초기화
+
+			workbook = new XSSFWorkbook(fis);
+
+			XSSFRow curRow;
+
+			XSSFSheet sheet = (XSSFSheet) workbook.getSheetAt(0);//시트번호
+			int totalRowNum = sheet.getPhysicalNumberOfRows();//로우 개수 
+			
+			//4번째 행(row)부터 0~7셀(cell)을 1개의 dto에 담아야 한다. 
+			Loop1 : for(int i=3;i<totalRowNum+1;i++) { // 0부터 시작, 4번째 행(row) 추출
+				St_MailDTO dto = new St_MailDTO();
+				curRow = sheet.getRow(i); 
+
+				if(curRow.getCell(0) == null || curRow.getCell(0).equals("")) {
+					break Loop1;
+				}else {
+					dto.setSchool(m.getSchool());
+					dto.setStu_name(curRow.getCell(0).getStringCellValue());
+					dto.setStu_email(curRow.getCell(1).getStringCellValue());
+
+					list.add(dto);
+				}
+			}
+			fis.close();
+			
+			return list;
+		}
 }

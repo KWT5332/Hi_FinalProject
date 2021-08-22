@@ -3,6 +3,7 @@ package kh.spring.controller;
 import java.io.File;
 import java.util.List;
 
+import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kh.spring.dto.MemberDTO;
 import kh.spring.dto.St_MailDTO;
 import kh.spring.service.MailService;
 
@@ -38,8 +40,9 @@ public class MailController {
 	private String sendmail(Model model) { 
 		System.out.println("mail");
 		// session에 있는 학교 값 뽑아서 넣기
-		String school = "무학중";
-		List<St_MailDTO> studentList = service.studentList(school);
+		MemberDTO dto = (MemberDTO)hsession.getAttribute("login");
+		
+		List<St_MailDTO> studentList = service.studentList(dto.getSchool());
 		model.addAttribute("studentList", studentList);
 		return "mail/sendmail"; 
 	}
@@ -56,8 +59,8 @@ public class MailController {
 		
 		// 주희
 		String from = "project.hi.final@gmail.com";
-		String school = "무학중";
-		List<String> to = service.mailList(school);
+		MemberDTO dto = (MemberDTO)hsession.getAttribute("login");
+		List<String> to = service.mailList(dto.getSchool());
 
 		try {
 			MimeMessage mail = mailSender.createMimeMessage();
