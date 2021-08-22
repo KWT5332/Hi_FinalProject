@@ -44,6 +44,14 @@
 		select * from board_comments where board_seq=${value} order by seq
 	</select>
 
+	<delete id="deleteCommnetns">
+		delete from board_comments where seq=${value}
+	</delete>
+
+	<update id="updateCommnetns">
+		UPDATE board_comments SET contents = #{contents}, write_date = sysdate
+		WHERE seq = #{seq}
+	</update>
 
 
 </mapper>
