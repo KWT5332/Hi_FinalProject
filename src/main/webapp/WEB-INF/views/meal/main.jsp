@@ -135,8 +135,12 @@
 		});
 
 		// 한달 식단표 다운로드
-		$("#download").on("click",function(){
-			location.href = "/excel/excelDowload?month=07";
+		$("#download").on("click",function(){ 
+	        let str = $("#calNaviTitle").text();
+            let arr = str.split(" "); // 띄어쓰기로 문자열 자르기;
+            let month = arr[1].substr(0,2);
+
+			location.href = "/excel/excelDowload?month="+month;
 		});
 		
 		$("#cal").on("click",function(){
@@ -193,6 +197,8 @@
         
         // 등록되어 있는 식단 수정, 삭제
         $(document).on("click",".menu",function(){
+        	$(".modal-title").text(""); 
+        	
         	let thismenu = $(this);
         	let str = $(this).html();
             let arr = str.split("<br>");
@@ -216,13 +222,14 @@
             }
             
             $("#modal").modal("show");
-            
+            console.log(date);
             $("#update").on("click",function(){ // 수정버튼
             	$.ajax({
             		url:"/meal/update",
             		data:{"meal_date":date,"menu1":$("#menu1").val(),"menu2":$("#menu2").val(),"menu3":$("#menu3").val(),
             			"menu4":$("#menu4").val(),"menu5":$("#menu5").val(),"menu6":$("#menu6").val()}
             	}).done(function(resp){
+            		console.log("수정완료");
             		thismenu.html("");
 			        thismenu.append($("#menu1").val()+"<br>"+$("#menu2").val());
 			        
