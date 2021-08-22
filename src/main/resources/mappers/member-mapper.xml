@@ -34,8 +34,8 @@
 	<select id="pwck" resultType="int">
 		select count(*) from hi_member where email =#{email} and pw=#{pw}
 	</select>
-	<update id="imgupdate">
-		update hi_member set oriName=#{oriName} and sysName=#{sysName} where email=#{email}
+	<update id="updateProfile">
+		update hi_member set oriName=#{oriName}, sysName=#{sysName} where email=#{email}
 	</update>
 
 

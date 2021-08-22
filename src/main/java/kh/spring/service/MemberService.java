@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.dao.MemberDAO;
+import kh.spring.dto.MealDTO;
 import kh.spring.dto.MemberDTO;
 
 @Service
@@ -53,8 +54,24 @@ public class MemberService {
 		return dao.pwck(map);
 	}
 	
-	public void imgupdate(MemberDTO dto) throws Exception {
-	      dao.imgupdate(dto);
-	   }
+	public String updateProfile(MemberDTO dto, MultipartFile file, String realPath) throws Exception {
+			File filesPath = new File(realPath);
+			if(!filesPath.exists()) {
+				filesPath.mkdir();
+			}
+			String oriName = file.getOriginalFilename();
+			String sysName = UUID.randomUUID().toString().replace("-", "") + "_" + oriName;
+			file.transferTo(new File(filesPath.getAbsolutePath()+"/"+sysName));
+			
+			System.out.println(filesPath.getAbsolutePath()+"/"+sysName);
+			System.out.println(realPath+"/"+sysName);
+			
+			dto.setOriName(oriName);
+			dto.setSysName(sysName);
+
+			dao.updateProfile(dto);
+			
+			return sysName;
+		}
 	
 }
