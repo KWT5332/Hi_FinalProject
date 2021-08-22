@@ -49,6 +49,7 @@ public class ChatEndPoint {
 		MemberDTO senderInfo = (MemberDTO)hsession.getAttribute("login");
 		String sender_name = senderInfo.getName();
 		String sender = senderInfo.getEmail();
+		String sender_sysname =senderInfo.getSysName();
 		
 		MemberDTO receiverInfo = (MemberDTO)hsession.getAttribute("receiver");
 		String receiver = receiverInfo.getEmail();
@@ -61,6 +62,7 @@ public class ChatEndPoint {
 					JsonObject json = new JsonObject();
 					json.addProperty("name", sender_name);
 					json.addProperty("message", message);
+					json.addProperty("sysName",sender_sysname);
 					try {
 						client.getBasicRemote().sendText(json.toString());
 					} catch (IOException e) {

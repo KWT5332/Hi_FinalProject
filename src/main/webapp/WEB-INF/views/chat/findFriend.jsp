@@ -15,11 +15,12 @@
 </head>
 <style>
 	*{box-sizing: border-box;}
-	.header{text-align: center;}
+	.header{text-align:center;}
 	.box_title{
 	height:80px; 
 	background-color:rgb(255, 203, 72, 0.3); 
     color:black;
+    border-radius:20px;
 	}
     #title{line-height:80px;}
     #category{width:100%;}
@@ -44,6 +45,13 @@
     background-color:gray;
     text-align:center;
     }
+    .profile_img{
+	max-width:50px;
+    min-width:50px;
+    height:50px;
+    border-radius:50%;
+    background-color:gray;
+    text-align:center;}
 </style>
 <script>
 	$(function(){
@@ -56,62 +64,78 @@
 </script>
 <body>
 <!-- header -->
- <jsp:include page="../layout/header.jsp"/>
+<jsp:include page="../layout/header.jsp"/>
 
 <!-- body 부분 -->
-<form action="/chat/search" method="post">
-	<div class="container p-3" id="container">
-		<div class="row m-0 header">
-            <div class="col-12 box_title"><h4 id="title">채팅 친구 찾기</h4></div>
-        </div>
-        <div class="row m-0 pt-4 search">
-            <div class="col-md-3 col-12">
-                <select name="category" id="category" class="form-control">
-                    <option value="name" selected>이름</option>
-                    <option value="school">학교</option>
-                </select>
-            </div>
-            <div class="col-md-6 col-12">
-            		<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="form-control" value="${keyword}">
-            </div>
-            <div class="col-md-3 col-12"><button id="search_btn" class="form-control">검색</button></div>
-        </div>
-        <div class="p-2 mt-3 result" id="result">
-       		<c:choose>
-        		<c:when test="${fn:length(list) != 0 }">
-        			<c:forEach var="i" items="${list}">
-        			<c:choose>
-        			<c:when test="${login.email != i.email }">
-        			<div class="row m-0 list">
-        				<div class="col-3 m-4 p-0" id="imgbox">
-        				 	<i class="fas fa-user-alt fa-2x mt-2 pl-0"></i>${i.name}
-                		</div>
-        				<div class="col-3 m-4 p-2 email">${i.email}</div>
-        				<div class="col-3 m-4 p-2">${i.school}</div>
-        				<div class="col-3 m-4 p-2">
-        					<input type="button" value="채팅하기" class="form-control toChat">
-        				</div>
-        			</div>
-        			<hr>
-        			</c:when>
-        			</c:choose>
-        			</c:forEach> 
-        		</c:when>
-        		<c:when test="${keyword != null and fn:length(list) == 0 }">
-        			<div class="row">
-        			<div class=col-12><h4 id="noFriend">검색 대상이 없습니다.</h4></div>
-        			</div>
-        		</c:when>
-       			<c:otherwise>
-       				<div class="row">
-       				<div class="col-12"><h4 id="friend">친구를 찾아보세요</h4></div>
-       				</div>
-        		</c:otherwise>
-        	</c:choose>
-        </div>
-    </div>
-</form>
-
+	<form action="/chat/search" method="post">
+		<div class="container p-3" id="container">
+			<div class="row m-0 header">
+				<div class="col-12 box_title">
+					<h4 id="title">채팅 친구 찾기</h4>
+				</div>
+			</div>
+			<div class="row m-0 pt-4 search">
+				<div class="col-md-3 col-12">
+					<select name="category" id="category" class="form-control">
+						<option value="name" selected>이름</option>
+						<option value="school">학교</option>
+					</select>
+				</div>
+				<div class="col-md-6 col-12">
+					<input type="text" name="keyword" id="keyword"
+						placeholder="검색어를 입력하세요" class="form-control" value="${keyword}">
+				</div>
+				<div class="col-md-3 col-12">
+					<button id="search_btn" class="form-control">검색</button>
+				</div>
+			</div>
+			<div class="p-2 mt-3 result" id="result">
+				<c:choose>
+					<c:when test="${fn:length(list) != 0 }">
+						<c:forEach var="i" items="${list}">
+							<c:choose>
+								<c:when test="${login.email != i.email }">
+									<div class="row m-0 list">
+										<div class="col-3 m-4 p-0" id="imgbox">
+											<c:choose>
+											<c:when test="${i.sysName != null }">
+												<img class="profile_img" src="/mem/display?fileName=${i.sysName}">${i.name}
+											</c:when>
+											<c:otherwise>
+												<i class="fas fa-user-alt fa-2x mt-2 pl-0"></i>${i.name}
+											</c:otherwise>
+											</c:choose>
+										</div>
+										<div class="col-3 m-4 p-2 email">${i.email}</div>
+										<div class="col-3 m-4 p-2">${i.school}</div>
+										<div class="col-3 m-4 p-2">
+											<input type="button" value="채팅하기" class="form-control toChat">
+										</div>
+									</div>
+									<hr>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</c:when>
+					<c:when test="${keyword != null and fn:length(list) == 0 }">
+						<div class="row">
+							<div class=col-12>
+								<h4 id="noFriend">검색 대상이 없습니다.</h4>
+							</div>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="row">
+							<div class="col-12">
+								<h4 id="friend">친구를 찾아보세요</h4>
+							</div>
+						</div>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</div>
+	</form>
+	
 <!-- footer -->
 <jsp:include page="../layout/footer.jsp"/>
 </body>
