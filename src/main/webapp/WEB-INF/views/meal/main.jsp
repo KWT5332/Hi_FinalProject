@@ -207,10 +207,11 @@
             $(".modal-title").text(date); // 날짜 모달title에 넣어주기
             
             let sysname = $(this).next(".sysname").val();
+            console.log(sysname);
             $("#modal_img").children("img").remove(); 
             let img = $("<img>");
             img.attr("src","/meal/display?fileName="+sysname).width(400);
-            if(sysname!=" "){
+            if(sysname!=""){
             	$("#modal_img").append(img);
             }
             
@@ -341,9 +342,9 @@
                 <input type="text" class="pl-2 mb-2 form-control" id="menu3" name="menu3">
                 <input type="text" class="pl-2 mb-2 form-control" id="menu4" name="menu4">
                 <input type="text" class="pl-2 mb-2 form-control" id="menu5" name="menu5">
-                <input type="text" class="pl-2 mb-2 form-control" id="menu6" name="menu6">
+                <input type="text" class="pl-2 form-control" id="menu6" name="menu6">
             </div>
-            <div class="modal-body p-0 pb-2" id="modal_img">
+            <div class="modal-body p-0 pb-3" id="modal_img">
             	<!-- 이미지 넣기 -->
             </div>
             <div class="modal-footer">
