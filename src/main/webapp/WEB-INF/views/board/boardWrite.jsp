@@ -20,7 +20,7 @@
 <script>
 $(document).ready(function() {
 	  $('#summernote').summernote({
- 	    	placeholder: 'content',
+ 	    	placeholder: '내용을 입력하세요.',
 	        minHeight: 370,
 	        maxHeight: null,
 	        focus: true, 
@@ -28,20 +28,7 @@ $(document).ready(function() {
 	  });
 	});
 	
-function goWrite(frm) {
-	var title = frm.title.value;
-	var content = frm.content.value;
-	
-	if (title.trim() == ''){
-		alert("제목을 입력해주세요");
-		return false;
-	}
-	if (content.trim() == ''){
-		alert("내용을 입력해주세요");
-		return false;
-	}
-	frm.submit();
-}
+
 
 $(function(){
 	$("#listBtn").on("click",function(){
@@ -53,13 +40,13 @@ $(function(){
 <body>
 <h2 style="text-align: center;">글 작성</h2><br><br><br>
 
-<div class="row pt-4"style="width: 60%; margin: auto;">
+<div class="container col-md-6">
 	<form method="post" action="/bod/writeProc">
-		<input type="text" name="title" style="width: 40%;" placeholder="제목"/>
+		<input type="text" name="title" style="width: 40%;" placeholder="제목" required />
 		<br><br>
-		<textarea id="summernote" name="content" placeholder="내용을 입력하세요."></textarea>
-		<input id="subBtn" type="submit" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/>
-		<input id="listBtn" type="button" value="글 목록" style="float: right;"/>
+		<textarea id="summernote" name="content" required></textarea>
+		<input id="subBtn" type="submit" value="글 작성" class="btn btn-info" style="float: right;" onclick="goWrite(this.form)"/>
+		<input id="listBtn" type="button" value="글 목록" class="btn btn-secondary" style="float: right;"/>
 	</form>
 </div>
 

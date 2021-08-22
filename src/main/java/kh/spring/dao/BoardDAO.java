@@ -1,7 +1,6 @@
 package kh.spring.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.BoardDTO;
+import kh.spring.dto.Board_CommentsDTO;
 
 @Repository
 public class BoardDAO {
@@ -52,5 +52,12 @@ public class BoardDAO {
 		return mybatis.update("Board.updateViewcnt", seq);
 	}
 
+	public int addCommnetnsProc(Board_CommentsDTO dto) {
+		return mybatis.insert("Board.addCommnetnsProc",dto);
+	}
+
+	public List<Board_CommentsDTO> commentsList(int board_seq){
+		return mybatis.selectList("Board.commentsList", board_seq);
+	}
 
 }

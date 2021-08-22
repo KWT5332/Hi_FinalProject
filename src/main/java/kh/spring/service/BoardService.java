@@ -1,16 +1,13 @@
 package kh.spring.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kh.spring.config.BoardConfig;
 import kh.spring.dao.BoardDAO;
 import kh.spring.dto.BoardDTO;
+import kh.spring.dto.Board_CommentsDTO;
 
 @Service
 public class BoardService {
@@ -18,6 +15,8 @@ public class BoardService {
 	
 	@Autowired
 	private BoardDAO bdao;
+	
+
 	
 	public int boardWrite(BoardDTO dto) {
 		return bdao.boardWrite(dto);
@@ -45,6 +44,14 @@ public class BoardService {
 	
 	public int updateViewcnt(int seq) {
 		return bdao.updateViewcnt(seq);
+	}
+	
+	public int addCommnetnsProc(Board_CommentsDTO dto) {
+		return bdao.addCommnetnsProc(dto);
+	}
+
+	public List<Board_CommentsDTO> commentsList(int board_seq){
+		return bdao.commentsList(board_seq);
 	}
 	
 }
