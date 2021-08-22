@@ -177,7 +177,7 @@ public class MealController {
 	
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> getImage(String fileName){
-		String realPath = session.getServletContext().getRealPath("/resources/meal_img");
+		String realPath = session.getServletContext().getRealPath("meal_img");
 		System.out.println(realPath);
 		File file = new File(realPath+"/"+fileName);
 		ResponseEntity<byte[]> result = null;

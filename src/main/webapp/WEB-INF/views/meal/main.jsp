@@ -135,8 +135,12 @@
 		});
 
 		// 한달 식단표 다운로드
-		$("#download").on("click",function(){
-			location.href = "/excel/excelDowload?month=07";
+		$("#download").on("click",function(){ 
+	        let str = $("#calNaviTitle").text();
+            let arr = str.split(" "); // 띄어쓰기로 문자열 자르기;
+            let month = arr[1].substr(0,2);
+
+			location.href = "/excel/excelDowload?month="+month;
 		});
 		
 		$("#cal").on("click",function(){
