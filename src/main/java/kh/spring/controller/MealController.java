@@ -1,12 +1,21 @@
 package kh.spring.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -87,33 +96,27 @@ public class MealController {
 	}
 	
 	// 식단추가
-	@ResponseBody
 	@RequestMapping(value="addmealProc", produces="text/html;charset=utf8")
 	public String addmealProc(MealDTO dto, MultipartFile file) throws Exception {
 		System.out.println("식단추가");
-		
 		System.out.println(file);
-		int count = service.isdateOk(dto.getMeal_date());
-		if(count > 0) { // 이 meal_date에 등록된 식단이 있어?
-			return "0";
-		}else { // 없으면 식단 등록 가능
-			String realPath = session.getServletContext().getRealPath("meal_img");
-			MemberDTO mdto = (MemberDTO)session.getAttribute("login");
-			
-			dto.setWriter(mdto.getName());
-			dto.setSchool(mdto.getSchool());
-			
-			dto.setMenu1(XSSFillterConfig.XSSFilter(dto.getMenu1()));
-			dto.setMenu2(XSSFillterConfig.XSSFilter(dto.getMenu2()));
-			dto.setMenu3(XSSFillterConfig.XSSFilter(dto.getMenu3()));
-			dto.setMenu4(XSSFillterConfig.XSSFilter(dto.getMenu4()));
-			dto.setMenu5(XSSFillterConfig.XSSFilter(dto.getMenu5()));
-			dto.setMenu6(XSSFillterConfig.XSSFilter(dto.getMenu6()));
 
-			service.addMeal(dto, file, realPath); 
-			
-			return "1";
-		}
+		String realPath = session.getServletContext().getRealPath("meal_img");
+		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
+
+		dto.setWriter(mdto.getName());
+		dto.setSchool(mdto.getSchool());
+
+		dto.setMenu1(XSSFillterConfig.XSSFilter(dto.getMenu1()));
+		dto.setMenu2(XSSFillterConfig.XSSFilter(dto.getMenu2()));
+		dto.setMenu3(XSSFillterConfig.XSSFilter(dto.getMenu3()));
+		dto.setMenu4(XSSFillterConfig.XSSFilter(dto.getMenu4()));
+		dto.setMenu5(XSSFillterConfig.XSSFilter(dto.getMenu5()));
+		dto.setMenu6(XSSFillterConfig.XSSFilter(dto.getMenu6()));
+
+		service.addMeal(dto, file, realPath); 
+
+		return "redirect:/meal/addmeal";
 	}
 	
 	// 검색
@@ -132,6 +135,18 @@ public class MealController {
 	
 	// 수정
 	@ResponseBody
+	@RequestMapping("isDateOk")
+	public String isDateOk(Date meal_date) {
+		System.out.println("이 날짜있냐 " + meal_date);
+
+		int result = service.isdateOk(meal_date);
+		if(result>0) {
+			return "1";
+		}else {
+			return "0";
+		}
+	}
+	
 	@RequestMapping("update")
 	public String update(String meal_date,String menu1,String menu2,String menu3,String menu4,String menu5,String menu6) {
 		System.out.println("수정");
@@ -158,5 +173,24 @@ public class MealController {
 		service.delete(meal_date);
 		
 		return "1"; 
+	}
+	
+	@GetMapping("/display")
+	public ResponseEntity<byte[]> getImage(String fileName){
+		String realPath = session.getServletContext().getRealPath("meal_img");
+		System.out.println(realPath);
+		File file = new File(realPath+"/"+fileName);
+		ResponseEntity<byte[]> result = null;
+		
+		try {
+			HttpHeaders header = new HttpHeaders();
+			header.add("Content-type", Files.probeContentType(file.toPath()));
+			
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+			
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

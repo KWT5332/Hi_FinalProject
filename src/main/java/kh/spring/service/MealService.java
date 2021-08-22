@@ -27,7 +27,6 @@ public class MealService {
 	
 	//
 	public int isdateOk(Date meal_date) {
-		System.out.println(meal_date);
 		return dao.isdateOk(meal_date);
 	}
 	
@@ -48,6 +47,12 @@ public class MealService {
 		dto.setMonth(month);
 		dto.setOriName(oriName);
 		dto.setSysName(sysName);
+		
+		System.out.println(realPath);
+		System.out.println(oriName);
+		System.out.println(sysName);
+		System.out.println(filesPath.getAbsolutePath()+"/"+sysName);
+		System.out.println(realPath+"/"+sysName);
 		
 		if(dto.getMenu3() == null) {
 			dto.setMenu3("");
@@ -126,6 +131,7 @@ public class MealService {
 	}
 	
 	public int delete(String meal_date) {
+		
 		System.out.println(meal_date);
 		return dao.delete(meal_date);
 	}

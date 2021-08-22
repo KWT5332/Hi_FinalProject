@@ -16,7 +16,27 @@
 	<select id="idCheck" resultType="int">
 		select count(*) from hi_member where email = #{email}
 	</select>
-
+	<update id="modiName">
+		update hi_member set name=#{name} where email=#{email}
+	</update>
+	<update id="modiSchool">
+		update hi_member set school=#{school} where email=#{email}
+	</update>
+	<update id="modiPhone">
+		update hi_member set phone=#{phone} where email=#{email}
+	</update>
+	<update id="modiAge">
+		update hi_member set age=#{age} where email=#{email}
+	</update>
+	<update id="modiPw">
+		update hi_member set pw=#{pw} where email=#{email}
+	</update>
+	<select id="pwck" resultType="int">
+		select count(*) from hi_member where email =#{email} and pw=#{pw}
+	</select>
+	<update id="imgupdate">
+		update hi_member set oriName=#{oriName} and sysName=#{sysName} where email=#{email}
+	</update>
 
 
 </mapper>

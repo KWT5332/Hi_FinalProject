@@ -14,69 +14,69 @@
 	</select>
 	
 	
-	<!-- feedback -->
-	<select id="feed01" resultType="int">
+		<!-- feedback -->
+	<select id="feed01" resultType="Integer">
 		select count(*) from st_feedback where feedback='very_good'
 	</select>
 	
-	<select id="feed02" resultType="int">
+	<select id="feed02" resultType="Integer">
 		select count(*) from st_feedback where feedback='good'
 	</select>
 	
-	<select id="feed03" resultType="int">
+	<select id="feed03" resultType="Integer">
 		select count(*) from st_feedback where feedback='normal'
 	</select>
 	
-	<select id="feed04" resultType="int">
+	<select id="feed04" resultType="Integer">
 		select count(*) from st_feedback where feedback='very_bad'
 	</select>
 	
-	<select id="feed05" resultType="int">
+	<select id="feed05" resultType="Integer">
 		select count(*) from st_feedback where feedback='bad'
 	</select>
 	
 	
 	<!-- best menu -->
-	<select id="best01" resultType="int">
-		select count(*) from st_feedback where bestmenu='korean'
+	<select id="best01" resultType="Integer">
+		select count(*) from st_feedback where bestmenu='korean' and parent_email=#{parent_email}
 	</select>
 	
-	<select id="best02" resultType="int">
-		select count(*) from st_feedback where bestmenu='japanese'
+	<select id="best02" resultType="Integer">
+		select count(*) from st_feedback where bestmenu='japanese' and parent_email=#{parent_email}
+	</select> 
+	
+	<select id="best03" resultType="Integer">
+		select count(*) from st_feedback where bestmenu='chinese' and parent_email=#{parent_email}
 	</select>
 	
-	<select id="best03" resultType="int">
-		select count(*) from st_feedback where bestmenu='chinese'
+	<select id="best04" resultType="Integer">
+		select count(*) from st_feedback where bestmenu='western' and parent_email=#{parent_email}
 	</select>
 	
-	<select id="best04" resultType="int">
-		select count(*) from st_feedback where bestmenu='western'
-	</select>
-	
-	<select id="best05" resultType="int">
-		select count(*) from st_feedback where bestmenu='etc'
+	<select id="best05" resultType="Integer">
+		select count(*) from st_feedback where bestmenu='etc' and parent_email=#{parent_email}
 	</select>
 	
 	
 	<!-- worst menu -->
-	<select id="worst01" resultType="int">
-		select count(*) from st_feedback where worstmenu='korean'
+	<select id="worst01" resultType="Integer">
+		select count(*) from st_feedback where worstmenu='korean' and parent_email=#{parent_email}
 	</select>
 	
-	<select id="worst02" resultType="int">
-		select count(*) from st_feedback where worstmenu='japanese'
+	<select id="worst02" resultType="Integer">
+		select count(*) from st_feedback where worstmenu='japanese' and parent_email=#{parent_email}
 	</select>
 	
-	<select id="worst03" resultType="int">
-		select count(*) from st_feedback where worstmenu='chinese'
+	<select id="worst03" resultType="Integer">
+		select count(*) from st_feedback where worstmenu='chinese' and parent_email=#{parent_email}
 	</select>
 	
-	<select id="worst04" resultType="int">
-		select count(*) from st_feedback where worstmenu='western'
+	<select id="worst04" resultType="Integer">
+		select count(*) from st_feedback where worstmenu='western' and parent_email=#{parent_email}
 	</select>
 	
-	<select id="worst05" resultType="int">
-		select count(*) from st_feedback where worstmenu='etc'
+	<select id="worst05" resultType="Integer">
+		select count(*) from st_feedback where worstmenu='etc' and parent_email=#{parent_email}
 	</select>
 	
 </mapper>

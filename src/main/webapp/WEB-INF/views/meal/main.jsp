@@ -197,14 +197,23 @@
         	let str = $(this).html();
             let arr = str.split("<br>");
             
-            for(let i=0;i<arr.length;i++){
+            for(let i=0;i<arr.length;i++){ // 메뉴 input에 넣어주기
                 $("#menu"+(i+1)).val(arr[i]);
             }
 
             let date = $(this).parent("td").attr("class"); // 날짜가져오기
             let darr = date.split("-");
-            console.log(darr[1]);
-            $(".modal-title").text(date);
+
+            $(".modal-title").text(date); // 날짜 모달title에 넣어주기
+            
+            let sysname = $(this).next(".sysname").val();
+            $("#modal_img").children("img").remove(); 
+            let img = $("<img>");
+            img.attr("src","/meal/display?fileName="+sysname).width(400);
+            if(sysname!=" "){
+            	$("#modal_img").append(img);
+            }
+            
             $("#modal").modal("show");
             
             $("#update").on("click",function(){ // 수정버튼
@@ -237,13 +246,16 @@
             })
             
             $("#delete").on("click",function(){ // 삭제버튼
-            	if(confirm("정말 삭제 하시겠습니까?")){
+            	let result = confirm("정말 삭제 하시겠습니까?")
+            	if(result){
             		$.ajax({
                 		url:"/meal/delete",
                 		data:{"meal_date":date}
                 	}).done(function(resp){
                     	thismenu.remove();
                 	})
+            	}else if(!result){
+            		$("#modal").modal("hide");
             	}
             })
         })
@@ -331,6 +343,9 @@
                 <input type="text" class="pl-2 mb-2 form-control" id="menu5" name="menu5">
                 <input type="text" class="pl-2 mb-2 form-control" id="menu6" name="menu6">
             </div>
+            <div class="modal-body p-0 pb-2" id="modal_img">
+            	<!-- 이미지 넣기 -->
+            </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" id="delete">삭제</button>
             <button type="button" class="btn btn-primary" id="update">수정</button>
@@ -376,8 +391,14 @@
             		if(resp[i].menu6 != null){
             			menu.append("<br>"+resp[i].menu6);
             		}else{menu.append("<br><br>");}
+
+            		let hidden = $("<input>");
+            		hidden.attr("type","hidden");
+            		hidden.addClass("sysname");
+            		hidden.attr("value", resp[i].sysName);
             		
             		$("."+resp[i].meal_date).append(menu);
+            		$("."+resp[i].meal_date).append(hidden);
 				}
 			})
 		}
