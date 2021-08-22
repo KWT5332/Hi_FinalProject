@@ -86,7 +86,9 @@
 </script>
 </head>
 <body>
-
+<!-- header -->
+ <jsp:include page="../layout/header.jsp"/>
+ 
 <div id="doardcon">
 	<div class="container p-3 mb-5 mt-5">
 		<div class="row pt-4" id="main">
@@ -142,6 +144,7 @@
 		</div>
 	</div>
 	</div>
-
+<!-- footer -->
+<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>

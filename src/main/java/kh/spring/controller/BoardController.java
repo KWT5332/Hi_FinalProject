@@ -93,7 +93,7 @@ public class BoardController {
 		bservice.modify(dto);
 		BoardDTO ndto = bservice.boardView(dto.getSeq());
 		model.addAttribute("detail", ndto);
-		return "board/boardView";
+		return "redirect:/bod/viewProc?seq="+ndto.getSeq();
 	}
 	
 	@RequestMapping("boardDelete")
@@ -164,6 +164,21 @@ public class BoardController {
 	      bservice.addCommnetnsProc(new Board_CommentsDTO(0,writer,contents,null,board_seq));
 	      return ""; 
 	   }
-	
+	   
+	   @RequestMapping("deleteCommnetns")
+	   public String deleteCommnetns (int seq, int board_seq) {
+		   System.out.println("댓글 시퀀스"+seq);
+		   System.out.println(board_seq);
+		   bservice.deleteCommnetns(seq);
+		   return "redirect:/bod/viewProc?seq="+board_seq;
+
+	   }
+	   
+	   @RequestMapping("updateCommnetns")
+		public String updateCommnetns (String contents, int seq, int board_seq) {
+			bservice.updateCommnetns(contents, seq);
+
+			return "redirect:/bod/viewProc?seq="+board_seq;
+		}
 }
 

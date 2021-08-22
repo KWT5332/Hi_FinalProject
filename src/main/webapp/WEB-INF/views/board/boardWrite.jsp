@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 
 <!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 <!-- include summernote css/js-->
@@ -38,18 +38,24 @@ $(function(){
 </script>
 </head>
 <body>
+<!-- header -->
+ <jsp:include page="../layout/header.jsp"/>
+<div class="container" id="">
 <h2 style="text-align: center;">글 작성</h2><br><br><br>
 
-<div class="container col-md-6">
 	<form method="post" action="/bod/writeProc">
 		<input type="text" name="title" style="width: 40%;" placeholder="제목" required />
 		<br><br>
 		<textarea id="summernote" name="content" required></textarea>
-		<input id="subBtn" type="submit" value="글 작성" class="btn btn-info" style="float: right;" onclick="goWrite(this.form)"/>
-		<input id="listBtn" type="button" value="글 목록" class="btn btn-secondary" style="float: right;"/>
+		<div class="row p-2">
+		<input type="hidden" class="col-12">
+		<input id="subBtn" type="submit" value="글 작성" class="col-1 btn btn-info" onclick="goWrite(this.form)"/>
+		<input id="listBtn" type="button" value="글 목록" class="col-1 btn btn-secondary"/>
+		</div>
 	</form>
 </div>
-
+	<!-- footer -->
+<jsp:include page="../layout/footer.jsp"/>
 </body>
 <script>
 $('.summernote').summernote({

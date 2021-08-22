@@ -7,19 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판 수정페이지</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 <!-- include summernote css/js-->
@@ -49,9 +38,11 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+<!-- header -->
+ <jsp:include page="../layout/header.jsp"/>
 <h2 style="text-align: center;">글 수정</h2><br><br>
 
-	<div class="container col-md-6" >
+	<div class="container p-5" >
 		<form action='<c:url value='/bod/modifyProc'/>' method="post">
 			<div class="form-group">
 				<label for="exampleFormControlInput1">제목</label> <input type="text"
@@ -76,5 +67,7 @@ $(document).ready(function() {
 					role="button">뒤로가기</a>
 		</form>
 	</div>
+	<!-- footer -->
+<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>

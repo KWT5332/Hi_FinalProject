@@ -1,6 +1,8 @@
 package kh.spring.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,5 +55,15 @@ public class BoardService {
 	public List<Board_CommentsDTO> commentsList(int board_seq){
 		return bdao.commentsList(board_seq);
 	}
+
+	public int deleteCommnetns(int seq) {
+		return bdao.deleteCommnetns(seq);
+	}
 	
+	public int updateCommnetns(String contents, int seq) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("contents", contents);
+		map.put("seq", seq);
+		return bdao.updateCommnetns(map);
+	}
 }
