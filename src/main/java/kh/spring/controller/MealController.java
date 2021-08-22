@@ -147,6 +147,7 @@ public class MealController {
 		}
 	}
 	
+	@ResponseBody
 	@RequestMapping("update")
 	public String update(String meal_date,String menu1,String menu2,String menu3,String menu4,String menu5,String menu6) {
 		System.out.println("수정");
