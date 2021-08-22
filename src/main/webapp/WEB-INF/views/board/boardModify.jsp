@@ -30,14 +30,14 @@
 <script>
 $(document).ready(function() {
 	  $('#summernote').summernote({
- 	    	placeholder: 'content',
+ 	    	placeholder: '${detail.content}',
 	        minHeight: 370,
 	        maxHeight: null,
 	        focus: true, 
 	        lang : 'ko-KR'
 	  });
 	  // Summernote에 글 내용 추가하는 코드
-	  $("#summernote").summernote('code',  '${board.content}');
+	  $("#summernote").summernote('code',  '${detail.content}');
 	});
 </script>
 <script>
@@ -72,7 +72,8 @@ $(document).ready(function() {
 			<input type="hidden" name="write_date" value="${detail.write_date }">
 			<input type="hidden" name="view_count" value="${detail.view_count -1}">
 			<button type="submit" class="btn btn-info" style="float: right;">수정하기</button>
-			<button type="button" class="btn btn-secondary" id="backView"style="float: right;">뒤로가기</button>
+			<a href='<c:url value='/bod/viewProc?seq=${detail.seq }'/>' class="btn btn-secondary"
+					role="button">뒤로가기</a>
 		</form>
 	</div>
 </body>

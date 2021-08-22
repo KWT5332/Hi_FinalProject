@@ -1,26 +1,23 @@
 package kh.spring.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.gson.JsonObject;
-
 import kh.spring.dto.BoardDTO;
+import kh.spring.dto.Board_CommentsDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.BoardService;
 import kh.spring.service.FileService;
@@ -71,8 +68,10 @@ public class BoardController {
 	@RequestMapping("viewProc")
 	public String viewProc(int seq, Model model) {
 		BoardDTO dto = bservice.boardView(seq);
+		List<Board_CommentsDTO> commentsList = bservice.commentsList(seq);
 		bservice.updateViewcnt(seq);
 		model.addAttribute("detail", dto);
+		model.addAttribute("commentsList",commentsList);
 		return "board/boardView";
 	}
 	
@@ -153,7 +152,18 @@ public class BoardController {
 //		return a;
 //	}
 	
-	
+	   @RequestMapping(value = "addCommnetnsProc", method = RequestMethod.POST) // ajax 로 보낼때는  method = RequestMethod.POST 꼭 써야한다
+	   @ResponseBody // ajax를 받은 결과값을 보내줄때 쓰는 어노테이션 꼭 붙여줘야한다
+	   public String addComments(String contents, int board_seq){
+	      System.out.println("댓글 등록");
+	      System.out.println(contents);
+	      System.out.println("보드 시퀀스" + board_seq);
+	      
+		  MemberDTO mmdto = (MemberDTO)session.getAttribute("login");
+		  String writer = mmdto.getEmail();
+	      bservice.addCommnetnsProc(new Board_CommentsDTO(0,writer,contents,null,board_seq));
+	      return ""; 
+	   }
 	
 }
 

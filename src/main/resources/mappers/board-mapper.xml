@@ -34,6 +34,15 @@
       update board set view_count = view_count + 1 where seq = #{seq}
    </update>
 
+	<insert id="addCommnetnsProc">
+		insert into board_comments
+		values(board_comments_seq.nextval,#{writer},#{contents},sysdate,${board_seq})
+	</insert>
+
+	<select id="commentsList"
+		resultType="kh.spring.dto.Board_CommentsDTO">
+		select * from board_comments where board_seq=${value} order by seq
+	</select>
 
 
 
