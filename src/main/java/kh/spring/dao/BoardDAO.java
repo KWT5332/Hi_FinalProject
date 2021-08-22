@@ -1,6 +1,7 @@
 package kh.spring.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,4 +61,11 @@ public class BoardDAO {
 		return mybatis.selectList("Board.commentsList", board_seq);
 	}
 
+	public int deleteCommnetns (int seq) {
+		return mybatis.delete("Board.deleteCommnetns", seq);
+	}
+	
+	public int updateCommnetns (Map<String, Object> map) {
+		return mybatis.update("Board.updateCommnetns", map);
+	}
 }
