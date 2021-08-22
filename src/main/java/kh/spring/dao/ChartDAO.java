@@ -20,17 +20,27 @@ public class ChartDAO {
 		return mybatis.insert("Chart.insert", dto);
 	}
 	
-	
 	public List<ChartDTO> selectAll(){
 		return mybatis.selectList("Chart.selectAll");
 	}
 	
+	// 급식비 인원
+	public int allStd(String school) {
+		int result = mybatis.selectOne("Chart.all", school);
+		System.out.println(school + " : " + result);
+		return result;
+	}
+	
+	public int allPay(String school) {
+		int result = mybatis.selectOne("Chart.pay", school);
+		System.out.println(school + " : " + result);
+		return result;
+	}
+	
+	
 	// feedback counting
 	public int feed01(String parent_email) {
-		int result = mybatis.selectOne("Chart.feed01", parent_email);
-		System.out.println(result);
-		System.out.println(parent_email);
-		return result;
+		return mybatis.selectOne("Chart.feed01", parent_email);
 	}
 
 	public int feed02(String parent_email) {

@@ -13,26 +13,34 @@
 		select * from st_feedback
 	</select>
 	
+	<!-- all -->
+	<select id="all" resultType="Integer">
+		select count(*) from st_mail where school=#{school}
+	</select>
+	
+	<select id="pay" resultType="Integer">
+		select count(*) from st_payment where school=#{school}
+	</select>
 	
 		<!-- feedback -->
 	<select id="feed01" resultType="Integer">
-		select count(*) from st_feedback where feedback='very_good'
+		select count(*) from st_feedback where feedback='very_good' and parent_email=#{parent_email}
 	</select>
 	
 	<select id="feed02" resultType="Integer">
-		select count(*) from st_feedback where feedback='good'
+		select count(*) from st_feedback where feedback='good' and parent_email=#{parent_email}
 	</select>
 	
 	<select id="feed03" resultType="Integer">
-		select count(*) from st_feedback where feedback='normal'
+		select count(*) from st_feedback where feedback='normal' and parent_email=#{parent_email}
 	</select>
 	
 	<select id="feed04" resultType="Integer">
-		select count(*) from st_feedback where feedback='very_bad'
+		select count(*) from st_feedback where feedback='very_bad' and parent_email=#{parent_email}
 	</select>
 	
 	<select id="feed05" resultType="Integer">
-		select count(*) from st_feedback where feedback='bad'
+		select count(*) from st_feedback where feedback='bad' and parent_email=#{parent_email}
 	</select>
 	
 	

@@ -33,19 +33,16 @@
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
         data.addRows([
-          ['Mushrooms', 1],
-          ['Onions', 1],
-          ['Olives', 2],
-          ['Zucchini', 2],
-          ['Pepperoni', 1]
+          ['전체인원', ${allStd}],
+          ['결제인원', ${allPay}]
         ]);
 
-        var options = {title:'How Much Pizza Sarah Ate Last Night',
+        var options = {title:'전체인원 대비 결제인원',
                        width:500,
                        height:400,
                        /* pieHole: 0.3, */
                        pieSliceText:'label',
-                       /* legend:'none' */};
+                       legend:'none' };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
         chart.draw(data, options);
@@ -128,6 +125,9 @@
 <jsp:include page="../layout/header.jsp"/>
 
 			<table class="columns" align="center">
+				<tr>
+					<td><a href="/sdt/researchHome">설문조사</a>
+				</tr>
 				<tr>
 					<th>${login.email}님의 통계입니다.
 				</tr>
