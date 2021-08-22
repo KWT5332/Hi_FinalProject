@@ -117,7 +117,7 @@ public class ChatController {
 		return "redirect:/chat/toChatRoom?room_number="+room_number;
 	}
 	
-	//나의 채팅방에서 채팅하기로 가기 위한 칸트롤러
+	//나의 채팅방에서 채팅하기로 가기 위한 컨트롤러
 	@RequestMapping("chatListToChat")
 	public String chatListToChat(int room_number) {
 		System.out.println("방번호" + room_number);
@@ -151,8 +151,22 @@ public class ChatController {
 		
 			String receiver_name = receiver.getName();
 			model.addAttribute("receiver_name",receiver_name);
+			
+			String receiver_sysname= receiver.getSysName();
+			System.out.println("프로필 이미지 경로 " + receiver_sysname);
+			model.addAttribute("receiver_sysname",receiver_sysname);
 		
 		return "chat/toChat";
+	}
+	
+	// 채팅방 목록에서 이메일 대신에 이름 뽑아오기 
+	@RequestMapping(value="findNameProc",produces="text/html;charset=utf8")
+	@ResponseBody
+	public String findNameProc(String findEmail) {
+		MemberDTO mdto = service.receiver(findEmail);
+		Gson g = new Gson();
+		String result = g.toJson(mdto);
+		return String.valueOf(result);
 	}
 
 }
