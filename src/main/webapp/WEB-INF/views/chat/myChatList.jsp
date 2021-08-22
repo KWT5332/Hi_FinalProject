@@ -48,6 +48,7 @@ height:80px;
 border-radius:50%;
 }
 .contents{text-align:center; line-height:80px;}
+.to_chat{text-align:center;}
 </style>
 </head>
 <body>
@@ -97,7 +98,7 @@ border-radius:50%;
         				 				 
         				 			 })
         				 			</script>
-        				 			<div class="col-3 p-4"><a href="/chat/chatListToChat?room_number=${infoList.room_number}">채팅하기</a></div>
+        				 			<div class="col-3 p-4 to_chat"><a href="/chat/chatListToChat?room_number=${infoList.room_number}">채팅하기</a></div>
         				 		</div>
         				 	</c:when>
         				 	<c:otherwise>
@@ -122,7 +123,7 @@ border-radius:50%;
         				 		    	  	$("."+${infoList.room_number}).after(div);
         				 		      });
         				 			</script>
-        				 			<div class="col-3 p-4"><a href="/chat/chatListToChat?room_number=${infoList.room_number}">채팅하기</a></div>
+        				 			<div class="col-3 p-4 to_chat"><a href="/chat/chatListToChat?room_number=${infoList.room_number}">채팅하기</a></div>
         				 		</div>
         				 	</c:otherwise>
         				 </c:choose>
