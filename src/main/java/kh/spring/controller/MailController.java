@@ -3,9 +3,9 @@ package kh.spring.controller;
 import java.io.File;
 import java.util.List;
 
-import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.St_MailDTO;
+import kh.spring.service.ExcelService;
 import kh.spring.service.MailService;
 
 @Controller
@@ -28,6 +29,9 @@ public class MailController {
 
 	@Autowired
 	private MailService service;
+	
+	@Autowired
+	private ExcelService exservice;
 	
 	@Autowired
 	private JavaMailSender mailSender;
@@ -47,10 +51,11 @@ public class MailController {
 		return "mail/sendmail"; 
 	}
 
-
-	@RequestMapping(value = "sendMailProc", method = RequestMethod.GET)
-	public String sendMailTest() throws Exception{
+	@ResponseBody
+	@RequestMapping(value = "sendMailProc", method = RequestMethod.GET, produces="text/html;charset=utf8")
+	public String sendMailTest(String month, String payment, HttpServletResponse response) throws Exception{
 		System.out.println("메일보내기");
+		System.out.println(month + " : " + payment);
 		String subject = "test 메일";
 		String content = "메일 테스트 내용";
 		//String content = "메일 테스트 내용" + "<img src=\"이미지 경로\">";
@@ -101,21 +106,28 @@ public class MailController {
 			
 			//FileSystemResource file = new FileSystemResource(new File("경로\업로드할파일.형식")); 
 			//helper.addAttachment("업로드파일.형식", file);
-			FileSystemResource file = new FileSystemResource(new File("C:\\test.txt")); 
-            mailHelper.addAttachment("test.txt", file);
+			System.out.println("C:\\Users\\SeoSeunghee\\Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx");
+			//FileSystemResource file = new FileSystemResource(new File("Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx")); 
+			FileSystemResource file = new FileSystemResource(new File("C:\\Users\\SeoSeunghee\\Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx")); 
+            mailHelper.addAttachment(month+"월+"+dto.getSchool()+"+식단표.xlsx", file);
 			
 			mailSender.send(mail);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return "mail/sendmail"; 
+		return "!"; 
 	}
+
 	
 	@RequestMapping(value = "addStudentProc", method = RequestMethod.POST)
 	@ResponseBody
 	public String addStudent(St_MailDTO dto) {
 		System.out.println("학생등록");
+		
+		MemberDTO m = (MemberDTO)hsession.getAttribute("login");
+		dto.setSchool(m.getSchool());
+		
 		service.addStudent(dto);
 		return "mail/sendmail"; 
 	}

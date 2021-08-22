@@ -75,15 +75,31 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 </style>
 <script>
 	$(function() {
+	    function strNum(num){ // 8월달 08로 출력하기 만드는 함수.
+	        if(num<10){
+	            return "0" + num;
+	        }else{
+	             return num;
+	        }
+	    }
 		/* 메일전체발송 */
 		$(".btn_sendmail").click(function() {
-			alert("전체 학생에게 메일을 발송합니다.");
-			$.ajax({
-				type : "GET",
-				url : "/mail/sendMailProc",
-				success : function() {
-					console.log("확인");
-				}
+			$("#modal").modal("show");
+			
+			$("#send").on("click",function(){
+				alert("전체 학생에게 메일을 발송합니다.");
+				let month = $("#month").val();
+				
+				let strMonth = strNum(month);
+				location.href = "/excel/excelDowload?month="+strMonth;
+  				$.ajax({
+					type : "GET",
+					url : "/mail/sendMailProc", 
+					data:{"month":strMonth, "payment":$("#payment").val()}
+ 				}).done(function(resp) {
+						console.log("확인");
+					
+				}) 
 			})
 		})
 		/* 학생정보추가 */
@@ -150,7 +166,7 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 	<jsp:include page="../layout/header.jsp" />
 
 	<div class="sendmail_container container p-5">
-        <div class="row mb-3 mt-5">
+        <div class="row m-0 mb-3 mt-5">
 			<div class="col-6 ">
 				<button class="btn btn-success btn_sendmail">전체학생에게 이메일 보내기</button>
 			</div>
@@ -167,7 +183,7 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 	        </div>
         </div>
 		<form id="frm">
-		<div class="studentAdd row">
+		<div class="studentAdd row m-0">
 			<div class="col-4">
 				<input type="text" class="form-control" name="stu_name" id="stu_name" placeholder="학생이름을 입력하세요">
 			</div>
@@ -201,6 +217,30 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 		</div>
 		
 	</div>
+	
+	     <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">메일보내기</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <p style="text-align:left;">몇월달 식단표를 보낼까요?</p>
+                <input type="text" class="pl-2 mb-2 form-control" id="month" name="month">
+                <p style="text-align:left;">이번달 급식비 (숫자로 적어주세요.)</p>
+                <input type="text" class="pl-2 mb-2 form-control" id="payment" name="payment">
+            </div>
+            <div class="modal-footer">
+            	<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            	<button type="button" class="btn btn-primary" id="send">메일보내기</button>
+            </div>
+        </div>
+        </div>
+    </div>    
 
 	<jsp:include page="../layout/footer.jsp" />
 </body>

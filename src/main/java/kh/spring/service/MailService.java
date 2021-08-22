@@ -19,6 +19,7 @@ public class MailService {
 	}
 
 	public int addStudent(St_MailDTO dto) {
+		System.out.println(dto.getStu_name()+" : " + dto.getStu_email() + ":"+dto.getSchool());
 		return dao.addStudent(dto);
 	}
 	
