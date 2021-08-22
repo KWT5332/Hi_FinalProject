@@ -24,6 +24,15 @@ public class ChartService {
 		return cdao.selectAll();
 	}
 	
+	public int allStd(String school) {
+		return cdao.allStd(school);
+	}
+	
+	public int allPay(String school) {
+		return cdao.allPay(school);
+	}
+	
+	
 	// feedback
 	public int feed01(String parent_email) {
 		return cdao.feed01(parent_email);

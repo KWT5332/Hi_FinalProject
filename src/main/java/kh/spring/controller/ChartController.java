@@ -31,8 +31,15 @@ public class ChartController {
 		
 		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
 		String parent_email = mdto.getEmail();
+		String school = mdto.getSchool();
 		
 		System.out.println(mdto.getEmail());
+		
+		int allStd = cserve.allStd(school);
+		m.addAttribute("allStd", allStd);
+		
+		int allPay = cserve.allPay(school);
+		m.addAttribute("allPay", allPay);
 		
 		int feed01 = cserve.feed01(parent_email);
 		m.addAttribute("feed01", feed01);
