@@ -30,59 +30,55 @@ public class ChartController {
 	public String chartHome(Model m) {
 		
 		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
-		
-		ChartDTO cdto = new ChartDTO();
-		m.addAttribute("cdto", cdto);
+		String parent_email = mdto.getEmail();
 		
 		System.out.println(mdto.getEmail());
-		System.out.println(cdto.getParent_email());
 		
-		
-		int feed01 = cserve.feed01();
+		int feed01 = cserve.feed01(parent_email);
 		m.addAttribute("feed01", feed01);
 		
-		int feed02= cserve.feed02();
+		int feed02= cserve.feed02(parent_email);
 		m.addAttribute("feed02", feed02);
 		
-		int feed03 = cserve.feed03();
+		int feed03 = cserve.feed03(parent_email);
 		m.addAttribute("feed03", feed03);
 		
-		int feed04 = cserve.feed04();
+		int feed04 = cserve.feed04(parent_email);
 		m.addAttribute("feed04", feed04);
 		
-		int feed05 = cserve.feed05();
+		int feed05 = cserve.feed05(parent_email);
 		m.addAttribute("feed05", feed05);
 		
 		// best menu
-		int best01 = cserve.best01();
+		int best01 = cserve.best01(parent_email);
 		m.addAttribute("best01", best01);
 		
-		int best02 = cserve.best02();
+		int best02 = cserve.best02(parent_email);
 		m.addAttribute("best02", best02);
 		
-		int best03 = cserve.best03();
+		int best03 = cserve.best03(parent_email);
 		m.addAttribute("best03", best03);
 		
-		int best04 = cserve.best04();
+		int best04 = cserve.best04(parent_email);
 		m.addAttribute("best04", best04);
 		
-		int best05 = cserve.best05();
+		int best05 = cserve.best05(parent_email);
 		m.addAttribute("best05", best05);
 		
 		// worst menu
-		int worst01 = cserve.worst01();
+		int worst01 = cserve.worst01(parent_email);
 		m.addAttribute("worst01", worst01);
 		
-		int worst02 = cserve.worst02();
+		int worst02 = cserve.worst02(parent_email);
 		m.addAttribute("worst02", worst02);
 		
-		int worst03 = cserve.worst03();
+		int worst03 = cserve.worst03(parent_email);
 		m.addAttribute("worst03", worst03);
 		
-		int worst04 = cserve.worst04();
+		int worst04 = cserve.worst04(parent_email);
 		m.addAttribute("worst04", worst04);
 		
-		int worst05 = cserve.worst05();
+		int worst05 = cserve.worst05(parent_email);
 		m.addAttribute("worst05", worst05);
 		
 		return "stats/chart";

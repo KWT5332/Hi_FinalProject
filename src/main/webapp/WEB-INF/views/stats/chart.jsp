@@ -127,12 +127,9 @@
 <body>
 <jsp:include page="../layout/header.jsp"/>
 
-	<c:choose>
-		<c:when test="${login.email == cdto.parent_email}">
 			<table class="columns" align="center">
 				<tr>
 					<th>${login.email}님의 통계입니다.
-					<th>소속 학교 : ${cdto.school}
 				</tr>
 		      <tr>
 		        <td><div id="chart_div" style="border: 1px solid #ccc"></div></td>
@@ -143,14 +140,6 @@
 		        <td><div id="worstmenu" style="border: 1px solid #ccc"></div></td>
 		      </tr>
 		    </table>
-		</c:when>
-		
-		<c:otherwise>
-			<div class="container" style="height:600px;">
-				<div>차트 준비중입니다.</div>
-			</div>
-		</c:otherwise>
-	</c:choose>  
         
 <jsp:include page="../layout/footer.jsp"/>
 </body>
