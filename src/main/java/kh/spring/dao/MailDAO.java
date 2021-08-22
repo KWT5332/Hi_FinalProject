@@ -1,6 +1,7 @@
 package kh.spring.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,9 @@ public class MailDAO {
 	
 	public List<St_MailDTO> studentList(String school){
 		return mybatis.selectList("Mail.studentList",school);
+	}
+	
+	public int excelupload(Map<String, Object> map) {
+		return mybatis.insert("Mail.excelupload", map);
 	}
 }

@@ -62,4 +62,23 @@ public class ExcelController {
 	}
 	
 	// 승희 액셀 업로드양식 다운
+	@RequestMapping("excelformMail")
+	public void excelformMail(HttpServletResponse response) throws IOException {
+		System.out.println("메일 엑섹 업로드 양식 다운");
+		service.excelformMail(response);
+	}
+	// 승희 엑셀 업로드
+	@RequestMapping(value="exceluploadMail", produces="text/html;charset=utf8")
+	public String exceluploadMail(MultipartFile file) throws Exception {
+		System.out.println("엑셀 업로드");
+
+		MemberDTO dto = (MemberDTO)session.getAttribute("login");
+
+		String realPath = session.getServletContext().getRealPath("exceluploadMail");
+		service.exceluploadMail(dto, file, realPath);
+
+		return "redirect:/mail/sendmail";
+	}
+	
+
 }
