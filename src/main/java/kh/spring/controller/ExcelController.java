@@ -28,7 +28,7 @@ public class ExcelController {
 	@Autowired
 	private HttpSession session;
 
-	// db저장되어있는 식단 엑셀 다운로드
+	// 청아 db저장되어있는 식단 엑셀 다운로드
 	@RequestMapping("excelDowload")
 	public void excelDownload(String month, HttpServletResponse response) throws IOException {
 		System.out.println("엑셀 다운로드");
@@ -39,14 +39,14 @@ public class ExcelController {
 		service.excelDownload(month, school, response);
 	}
 	
-	// 엑셀 업로드양식 다운
+	// 청아 엑셀 업로드양식 다운
 	@RequestMapping("excelform")
 	public void excelform(HttpServletResponse response) throws IOException {
 		System.out.println("엑섹 업로드 양식 다운");
 		service.excelform(response);
 	}
 	
-	// 엑셀 업로드
+	// 청아 엑셀 업로드
 	@ResponseBody
 	@RequestMapping(value="excelupload", produces="text/html;charset=utf8")
 	public String excelupload(MultipartFile file) throws Exception {
@@ -60,4 +60,6 @@ public class ExcelController {
 
 		return String.valueOf(month);
 	}
+	
+	// 승희 액셀 업로드양식 다운
 }
