@@ -26,66 +26,69 @@ public class ChartDAO {
 	}
 	
 	// feedback counting
-	public int feed01() {
-		return mybatis.selectOne("Chart.feed01");
+	public int feed01(String parent_email) {
+		int result = mybatis.selectOne("Chart.feed01", parent_email);
+		System.out.println(result);
+		System.out.println(parent_email);
+		return result;
 	}
 
-	public int feed02() {
-		return mybatis.selectOne("Chart.feed02");
+	public int feed02(String parent_email) {
+		return mybatis.selectOne("Chart.feed02", parent_email);
 	}
 	
-	public int feed03() {
-		return mybatis.selectOne("Chart.feed03");
+	public int feed03(String parent_email) {
+		return mybatis.selectOne("Chart.feed03", parent_email);
 	}
 	
-	public int feed04() {
-		return mybatis.selectOne("Chart.feed04");
+	public int feed04(String parent_email) {
+		return mybatis.selectOne("Chart.feed04", parent_email);
 	}
 	
-	public int feed05() {
-		return mybatis.selectOne("Chart.feed05");
+	public int feed05(String parent_email) {
+		return mybatis.selectOne("Chart.feed05", parent_email);
 	}
 	
 	
 	// best menu counting
-	public int best01() {
-		return mybatis.selectOne("Chart.best01");
+	public int best01(String parent_email) {
+		return mybatis.selectOne("Chart.best01", parent_email);
 	}
 	
-	public int best02() {
-		return mybatis.selectOne("Chart.best02");
+	public int best02(String parent_email) {
+		return mybatis.selectOne("Chart.best02", parent_email);
 	}
 	
-	public int best03() {
-		return mybatis.selectOne("Chart.best03");
+	public int best03(String parent_email) {
+		return mybatis.selectOne("Chart.best03", parent_email);
 	}
 	
-	public int best04() {
-		return mybatis.selectOne("Chart.best04");
+	public int best04(String parent_email) {
+		return mybatis.selectOne("Chart.best04", parent_email);
 	}
 	
-	public int best05() {
-		return mybatis.selectOne("Chart.best05");
+	public int best05(String parent_email) {
+		return mybatis.selectOne("Chart.best05", parent_email);
 	}
 	
 	// worst menu counting
-	public int worst01() {
-		return mybatis.selectOne("Chart.worst01");
+	public int worst01(String parent_email) {
+		return mybatis.selectOne("Chart.worst01", parent_email);
 	}
 	
-	public int worst02() {
-		return mybatis.selectOne("Chart.worst02");
+	public int worst02(String parent_email) {
+		return mybatis.selectOne("Chart.worst02", parent_email);
 	}
 	
-	public int worst03() {
-		return mybatis.selectOne("Chart.worst03");
+	public int worst03(String parent_email) {
+		return mybatis.selectOne("Chart.worst03", parent_email);
 	}
 	
-	public int worst04() {
-		return mybatis.selectOne("Chart.worst04");
+	public int worst04(String parent_email) {
+		return mybatis.selectOne("Chart.worst04", parent_email);
 	}
 	
-	public int worst05() {
-		return mybatis.selectOne("Chart.worst05");
+	public int worst05(String parent_email) {
+		return mybatis.selectOne("Chart.worst05", parent_email);
 	}
 }
