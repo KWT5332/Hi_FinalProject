@@ -34,8 +34,6 @@
     .use:hover{font-weight:700;border:1px solid #114E60;color:#114E60;}
     .menu{line-height:38px;}
     .date{line-height:38px;}
-    
-
 </style>
 <script>
     $(function(){
@@ -90,22 +88,29 @@
             }
         });
 
-        // 식단 등록하기
-        let isDateOk = true;
-        $("#meal_date").on("change", function(){ // 값이 변경되면 
-         	$.ajax({
+        // 해당 날짜에 이미 등록된 식단이 있나요?
+        function isDateOk() {
+        	$.ajax({
         		url:"/meal/isDateOk",
-        		data:{"meal_date":$(this).val()}
+        		data:{"meal_date":$("#meal_date").val()}
         	}).done(function(resp){
         		if(resp=="1"){
         			alert("이미 식단이 짜여져 있는 날짜입니다. 다른 날짜를 선택해주세요.");
-        			isDateOk = false;
+        			return false;
+        		}else{
+        			return true;
         		}
         	}) 
+        }
+     	// 값이 변경되면 
+        $("#meal_date").on("change", function(){ 
+         	let result = isDateOk();
         })
         
+        // 식단 등록하기
         $("#submit").on("click",function(){
-        	if(!isDateOk){
+        	let result = isDateOk();
+        	if(result==false){
         		alert("이미 식단이 짜여져 있는 날짜입니다. 다른 날짜를 선택해주세요.");
         	}else if($("#meal_date").val() == null || $("#meal_date").val() == "") {
         		alert("날짜를 선택해주세요.");
@@ -116,7 +121,6 @@
       			$("#frm").attr("action","/meal/addmealProc");
       			$("#frm").submit();
         	}
-        	
         })
         
         // 최근저장한 식단 사용
