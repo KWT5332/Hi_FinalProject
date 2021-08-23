@@ -77,8 +77,8 @@
 		</tr>
 		<tr>
 			<td>결제금액
-			<td><input type="text" id="money" name="pay">
-			<!-- <input type="radio" name="pay" id="money" value="5000">5,000원 -->
+			<td>${pay}
+			<!-- <input type="text" id="money" name="pay"> -->
 		</tr>
 		
 		<tr>

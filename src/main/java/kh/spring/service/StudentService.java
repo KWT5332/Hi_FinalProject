@@ -25,4 +25,8 @@ public class StudentService {
 		return pdao.insert(dto);
 	}
 	
+	public int payment(String month) {
+		return pdao.payment(month);
+	}
+	
 }
