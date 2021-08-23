@@ -155,14 +155,14 @@
 				
 				<div class="col-sm-12">
 					<input type="text" id="writer" name="writer" class="form-control"
-						value="${detail.writer }" readonly>
+						value="${login.email }" readonly>
 				</div>
 			</div>
 			<div class="row m-0 form-group">
 				
 				<div class="col-sm-12">
 					<textarea id="contents" name="contents" class="form-control"></textarea>
-					<input type="hidden" name="board_seq" value="${login.email }">
+					<input type="hidden" name="board_seq" value="${detail.seq }">
 				</div>
 			</div>
 			<div class="row m-0 form-group">
