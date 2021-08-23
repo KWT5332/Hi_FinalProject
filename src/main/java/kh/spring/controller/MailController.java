@@ -56,8 +56,8 @@ public class MailController {
 	public String sendMailTest(String month, String payment, HttpServletResponse response) throws Exception{
 		System.out.println("메일보내기");
 		System.out.println(month + " : " + payment);
-		String subject = "test 메일";
-		String content = "메일 테스트 내용";
+		String subject = "하이! 급식 에서 보낸메일입니다.";
+		String content = "학생 페이지 링크입니다.\n http://59.6.83.84//sdt/researchHome";
 		//String content = "메일 테스트 내용" + "<img src=\"이미지 경로\">";
 		//String from = "zlxl_3041@naver.com";
 		//String to = "project.hi.final@gmail.com";

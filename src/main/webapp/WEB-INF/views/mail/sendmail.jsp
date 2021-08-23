@@ -87,7 +87,7 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 			$("#modal").modal("show");
 			
 			$("#send").on("click",function(){
-				alert("전체 학생에게 메일을 발송합니다.");
+				alert("전체 학생에게 메일을 발송합니다.\n발송 완료 후 메일보내기 작은 창이 나가게 됩니다. \n잠시 기다려 주세요.");
 				let month = $("#month").val();
 				
 				let strMonth = strNum(month);
@@ -97,6 +97,7 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 					url : "/mail/sendMailProc", 
 					data:{"month":strMonth, "payment":$("#payment").val()}
  				}).done(function(resp) {
+ 						$("#modal").modal("hide");
 						console.log("확인");
 					
 				}) 

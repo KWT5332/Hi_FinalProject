@@ -66,10 +66,10 @@ input[type] {
 	height: 150px;
 }
 
-/* 맞는경우만 인증번호발송 보이게 */
-/*  .join_container .mail_check_button {
+/* 맞는경우만 인증번호발송 보이게 여기 오류로 일단 안보이게 해둠 */
+  .join_container .mail_check_button {
 	display: none;
-}  */
+}  
 
 /* 이메일번호체크 */
 .join_container #email_num_ck {
@@ -228,9 +228,12 @@ input[type] {
 				<div class="id_pw_con incon row m-5 ">
 					<h5 class="col-12">이메일</h5>
 					<p class="col-12 mb-4">
-						- 인증을 마친 이메일은
+						- 이메일은
 						<mark>하이!급식</mark>
 						에서 아이디로 사용됩니다
+<!-- 						- 인증을 마친 이메일은
+						<mark>하이!급식</mark>
+						에서 아이디로 사용됩니다 -->
 					</p>
 					<div class="col-12">
 						<div class="row">
