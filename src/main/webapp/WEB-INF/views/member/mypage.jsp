@@ -113,9 +113,7 @@ input[type] {
 .mypage_container input:disabled {
 	background: #E4EFE7;
 }
-.mypage_container .hidden {
-	display: none;
-}
+
 /* 이미지 청아꺼 */
  #excelName{ 
       position: absolute; width: 1px; height: 1px; 
