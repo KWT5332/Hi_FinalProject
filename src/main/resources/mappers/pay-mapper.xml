@@ -9,4 +9,8 @@
 		insert into st_payment values(payment_seq.nextval, #{st_name}, #{school}, #{pay}, #{st_email}, #{pay_num}, sysdate)		
 	</insert>
 	
+	<select id="payment" resultType="int">
+		select count(*) from meal_menu where month=#{month}
+	</select>
+	
 </mapper>
