@@ -25,14 +25,14 @@
 	window.onload = function() {	 // 밑에 바디영역이 실행되기 전에 실행하기위한 윈도우 온로드	
 
 		
-		document.getElementById("btnDelete").onclick = function() {
-			if (confirm("정말 삭제하시겠습니까?")) {
-				location.href = "/bod/boardDelete?seq="+${detail.seq };
-			}else{
-				frm.action = "#";
-			}
-			
-		}
+	      $("#btnDelete").on("click", function() {
+	          if (confirm("정말 삭제하시겠습니까?")) {
+	             location.href = "/bod/boardDelete?seq="+${detail.seq };
+	          }else{
+	             frm.action = "#";
+	          }
+	          
+	       })
 		
 		// 댓글 ajax
 		$("#commentsAdd").click(function() {
@@ -47,6 +47,7 @@
 			})
 		})
 	
+		//댓글 삭제
 	      $(".comDel").on("click", function() {  
 	          let seq = $(this).siblings("#seq").val();
 	          console.log(seq);
@@ -59,6 +60,7 @@
 	           }) 
 	        });
 		
+		//댓글 수정
 		 $("body").on("click", ".comUp", function() {
 			 let thiss = $(this);
 			 if (thiss.text() == "수정") {
