@@ -113,7 +113,7 @@ public class MealService {
 	}
 	
 	// 수정
-	public int update(String meal_date, MealDTO dto) {
+	public int update(String meal_date, MealDTO dto, String realPath, MultipartFile file) throws Exception {
 		if(dto.getMenu3() == null) {
 			dto.setMenu3("");
 		}
@@ -126,7 +126,16 @@ public class MealService {
 		if(dto.getMenu6() == null) {
 			dto.setMenu6("");
 		}
+		File filesPath = new File(realPath);
+		if(!filesPath.exists()) {
+			filesPath.mkdir();
+		}
+		String oriName = file.getOriginalFilename();
+		String sysName = UUID.randomUUID().toString().replace("-", "") + "_" + oriName;
+		file.transferTo(new File(filesPath.getAbsolutePath()+"/"+sysName));
 		
+		dto.setOriName(oriName);
+		dto.setSysName(sysName);
 		Map<String, Object> map = new HashMap<>();
 		map.put("meal_date", meal_date);
 		map.put("dto", dto);

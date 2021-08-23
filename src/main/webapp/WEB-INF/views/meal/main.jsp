@@ -59,6 +59,10 @@
     .date{border-bottom: 1px solid rgb(130, 130, 130);border-right: 1px solid rgb(130, 130, 130);padding:0px;position:absolute;top:0px;}
     .menu{position:absolute;bottom:1px;width: 100%;padding-bottom: 15px;}.menu:hover{cursor:pointer;}
     #pre:hover{cursor:pointer;}#next:hover{cursor:pointer;}
+    .custom-file-label::after {
+        content: "파일찾기";
+    }
+    #fileName{padding-left:60px;}
 </style>
 <script>
 	$(function(){
@@ -195,7 +199,7 @@
             calAjax(strNum(newMonth));
         })
         
-        // 등록되어 있는 식단 수정, 삭제
+        // 등록되어 있는 식단 수정, 삭제 Modal띄우기
         $(document).on("click",".menu",function(){
         	let data = "";
         	$(".modal-title").text(""); 
@@ -215,21 +219,29 @@
             
             let sysname = $(this).next(".sysname").val();
 
-            $("#modal_img").children("img").remove(); 
+            $("#modal_img").children("img").remove(); // 사진 넣어주기
             let img = $("<img>");
-            img.attr("src","/meal/display?fileName="+sysname).width(400);
+            img.addClass("saveImg");
+            img.attr("src","/meal/display?fileName="+sysname).width(352);
             if(sysname!=""){
             	$("#modal_img").append(img);
             }
             
+            $("#fileName").text("이미지 업로드"); // 초기화
+            
             $("#modal").modal("show");
-            console.log(date);
-            $("#update").on("click",function(){ // 수정버튼
+
+         	// 수정버튼
+            $("#update").on("click",function(){ 
+            	let form = $("#modal_frm")[0];
+            	let formData = new FormData(form);
             	$.ajax({
             		url:"/meal/update",
-            		data:{"meal_date":date,"menu1":$("#menu1").val(),"menu2":$("#menu2").val(),"menu3":$("#menu3").val(),
-            			"menu4":$("#menu4").val(),"menu5":$("#menu5").val(),"menu6":$("#menu6").val()},
-            			cache:false
+            		type:"POST",
+            		data:formData,
+            		processData: false, // data가 서버에 전달될때 String 형식아니고 "multipart/form-data"로 보내야됨
+	    			contentType: false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
+	    			cache:false
             	}).done(function(resp){
             		console.log("수정완료");
             		thismenu.html("");
@@ -253,7 +265,7 @@
             		}else{thismenu.append("<br><br>");}
             		
             		$("#modal").modal("hide");
-            	})
+            	}) 
             })
         })
         
@@ -273,6 +285,36 @@
             	$("#modal").modal("hide");
             }
 		})
+		
+		// 모달 사진 변경
+		$("#inputGroupFile").on("change", function(){ // 값이 변경되면 
+			var file = $(this)[0].files[0];
+			
+			if(file.size >= 1048576) {
+			    alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+			    return false;
+			}
+
+			let regex = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
+			if(!regex.test(file.name)){
+			    alert("이미지 파일만 업로드 가능합니다.");
+			    return false;
+			}
+			
+          $("#fileName").text(file.name); // 추출한 파일명 삽입
+          
+          if(this.files && this.files[0]){
+          	var reader = new FileReader;
+          	reader.onload = function(data){
+          		$(".saveImg").remove();
+          		
+                let img = $("<img>");
+                img.attr("src",data.target.result).width(352);
+                $("#modal_img").append(img);
+          	}
+          	reader.readAsDataURL(this.files[0]);
+          }
+      });
 	})
 </script>
 </head>
@@ -324,11 +366,11 @@
         	<thead>
             	<tr>
                 	<th>일
-                    <th width="16%">월
-                    <th width="16%">화
-                    <th width="16%">수
-                    <th width="16%">목
-                    <th width="16%">금
+                    <th>월
+                    <th>화
+                    <th>수
+                    <th>목
+                    <th>금
                     <th>토
                 </tr>
  			</thead> 
@@ -340,32 +382,47 @@
     
      <!-- Modal -->
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel"></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-                <p style="text-align:left;">메뉴 (최소2개에서 최대 6개까지 등록 가능합니다.)</p>
-                <input type="text" class="pl-2 mb-2 form-control" id="menu1" name="menu1">
-                <input type="text" class="pl-2 mb-2 form-control" id="menu2" name="menu2">
-                <input type="text" class="pl-2 mb-2 form-control" id="menu3" name="menu3">
-                <input type="text" class="pl-2 mb-2 form-control" id="menu4" name="menu4">
-                <input type="text" class="pl-2 mb-2 form-control" id="menu5" name="menu5">
-                <input type="text" class="pl-2 form-control" id="menu6" name="menu6">
-            </div>
-            <div class="modal-body p-0 pb-3" id="modal_img">
-            	<!-- 이미지 넣기 -->
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="delete">삭제</button>
-            <button type="button" class="btn btn-primary" id="update">수정</button>
-            </div>
+    <form action="" enctype="multipart/form-data" id="modal_frm">
+    	<div class="modal-dialog modal-lg">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	            <h5 class="modal-title" id="exampleModalLabel"></h5>
+	            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                <span aria-hidden="true">&times;</span>
+	            </button>
+	            </div>
+	            <div class="modal-body row m-0">
+	            	<div class="col-6" style="border-right:1px solid #ddd;">
+		            	<p style="text-align:left;">메뉴 (최소2개, 최대6개까지 등록 가능합니다.)</p>
+		                <input type="text" class="pl-2 mb-2 form-control" id="menu1" name="menu1">
+		                <input type="text" class="pl-2 mb-2 form-control" id="menu2" name="menu2">
+		                <input type="text" class="pl-2 mb-2 form-control" id="menu3" name="menu3">
+		                <input type="text" class="pl-2 mb-2 form-control" id="menu4" name="menu4">
+		                <input type="text" class="pl-2 mb-2 form-control" id="menu5" name="menu5">
+		                <input type="text" class="pl-2 form-control" id="menu6" name="menu6">
+	            	</div>
+	            	<div class="col-6">
+						<div class="input-group">
+	                    <div class="input-group-prepend">
+	                    	<span class="input-group-text" id="inputGroupFileAddon01"><i class="far fa-image"></i></span>
+	                    </div>
+		                    <div class="custom-file">
+		                    	<input type="file" name="file" class="custom-file-input" id="inputGroupFile">
+		                        <label class="custom-file-label" for="inputGroupFile" id="fileName" style="text-align:left;">이미지 업로드</label>
+		                   	</div>
+	                    </div>
+	            		<div class="pt-3" id="modal_img">
+	            			<!-- 이미지 넣기 -->
+	            		</div>
+	            	</div>
+	            </div>
+	            <div class="modal-footer">
+		            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="delete">삭제</button>
+		            <button type="button" class="btn btn-primary" id="update">수정</button>
+	            </div>
+	        </div>
         </div>
-        </div>
+    </form>
     </div>    
     
     

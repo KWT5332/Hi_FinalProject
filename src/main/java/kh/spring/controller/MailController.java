@@ -57,7 +57,7 @@ public class MailController {
 		System.out.println("메일보내기");
 		System.out.println(month + " : " + payment);
 		String subject = "하이! 급식 에서 보낸메일입니다.";
-		String content = "학생 페이지 링크입니다.\n http://59.6.83.84//sdt/researchHome";
+		String content = "학생 페이지 링크입니다.\n http://localhost//sdt/researchHome?month="+month+"&payment="+payment;
 		//String content = "메일 테스트 내용" + "<img src=\"이미지 경로\">";
 		//String from = "zlxl_3041@naver.com";
 		//String to = "project.hi.final@gmail.com";
@@ -109,7 +109,7 @@ public class MailController {
 			//FileSystemResource file = new FileSystemResource(new File("Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx")); 
 			
 			// 찐 FileSystemResource file = new FileSystemResource(new File("C:\\Users\\SeoSeunghee\\Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
-			String realPath = hsession.getServletContext().getRealPath("excelDownMail");
+			String realPath = hsession.getServletContext().getRealPath("/resources/excelDownMail");
 			exservice.excelDownloadMail(month, dto.getSchool(), realPath, response);
 			
 			FileSystemResource file = new FileSystemResource(new File(realPath+"\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
@@ -124,7 +124,6 @@ public class MailController {
 		return "!"; 
 	}
 
-	
 	@RequestMapping(value = "addStudentProc", method = RequestMethod.POST)
 	@ResponseBody
 	public String addStudent(St_MailDTO dto) {

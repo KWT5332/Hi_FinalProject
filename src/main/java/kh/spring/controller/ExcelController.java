@@ -1,14 +1,13 @@
 package kh.spring.controller;
 
-import java.io.BufferedOutputStream;
+
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URLEncoder;
+
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +53,7 @@ public class ExcelController {
 		
 		MemberDTO dto = (MemberDTO)session.getAttribute("login");;
 		
-		String realPath = session.getServletContext().getRealPath("excelupload");
+		String realPath = session.getServletContext().getRealPath("/resources/excelupload");
 
 		String month = service.excelupload(dto, file, realPath);
 		
@@ -75,7 +74,7 @@ public class ExcelController {
 
 		MemberDTO dto = (MemberDTO)session.getAttribute("login");
 
-		String realPath = session.getServletContext().getRealPath("exceluploadMail");
+		String realPath = session.getServletContext().getRealPath("/resources/exceluploadMail");
 		service.exceluploadMail(dto, file, realPath);
 
 		return "redirect:/mail/sendmail";
