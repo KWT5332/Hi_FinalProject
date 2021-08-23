@@ -216,6 +216,7 @@
             let darr = date.split("-");
 
             $(".modal-title").text(date); // 날짜 모달title에 넣어주기
+            $("#modal_meal_date").val(date);
             
             let sysname = $(this).next(".sysname").val();
 
@@ -235,6 +236,8 @@
             $("#update").on("click",function(){ 
             	let form = $("#modal_frm")[0];
             	let formData = new FormData(form);
+            	
+            	console.log(form);
             	$.ajax({
             		url:"/meal/update",
             		type:"POST",
@@ -387,6 +390,7 @@
 	        <div class="modal-content">
 	            <div class="modal-header">
 	            <h5 class="modal-title" id="exampleModalLabel"></h5>
+	            <input type="hidden" id="modal_meal_date" name="meal_date">
 	            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	                <span aria-hidden="true">&times;</span>
 	            </button>

@@ -133,9 +133,20 @@ public class MealService {
 		String oriName = file.getOriginalFilename();
 		String sysName = UUID.randomUUID().toString().replace("-", "") + "_" + oriName;
 		file.transferTo(new File(filesPath.getAbsolutePath()+"/"+sysName));
+		System.out.println(oriName + " : " + sysName);
 		
-		dto.setOriName(oriName);
-		dto.setSysName(sysName);
+		if(oriName == null) {
+			dto.setOriName("");
+		}else {
+			dto.setOriName(oriName);
+		}
+		
+		if(sysName == null) {
+			dto.setSysName("");
+		}else {
+			dto.setSysName(sysName);
+		}
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("meal_date", meal_date);
 		map.put("dto", dto);
