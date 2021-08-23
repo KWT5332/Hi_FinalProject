@@ -53,7 +53,7 @@ public class ExcelController {
 		
 		MemberDTO dto = (MemberDTO)session.getAttribute("login");;
 		
-		String realPath = session.getServletContext().getRealPath("/resources/excelupload");
+		String realPath = session.getServletContext().getRealPath("excelupload");
 
 		String month = service.excelupload(dto, file, realPath);
 		
@@ -74,7 +74,7 @@ public class ExcelController {
 
 		MemberDTO dto = (MemberDTO)session.getAttribute("login");
 
-		String realPath = session.getServletContext().getRealPath("/resources/exceluploadMail");
+		String realPath = session.getServletContext().getRealPath("exceluploadMail");
 		service.exceluploadMail(dto, file, realPath);
 
 		return "redirect:/mail/sendmail";
