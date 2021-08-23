@@ -301,6 +301,7 @@ input[type] {
 </script>
 </head>
 <body>
+
 	<jsp:include page="../layout/header.jsp" />
 
 	<form action="" method="post" id="frm_modi" enctype="multipart/form-data">
