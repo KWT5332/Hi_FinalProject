@@ -19,16 +19,19 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 <script type="text/javascript">
 	window.onload = function() {	 // 밑에 바디영역이 실행되기 전에 실행하기위한 윈도우 온로드	
 
 		
 		document.getElementById("btnDelete").onclick = function() {
 			if (confirm("정말 삭제하시겠습니까?")) {
-				frm.action = "deletereview";
-				frm.submit();
+				location.href = "/bod/boardDelete?seq="+${detail.seq };
+			}else{
+				frm.action = "#";
 			}
+			
 		}
 		
 		// 댓글 ajax
@@ -101,10 +104,14 @@
 				<p class="card-text">${detail.content }</p>
 			</div>
 			<div class="card-body">
-				<a href="/bod/updateView?seq=${detail.seq }" id="btnUpdate"
-					class="btn btn-success" role="button">수정</a> <a
-					href="/bod/boardDelete?seq=${detail.seq }" id="btnDelete"
-					class="btn btn-info " role="button">삭제</a>
+				<c:choose>
+					<c:when test="${login.email == detail.writer}">
+						<a href="/bod/updateView?seq=${detail.seq }" id="btnUpdate"
+							class="btn btn-success" role="button">수정</a>
+						<a href="javascript:;" id="btnDelete"
+							class="btn btn-info " role="button">삭제</a>
+					</c:when>
+				</c:choose>
 			</div>
 			<div class="card-body">
 				<a href='<c:url value='/bod/boardList'/>' class="btn btn-secondary"
@@ -128,10 +135,14 @@
 						<p class="bg-link contents">${i.contents}</p> 
 						<input type="hidden" class="modifytxt" name="upCmt">
 						<div class="form-group">
+						<c:choose>
+							<c:when test="${login.email == i.writer}">
 							<button type="button" id="comUp"
 								class="replyUpdate btn btn-success btn-sm comUp">수정</button>
 							<button type="button" id="comDel"
 								class="replyDelete btn btn-info btn-sm comDel">삭제</button>
+							</c:when>	
+						</c:choose>	
 							<input type="hidden" value="${i.seq }" id="seq">
 						</div>
 				</c:forEach>
