@@ -20,12 +20,16 @@ public class MealService {
 	@Autowired
 	private MealDAO dao;
 	
-	// 리스트 가져오기
-	public List<MealDTO> getAllList(String month) {
-		return dao.getAllList(month);
+	// 리스트 가져오기(달력)
+	public List<MealDTO> getAllList(String month, String writer) {
+		Map<String, String> map = new HashMap<>();
+		map.put("month", month);
+		map.put("writer", writer);
+		
+		return dao.getAllList(map);
 	}
 	
-	//
+	// 이 날짜 있뉘?
 	public int isdateOk(Date meal_date) {
 		return dao.isdateOk(meal_date);
 	}
@@ -96,7 +100,7 @@ public class MealService {
 		param.put("start", start);
 		param.put("end", end);
 		
-		System.out.println(writer);
+		System.out.println(start + " : " + end);
 		
 		List<MealDTO> list = dao.selectList(param);
 		

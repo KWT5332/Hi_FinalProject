@@ -175,7 +175,6 @@
         		data:{"pageNum":currentPage},
         		dataType:"json"
         	}).done(function(resp){
-        		console.log(resp[0].menu1);
         		for(var i=0;i<resp.length;i++){
             		let tr = $("<tr>");
             		tr.addClass("test");
@@ -307,7 +306,9 @@
                             <th class="p-2" width="65%">식단 메뉴</th>
                             <th class="p-2" width="15%">사용 여부</th>
                         </tr>
-                        <c:forEach var="list" items="${list }" varStatus="s">
+                  <c:choose>
+                  	<c:when test="${not empty list}">
+                  		<c:forEach var="list" items="${list }" varStatus="s">
                         <tr id="test">
                             <td class="p-2 date">${list.meal_date }</td>
                             <td class="p-2 menu">${list.menu1},${list.menu2}
@@ -319,6 +320,15 @@
                             <td class="p-2"><button class="btn use" id="use">사용</button></td>
                         </tr>	
                         </c:forEach>
+                  	</c:when>
+                  	<c:otherwise>
+                  		<tr id="test">
+                            <td class="p-3" colspan="3">
+                            	최근에 저장한 식단이 없습니다.
+                            </td>
+                        </tr>
+                  	</c:otherwise>
+                  </c:choose>      
                     </table>
                 </div>
             </div>

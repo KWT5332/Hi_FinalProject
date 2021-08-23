@@ -91,15 +91,13 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 				let month = $("#month").val();
 				
 				let strMonth = strNum(month);
-				location.href = "/excel/excelDowload?month="+strMonth;
   				$.ajax({
 					type : "GET",
-					url : "/mail/sendMailProc", 
+					url : "/sample/sendMailProc", 
 					data:{"month":strMonth, "payment":$("#payment").val()}
  				}).done(function(resp) {
  						$("#modal").modal("hide");
 						console.log("확인");
-					
 				}) 
 			})
 		})
