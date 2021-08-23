@@ -26,7 +26,6 @@
       google.charts.setOnLoadCallback(bestmenu);
       google.charts.setOnLoadCallback(worstmenu);
       
-
       function chart_div() {
 
         var data = new google.visualization.DataTable();
