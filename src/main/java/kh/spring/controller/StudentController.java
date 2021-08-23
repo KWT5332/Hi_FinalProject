@@ -19,7 +19,9 @@ public class StudentController {
 	private StudentService service;
 	
 	@RequestMapping("researchHome")
-	public String researchHome() {
+	public String researchHome(String month, String payment, Model model) {
+		model.addAttribute("month",month);
+		model.addAttribute("payment", payment);
 		return "student/research";
 	}
 	
