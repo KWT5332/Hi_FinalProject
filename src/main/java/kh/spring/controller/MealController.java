@@ -192,6 +192,7 @@ public class MealController {
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println(result);
 		return result;
 	}
 }
