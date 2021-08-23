@@ -53,10 +53,11 @@ public class MealController {
 //		Date date = new Date(); // import java.util.Date;
 //		String month = sdf.format(date);
 		System.out.println(month);
+		MemberDTO dto = (MemberDTO)session.getAttribute("login");
 		
 		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();	
 		
-		List<MealDTO> list = service.getAllList(month);
+		List<MealDTO> list = service.getAllList(month, dto.getEmail());
 				
 		String result = g.toJson(list);
 		
@@ -69,8 +70,8 @@ public class MealController {
 		
 		MemberDTO dto = (MemberDTO)session.getAttribute("login");
 		
-		int totalPageCount = service.totalMeal(dto.getName());
-		List<MealDTO> list = service.mealList(dto.getName(), "1");
+		int totalPageCount = service.totalMeal(dto.getEmail());
+		List<MealDTO> list = service.mealList(dto.getEmail(), "1");
 		
 		model.addAttribute("totalPageCount", totalPageCount);
 		model.addAttribute("list",list);
@@ -88,7 +89,7 @@ public class MealController {
 //		Gson g = new Gson();
 		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();	
 		
-		List<MealDTO> list = service.mealList(dto.getName(), pageNum);
+		List<MealDTO> list = service.mealList(dto.getEmail(), pageNum);
 				
 		String result = g.toJson(list);
 		
@@ -104,7 +105,7 @@ public class MealController {
 		String realPath = session.getServletContext().getRealPath("meal_img");
 		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
 
-		dto.setWriter(mdto.getName());
+		dto.setWriter(mdto.getEmail());
 		dto.setSchool(mdto.getSchool());
 
 		dto.setMenu1(XSSFillterConfig.XSSFilter(dto.getMenu1()));
