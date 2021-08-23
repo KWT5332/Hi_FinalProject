@@ -72,44 +72,36 @@ input[type] {
 	color: red;
 	display: none;
 }
-
 .img_con {
 	width: 150px !important;
 	height: 150px !important;
 	border-radius: 70%;
 	overflow: hidden;
 }
-
 .img_profile {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
-
 /* 비번일치 */
 .mypage_container .pw_input_re_1 {
 	color: green;
 	display: none;
 }
-
 /* 비번불일치 */
 .mypage_container .pw_input_re_2 {
 	color: red;
 	display: none;
 }
-
 .mypage_container .btn_modi_name_02 {
 	display: none;
 }
-
 .mypage_container .btn_modi_school_02 {
 	display: none;
 }
-
 .btn_modi_phone_02 {
 	display: none;
 }
-
 .mypage_container .btn_modi_age_02 {
 	display: none;
 }
@@ -121,7 +113,9 @@ input[type] {
 .mypage_container input:disabled {
 	background: #E4EFE7;
 }
-
+.mypage_container .hidden {
+	display: none;
+}
 /* 이미지 청아꺼 */
  #excelName{ 
       position: absolute; width: 1px; height: 1px; 
@@ -142,7 +136,6 @@ input[type] {
       border-bottom-color: #e2e2e2; 
       border-radius: .25em; 
     } 
-    
     /* named upload */ 
     .upload-name { 
       display: inline-block; 
@@ -336,7 +329,7 @@ input[type] {
 <!-- 						<img class="img_profile" src="/img/profile.png"> -->
 					</div>
 				</div>
-				<div class="id_pw_con incon row m-5 ">
+				<div class="id_pw_con incon row m-5 hidden">
 					<div>
 						<button type="button" class="btn btn-success   ">기본 이미지로
 							변경</button>
@@ -347,9 +340,9 @@ input[type] {
 				<div class="id_pw_con incon row m-5 ">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-9 p-0"
 						id="excleupload">
-							<div class="filebox w-100" style="text-align: right;">
-								<input class="upload-name" value="파일선택" disabled="disabled">
-								<label for="excelName" class="mb-0">엑셀 업로드</label> 
+							<div class="filebox w-100" style="text-align: left;">
+								<input class="upload-name hidden" value="파일선택" disabled="disabled">
+								<label for="excelName" class="mb-0">프로필 이미지 업로드</label> 
 								<input type="file" id="excelName" name="file" class="upload-hidden">
 								
 							</div>
