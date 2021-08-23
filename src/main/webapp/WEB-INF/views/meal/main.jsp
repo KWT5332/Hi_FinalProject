@@ -197,6 +197,7 @@
         
         // 등록되어 있는 식단 수정, 삭제
         $(document).on("click",".menu",function(){
+        	let data = "";
         	$(".modal-title").text(""); 
         	
         	let thismenu = $(this);
@@ -213,7 +214,7 @@
             $(".modal-title").text(date); // 날짜 모달title에 넣어주기
             
             let sysname = $(this).next(".sysname").val();
-            console.log(sysname);
+
             $("#modal_img").children("img").remove(); 
             let img = $("<img>");
             img.attr("src","/meal/display?fileName="+sysname).width(400);
@@ -227,46 +228,51 @@
             	$.ajax({
             		url:"/meal/update",
             		data:{"meal_date":date,"menu1":$("#menu1").val(),"menu2":$("#menu2").val(),"menu3":$("#menu3").val(),
-            			"menu4":$("#menu4").val(),"menu5":$("#menu5").val(),"menu6":$("#menu6").val()}
+            			"menu4":$("#menu4").val(),"menu5":$("#menu5").val(),"menu6":$("#menu6").val()},
+            			cache:false
             	}).done(function(resp){
             		console.log("수정완료");
             		thismenu.html("");
 			        thismenu.append($("#menu1").val()+"<br>"+$("#menu2").val());
 			        
-            		if($("#menu3").val() != null){
+            		if($("#menu3").val() != null && $("#menu3").val() != ""){
             			thismenu.append("<br>"+$("#menu3").val());
             		}else{thismenu.append("<br>");}
             		
-            		if($("#menu4").val() != null){
+            		if($("#menu4").val() != null && $("#menu4").val() != ""){
             			thismenu.append("<br>"+$("#menu4").val());
             		}else{thismenu.append("<br>");}
             		
-            		if($("#menu5").val() != null){
+            		if($("#menu5").val() != null && $("#menu5").val() != ""){
             			thismenu.append("<br>"+$("#menu5").val());
             		}else{thismenu.append("<br>");}
             		
-            		if($("#menu6").val() != null){
+            		console.log($("#menu6").val());
+            		if($("#menu6").val() != null && $("#menu6").val() != ""){
             			thismenu.append("<br>"+$("#menu6").val());
             		}else{thismenu.append("<br><br>");}
             		
             		$("#modal").modal("hide");
             	})
             })
-            
-            $("#delete").on("click",function(){ // 삭제버튼
-            	let result = confirm("정말 삭제 하시겠습니까?")
-            	if(result){
-            		$.ajax({
-                		url:"/meal/delete",
-                		data:{"meal_date":date}
-                	}).done(function(resp){
-                    	thismenu.remove();
-                	})
-            	}else if(!result){
-            		$("#modal").modal("hide");
-            	}
-            })
         })
+        
+		$("#delete").on("click",function(){ // 삭제버튼
+			let date = $("#exampleModalLabel").text(); // 날짜가져오기
+			console.log(date);
+        	if(confirm("정말 삭제 하시겠습니까?")){
+            	$.ajax({
+                	url:"/meal/delete",
+                	data:{"meal_date":date},
+                	cache:false,
+                	success : function() {
+                		$("."+date).children(".menu").remove();
+        			}
+                })
+            }else {
+            	$("#modal").modal("hide");
+            }
+		})
 	})
 </script>
 </head>

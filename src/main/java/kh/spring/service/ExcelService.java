@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
@@ -23,7 +25,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.util.SystemOutLogger;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -265,7 +266,6 @@ public class ExcelService {
 
 		XSSFSheet sheet = (XSSFSheet) workbook.getSheetAt(0);
 		int totalRowNum = sheet.getPhysicalNumberOfRows();
-		
 		//			int numberOfSheets = workbook.getNumberOfSheets(); // 시트의 갯수 추출
 
 		//			 for (int i = 0; i < numberOfSheets; i++) {
@@ -273,7 +273,7 @@ public class ExcelService {
 		//				 curSheet = (XSSFSheet) workbook.getSheetAt(i);
 
 		//4번째 행(row)부터 0~7셀(cell)을 1개의 dto에 담아야 한다. 
-		Loop1 : for(int i=3;i<totalRowNum;i++) { // 0부터 시작, 4번째 행(row) 추출
+		Loop1 : for(int i=3;i<totalRowNum+1;i++) { // 0부터 시작, 4번째 행(row) 추출
 			MealDTO dto = new MealDTO();
 			curRow = sheet.getRow(i); 
 
@@ -282,10 +282,18 @@ public class ExcelService {
 			}else {
 				dto.setMonth(curRow.getCell(0).getStringCellValue());
 
-				// String -> sql.date로 변경해서 dto.getMeal_date에 담기	
-				String Mealdate = curRow.getCell(1).getStringCellValue();
+				// String -> sql.date로 변경해서 dto.getMeal_date에 담기
+				String mealDate;
+				if(curRow.getCell(1).getCellType() == CellType.STRING) {
+					mealDate = curRow.getCell(1).getStringCellValue();
+				}else if(curRow.getCell(1).getCellType() == CellType.NUMERIC) {
+					mealDate = String.valueOf(curRow.getCell(1).getStringCellValue());
+				}else {
+					mealDate = curRow.getCell(1).getStringCellValue();
+				}
+
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				Date date = new Date(sdf.parse(Mealdate).getTime());
+				Date date = new Date(sdf.parse(mealDate).getTime());
 				dto.setMeal_date(date);
 				
 				dto.setSchool(m.getSchool());
@@ -321,6 +329,18 @@ public class ExcelService {
 		
 		return list;
 	}
+	
+	// 청아 셀 양식 넘버릭 오류 고치는 함수
+	public static String getStringValue(Cell cell) {
+        String rtnValue = "";
+        try {
+            rtnValue = cell.getStringCellValue();
+        } catch(IllegalStateException e) { // 스프링을 cell에 넣었을때 오류가 난다면 
+            rtnValue = Integer.toString((int)cell.getNumericCellValue()); // 셀 타입을 강제로 string으로 변환.           
+        }
+        return rtnValue;
+    }
+	
 	
 	//승희 메일 엑셀업로드 양식
 	// 엑셀 업로드양식 다운
