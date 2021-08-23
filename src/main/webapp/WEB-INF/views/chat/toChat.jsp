@@ -12,41 +12,43 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <style>
-/* 채팅방 header, container main */
-.main{margin:auto; max-width:1000px;}
-.main .box{height:500px; border:1px solid black;}
-.main #send{width:100%; height:100%;}
-.main #message{resize:none; width:100%; height:100%;}
-.main .chat_contents{overflow: hidden; height:500px; overflow-y:auto ;}
-.chatRoom_name{max-width:950px; }
-.chatRoom{
-	border:1px solid black; 
-	background-color:rgb(255, 225, 148, 0.5); 
+	/* 채팅방 header, container main */
+	.main{margin:auto; max-width:1000px;}
+	.main .box{height:500px; background-color:#a9ccb3; border-radius:20px;}
+	.main #send{width:100%; height:100%;}
+	.main #message{resize:none; width:100%; height:100%;}
+	.main .chat_contents{overflow:hidden; height:500px; overflow-y:auto ;}
+	.chatRoom_name{max-width:950px;}
+	.chatRoom{
+	background-color:#FDFAF6; 
 	width:500px; 
-	border-radius:20px;}
-.chatRoom .profile_img{
+	border-radius:20px;
+	}
+	.chatRoom .profile_img{
 	max-width:70px;
     min-width:70px;
     height:70px;
     border-radius:50%;
     background-color:gray;
     text-align:center;}
-.chatRoom h3{line-height:70px;}
-.right{text-align:right; list-style: none; }
-.my_name{
+	.chatRoom h3{line-height:70px;}
+	.right{text-align:right; list-style: none; }
+	.my_name{
 	text-align:center; 
 	width:10%; 
 	border:0px; 
-	font-size:20px; 
+	font-size:15px; 
 	font-weight:bold; 
-	background:#dff1e4;}
-.my_contents{display: inline-block; word-break:break-all; border:0px;}
-.left{list-style: none;}
-.other_name{width:10%; border:0px; font-size:20px; font-weight: bold;}
-.other_contents{display: inline-block; word-break:break-all; border:0px;}
-.profile_img{
+	background:#dff1e4;
+	border-radius:20px;}
+	.my_contents{display: inline-block; word-break:break-all; border:0px;}
+	.left{list-style: none;}
+	.other_name{width:10%; border:0px; font-size:15px; font-weight: bold;border-radius:20px;}
+	.other_contents{display: inline-block; word-break:break-all; border:0px;}
+	.profile_img{
 	max-width:50px;
     min-width:50px;
     height:50px;
@@ -90,7 +92,11 @@
             
             // shift만 입력 막는 것
             if(message.replace(/\s|　/gi, '').length == 0){
-                alert("내용을 입력해주세요");
+                Swal.fire({
+                	icon:'warning',
+                	title:"내용을 입력해주세요",
+                	text:"빈칸은 입력이 불가능합니다.",
+                });
                 return false;
             }else{
                 $("#message").val("");
@@ -135,7 +141,11 @@
             if(e.keyCode==13 && e.shiftKey == false){
                	let message = $("#message").val();
              	if(message.replace(/\s|　/gi, '').length == 0){
-                	alert("내용입력");
+             		Swal.fire({
+                    	icon:'warning',
+                    	title:"내용을 입력해주세요",
+                    	text:"빈칸은 입력이 불가능합니다.",
+                    });
                 	return false;
             	}else{
                 	$("#message").val("");
@@ -223,6 +233,7 @@
 <body>
 <!-- header -->
 <jsp:include page="../layout/header.jsp"/>
+<div class="empty" style="height:50px;"></div>
 <div class="container pt-3 chatRoom_name">
 		<div class="row p-1 chatRoom">
 			<div class="col-3">
@@ -288,13 +299,13 @@
             	$("#chat_contents").scrollTop($("#chat_contents").prop("scrollHeight"));
             </script>
             </div>
-	</div>
-        
-	<div class="row">
-		<div class="col-10 p-0"><textarea id="message" placeholder="메세지를 입력하세요"></textarea></div>
-		<div class="col-2 p-0"><button id="send">전송</button></div>
+	</div>  
+	<div class="row pt-3">
+		<div class="col-10 p-1"><textarea class="form-control" id="message" placeholder="메세지를 입력하세요"></textarea></div>
+		<div class="col-2 p-1"><button id="send" class="btn btn-info">전송</button></div>
 	</div>
 </div>
+<div class="empty" style="height:50px;"></div>
 <!-- footer -->
 <jsp:include page="../layout/footer.jsp"/>
 </body>
