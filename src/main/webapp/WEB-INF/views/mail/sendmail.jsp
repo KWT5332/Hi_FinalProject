@@ -114,6 +114,28 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 				}
 			})
 		})
+		$(".delete").click(function(){
+			if (confirm("학생 이메일을 정말로 삭제하시겠습니까?"){
+				let st_email = $(this).parent().siblings(".email").text();
+				
+			$.ajax({
+				type : "POST",
+				url:"/mail/deleteStudentProc",
+				data:{"email",st_email}
+			}).done(function(resp){
+				if(resp>0){
+					location.reload();
+				}
+			})
+			}
+			
+		})
+		
+		
+		
+		
+		
+		
 		/* 엑셀 업로드양식 다운 */
 		// 엑셀 업로드 양식 다운받기
       $("#excelform").on("click",function(){
@@ -209,7 +231,8 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 					<td scope="col">${status.count}</td>
 					<td scope="col">${i.stu_name}</td>
 					<td scope="col">${i.school}</td>
-					<td scope="col">${i.stu_email}</td>
+					<td scope="col" class="email">${i.stu_email}</td>
+					<td scope="col"><button type="button" class="modify">수정</button><button type="button" class="delete">삭제</button>
 				</tr>
 				</c:forEach>
 			</table>
