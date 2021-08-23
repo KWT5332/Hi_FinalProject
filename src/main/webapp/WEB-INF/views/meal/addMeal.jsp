@@ -39,6 +39,10 @@
 </style>
 <script>
     $(function(){
+    	if(${login.name != null}){
+    		alert("dd");
+    	}
+    	
 		$("#inputGroupFile").on("change", function(){ // 값이 변경되면 
 //            if(window.FileReader){ // modern browser 
 //            var filename = $(this)[0].files[0].name; 
