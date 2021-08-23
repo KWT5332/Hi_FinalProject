@@ -162,7 +162,7 @@
 				
 				<div class="col-sm-12">
 					<textarea id="contents" name="contents" class="form-control"></textarea>
-					<input type="hidden" name="board_seq" value="${detail.seq }">
+					<input type="hidden" name="board_seq" value="${login.email }">
 				</div>
 			</div>
 			<div class="row m-0 form-group">
