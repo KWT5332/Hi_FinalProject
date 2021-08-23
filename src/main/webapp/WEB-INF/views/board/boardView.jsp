@@ -22,15 +22,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 <script type="text/javascript">
-	window.onload = function() {	 // 밑에 바디영영역이 실행되기 전에 실행하기위한 윈도우 온로드	
+	window.onload = function() {	 // 밑에 바디영역이 실행되기 전에 실행하기위한 윈도우 온로드	
 
 		
 		document.getElementById("btnDelete").onclick = function() {
-			if (swal("","데이터를 가져오는데 성공하였습니다..", "success")) {
+			if (confirm("정말 삭제하시겠습니까?")) {
 				location.href = "/bod/boardDelete?seq="+${detail.seq };
 			}else{
 				frm.action = "#";
 			}
+			
 		}
 		
 		// 댓글 ajax
