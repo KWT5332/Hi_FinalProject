@@ -16,5 +16,8 @@ public class PayDAO {
 		return mybatis.insert("Pay.insert", dto);
 	}
 	
+	public int payment(String month) {
+		return mybatis.selectOne("Pay.payment",month);
+	}
 	
 }

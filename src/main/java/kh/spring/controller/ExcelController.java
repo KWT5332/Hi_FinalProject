@@ -57,7 +57,7 @@ public class ExcelController {
 		String realPath = session.getServletContext().getRealPath("excelupload");
 
 		String month = service.excelupload(dto, file, realPath);
-
+		
 		return String.valueOf(month);
 	}
 	
@@ -67,6 +67,7 @@ public class ExcelController {
 		System.out.println("메일 엑섹 업로드 양식 다운");
 		service.excelformMail(response);
 	}
+	
 	// 승희 엑셀 업로드
 	@RequestMapping(value="exceluploadMail", produces="text/html;charset=utf8")
 	public String exceluploadMail(MultipartFile file) throws Exception {
@@ -79,6 +80,4 @@ public class ExcelController {
 
 		return "redirect:/mail/sendmail";
 	}
-	
-
 }

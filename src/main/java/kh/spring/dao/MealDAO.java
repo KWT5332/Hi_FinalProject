@@ -16,8 +16,8 @@ public class MealDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	public List<MealDTO> getAllList(String month){
-		return mybatis.selectList("Meal.selectAll", month);
+	public List<MealDTO> getAllList(Map<String, String> map){
+		return mybatis.selectList("Meal.selectAll", map);
 	}
 	
 	public int isdateOk(Date meal_date) {

@@ -21,7 +21,7 @@
 	</insert>
 	
 	<select id="selectAll" resultType="kh.spring.dto.MealDTO">
-		select * from meal_menu where month=#{month}
+		select * from meal_menu where month=#{month} and writer=#{writer}
 	</select>
 	
 	<select id="selectList" resultType="kh.spring.dto.MealDTO">

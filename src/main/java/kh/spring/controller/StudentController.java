@@ -1,7 +1,10 @@
 package kh.spring.controller;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.spring.dto.ChartDTO;
@@ -27,7 +30,26 @@ public class StudentController {
 	}
 	
 	@RequestMapping("payHome")
-	public String payHome() {
+	public String payHome(Model m) {
+		
+		// 한달 후 날짜
+		Calendar mon_next = Calendar.getInstance();
+		mon_next.add(Calendar.MONTH , +1);
+		String monthDate_next = new java.text.SimpleDateFormat("MM").format(mon_next.getTime());
+		System.out.println(monthDate_next);
+		
+		// 테스트용 지금 날짜
+		Calendar mon = Calendar.getInstance();
+		String monthDate = new java.text.SimpleDateFormat("MM").format(mon.getTime());
+		System.out.println(monthDate);
+		
+		// 급식비
+		int payment = service.payment(monthDate);
+		int pay = payment * 5000;
+		
+		System.out.println(monthDate + "월 급식비 : " + pay);
+		m.addAttribute("pay", pay);
+		
 		return "student/payment";
 	}
 	

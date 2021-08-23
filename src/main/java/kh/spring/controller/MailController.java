@@ -103,18 +103,21 @@ public class MailController {
 			mailHelper.setSubject(subject);
 			mailHelper.setText(content, true);
 			
-			
 			//FileSystemResource file = new FileSystemResource(new File("경로\업로드할파일.형식")); 
 			//helper.addAttachment("업로드파일.형식", file);
 			//System.out.println("C:\\Users\\SeoSeunghee\\Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx");
 			//FileSystemResource file = new FileSystemResource(new File("Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx")); 
 			
 			// 찐 FileSystemResource file = new FileSystemResource(new File("C:\\Users\\SeoSeunghee\\Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
-			FileSystemResource file = new FileSystemResource(new File("C:\\Users\\82105\\Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
+			String realPath = hsession.getServletContext().getRealPath("excelDownMail");
+			exservice.excelDownloadMail(month, dto.getSchool(), realPath, response);
+			
+			FileSystemResource file = new FileSystemResource(new File(realPath+"\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
             mailHelper.addAttachment(month+"월+"+dto.getSchool()+"+식단표.xlsx", file);
 			
 			mailSender.send(mail);
 			
+			exservice.deleteExcel(realPath, month+"월+"+dto.getSchool()+"+식단표.xlsx"); // 보내고 저장된 파일 삭제
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
