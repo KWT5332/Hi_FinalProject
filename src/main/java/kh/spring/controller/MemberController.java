@@ -220,7 +220,7 @@ public class MemberController {
 	public String addmealProc(MultipartFile file, HttpServletResponse resp) throws Exception {
 		System.out.println("이미지 추가");
 
-		String realPath = session.getServletContext().getRealPath("/resources/profile_img");
+		String realPath = session.getServletContext().getRealPath("profile_img");
 		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
 		String email = mdto.getEmail();
 
@@ -232,7 +232,7 @@ public class MemberController {
 	@RequestMapping("display")
 	@ResponseBody
 	public ResponseEntity<byte[]> getImage(String fileName){
-		String realPath = session.getServletContext().getRealPath("/resources/profile_img");
+		String realPath = session.getServletContext().getRealPath("profile_img");
 		System.out.println(realPath);
 		File file = new File(realPath+"/"+fileName);
 		ResponseEntity<byte[]> result = null;
