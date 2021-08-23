@@ -183,7 +183,7 @@
         	let li_left = $("<li>");
         	li_left.addClass("left pr-4")
         	
-        	let img = $("<img>");
+        	let img = $("<img class='profile_img'>");
         	
         	if(data.sysName != null){
         	    img.attr("src","/mem/display?fileName="+data.sysName);
