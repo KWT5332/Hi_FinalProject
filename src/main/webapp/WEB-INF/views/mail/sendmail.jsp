@@ -93,7 +93,7 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 				let strMonth = strNum(month);
   				$.ajax({
 					type : "GET",
-					url : "/sample/sendMailProc", 
+					url : "/mail/sendMailProc", 
 					data:{"month":strMonth, "payment":$("#payment").val()}
  				}).done(function(resp) {
  						$("#modal").modal("hide");
