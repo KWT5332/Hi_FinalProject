@@ -92,7 +92,6 @@ public class MailController {
 			 */
 			
 			// 주희 
-			
 			InternetAddress[] toAddr = new InternetAddress[to.size()];
 			for(int i=0; i<to.size(); i++) {
 				toAddr[i] = new InternetAddress(to.get(i));
@@ -109,7 +108,7 @@ public class MailController {
 			//FileSystemResource file = new FileSystemResource(new File("Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx")); 
 			
 			// 찐 FileSystemResource file = new FileSystemResource(new File("C:\\Users\\SeoSeunghee\\Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
-			String realPath = hsession.getServletContext().getRealPath("/resources/excelDownMail");
+			String realPath = hsession.getServletContext().getRealPath("excelDownMail");
 			exservice.excelDownloadMail(month, dto.getSchool(), realPath, response);
 			
 			FileSystemResource file = new FileSystemResource(new File(realPath+"\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
@@ -135,6 +134,4 @@ public class MailController {
 		service.addStudent(dto);
 		return "mail/sendmail"; 
 	}
-
-
 }
