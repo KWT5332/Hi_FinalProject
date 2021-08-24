@@ -113,7 +113,7 @@ public class MealService {
 	}
 	
 	// 수정
-	public int update(String meal_date, MealDTO dto, String realPath, MultipartFile file) throws Exception {
+	public String update(String meal_date, MealDTO dto, String realPath, MultipartFile file) throws Exception {
 		if(dto.getMenu3() == null) {
 			dto.setMenu3("");
 		}
@@ -135,23 +135,22 @@ public class MealService {
 		file.transferTo(new File(filesPath.getAbsolutePath()+"/"+sysName));
 		System.out.println(oriName + " : " + sysName);
 		
-		if(oriName == null) {
+		if(oriName == null || oriName.contentEquals("")) {
 			dto.setOriName("");
-		}else {
-			dto.setOriName(oriName);
-		}
-		
-		if(sysName == null) {
 			dto.setSysName("");
 		}else {
+			dto.setOriName(oriName);
 			dto.setSysName(sysName);
 		}
+		System.out.println(dto.getOriName() + " : " + dto.getSysName());
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("meal_date", meal_date);
 		map.put("dto", dto);
 		
-		return dao.update(map);
+		dao.update(map);
+		
+		return sysName;
 	}
 	
 	public int delete(String meal_date) {

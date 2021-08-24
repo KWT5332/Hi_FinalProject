@@ -167,9 +167,9 @@ public class MealController {
 		String realPath = session.getServletContext().getRealPath("meal_img");
 		MultipartFile file = multi.getFile("file");
 		
-		service.update(multi.getParameter("meal_date"), dto, realPath, file);
+		String sysname = service.update(multi.getParameter("meal_date"), dto, realPath, file);
 		
-		return "1";
+		return sysname;
 	}
 	
 	// 삭제
