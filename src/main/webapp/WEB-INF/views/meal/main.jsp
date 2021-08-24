@@ -218,13 +218,13 @@
             $(".modal-title").text(date); // 날짜 모달title에 넣어주기
             $("#modal_meal_date").val(date);
             
-            let sysname = $(this).next(".sysname").val();
+            let sysname = $(this).next(".sysname");
 
             $("#modal_img").children("img").remove(); // 사진 넣어주기
             let img = $("<img>");
             img.addClass("saveImg");
-            img.attr("src","/meal/display?fileName="+sysname).width(352);
-            if(sysname!=""){
+            img.attr("src","/meal/display?fileName="+sysname.val()).width(352);
+            if(sysname.val()!=""){
             	$("#modal_img").append(img);
             }
             
@@ -237,7 +237,6 @@
             	let form = $("#modal_frm")[0];
             	let formData = new FormData(form);
             	
-            	console.log(form);
             	$.ajax({
             		url:"/meal/update",
             		type:"POST",
@@ -246,7 +245,7 @@
 	    			contentType: false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
 	    			cache:false
             	}).done(function(resp){
-            		console.log("수정완료");
+            		console.log("수정완료" + resp);
             		thismenu.html("");
 			        thismenu.append($("#menu1").val()+"<br>"+$("#menu2").val());
 			        
@@ -262,11 +261,20 @@
             			thismenu.append("<br>"+$("#menu5").val());
             		}else{thismenu.append("<br>");}
             		
-            		console.log($("#menu6").val());
             		if($("#menu6").val() != null && $("#menu6").val() != ""){
             			thismenu.append("<br>"+$("#menu6").val());
             		}else{thismenu.append("<br><br>");}
             		
+            		thismenu.next(".sysname").val(resp);
+            		$(".savImg").remove();
+            		/* let hidden = $("<input>");
+            		hidden.attr("type","hidden");
+            		hidden.addClass("sysname");
+            		hidden.attr("value", resp[i].sysName);
+            		thismenu.append()
+            		$("."+resp[i].meal_date).append(menu);
+            		$("."+resp[i].meal_date).append(hidden); */
+
             		$("#modal").modal("hide");
             	}) 
             })
