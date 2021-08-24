@@ -5,26 +5,31 @@
   
 <mapper namespace="Mail">
 	<select id="mailList" resultType="string">
-		select stu_email from st_mail where school=#{value}
+		select stu_email from st_mail where nu_email=#{nu_email}
 	</select> 
 	
 	<insert id="addStudent">
-		insert into st_mail values(#{school},#{stu_name},#{stu_email})
+		insert into st_mail values(st_mail_seq.nextval,#{school},#{stu_name},#{stu_email},#{nu_email})
 	</insert>
 	
 	<delete id="deleteStudentProc">
-		delete from st_mail where stu_email=#{value}
+		delete from st_mail where seq=${seq}
 	</delete>
 	
 	<select id="studentList" resultType="kh.spring.dto.St_MailDTO">
-		select * from st_mail where school=#{value}
+		select * from st_mail where nu_email=#{nu_email} 
 	</select> 
 	
 	<!-- 엑셀 업로드 인서트 -->
 	<insert id="excelupload" parameterType="java.util.HashMap">
 		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
 			into st_mail
-			values (#{item.school, jdbcType=VARCHAR},#{item.stu_name, jdbcType=VARCHAR},#{item.stu_email, jdbcType=VARCHAR})
+			values (st_mail_seq.nextval, #{item.school, jdbcType=VARCHAR},#{item.stu_name, jdbcType=VARCHAR},
+			#{item.stu_email, jdbcType=VARCHAR},#{nu_email, jdbcType=VARCHAR})
 		</foreach>
 	</insert>
+	
+	<update id="update">
+		update st_mail set stu_name=#{stu_name}, stu_email=#{stu_email} where seq=${seq}
+	</update>
 </mapper>

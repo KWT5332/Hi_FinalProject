@@ -41,14 +41,13 @@ public class MailController {
 	@Autowired
 	private HttpSession hsession;
 
-
 	@RequestMapping("sendmail") 
 	private String sendmail(Model model) { 
-		System.out.println("mail");
+		System.out.println("mail main이동");
 		// session에 있는 학교 값 뽑아서 넣기
 		MemberDTO dto = (MemberDTO)hsession.getAttribute("login");
 		
-		List<St_MailDTO> studentList = service.studentList(dto.getSchool());
+		List<St_MailDTO> studentList = service.studentList(dto.getEmail());
 		model.addAttribute("studentList", studentList);
 		return "mail/sendmail"; 
 	}
@@ -67,7 +66,7 @@ public class MailController {
 		// 주희
 		MemberDTO dto = (MemberDTO)hsession.getAttribute("login");
 		String from = dto.getEmail();
-		List<String> to = service.mailList(dto.getSchool());
+		List<String> to = service.mailList(dto.getEmail());
 		
 		System.out.println(finContent);
 		System.out.println(from);
@@ -132,16 +131,33 @@ public class MailController {
 		System.out.println("학생등록");
 		
 		MemberDTO m = (MemberDTO)hsession.getAttribute("login");
+		
 		dto.setSchool(m.getSchool());
+		dto.setNu_email(m.getEmail());
 		
 		service.addStudent(dto);
+		
 		return "mail/sendmail"; 
 	}
 	
 	@RequestMapping(value="deleteStudentProc",method = RequestMethod.POST)
-	public String deleteStudentProc(String email) {
+	public String deleteStudentProc(int seq) {
 		System.out.println("학생 삭제");
-		service.deleteStudentProc(email);
+		service.deleteStudentProc(seq);
+		return "mail/sendmail"; 
+	}
+	
+	@RequestMapping(value="updateStudentProc",method = RequestMethod.POST)
+	public String updateStudentProc(int seq, String name, String email) {
+		System.out.println("학생 수정");
+		
+		St_MailDTO dto = new St_MailDTO();
+		dto.setSeq(seq);
+		dto.setStu_name(name);
+		dto.setStu_email(email);
+		
+		service.updateStudentProc(dto);
+		
 		return "mail/sendmail"; 
 	}
 }
