@@ -3,7 +3,7 @@ package kh.spring.dto;
 public class ChartDTO {
 
 	private int seq;  // 설문 시퀀스
-	private String month;   // 결제한 달
+	private String b_month;   // 결제한 달
 	private String parent_email;  // 담당 영양사
 	private String school;  // 해당 학교
 	private String feedback;  // 만족도
@@ -16,11 +16,11 @@ public class ChartDTO {
 		super();
 	}
 
-	public ChartDTO(int seq, String month, String parent_email, String school, String feedback, String taste,
+	public ChartDTO(int seq, String b_month, String parent_email, String school, String feedback, String taste,
 			String amount, String bestmenu, String etc) {
 		super();
 		this.seq = seq;
-		this.month = month;
+		this.b_month = b_month;
 		this.parent_email = parent_email;
 		this.school = school;
 		this.feedback = feedback;
@@ -38,12 +38,12 @@ public class ChartDTO {
 		this.seq = seq;
 	}
 
-	public String getMonth() {
-		return month;
+	public String getB_month() {
+		return b_month;
 	}
 
-	public void setMonth(String month) {
-		this.month = month;
+	public void setB_month(String b_month) {
+		this.b_month = b_month;
 	}
 
 	public String getParent_email() {
@@ -101,5 +101,7 @@ public class ChartDTO {
 	public void setEtc(String etc) {
 		this.etc = etc;
 	}
+
+	
 		
 }

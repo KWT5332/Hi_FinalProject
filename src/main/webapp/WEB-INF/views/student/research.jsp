@@ -122,6 +122,7 @@ select > option {text-align:center;}
 				</div>
 				<div class="col">
 					담당 영양사 <input type="text" name="parent_email">
+					<input type="hidden" name="b_month" value="${b_month}">
 					<input type="hidden" name="month" value="${month}">
 					<input type="hidden" name="payment" value="${payment}">
 				</div>

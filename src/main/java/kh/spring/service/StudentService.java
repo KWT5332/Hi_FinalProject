@@ -26,8 +26,8 @@ public class StudentService {
 	}
 	
 	// 베스트메뉴 셀렉트 옵션
-	public List<MealDTO> bestOp(String monthDate){
-		return cdao.bestOp(monthDate);
+	public List<MealDTO> bestOp(String b_month){
+		return cdao.bestOp(b_month);
 	}
 	
 	// 결제 정보 저장

@@ -32,12 +32,13 @@ public class StudentController {
 		// 한달 전 날짜
 		Calendar mon = Calendar.getInstance();
 		mon.add(Calendar.MONTH , -1);
-		String monthDate = new java.text.SimpleDateFormat("MM").format(mon.getTime());
-		System.out.println(monthDate);
+		String b_month = new java.text.SimpleDateFormat("MM").format(mon.getTime());
+		System.out.println(b_month);
+		System.out.println(month);
 		
-		List<MealDTO> list = Ssv.bestOp(monthDate);
+		List<MealDTO> list = Ssv.bestOp(b_month);
 		m.addAttribute("bestOp", list);
-		
+		m.addAttribute("b_month", b_month);
 		m.addAttribute("month", month);
 		m.addAttribute("payment", payment);
 		
@@ -45,8 +46,8 @@ public class StudentController {
 	}
 	
 	@RequestMapping("researchResult")
-	public String reserchResult(String month, String payment, ChartDTO dto) {
-		
+	public String reserchResult(String b_month, String month, String payment, ChartDTO dto) {
+		System.out.println(b_month + " : " + month);
 		int result = Ssv.researchInsert(dto);
 		return "forward:/sdt/payHome";
 	}
@@ -64,8 +65,10 @@ public class StudentController {
 		return "student/payment";
 	}
 	
+	
 	@RequestMapping("payInfo")
 	public String payInfo(PayDTO dto) {
+		System.out.println();
 		int result = Ssv.payInsert(dto);
 		return "redirect:/";
 	}

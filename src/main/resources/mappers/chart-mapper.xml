@@ -8,13 +8,13 @@
 	<!-- 설문조사 결과 저장 -->
 	<insert id="insert">
 		<!-- insert into st_feedback values(feedback_seq.nextval, #{feedback}, #{bestmenu}, #{worstmenu}, #{parent_email}, #{school}) -->		
-		insert into st_feedback values(feedback_seq.nextval, #{month}, #{parent_email}, #{school}, #{feedback}, #{taste}, #{amount}, #{bestmenu}, #{etc} )
+		insert into st_feedback values(feedback_seq.nextval, #{b_month}, #{parent_email}, #{school}, #{feedback}, #{taste}, #{amount}, #{bestmenu}, #{etc} )
 	</insert>
 	
 
 	<!-- 베스트메뉴 option -->
 	<select id="bestOp" resultType="kh.spring.dto.MealDTO">
-		select * from meal_menu where month=#{month}
+		select * from meal_menu where month=#{b_month}
 	</select>
 	
 	
@@ -52,15 +52,15 @@
 	
 	<!-- 음식 간 / taste -->
 	<select id="taste01" resultType="Integer">
-		select count(*) from st_feedback where taste='적당하다' and parent_email=#{parent_email} 
+		select count(*) from st_feedback where taste='적당하다' and parent_email=#{parent_email}
 	</select>
 	
 	<select id="taste02" resultType="Integer">
-		select count(*) from st_feedback where taste='짜다' and parent_email=#{parent_email} 
+		select count(*) from st_feedback where taste='짜다' and parent_email=#{parent_email}
 	</select> 
 	
 	<select id="taste03" resultType="Integer">
-		select count(*) from st_feedback where taste='싱겁다' and parent_email=#{parent_email} 
+		select count(*) from st_feedback where taste='싱겁다' and parent_email=#{parent_email}
 	</select>
 	
 	

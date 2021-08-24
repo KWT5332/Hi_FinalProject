@@ -10,8 +10,8 @@
 		insert into st_payment values(payment_seq.nextval, #{st_name}, #{st_email}, #{st_school}, #{payment}, #{apply_num}, sysdate, #{month})		
 	</insert>
 	
-	<select id="payment" resultType="int">
-		select count(*) from meal_menu where month=#{month}
+	<select id="payList" resultType="kh.spring.dto.payDTO">
+		select * from st_payment order by month, pay_date desc
 	</select>
 	
 </mapper>

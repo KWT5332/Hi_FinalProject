@@ -1,15 +1,15 @@
 package kh.spring.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kh.spring.dao.ChartDAO;
+import kh.spring.dao.PayDAO;
 import kh.spring.dto.ChartDTO;
 import kh.spring.dto.MealDTO;
+import kh.spring.dto.PayDTO;
 
 @Service
 public class ChartService {
@@ -17,17 +17,23 @@ public class ChartService {
 	@Autowired
 	private ChartDAO cdao;
 	
+	@Autowired
+	private PayDAO pdao;
+	
 	// 기타 의견
 	public List<ChartDTO> selectEtc(String parent_email){
 		return cdao.selectEtc(parent_email);
 	}
 	
 	// 베스트메뉴 셀렉트 옵션
-	public List<MealDTO> bestList(String month){
-		return cdao.bestOp(month);
+	public List<MealDTO> bestList(String b_month){
+		return cdao.bestOp(b_month);
 	}
 		
-		
+	public List<PayDTO> payList(){
+		return pdao.payList();
+	}
+	
 	// 급식비 인원
 	public int allStd(String school) {
 		return cdao.allStd(school);

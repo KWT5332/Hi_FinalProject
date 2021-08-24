@@ -53,8 +53,8 @@ input[id=payment]{width:200px; display:inline-block;}
 		
 		let st_name = $("#st_name").val();
 		let st_email = $("#st_email").val();
-		let school = $("#st_school").val();
-		let payment = $("#payment").val();
+		let st_school = $("#st_school").val();
+		let payment = ${pay};
 		let month = $("#month").val();
 		
 			//가맹점 식별코드
@@ -64,7 +64,7 @@ input[id=payment]{width:200px; display:inline-block;}
 		pay_method : 'card',
 		merchant_uid : 'merchant_' + new Date().getTime(),
 		name : '급식비 결제' , //결제창에서 보여질 이름
-		amount : money, //실제 결제되는 가격
+		amount : payment, //실제 결제되는 가격
 		buyer_email : st_email,
 		buyer_name : st_name,
 		/* buyer_tel : '010-1234-5678',
@@ -89,8 +89,9 @@ input[id=payment]{width:200px; display:inline-block;}
 		} else {
 			 var msg = '결제에 실패하였습니다. \n 결제 페이지로 돌아갑니다.';
 		     msg += '\n 에러내용 : ' + rsp.error_msg;
-		     location.href="/sdt/payHome"
-			}
+		     javascript:history.back();
+/* 		     location.href="/sdt/payHome";
+ */			}
 			alert(msg);
 			});
 		}
@@ -139,7 +140,7 @@ input[id=payment]{width:200px; display:inline-block;}
 			</div>
 			
 			<div class="col-8 input">
-				<input class="form-control" type="text" name="st_school" id="school">
+				<input class="form-control" type="text" name="st_school" id="st_school">
 			</div>
 		</div>
 		
@@ -155,7 +156,6 @@ input[id=payment]{width:200px; display:inline-block;}
 		
 		<div class="row box">
 			<div class="col-12">
-				<!-- <button id="pay">결제하기</button> -->
 				<button id="pay" class="btn btn-outline-info">결제하기</button>
 			</div>
 		</div>

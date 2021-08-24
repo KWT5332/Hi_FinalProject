@@ -1,5 +1,7 @@
 package kh.spring.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,8 +18,8 @@ public class PayDAO {
 		return mybatis.insert("Pay.insert", dto);
 	}
 	
-	public int payment(String month) {
-		return mybatis.selectOne("Pay.payment",month);
+	public List<PayDTO> payList() {
+		return mybatis.selectList("Pay.payList");
 	}
 	
 }

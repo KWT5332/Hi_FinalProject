@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kh.spring.dto.ChartDTO;
 import kh.spring.dto.MealDTO;
 import kh.spring.dto.MemberDTO;
+import kh.spring.dto.PayDTO;
 import kh.spring.service.ChartService;
 
 @Controller
@@ -39,14 +40,16 @@ public class ChartController {
 		m.addAttribute("etcList", list);
 		
 		// 한달 전 날짜
-		Calendar mon = Calendar.getInstance();
-		mon.add(Calendar.MONTH , -1);
-		String month = new java.text.SimpleDateFormat("MM").format(mon.getTime());
-		System.out.println(month);
-				
-		List<MealDTO> bestList = Csv.bestList(month);
-		m.addAttribute("bestList", bestList);
+//		Calendar mon = Calendar.getInstance();
+//		mon.add(Calendar.MONTH , -1);
+//		String b_month = new java.text.SimpleDateFormat("MM").format(mon.getTime());
+//		System.out.println(b_month);
+//				
+//		List<MealDTO> bestList = Csv.bestList(b_month);
+//		m.addAttribute("bestList", bestList);
 		
+		List<PayDTO> payList = Csv.payList();
+		m.addAttribute("payList", payList);
 		
 		// 결제인원
 		int allStd = Csv.allStd(school);

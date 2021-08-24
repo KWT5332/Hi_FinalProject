@@ -64,12 +64,29 @@ body{
         var options = {title:'전체인원 대비 결제인원',
                        width:500,
                        height:400,
-                       /* pieHole: 0.3, */
+                       pieHole: 0.3,
                        pieSliceText:'label',
                        legend:'none' };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
         chart.draw(data, options);
+        
+        /* var data = google.visualization.arrayToDataTable([
+            ['month', '전체인원', '결제인원'],
+            ['07월', 10, 4],
+            ['08월', 17, 6]
+          ]);
+
+          var options = {
+            chart: {title:'전체인원 대비 결제인원',
+              subtitle: 'Sales, Expenses',
+            },
+            bars: 'horizontal' // Required for Material Bar Charts.
+          };
+
+          var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+          chart.draw(data, google.charts.Bar.convertOptions(options)); */
       }
 
 
@@ -87,8 +104,8 @@ body{
         ]);
 
         var options = {title:'학교 급식에 대하여 어떻게 생각하십니까?',
-                       width:500,
-                       height:400,
+        				width:500,
+                		height:400,
                        pieHole: 0.3,
                        pieSliceText:'label'};
 
@@ -220,8 +237,13 @@ body{
 		</div>
 	
 		<div class="row">
-			<div class="col">
-				<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#staticBackdrop">
+			<div class="col-6">
+				<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#staticBackdrop01" style="width:100%;">
+					결제 인원 목록
+				</button>
+			</div>
+			<div class="col-6">
+				<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#staticBackdrop02" style="width:100%;">
 					기타 의견
 				</button>
 			</div>
@@ -258,7 +280,57 @@ body{
 	<!-- Button trigger modal -->
 	
 	<!-- Modal -->
-	<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal fade pay" id="staticBackdrop01" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-scrollable">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel">결제인원 목록</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        	<strong>결제 인원 목록입니다.</strong>	        
+				<%-- <table class="table table-hover">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+						    <th scope="col">이름</th>
+						    <th scope="col">이메일</th>
+						    <th scope="col">학교</th>
+						    <th scope="col">결제금액</th>
+						    <th scope="col">승인번호</th>
+						    <th scope="col">결제일자</th>
+						    <th scope="col">급식예정 달</th>
+				    	</tr>
+					</thead>
+				  	<tbody>
+				  		<c:forEach var="p" items="${payList}" varStatus="a">
+					    	<tr>
+								<th scope="row">1</th>
+								<td>${a.count}
+								<td>${p.st_name}
+								<td>${p.st_email}
+								<td>${p.st_school}
+								<td>${p.payment}
+								<td>${p.apply_num}
+								<td>${p.pay_date}
+								<td>${p.month}
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table> --%>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- Modal -->
+	<div class="modal fade etc" id="staticBackdrop02" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-scrollable">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -272,9 +344,7 @@ body{
 	        	<strong>학교 급식과 관련하여 의견이 있다면 적어주시기 바랍니다.</strong>	        
 	        	<c:forEach var="i" items="${etcList}" varStatus="s">
 					<c:if test="${not empty i.etc}">
-						<tr>
-							<li class="list-group-item">${i.etc}</li>
-						</td>
+						<li class="list-group-item">${i.etc}</li>
 					</c:if>
 				</c:forEach>
 			</ul>
@@ -286,35 +356,6 @@ body{
 	    </div>
 	  </div>
 	</div>
-
-			<%-- <table class="columns" align="center">
-				<tr>
-					<td><a href="/sdt/researchHome">설문조사</a>
-				</tr>
-				<tr>
-					<th colsapn="2" align="center">${login.email}님의 통계입니다.
-				</tr>
-		      <tr>
-		        <td><div id="chart_div" style="border: 1px solid #ccc"></div></td>
-		        <td><div id="feedback" style="border: 1px solid #ccc"></div></td>
-		      </tr>
-		      <tr>
-		        <td><div id="taste" style="border: 1px solid #ccc"></div></td>
-		        <td><div id="amount" style="border: 1px solid #ccc"></div></td>
-		      </tr>		      
-		      <tr>
-		      	<td colspan="2"><div id="bestmenu" style="border: 1px solid #ccc"></div></td>
-		      </tr>
-		      <tr>
-		      	<td colspan=2>기타의견
-		      </tr>
-		      	<c:forEach var="i" items="${etcList}" varStatus="s">
-		      		<tr>
-			      		<td>${s.count}
-			      		<td>${etcList}
-			      	</tr>
-		      	</c:forEach>
-		    </table> --%>
         
 <jsp:include page="../layout/footer.jsp"/>
 </body>
