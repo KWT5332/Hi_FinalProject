@@ -47,12 +47,12 @@ navcon * {
     		  cancelButtonColor: '#d33', 
     		  confirmButtonText: '로그인', 
     		  cancelButtonText: '취소' 
-    	}).then((result) => {
-    		if(result.value){
-    			location.href = "/mem/loginForm";
-    		}
-    	})
-      })
+    		}).then((result) => {
+    			if(result.value){
+    				location.href = "/mem/loginForm";
+    			}
+    		})
+      	})
    })
 </script>
 </head>

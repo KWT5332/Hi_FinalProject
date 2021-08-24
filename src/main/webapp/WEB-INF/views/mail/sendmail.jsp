@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <style>
 #mail{background-color: #124352;}
 * {box-sizing: border-box;}
@@ -103,7 +104,14 @@ input[type] {border-color: #b2dabd;}
 			$("#modal").modal("show");
 			
 			$("#send").on("click",function(){
-				alert("전체 학생에게 메일을 발송합니다.\n발송 완료 후 메일보내기 작은 창이 나가게 됩니다. \n잠시 기다려 주세요.");
+				//alert("전체 학생에게 메일을 발송합니다.\n발송 완료 후 메일보내기 작은 창이 나가게 됩니다. \n잠시 기다려 주세요.");
+				Swal.fire({
+					icon:'success',
+					title:'전체 학생에게 메일을 발송합니다.\n발송 완료 후 메일보내기 작은 창이 나가게 됩니다.',
+					text:'잠시 기다려 주세요.',
+					showConfirmButton: false,
+					timer: 2000
+				})
 				let month = $("#month").val();
 				let strMonth = strNum(month);
 
@@ -133,7 +141,7 @@ input[type] {border-color: #b2dabd;}
 			})
 		})
 		
-		$(".delete").click(function(){
+		/*$(".delete").click(function(){
 			if(confirm("정말로 학생을 삭제하시겠습니까?")){
 				let seq = $(this).parent().siblings(".seq").val();
 				$.ajax({
@@ -144,6 +152,28 @@ input[type] {border-color: #b2dabd;}
 					location.reload();
 				})
 			}
+		})*/
+		$(".delete").click(function(){
+			Swal.fire({ 
+	    		  title:'정말로 학생을 삭제하시겠습니까?', 
+	    		  icon: 'warning', 
+	    		  showCancelButton: true, 
+	    		  confirmButtonColor: '#3085d6', 
+	    		  cancelButtonColor: '#d33', 
+	    		  confirmButtonText: '삭제', 
+	    		  cancelButtonText: '취소' 
+	    	}).then((result) => {
+	    		if(result.value){
+	    			let seq = $(this).parent().siblings(".seq").val();
+					$.ajax({
+						type:"POST",
+						url:"/mail/deleteStudentProc",
+						data:{"seq" : seq}
+					}).done(function() {
+						location.reload();
+					})	
+	    		}
+	    	})
 		})
 		
 		$(".modify").click(function(){
@@ -189,17 +219,26 @@ input[type] {border-color: #b2dabd;}
 			$(this).siblings(".upload-name").val(fileName);
 
 			if (formData.get('file').size >= 1048576) {
-				alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+				//alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+				 Swal.fire({
+					icon: 'warning',
+					title: '업로드 할 수 있는 \n파일 사이즈를 초과했습니다.',
+					text: '파일크기를 확인해주세요.'
+				 })
 				return false;
 			}
 
 			let regex = /(.*?)\.xlsx/;
 			if (!regex.test(fileName)) {
-				alert("확장자가 .xlsx인 파일만 업로드 가능합니다.");
+				//alert("확장자가 .xlsx인 파일만 업로드 가능합니다.");
+				Swal.fire({
+					icon: 'warning',
+					title: '확장자가 .xlsx인 파일만 업로드 가능합니다.'
+				 })
 				return false;
 			}
 
-			if (confirm("선택하신 파일을 업로드 하시겠습니까?")) {
+			/*if (confirm("선택하신 파일을 업로드 하시겠습니까?")) {
 				$.ajax({
 					type : "POST",
 					url : "/excel/exceluploadMail",
@@ -211,7 +250,30 @@ input[type] {border-color: #b2dabd;}
 					console.log(resp);
 					$(".upload-name").val("파일선택");
 				})
-			}
+			}*/
+			Swal.fire({ 
+	    		  title:"선택하신 파일을\n업로드 하시겠습니까?",
+	    		  icon: 'question', 
+	    		  showCancelButton: true, 
+	    		  confirmButtonColor: '#3085d6', 
+	    		  cancelButtonColor: '#d33', 
+	    		  confirmButtonText: '업로드', 
+	    		  cancelButtonText: '취소' 
+	    		}).then((result) => {
+	    			if(result.value){
+	    				$.ajax({
+	    					type : "POST",
+	    					url : "/excel/exceluploadMail",
+	    					data : formData,
+	    					processData : false, // data가 서버에 전달될때 String 형식아니고 "multipart/form-data"로 보내야됨
+	    					contentType : false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
+	    					cache : false
+	    				}).done(function(resp) {
+	    					console.log(resp);
+	    					$(".upload-name").val("파일선택");
+	    				})	
+	    			}
+	    		})
 		});
 	})
 </script>

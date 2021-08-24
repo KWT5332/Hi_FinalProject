@@ -281,10 +281,10 @@ input[type] {
 	         if(file.size >= 1048576) {
 	             // alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
 	             Swal.fire({
-							  icon: 'warning',
-							  title: '업로드 할 수 있는 \n파일 사이즈를 초과했습니다.',
-							  text: '파일크기를 확인해주세요.'
-							})
+					icon: 'warning',
+					title: '업로드 할 수 있는 \n파일 사이즈를 초과했습니다.',
+					text: '파일크기를 확인해주세요.'
+				 })
 	             return false;
 	         }
 	
@@ -292,10 +292,10 @@ input[type] {
 	         if(!regex.test(file.name)){
 	             // alert("이미지 파일만 업로드 가능합니다.");
 	             Swal.fire({
-							  icon: 'warning',
-							  title: '이미지 파일만 업로드 가능합니다.',
-							  text: '파일 형식을 확인해주세요'
-							})
+					icon: 'warning',
+					title: '이미지 파일만 업로드 가능합니다.',
+					text: '파일 형식을 확인해주세요'
+				})
 	             return false;
 	         }
 	
