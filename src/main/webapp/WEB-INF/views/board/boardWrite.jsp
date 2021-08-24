@@ -5,18 +5,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
+   <link href="http://netdna.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+<script src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
 
-<!-- include libraries(jQuery, bootstrap) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-<!-- include summernote css/js-->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
-<!-- include summernote-ko-KR -->
-<script src="/resources/js/summernote-ko-KR.js"></script>
 <title>글쓰기</title>
-
+<style>
+.subBtndiv{
+text-align:left;
+}
+.listBtndiv{
+text-align:right;
+}
+</style>
 <script>
 $(document).ready(function() {
 	  $('#summernote').summernote({
@@ -40,17 +49,22 @@ $(function(){
 <body>
 <!-- header -->
  <jsp:include page="../layout/header.jsp"/>
-<div class="container" id="">
+ 
+<div class="container p-5" id="">
 <h2 style="text-align: center;">글 작성</h2><br><br><br>
 
 	<form method="post" action="/bod/writeProc">
 		<input type="text" name="title" style="width: 40%;" placeholder="제목" required />
 		<br><br>
 		<textarea id="summernote" name="content" required></textarea>
-		<div class="row p-2">
-		<input type="hidden" class="col-12">
-		<input id="subBtn" type="submit" value="글 작성" class="col-1 btn btn-info" onclick="goWrite(this.form)"/>
-		<input id="listBtn" type="button" value="글 목록" class="col-1 btn btn-secondary"/>
+		<div class="row m-0 pt-3">
+		<input type="hidden" class="">
+			<div class="col-6 subBtndiv p-0">
+				<input id="subBtn" type="submit" value="글 작성" class=" btn btn-info" " onclick="goWrite(this.form)"/>
+			</div>
+			<div class="col-6 listBtndiv p-0">
+				<input id="listBtn" type="button" value="글 목록" class=" btn btn-secondary"/>
+			</div>
 		</div>
 	</form>
 </div>
@@ -108,9 +122,11 @@ $('.summernote').summernote({
     				success : function(data) {
     					$(editor).summernote('insertImage', data);
     				}
-        }
+        })
 		
-	});
+      }
+    }		
+});
 
 </script>
 </html>
