@@ -51,5 +51,10 @@ public class MemberDAO {
 	public List<MemberDTO> findIdMemebr(Map<String, String> map) {
 		return mybatis.selectList("Member.findIdMemebr",map);
 	}
-	
+	public int findPwProc(Map<String, String> map) {
+		return mybatis.selectOne("Member.findPwProc",map);
+	}
+	public int newPwProc(Map<String, String> map) {
+		return mybatis.update("Member.newPwProc", map);
+	}
 }
