@@ -154,7 +154,6 @@ public class MealController {
 	@RequestMapping("update")
 	public String update(MultipartHttpServletRequest multi) throws Exception {
 		System.out.println("수정");
-		System.out.println(multi.getParameter("menu1") + " : " + multi.getFile("file"));
 		
 		MealDTO dto = new MealDTO();
 		dto.setMenu1(XSSFillterConfig.XSSFilter(multi.getParameter("menu1")));
@@ -176,7 +175,7 @@ public class MealController {
 	@ResponseBody
 	@RequestMapping("delete")
 	public String delte(String meal_date) {
-		System.out.println("삭제");
+		System.out.println("삭제할 날짜" + meal_date);
 
 		service.delete(meal_date);
 		
@@ -186,7 +185,6 @@ public class MealController {
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> getImage(String fileName){
 		String realPath = session.getServletContext().getRealPath("meal_img");
-		System.out.println(realPath);
 		File file = new File(realPath+"/"+fileName);
 		ResponseEntity<byte[]> result = null;
 		
