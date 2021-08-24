@@ -21,6 +21,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <style>
 * {box-sizing: border-box;}
 .mypage_container select[type]:focus {
@@ -118,7 +119,12 @@
 					if (result != 'fail') {
 						$('.new_pw_con').css("display", "inline-block");
 					} else {//사용가능
-						alert("비밀번호가 일치하지않습니다.\n확인 후 다시 시도해주세요.");
+						Swal.fire({
+							  icon: 'error',
+							  title: '비밀번호가 일치하지않습니다.',
+							  text: '확인 후 다시 시도해주세요.'
+							})
+						// alert("비밀번호가 일치하지않습니다.\n확인 후 다시 시도해주세요.");
 					}
 				}
 			});
@@ -204,12 +210,22 @@
 			 var formData = new FormData(form); 
 
 	         if(file.size >= 1048576) {
-	             alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+	             // alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+	             Swal.fire({
+					icon: 'warning',
+					title: '업로드 할 수 있는 \n파일 사이즈를 초과했습니다.',
+					text: '파일크기를 확인해주세요.'
+				 })
 	             return false;
 	         }
 	         let regex = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
 	         if(!regex.test(file.name)){
-	             alert("이미지 파일만 업로드 가능합니다.");
+	             // alert("이미지 파일만 업로드 가능합니다.");
+	             Swal.fire({
+					icon: 'warning',
+					title: '이미지 파일만 업로드 가능합니다.',
+					text: '파일 형식을 확인해주세요'
+				})
 	             return false;
 	         }
 	        $(".upload-name").val(file.name); // 추출한 파일명 삽입

@@ -17,7 +17,7 @@
 <style>
 	/* 채팅방 header, container main */
 	.main{margin:auto; max-width:1000px;}
-	.main .box{height:500px; background-color:#a9ccb3; border-radius:20px;}
+	.main .box{height:500px; background-color:white; border-radius:20px;}
 	.main #send{width:100%; height:100%;}
 	.main #message{resize:none; width:100%; height:100%;}
 	.main .chat_contents{overflow:hidden; height:500px; overflow-y:auto ;}
@@ -84,12 +84,24 @@
 			var element = document.getElementById("chat_contents");
 			element.scrollTop = element.scrollHeight;
 		}
+    	
+    	function XSSFilter(){
+    		let message = $("#message").val();
+    		 if(message != null){
+    		    message = message.replaceAll("<", "&lt;");
+    		    message = message.replaceAll(">", "&gt;");
+    		    message = message.replaceAll("&", "&amp;");
+    		 }else{
+    			 message = message;
+    		 }
+    		 return message;
+    	}
         
     	// 메세지 입력하고 전송버튼 '클릭'으로 채팅방에 나타내는 함수
         $("#send").on("click",function(e){
             $("#message").focus();
-            let message = $("#message").val();
-            
+            let message = XSSFilter();
+            XSSFilter();
             // shift만 입력 막는 것
             if(message.replace(/\s|　/gi, '').length == 0){
                 Swal.fire({
@@ -139,7 +151,8 @@
         // 메세지 입력하고 엔터로 채팅방에 나타내는 함수
         $("#message").on("keyup",function(e){
             if(e.keyCode==13 && e.shiftKey == false){
-               	let message = $("#message").val();
+               	//let message = $("#message").val();
+               	let message = XSSFilter();
              	if(message.replace(/\s|　/gi, '').length == 0){
              		Swal.fire({
                     	icon:'warning',
@@ -227,6 +240,8 @@
         	$("#chat_contents").append(ul);
         	updateScroll();
         } 
+    	
+    	
     	
 })
 </script>
