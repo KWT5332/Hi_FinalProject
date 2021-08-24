@@ -18,7 +18,7 @@
 	.header{text-align:center;}
 	.box_title{
 	height:80px; 
-	background-color:rgb(255, 203, 72, 0.3); 
+	background-color:#FDFAF6; 
     color:black;
     border-radius:20px;
 	}
@@ -27,31 +27,32 @@
     #keyword{width:100%; text-align:left;}
     #search_btn{width:100%;}
     #result{
-    border:1px solid gray; 
     height:500px; 
-    overflow:auto;
+    overflow-y:auto;
     }
+    .list>div{line-height:70px;}
     input[type]:focus, button.form-control:focus, select.form-control:focus{ 
     border-color: rgba(211, 248, 150, 0.075);
     box-shadow: 0px 0px 1px rgba(211, 248, 150, 0.075) inset, 0px 0px 8px rgba(151, 248, 24, 0.6);
     }
     #friend{line-height:450px; text-align:center;}
     #noFriend{line-height:450px; text-align:center;}
-    #imgbox{
-    max-width:50px;
-    min-width:50px;
-    height:50px;
+    #imgbox {
+    max-width:70px;
+    min-width:70px;
+    height:70px;
     border-radius:50%;
-    background-color:gray;
     text-align:center;
+    overflow:hidden;
     }
     .profile_img{
-	max-width:50px;
-    min-width:50px;
-    height:50px;
+	max-width:70px;
+    min-width:70px;
+    height:70px;
     border-radius:50%;
-    background-color:gray;
-    text-align:center;}
+    text-align:center;
+    }
+    .toChat{min-width:87px;}
 </style>
 <script>
 	$(function(){
@@ -68,7 +69,7 @@
 
 <!-- body 부분 -->
 	<form action="/chat/search" method="post">
-		<div class="container p-3" id="container">
+		<div class="container p-5" id="container">
 			<div class="row m-0 header">
 				<div class="col-12 box_title">
 					<h4 id="title">채팅 친구 찾기</h4>
@@ -96,20 +97,21 @@
 							<c:choose>
 								<c:when test="${login.email != i.email }">
 									<div class="row m-0 list">
-										<div class="col-3 m-4 p-0" id="imgbox">
+										<div class="col-3 col-lg-2 m-4 p-0" id="imgbox">
 											<c:choose>
 											<c:when test="${i.sysName != null }">
-												<img class="profile_img" src="/mem/display?fileName=${i.sysName}">${i.name}
+												<img class="profile_img" src="/mem/display?fileName=${i.sysName}">
 											</c:when>
 											<c:otherwise>
-												<i class="fas fa-user-alt fa-2x mt-2 pl-0"></i>${i.name}
+												<img class="profile_img" src="/img/profile.png">
 											</c:otherwise>
 											</c:choose>
 										</div>
-										<div class="col-3 m-4 p-2 email">${i.email}</div>
-										<div class="col-3 m-4 p-2">${i.school}</div>
-										<div class="col-3 m-4 p-2">
-											<input type="button" value="채팅하기" class="form-control toChat">
+										<div class="d-none d-md-block col-lg-2 m-4 p-2 email">${i.email}</div>
+										<div class="col-3 col-lg-2 m-4 p-2">${i.school}</div>
+										<div class="col-3 col-lg-1 m-4 p-2">${i.name}</div>
+										<div class="col-3 col-lg-3 m-4 p-2">
+											<input type="button" value="채팅하기" class="form-control mt-3 toChat">
 										</div>
 									</div>
 									<hr>
@@ -118,14 +120,14 @@
 						</c:forEach>
 					</c:when>
 					<c:when test="${keyword != null and fn:length(list) == 0 }">
-						<div class="row">
+						<div class="row m-0">
 							<div class=col-12>
 								<h4 id="noFriend">검색 대상이 없습니다.</h4>
 							</div>
 						</div>
 					</c:when>
 					<c:otherwise>
-						<div class="row">
+						<div class="row m-0">
 							<div class="col-12">
 								<h4 id="friend">친구를 찾아보세요</h4>
 							</div>

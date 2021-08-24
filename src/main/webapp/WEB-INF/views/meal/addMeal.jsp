@@ -30,7 +30,6 @@
     #test:hover{background-color: rgb(233, 236, 239);}
 
     .use{background-color:#dff1e4;color:rgb(70, 70, 70);}
-        #use{background-color:#dff1e4;color:rgb(70, 70, 70);}
     .use:hover{font-weight:700;border:1px solid #114E60;color:#114E60;}
     .menu{line-height:38px;}
     .date{line-height:38px;}

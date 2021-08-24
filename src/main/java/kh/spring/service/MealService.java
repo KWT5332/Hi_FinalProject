@@ -49,14 +49,15 @@ public class MealService {
 		System.out.println(str + ", " + month);
 		
 		dto.setMonth(month);
-		dto.setOriName(oriName);
-		dto.setSysName(sysName);
 		
-		System.out.println(realPath);
-		System.out.println(oriName);
-		System.out.println(sysName);
-		System.out.println(filesPath.getAbsolutePath()+"/"+sysName);
-		System.out.println(realPath+"/"+sysName);
+		if(oriName == null || oriName.contentEquals("")) {
+			dto.setOriName("");
+			dto.setSysName("");
+		}else {
+			dto.setOriName(oriName);
+			dto.setSysName(sysName);
+		}
+		System.out.println(dto.getOriName() + " : " + dto.getSysName());
 		
 		if(dto.getMenu3() == null) {
 			dto.setMenu3("");
@@ -93,7 +94,6 @@ public class MealService {
 		
 		int start = ((pageNum - 1) * page_row_count) + 1;
 		int end = pageNum * page_row_count;
-		System.out.println(start + " : " + end);
 		
 		Map<String, Object> param = new HashMap<>();
 		param.put("writer", writer);
@@ -113,7 +113,7 @@ public class MealService {
 	}
 	
 	// 수정
-	public int update(String meal_date, MealDTO dto, String realPath, MultipartFile file) throws Exception {
+	public String update(String meal_date, MealDTO dto, String realPath, MultipartFile file) throws Exception {
 		if(dto.getMenu3() == null) {
 			dto.setMenu3("");
 		}
@@ -133,19 +133,27 @@ public class MealService {
 		String oriName = file.getOriginalFilename();
 		String sysName = UUID.randomUUID().toString().replace("-", "") + "_" + oriName;
 		file.transferTo(new File(filesPath.getAbsolutePath()+"/"+sysName));
+		System.out.println(oriName + " : " + sysName);
 		
-		dto.setOriName(oriName);
-		dto.setSysName(sysName);
+		if(oriName == null || oriName.contentEquals("")) {
+			dto.setOriName("");
+			dto.setSysName("");
+		}else {
+			dto.setOriName(oriName);
+			dto.setSysName(sysName);
+		}
+		System.out.println(dto.getOriName() + " : " + dto.getSysName());
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("meal_date", meal_date);
 		map.put("dto", dto);
 		
-		return dao.update(map);
+		dao.update(map);
+		
+		return sysName;
 	}
 	
 	public int delete(String meal_date) {
-		
-		System.out.println(meal_date);
 		return dao.delete(meal_date);
 	}
 }

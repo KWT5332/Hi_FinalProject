@@ -3,6 +3,7 @@ package kh.spring.controller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -17,11 +18,12 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
 
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.MemberService;
@@ -220,7 +222,7 @@ public class MemberController {
 	public String addmealProc(MultipartFile file, HttpServletResponse resp) throws Exception {
 		System.out.println("이미지 추가");
 
-		String realPath = session.getServletContext().getRealPath("/resources/profile_img");
+		String realPath = session.getServletContext().getRealPath("profile_img");
 		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
 		String email = mdto.getEmail();
 
@@ -232,7 +234,7 @@ public class MemberController {
 	@RequestMapping("display")
 	@ResponseBody
 	public ResponseEntity<byte[]> getImage(String fileName){
-		String realPath = session.getServletContext().getRealPath("/resources/profile_img");
+		String realPath = session.getServletContext().getRealPath("profile_img");
 		System.out.println(realPath);
 		File file = new File(realPath+"/"+fileName);
 		ResponseEntity<byte[]> result = null;
@@ -249,4 +251,24 @@ public class MemberController {
 		return result;
 	}
 	
+	// 멤버 찾기 폼
+	@RequestMapping("findMember")
+	public String findMember() {
+		return "member/findMember";
+	}
+	
+	@RequestMapping(value="findIdProc", produces="text/html;charset=utf8")
+	@ResponseBody
+	public String findIdProc(String name, String phone) {
+		int result = service.findIdProc(name,phone);
+		Gson g = new Gson();
+		String findDTO = null;
+		if(result>0) {
+			List<MemberDTO> dto = service.findIdMemebr(name, phone);
+			findDTO= g.toJson(dto);
+		}else {
+			findDTO = String.valueOf(result);
+		}
+		return String.valueOf(findDTO);
+	}
 }

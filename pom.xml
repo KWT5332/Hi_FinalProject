@@ -211,13 +211,9 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
-		
-<!--           대용량 파일 처리
-          <dependency>
-              <groupId>commons-io</groupId>
-              <artifactId>commons-io</artifactId>
-              <version>2.6</version>
-          </dependency> -->
+
+		<!-- 대용량 파일 처리 <dependency> <groupId>commons-io</groupId> <artifactId>commons-io</artifactId> 
+			<version>2.6</version> </dependency> -->
 	</dependencies>
 	<build>
 		<plugins>

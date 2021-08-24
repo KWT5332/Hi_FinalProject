@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -102,7 +104,7 @@ public class MealController {
 		System.out.println("식단추가");
 		System.out.println(file);
 
-		String realPath = session.getServletContext().getRealPath("/resources/meal_img");
+		String realPath = session.getServletContext().getRealPath("meal_img");
 		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
 
 		dto.setWriter(mdto.getEmail());
@@ -150,31 +152,30 @@ public class MealController {
 	
 	@ResponseBody
 	@RequestMapping("update")
-	public String update(String meal_date, String menu1, String menu2, String menu3, String menu4, 
-			String menu5, String menu6, MultipartFile file) throws Exception {
+	public String update(MultipartHttpServletRequest multi) throws Exception {
 		System.out.println("수정");
-		System.out.println(meal_date + " : " + file);
 		
 		MealDTO dto = new MealDTO();
-		dto.setMenu1(XSSFillterConfig.XSSFilter(menu1));
-		dto.setMenu2(XSSFillterConfig.XSSFilter(menu2));
-		dto.setMenu3(XSSFillterConfig.XSSFilter(menu3));
-		dto.setMenu4(XSSFillterConfig.XSSFilter(menu4));
-		dto.setMenu5(XSSFillterConfig.XSSFilter(menu5));
-		dto.setMenu6(XSSFillterConfig.XSSFilter(menu6));
+		dto.setMenu1(XSSFillterConfig.XSSFilter(multi.getParameter("menu1")));
+		dto.setMenu2(XSSFillterConfig.XSSFilter(multi.getParameter("menu2")));
+		dto.setMenu3(XSSFillterConfig.XSSFilter(multi.getParameter("menu3")));
+		dto.setMenu4(XSSFillterConfig.XSSFilter(multi.getParameter("menu4")));
+		dto.setMenu5(XSSFillterConfig.XSSFilter(multi.getParameter("menu5")));
+		dto.setMenu6(XSSFillterConfig.XSSFilter(multi.getParameter("menu6")));
 		
-		String realPath = session.getServletContext().getRealPath("/resources/meal_img");
+		String realPath = session.getServletContext().getRealPath("meal_img");
+		MultipartFile file = multi.getFile("file");
 		
-		service.update(meal_date, dto, realPath, file);
+		String sysname = service.update(multi.getParameter("meal_date"), dto, realPath, file);
 		
-		return "1";
+		return sysname;
 	}
 	
 	// 삭제
 	@ResponseBody
 	@RequestMapping("delete")
 	public String delte(String meal_date) {
-		System.out.println("삭제");
+		System.out.println("삭제할 날짜" + meal_date);
 
 		service.delete(meal_date);
 		
@@ -183,8 +184,7 @@ public class MealController {
 	
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> getImage(String fileName){
-		String realPath = session.getServletContext().getRealPath("/resources/meal_img");
-		System.out.println(realPath);
+		String realPath = session.getServletContext().getRealPath("meal_img");
 		File file = new File(realPath+"/"+fileName);
 		ResponseEntity<byte[]> result = null;
 		

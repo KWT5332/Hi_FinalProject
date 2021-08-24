@@ -30,4 +30,8 @@ public class MailDAO {
 	public int excelupload(Map<String, Object> map) {
 		return mybatis.insert("Mail.excelupload", map);
 	}
+	
+	public int deleteStudentProc(String email) {
+		return mybatis.delete("Mail.deleteStudentProc", email);
+	}
 }

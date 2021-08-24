@@ -12,6 +12,10 @@
 		insert into st_mail values(#{school},#{stu_name},#{stu_email})
 	</insert>
 	
+	<delete id="deleteStudentProc">
+		delete from st_mail where stu_email=#{value}
+	</delete>
+	
 	<select id="studentList" resultType="kh.spring.dto.St_MailDTO">
 		select * from st_mail where school=#{value}
 	</select> 

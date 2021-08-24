@@ -53,7 +53,7 @@
 		appearance: none; 
     }
 	#calendar{width:100%; text-align:center;border: 1px solid rgb(130, 130, 130);border-collapse: collapse;}
-    th{height:40px;font-size: 18px;background-color:rgb(255, 203, 72, 0.3);;border: 1px solid rgb(130, 130, 130);}
+    th{height:40px;font-size: 18px;background-color:rgb(255, 203, 72, 0.3);border: 1px solid rgb(130, 130, 130);}
     tr{border: 1px solid rgb(130, 130, 130);}
 	td{height:200px;max-width: 25px;position:relative;padding:0px;border: 1px solid rgb(130, 130, 130);}
     .date{border-bottom: 1px solid rgb(130, 130, 130);border-right: 1px solid rgb(130, 130, 130);padding:0px;position:absolute;top:0px;}
@@ -216,14 +216,15 @@
             let darr = date.split("-");
 
             $(".modal-title").text(date); // 날짜 모달title에 넣어주기
+            $("#modal_meal_date").val(date);
             
-            let sysname = $(this).next(".sysname").val();
+            let sysname = $(this).next(".sysname");
 
             $("#modal_img").children("img").remove(); // 사진 넣어주기
             let img = $("<img>");
             img.addClass("saveImg");
-            img.attr("src","/meal/display?fileName="+sysname).width(352);
-            if(sysname!=""){
+            img.attr("src","/meal/display?fileName="+sysname.val()).width(352);
+            if(sysname.val()!=""){
             	$("#modal_img").append(img);
             }
             
@@ -235,6 +236,7 @@
             $("#update").on("click",function(){ 
             	let form = $("#modal_frm")[0];
             	let formData = new FormData(form);
+            	
             	$.ajax({
             		url:"/meal/update",
             		type:"POST",
@@ -243,7 +245,7 @@
 	    			contentType: false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
 	    			cache:false
             	}).done(function(resp){
-            		console.log("수정완료");
+            		console.log("수정완료" + resp);
             		thismenu.html("");
 			        thismenu.append($("#menu1").val()+"<br>"+$("#menu2").val());
 			        
@@ -259,11 +261,13 @@
             			thismenu.append("<br>"+$("#menu5").val());
             		}else{thismenu.append("<br>");}
             		
-            		console.log($("#menu6").val());
             		if($("#menu6").val() != null && $("#menu6").val() != ""){
             			thismenu.append("<br>"+$("#menu6").val());
             		}else{thismenu.append("<br><br>");}
             		
+            		thismenu.next(".sysname").val(resp);
+            		$(".savImg").remove();
+
             		$("#modal").modal("hide");
             	}) 
             })
@@ -387,6 +391,7 @@
 	        <div class="modal-content">
 	            <div class="modal-header">
 	            <h5 class="modal-title" id="exampleModalLabel"></h5>
+	            <input type="hidden" id="modal_meal_date" name="meal_date">
 	            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	                <span aria-hidden="true">&times;</span>
 	            </button>

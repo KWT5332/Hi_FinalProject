@@ -118,9 +118,9 @@
 						<button class="btn  btn_rogin">로그인</button>
 					</div>
 					<div class="minicon p-2">
-						<a style="cursor:pointer" class="under">아이디 / 비밀번호 찾기</a>
+						<a style="cursor:pointer" class="under" href="/mem/findMember">아이디 / 비밀번호 찾기</a>
 						<span>|</span>
-						<a style="cursor:pointer" class="under">회원가입</a>
+						<a style="cursor:pointer" class="under"href="/mem/joinForm">회원가입</a>
 					</div>
 					<div class="minicon p-2">
 						<button type="button" class="btn  under_home" id="btn_home">홈으로 가기</button>

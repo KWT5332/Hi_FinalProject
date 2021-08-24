@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.St_MailDTO;
 import kh.spring.service.ExcelService;
@@ -53,20 +55,22 @@ public class MailController {
 
 	@ResponseBody
 	@RequestMapping(value = "sendMailProc", method = RequestMethod.GET, produces="text/html;charset=utf8")
-	public String sendMailTest(String month, String payment, HttpServletResponse response) throws Exception{
+	public String sendMailTest(String title, String content, String month, String payment, HttpServletResponse response) throws Exception{
 		System.out.println("메일보내기");
-		System.out.println(month + " : " + payment);
-		String subject = "하이! 급식 에서 보낸메일입니다.";
-		String content = "학생 페이지 링크입니다.\n http://localhost//sdt/researchHome?month="+month+"&payment="+payment;
+		System.out.println(title + " : " + month + " : " + payment + " : " + content);
+		String finContent = content 
+				+ "\n http://localhost//sdt/researchHome?month="+month+"&payment="+payment;
 		//String content = "메일 테스트 내용" + "<img src=\"이미지 경로\">";
 		//String from = "zlxl_3041@naver.com";
 		//String to = "project.hi.final@gmail.com";
 		
 		// 주희
-		String from = "project.hi.final@gmail.com";
 		MemberDTO dto = (MemberDTO)hsession.getAttribute("login");
+		String from = dto.getEmail();
 		List<String> to = service.mailList(dto.getSchool());
-
+		
+		System.out.println(finContent);
+		System.out.println(from);
 		try {
 			MimeMessage mail = mailSender.createMimeMessage();
 			MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8");
@@ -92,7 +96,6 @@ public class MailController {
 			 */
 			
 			// 주희 
-			
 			InternetAddress[] toAddr = new InternetAddress[to.size()];
 			for(int i=0; i<to.size(); i++) {
 				toAddr[i] = new InternetAddress(to.get(i));
@@ -100,8 +103,8 @@ public class MailController {
 			
 			mailHelper.setFrom(from);
 			mailHelper.setTo(toAddr);
-			mailHelper.setSubject(subject);
-			mailHelper.setText(content, true);
+			mailHelper.setSubject(title);
+			mailHelper.setText(finContent, true);
 			
 			//FileSystemResource file = new FileSystemResource(new File("경로\업로드할파일.형식")); 
 			//helper.addAttachment("업로드파일.형식", file);
@@ -109,7 +112,7 @@ public class MailController {
 			//FileSystemResource file = new FileSystemResource(new File("Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx")); 
 			
 			// 찐 FileSystemResource file = new FileSystemResource(new File("C:\\Users\\SeoSeunghee\\Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
-			String realPath = hsession.getServletContext().getRealPath("/resources/excelDownMail");
+			String realPath = hsession.getServletContext().getRealPath("excelDownMail");
 			exservice.excelDownloadMail(month, dto.getSchool(), realPath, response);
 			
 			FileSystemResource file = new FileSystemResource(new File(realPath+"\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
@@ -125,7 +128,6 @@ public class MailController {
 	}
 
 	@RequestMapping(value = "addStudentProc", method = RequestMethod.POST)
-	@ResponseBody
 	public String addStudent(St_MailDTO dto) {
 		System.out.println("학생등록");
 		
@@ -135,6 +137,11 @@ public class MailController {
 		service.addStudent(dto);
 		return "mail/sendmail"; 
 	}
-
-
+	
+	@RequestMapping(value="deleteStudentProc",method = RequestMethod.POST)
+	public String deleteStudentProc(String email) {
+		System.out.println("학생 삭제");
+		service.deleteStudentProc(email);
+		return "mail/sendmail"; 
+	}
 }

@@ -49,7 +49,11 @@
 	
 	<update id="update">
 		update meal_menu set menu1=#{dto.menu1}, menu2=#{dto.menu2}, menu3=#{dto.menu3}, menu4=#{dto.menu4},
-		menu5=#{dto.menu5},menu6=#{dto.menu6},oriName=#{oriName}, sysName=#{sysName} where meal_date=#{meal_date}
+		menu5=#{dto.menu5},menu6=#{dto.menu6}
+		<if test="dto.oriName!=''">
+			,oriName=#{dto.oriName},sysName=#{dto.sysName}
+		</if>
+			where meal_date=#{meal_date}
 	</update>
 	
 	<delete id="delete">
