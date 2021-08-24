@@ -16,6 +16,7 @@
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <style>
+#mail{background-color: #124352;}
 * {box-sizing: border-box;}
 select[type]:focus {
 	border-color: rgba(184, 223, 216, 0.5);
