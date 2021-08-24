@@ -53,7 +53,7 @@
 		appearance: none; 
     }
 	#calendar{width:100%; text-align:center;border: 1px solid rgb(130, 130, 130);border-collapse: collapse;}
-    th{height:40px;font-size: 18px;background-color:rgb(255, 203, 72, 0.3);;border: 1px solid rgb(130, 130, 130);}
+    th{height:40px;font-size: 18px;background-color:rgb(255, 203, 72, 0.3);border: 1px solid rgb(130, 130, 130);}
     tr{border: 1px solid rgb(130, 130, 130);}
 	td{height:200px;max-width: 25px;position:relative;padding:0px;border: 1px solid rgb(130, 130, 130);}
     .date{border-bottom: 1px solid rgb(130, 130, 130);border-right: 1px solid rgb(130, 130, 130);padding:0px;position:absolute;top:0px;}
@@ -267,13 +267,6 @@
             		
             		thismenu.next(".sysname").val(resp);
             		$(".savImg").remove();
-            		/* let hidden = $("<input>");
-            		hidden.attr("type","hidden");
-            		hidden.addClass("sysname");
-            		hidden.attr("value", resp[i].sysName);
-            		thismenu.append()
-            		$("."+resp[i].meal_date).append(menu);
-            		$("."+resp[i].meal_date).append(hidden); */
 
             		$("#modal").modal("hide");
             	}) 

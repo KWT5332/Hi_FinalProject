@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>메일</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -30,7 +30,7 @@ input[type]:focus {
 		rgb(184, 223, 216, 0.6);
 	outline: 0 none;
 }
-input[type] {border-color: rgba(184, 223, 216, 0.5);}
+input[type] {border-color: #b2dabd;}
 .sendmail_container{overflow: hidden;}
 .sendmail_container .incon {overflow: hidden;}
 .sendmail_container .studentcon {text-align: center;}
@@ -72,6 +72,21 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
       -moz-appearance: none; 
       appearance: none; 
     }
+    .btn_sendmail{background-color:rgb(255, 241, 224);border:1px solid rgb(255, 241, 224);color:rgb(70, 70, 70);}
+    .btn_sendmail:hover{background-color:rgb(255, 196, 119);border:1px solid rgb(255, 196, 119);}
+    #add{background-color:#dff1e4;color:rgb(105, 105, 105);border:1px solid #dff1e4;}
+    #add:hover{font-weight:700;color:rgb(94, 94, 94);background-color:#cbebd4;}
+    .modify{border:1px solid rgb(255, 196, 119);color:black;}
+    .modify:hover{background-color:rgb(255, 196, 119);border:1px solid rgb(255, 196, 119);color:white;}
+    .delete{background-color: white;color:black;border:1px solid #114E60;}
+    .delete:hover{background-color: #114E60;color:white;}
+    .modal input[type] {border-color: rgb(170, 170, 170);}
+    .modal input[type]:focus {
+        border-color: rgb(170, 170, 170);
+        box-shadow: 0 1px 1px rgb(170, 170, 170) inset, 0 0 3px
+        rgb(170, 170, 170);
+        outline: 0 none;
+    }
 </style>
 <script>
 	$(function() {
@@ -89,12 +104,14 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 			$("#send").on("click",function(){
 				alert("전체 학생에게 메일을 발송합니다.\n발송 완료 후 메일보내기 작은 창이 나가게 됩니다. \n잠시 기다려 주세요.");
 				let month = $("#month").val();
-				
 				let strMonth = strNum(month);
+
+                $("#content").val($("#textarea").val());
+
   				$.ajax({
 					type : "GET",
 					url : "/mail/sendMailProc", 
-					data:{"month":strMonth, "payment":$("#payment").val()}
+					data:{"title":$("#title").val(), "content":$("#content").val(), "month":strMonth, "payment":$("#payment").val()}
  				}).done(function(resp) {
  						$("#modal").modal("hide");
 						console.log("확인");
@@ -195,7 +212,7 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 	<div class="sendmail_container container p-5">
         <div class="row m-0 mb-3 mt-5">
 			<div class="col-6 ">
-				<button class="btn btn-success btn_sendmail">전체학생에게 이메일 보내기</button>
+				<button class="btn btn_sendmail">전체학생에게 이메일 보내기</button>
 			</div>
 			<div class="col-6 " id="excleupload">
 			<!-- <div class="col-12 col-sm-12 col-md-6 col-lg-4 p-0" id="excleupload"> -->
@@ -212,10 +229,10 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 		<form id="frm">
 		<div class="studentAdd row m-0">
 			<div class="col-4">
-				<input type="text" class="form-control" name="stu_name" id="stu_name" placeholder="학생이름을 입력하세요">
+				<input type="text" class="form-control" name="stu_name" id="stu_name" placeholder="학생이름을 입력하세요" style="text-align: center;">
 			</div>
 			<div class="col-4">
-				<input type="text" class="form-control" name="stu_email" id="stu_email" placeholder="학생이메일을 입력하세요">
+				<input type="text" class="form-control" name="stu_email" id="stu_email" placeholder="학생이메일을 입력하세요" style="text-align: center;">
 			</div>
 			<div class="col-4">
 				<!-- 사용자 학교 정보 넣기 -->
@@ -231,6 +248,8 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 					<td scope="col">학생이름</td>
 					<td scope="col">소속학교</td>
 					<td scope="col">이메일</td>
+					<td scope="col">수정</td>
+					<td scope="col">삭제</td>
 				</tr>
 				<c:forEach var="i" items="${studentList}" varStatus="status">
 				<tr class="student_list">
@@ -238,37 +257,56 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 					<td scope="col" class="name">${i.stu_name}</td>
 					<td scope="col" class="school">${i.school}</td>
 					<td scope="col" class="email">${i.stu_email}</td>
-					<td scope="col"><button type="button" class="modify">수정</button><button type="button" class="delete">삭제</button>
+					<td scope="col"><button type="button" class="modify btn">수정</button></td>
+					<td scope="col"><button type="button" class="delete btn">삭제</button></td>
 				</tr>
 				</c:forEach>
 			</table>
 		</div>
-		
 	</div>
 	
-	     <!-- Modal -->
+	<!-- Modal -->
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">메일보내기</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-                <p style="text-align:left;">몇월달 식단표를 보낼까요?</p>
-                <input type="text" class="pl-2 mb-2 form-control" id="month" name="month">
-                <p style="text-align:left;">이번달 급식비 (숫자로 적어주세요.)</p>
-                <input type="text" class="pl-2 mb-2 form-control" id="payment" name="payment">
-            </div>
-            <div class="modal-footer">
-            	<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-            	<button type="button" class="btn btn-primary" id="send">메일보내기</button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">메일보내기</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row m-0">
+                        <div class="col-3"><p class="m-0" style="line-height:38px;font-weight:700;font-size:17px;">메일제목</p></div>
+                        <div class="col-9"><input type="text" class="form-control" id="title" name="title"></div>
+                    </div>
+                    <hr>
+                    <div class="row m-0 mb-3">
+                        <div class="col-6"><p class="m-0" style="text-align:left;line-height:38px;font-size:15px;">몇월달 식단표를 보낼까요?</p></div>
+                        <div class="col-6"><input type="text" class="pl-2 form-control" id="month" name="month"></div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-7 pr-0"><p class="m-0" style="text-align:left;line-height:38px;font-size:15px;">이번달 급식비(숫자로 적어주세요.)</p></div>
+                        <div class="col-5"><input type="text" class="pl-2 form-control" id="payment" name="payment"></div>
+                    </div>
+                    <hr>
+                    <div class="row m-0">
+                        <p class="col-12">메일 내용</p>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-12">                                
+                            <textarea cols="53" rows="10" id="textarea"></textarea>
+                            <input type="hidden" id="content" name="content">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" id="send">메일보내기</button>
+                </div>
             </div>
         </div>
-        </div>
-    </div>    
+    </div>      
 
 	<jsp:include page="../layout/footer.jsp" />
 </body>
