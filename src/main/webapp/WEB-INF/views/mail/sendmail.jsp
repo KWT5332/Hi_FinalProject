@@ -16,6 +16,7 @@
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <style>
+#mail{background-color: #124352;}
 * {box-sizing: border-box;}
 select[type]:focus {
 	border-color: rgba(184, 223, 216, 0.5);
@@ -78,8 +79,8 @@ input[type] {border-color: #b2dabd;}
     #add:hover{font-weight:700;color:rgb(94, 94, 94);background-color:#cbebd4;}
     .modify{border:1px solid rgb(255, 196, 119);color:black;}
     .modify:hover{background-color:rgb(255, 196, 119);border:1px solid rgb(255, 196, 119);color:white;}
-    .delete{background-color: white;color:black;border:1px solid #114E60;}
-    .delete:hover{background-color: #114E60;color:white;}
+    .delete{background-color:#114E60;color:white;border:1px solid #114E60;}
+    .delete:hover{background-color: #356979;color:white;}
     .modal input[type] {border-color: rgb(170, 170, 170);}
     .modal input[type]:focus {
         border-color: rgb(170, 170, 170);
@@ -134,32 +135,41 @@ input[type] {border-color: #b2dabd;}
 		
 		$(".delete").click(function(){
 			if(confirm("정말로 학생을 삭제하시겠습니까?")){
-				let st_email = $(this).parent().siblings(".email").text();
+				let seq = $(this).parent().siblings(".seq").val();
 				$.ajax({
 					type:"POST",
 					url:"/mail/deleteStudentProc",
-					data:{"email" : st_email}
+					data:{"seq" : seq}
 				}).done(function() {
 					location.reload();
 				})
 			}
 		})
 		
-		/* $(".modify").click(function(){
+		$(".modify").click(function(){
 			if($(this).text() == "수정"){
 				$(this).text("완료");
-				$(this).parents(".student_list").children().attr("contenteditable", "true");
-				$(this).parents(".student_list").children(".name").focus();	
+				$(this).parent().siblings(".name").attr("contenteditable", "true");
+				$(this).parent().siblings(".email").attr("contenteditable", "true");
+				$(this).parent().siblings(".name").focus();
 			}else{
 				$(this).text("수정");
-				$(this).parents(".student_list").children("").attr("contenteditable", "false");
-				let name = $(this).parents(".student_list").children(".name").text();
-				let name = $(this).parents(".student_list").children(".school").text();
-				let name = $(this).parents(".student_list").children(".email").text();
-			}
+				$(this).parent().siblings(".name").attr("contenteditable", "false");
+				$(this).parent().siblings(".email").attr("contenteditable", "false");
+				
+				let seq = $(this).parent().siblings(".seq").val(); 
+				let stu_name = $(this).parent().siblings(".name").text();
+				let stu_email = $(this).parent().siblings(".email").text();
+				$.ajax({
+					type:"POST",
+					url:"/mail/updateStudentProc",
+					data:{"seq" : seq, "name" : stu_name, "email" : stu_email}
+				}).done(function() {
+					location.reload();
+				})
+			} 
 		})
 
-		/* 엑셀 업로드양식 다운 */
 		// 엑셀 업로드 양식 다운받기
 		$("#excelform").on("click", function() {
 			location.href = "/excel/excelformMail";
@@ -209,7 +219,7 @@ input[type] {border-color: #b2dabd;}
 <body>
 	<jsp:include page="../layout/header.jsp" />
 
-	<div class="sendmail_container container p-5">
+<div class="sendmail_container container pt-5 pi-5 pr-5 mb-3">
         <div class="row m-0 mb-3 mt-5">
 			<div class="col-6 ">
 				<button class="btn btn_sendmail">전체학생에게 이메일 보내기</button>
@@ -240,29 +250,43 @@ input[type] {border-color: #b2dabd;}
 				<input type="button" class="btn btn-outline-success" id="add" value="학생 등록">
 			</div>
 		</div>
-		</form>
-		<div class="studentcon row">
-			<table class="table m-5">
-				<tr>
-					<td scope="col">번호</td>
-					<td scope="col">학생이름</td>
-					<td scope="col">소속학교</td>
-					<td scope="col">이메일</td>
-					<td scope="col">수정</td>
-					<td scope="col">삭제</td>
-				</tr>
-				<c:forEach var="i" items="${studentList}" varStatus="status">
-				<tr class="student_list">
-					<td scope="col">${status.count}</td>
-					<td scope="col" class="name">${i.stu_name}</td>
-					<td scope="col" class="school">${i.school}</td>
-					<td scope="col" class="email">${i.stu_email}</td>
-					<td scope="col"><button type="button" class="modify btn">수정</button></td>
-					<td scope="col"><button type="button" class="delete btn">삭제</button></td>
-				</tr>
-				</c:forEach>
-			</table>
-		</div>
+        </form>
+    </div>
+		
+	<div class="container studentcon p-5" style="text-align:center">
+		<h3 class="mb-4">학생 이메일 주소록</h3>
+		<table class="table">
+			<tr>
+				<td scope="col">번호</td>
+				<td scope="col">학생이름</td>
+				<td scope="col">소속학교</td>
+				<td scope="col">이메일</td>
+				<td scope="col">수정</td>
+				<td scope="col">삭제</td>
+			</tr>
+			<c:choose>
+				<c:when test="${not empty studentList }" >
+					<c:forEach var="i" items="${studentList}" varStatus="status">
+						<tr class="student_list">
+							<td scope="col">${status.count}</td>
+							<input type="hidden" class="seq" name="seq" value="${i.seq }">
+							<td scope="col" class="name">${i.stu_name}</td>
+							<td scope="col" class="school">${i.school}</td>
+							<td scope="col" class="email">${i.stu_email}</td>
+							<td scope="col"><button type="button" class="modify btn">수정</button></td>
+							<td scope="col"><button type="button" class="delete btn">삭제</button></td>
+						</tr>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td colspan="6" class="p-4">
+						    <h5>저장된 학생 주소록이 없습니다.</h5>
+                    	</td>
+					</tr>
+				</c:otherwise>	
+			</c:choose>
+		</table>
 	</div>
 	
 	<!-- Modal -->
@@ -295,7 +319,7 @@ input[type] {border-color: #b2dabd;}
                     </div>
                     <div class="row m-0">
                         <div class="col-12">                                
-                            <textarea cols="53" rows="10" id="textarea"></textarea>
+                            <textarea  style="width:100%;border:1;overflow:visible;text-overflow:ellipsis;" rows=10 id="textarea"></textarea>
                             <input type="hidden" id="content" name="content">
                         </div>
                     </div>
@@ -313,3 +337,4 @@ input[type] {border-color: #b2dabd;}
 </html>
 
 
+							
