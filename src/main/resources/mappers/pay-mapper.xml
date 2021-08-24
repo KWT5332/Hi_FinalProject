@@ -10,7 +10,7 @@
 		insert into st_payment values(payment_seq.nextval, #{st_name}, #{st_email}, #{st_school}, #{payment}, #{apply_num}, sysdate, #{month})		
 	</insert>
 	
-	<select id="payList" resultType="kh.spring.dto.payDTO">
+	<select id="payList" resultType="kh.spring.dto.PayDTO">
 		select * from st_payment order by month, pay_date desc
 	</select>
 	
