@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import kh.spring.config.XSSFillterConfig;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.St_MailDTO;
 import kh.spring.service.ExcelService;
@@ -57,7 +58,7 @@ public class MailController {
 	public String sendMailTest(String title, String content, String month, String payment, HttpServletResponse response) throws Exception{
 		System.out.println("메일보내기");
 		System.out.println(title + " : " + month + " : " + payment + " : " + content);
-		String finContent = content 
+		String finContent = XSSFillterConfig.XSSFilter(content)
 				+ "\n http://localhost//sdt/researchHome?month="+month+"&payment="+payment;
 		//String content = "메일 테스트 내용" + "<img src=\"이미지 경로\">";
 		//String from = "zlxl_3041@naver.com";
@@ -102,7 +103,7 @@ public class MailController {
 			
 			mailHelper.setFrom(from);
 			mailHelper.setTo(toAddr);
-			mailHelper.setSubject(title);
+			mailHelper.setSubject(XSSFillterConfig.XSSFilter(title));
 			mailHelper.setText(finContent, true);
 			
 			//FileSystemResource file = new FileSystemResource(new File("경로\업로드할파일.형식")); 
@@ -112,14 +113,14 @@ public class MailController {
 			
 			// 찐 FileSystemResource file = new FileSystemResource(new File("C:\\Users\\SeoSeunghee\\Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
 			String realPath = hsession.getServletContext().getRealPath("excelDownMail");
-			exservice.excelDownloadMail(month, dto.getSchool(), realPath, response);
+			exservice.excelDownloadMail(XSSFillterConfig.XSSFilter(month), dto.getSchool(), realPath, response);
 			
-			FileSystemResource file = new FileSystemResource(new File(realPath+"\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
-            mailHelper.addAttachment(month+"월+"+dto.getSchool()+"+식단표.xlsx", file);
+			FileSystemResource file = new FileSystemResource(new File(realPath+"\\"+XSSFillterConfig.XSSFilter(month)+"월+"+dto.getSchool()+"+식단표.xlsx"));
+            mailHelper.addAttachment(XSSFillterConfig.XSSFilter(month)+"월+"+dto.getSchool()+"+식단표.xlsx", file);
 			
 			mailSender.send(mail);
 			
-			exservice.deleteExcel(realPath, month+"월+"+dto.getSchool()+"+식단표.xlsx"); // 보내고 저장된 파일 삭제
+			exservice.deleteExcel(realPath, XSSFillterConfig.XSSFilter(month)+"월+"+dto.getSchool()+"+식단표.xlsx"); // 보내고 저장된 파일 삭제
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -132,8 +133,8 @@ public class MailController {
 		
 		MemberDTO m = (MemberDTO)hsession.getAttribute("login");
 		
-		dto.setSchool(m.getSchool());
-		dto.setNu_email(m.getEmail());
+		dto.setSchool(XSSFillterConfig.XSSFilter(m.getSchool()));
+		dto.setNu_email(XSSFillterConfig.XSSFilter(m.getEmail()));
 		
 		service.addStudent(dto);
 		
@@ -153,8 +154,8 @@ public class MailController {
 		
 		St_MailDTO dto = new St_MailDTO();
 		dto.setSeq(seq);
-		dto.setStu_name(name);
-		dto.setStu_email(email);
+		dto.setStu_name(XSSFillterConfig.XSSFilter(name));
+		dto.setStu_email(XSSFillterConfig.XSSFilter(email));
 		
 		service.updateStudentProc(dto);
 		
