@@ -11,6 +11,28 @@
 
 <style>
 
+@font-face {
+    font-family: 'GowunDodum-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+	font-family:'GowunDodum-Regular';
+} 
+
+/* @font-face {
+    font-family: 'SpoqaHanSansNeo-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+	font-family: 'SpoqaHanSansNeo-Regular';
+} */
+
 .box-radio-input input[type="radio"]{
   display:none;
 }
@@ -18,13 +40,14 @@
 .box-radio-input input[type="radio"] + span{
   display:inline-block;
   background:none;
-  border:1px solid #dfdfdf;  
-  padding:0px 10px;
+  border:0.5px solid #dfdfdf;
+  padding:0px 15px;
   text-align:center;
-  height:35px;
-  line-height:33px;
+  height:30px;
+  line-height:28px;
   font-weight:500;
   cursor:pointer;
+  margin-right:10px;
 }
 
 .box-radio-input input[type="radio"]:checked + span{
@@ -34,15 +57,45 @@
 }
 
 .container{
-	border:1px solid black;
 	border-radius:5px;
 	margin-top:50px;
+	margin-bottom:50px;
 	padding:10px;
 }
+
+.question{
+	margin-top:30px;
+	margin-bottom:20px;
+}
+
+.question > strong{
+	font-size:20px;
+}
+
+.answer{
+	margin-bottom:50px;
+}
+
+#title{
+	background:#dfdfdf;
+}
+
+select > option {text-align:center;}
 
 </style>
 
 <script>
+		
+	$(document).ready(function() {
+	    $('#etc').on('keyup', function() {
+	        $('#etc_cnt').html("("+$(this).val().length+" / 200)");
+	 
+	        if($(this).val().length > 200) {
+	            $(this).val($(this).val().substring(0, 200));
+	            $('#etc_cnt').html("(200 / 200)");
+	        }
+	    });
+	});
 	
 </script>
 </head>
@@ -54,121 +107,151 @@
 		
 			<div class="row">
 				<div class="col">
-					<h1>급식 설문조사</h1>
-					<hr>
-					지난 달 급식 설문조사를 진행합니다.
-					<br> 설문조사 종료 뒤, 다음달 급식비 결제 링크로
-					넘어갑니다.
+					<h1 id="title">급식 만족도 설문조사</h1>
+					<br>
+					지난 달 급식 만족도 설문조사를 진행합니다.
+					<br> 설문조사 종료 뒤, 다음 달 급식비 결제 링크로 넘어갑니다.
+					<br>
 				</div>
 			</div>
 			
 			<hr>
 			<div class="row">
-				<div class="col">
-					담당 영양사 <input type="text" name="parent_email">
-				</div>
 				<div class="col">
 					해당 학교 <input type="text" name="school">
 				</div>
+				<div class="col">
+					담당 영양사 <input type="text" name="parent_email">
+					<input type="hidden" name="month" value="${month}">
+					<input type="hidden" name="payment" value="${payment}">
+				</div>
 			</div>
 			
 			<hr>
 			<div class="row">
-				<div class="col">
+				<div class="col question">
 					<strong>학교 급식에 대하여 어떻게 생각하십니까?</strong>
 				</div>
 			</div>
 	
-			<div class="row">
+			<div class="row answer">
 				<div class="col">					
 					<label class="box-radio-input">
-						<input type="radio" name="feedback" value="very_good" checked="checked"><span>매우 좋음</span>
+						<input type="radio" name="feedback" value="매우만족" checked="checked"><span>매우 만족</span>
 					</label>
 					
 					<label class="box-radio-input">
-						<input type="radio" name="feedback" value="good"><span>좋음</span>
+						<input type="radio" name="feedback" value="만족"><span>만족</span>
 					</label>
 					
 					<label class="box-radio-input">
-						<input type="radio" name="feedback" value="normal"><span>보통</span>
+						<input type="radio" name="feedback" value="보통"><span>보통</span>
 					</label>
 					
 					<label class="box-radio-input">
-						<input type="radio" name="feedback" value="bad"><span>나쁨</span>
+						<input type="radio" name="feedback" value="불만족"><span>불만족</span>
 					</label>
 					
 					<label class="box-radio-input">
-						<input type="radio" name="feedback" value="very_bad"><span>매우 나쁨</span>
+						<input type="radio" name="feedback" value="매우불만족"><span>매우 불만족</span>
 					</label>
 				</div>
 			</div>
 	
 			<hr>
 			<div class="row">
-				<div class="col">
-					<strong>학교 급식에서 좋아하는 메뉴는 어떤 것입니까?</strong>
+				<div class="col question">
+					<strong>음식의 간은 적당합니까?</strong>
 				</div>
 			</div>
 			
-			<div class="row">
+			<div class="row answer">
 				<div class="col">
 					<label class="box-radio-input">
-						<input type="radio" name="bestmenu" value="korean" checked="checked"><span>한식</span>
+						<input type="radio" name="taste" value="적당하다" checked="checked"><span>적당하다</span>
 					</label>
 					
 					<label class="box-radio-input">
-						<input type="radio" name="bestmenu" value="japanese"><span>일식</span>
+						<input type="radio" name="taste" value="짜다"><span>짜다</span>
 					</label>
 					
 					<label class="box-radio-input">
-						<input type="radio" name="bestmenu" value="chinese"><span>중식</span>
-					</label>
-					
-					<label class="box-radio-input">
-						<input type="radio" name="bestmenu" value="western"><span>양식</span>
-					</label>
-					
-					<label class="box-radio-input">
-						<input type="radio" name="bestmenu" value="etc"><span>기타</span>
+						<input type="radio" name="taste" value="싱겁다"><span>싱겁다</span>
 					</label>
 				</div>
 			</div>
 			
 			<hr>
 			<div class="row">
-				<div class="col">
-					<strong>학교 급식에서 싫어하는 메뉴는 어떤 것입니까?</strong>
+				<div class="col question">
+					<strong>급식되는 양은 만족스럽습니까?</strong>
 				</div>
 			</div>
 			
-			<div class="row">
-				<div class="col">
+			<div class="row answer">
+				<div class="col">					
 					<label class="box-radio-input">
-						<input type="radio" name="worstmenu" value="korean" checked="checked"><span>한식</span>
+						<input type="radio" name="amount" value="매우만족" checked="checked"><span>매우 만족</span>
 					</label>
 					
 					<label class="box-radio-input">
-						<input type="radio" name="worstmenu" value="japanese"><span>일식</span>
+						<input type="radio" name="amount" value="만족"><span>만족</span>
 					</label>
 					
 					<label class="box-radio-input">
-						<input type="radio" name="worstmenu" value="chinese"><span>중식</span>
+						<input type="radio" name="amount" value="보통"><span>보통</span>
 					</label>
 					
 					<label class="box-radio-input">
-						<input type="radio" name="worstmenu" value="western"><span>양식</span>
+						<input type="radio" name="amount" value="불만족"><span>불만족</span>
 					</label>
 					
 					<label class="box-radio-input">
-						<input type="radio" name="worstmenu" value="etc"><span>기타</span>
+						<input type="radio" name="amount" value="매우불만족"><span>매우 불만족</span>
 					</label>
 				</div>
 			</div>
 			
 			<hr>
 			<div class="row">
+				<div class="col question">
+					<strong>이번 달 급식 중 가장 선호하는 급식은 무엇입니까?</strong>
+				</div>
+			</div>
+	
+			<div class="row answer">
+				<div class="col">				
+					<select class="custom-select" name="bestmenu" style="width:700px;">
+						<c:forEach var="i" items="${bestOp}" varStatus="s">
+							<option value="(${s.count})${i.menu1}/${i.menu2}/${i.menu3}/${i.menu4}/${i.menu5}/${i.menu6}">
+								${i.menu1}/${i.menu2}/${i.menu3}/${i.menu4}/${i.menu5}/${i.menu6}</option>
+						</c:forEach>
+					</select>
+					
+				</div>
+			</div>
+			
+			<hr>
+			<div class="row">
+				<div class="col question">
+					<strong>학교 급식과 관련하여 의견이 있다면 적어주시기 바랍니다.</strong>
+				</div>
+			</div>
+	
+			<div class="row answer">
+				<div class="col">					
+					<lable class="box-radio-input">
+						<textarea id="etc" rows="5" cols="95" wrap="hard" name="etc"></textarea>
+						<div id="etc_cnt">(0 / 200)</div>
+					</lable>
+				</div>
+			</div>
+			
+			<hr>
+			<div class="row">
 				<div class="col">
-					<input type="submit" value="설문완료">
+					<!-- <input type="submit" value="설문완료"> -->
+					<button class="btn btn-outline-info">설문완료</button>
 				</div>
 			</div>
 	
