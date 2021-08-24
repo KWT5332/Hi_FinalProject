@@ -15,23 +15,27 @@ public class MailDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	public List<String> mailList(String school){
-		return mybatis.selectList("Mail.mailList",school);
+	public List<String> mailList(String nu_email){
+		return mybatis.selectList("Mail.mailList",nu_email);
 	}
 	
 	public int addStudent(St_MailDTO dto) {
 		return mybatis.insert("Mail.addStudent",dto);
 	}
 	
-	public List<St_MailDTO> studentList(String school){
-		return mybatis.selectList("Mail.studentList",school);
+	public List<St_MailDTO> studentList(String nu_email){
+		return mybatis.selectList("Mail.studentList",nu_email);
 	}
 	
 	public int excelupload(Map<String, Object> map) {
 		return mybatis.insert("Mail.excelupload", map);
 	}
 	
-	public int deleteStudentProc(String email) {
-		return mybatis.delete("Mail.deleteStudentProc", email);
+	public int deleteStudentProc(int seq) {
+		return mybatis.delete("Mail.deleteStudentProc", seq);
+	}
+	
+	public int updateStudentProc(St_MailDTO dto) {
+		return mybatis.delete("Mail.update", dto);
 	}
 }

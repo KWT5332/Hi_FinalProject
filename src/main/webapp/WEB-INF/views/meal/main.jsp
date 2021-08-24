@@ -52,17 +52,29 @@
 		-moz-appearance: none; 
 		appearance: none; 
     }
-	#calendar{width:100%; text-align:center;border: 1px solid rgb(130, 130, 130);border-collapse: collapse;}
-    th{height:40px;font-size: 18px;background-color:rgb(255, 203, 72, 0.3);border: 1px solid rgb(130, 130, 130);}
-    tr{border: 1px solid rgb(130, 130, 130);}
-	td{height:200px;max-width: 25px;position:relative;padding:0px;border: 1px solid rgb(130, 130, 130);}
-    .date{border-bottom: 1px solid rgb(130, 130, 130);border-right: 1px solid rgb(130, 130, 130);padding:0px;position:absolute;top:0px;}
+	#addMeal{background-color:#dff1e4;color:rgb(70, 70, 70);font-weight:700;border:1px solid #dff1e4;width:100%;height:90%;}
+    #addMeal:hover{font-weight:700;border:1px solid #114E60;color:#114E60;}
+	#download{background-color:#dff1e4;color:rgb(70, 70, 70);font-weight:700;border:1px solid #dff1e4;width:100%;height:90%;}
+    #download:hover{font-weight:700;border:1px solid #114E60;color:#114E60;}
+    th{height:40px;font-size: 18px;background-color:rgb(255, 241, 224, 0.8);border: 1px solid rgb(130, 130, 130);}
+	td{height:200px;max-width: 25px;position:relative;padding:0px;border:1px solid rgb(130, 130, 130);}
+    .date{border-bottom: 1px solid rgb(130, 130, 130);border-right: 1px solid rgb(130, 130, 130);padding:0px;position:absolute;top:0px;height:30px;line-height:29px;}
     .menu{position:absolute;bottom:1px;width: 100%;padding-bottom: 15px;}.menu:hover{cursor:pointer;}
     #pre:hover{cursor:pointer;}#next:hover{cursor:pointer;}
     .custom-file-label::after {
         content: "파일찾기";
     }
     #fileName{padding-left:60px;}
+    tr>*:nth-child(1)>div:nth-child(1){color:tomato;}
+    tr>*:nth-child(7)>div:nth-child(1){color:rgb(68, 122, 223);}
+    #calendar{
+    	width:100%; text-align:center;
+    	border-collapse: collapse;
+		border-radius: 10px;
+  		border-style: hidden;
+  		box-shadow: 0 0 0 1px rgb(130, 130, 130);
+  		overflow:hidden;
+  	}
 </style>
 <script>
 	$(function(){
@@ -327,7 +339,7 @@
     
     <!-- 메인 -->
     <div class="container p-5">
-      <div class="row m-0 mb-4">
+      <div class="row m-0 mb-4 mt-3">
         <div class="col-12 col-sm-6 col-md-6 col-lg-3 p-0" style="text-align: left;">
           <div class="input-group" style="text-align: left;">
             <div class="input-group-prepend">
@@ -349,8 +361,8 @@
         </div>
       </div>
       
-      <div class="row m-0 mb-4">
-        <div class="col-sm-6 col-md-6 col-lg-2 p-0 pt-1" style="text-align: left;">
+      <div class="row m-0 mb-3">
+        <div class="col-sm-12 col-md-6 col-lg-2 p-0 pt-1" style="text-align: left;">
           <button class="btn btn-secondary" id="addMeal">식단 추가하기</button>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-8 pl-4 pt-1">
@@ -360,7 +372,7 @@
                 <span id="next">&nbsp; &gt;</span>
             </h1>
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-2 p-0 pt-1" style="text-align: right;">
+        <div class="col-sm-12 col-md-6 col-lg-2 p-0 pt-1" style="text-align: right;">
           <button class="btn btn-secondary" id="download">엑셀 다운로드</button>
         </div>
       </div>
@@ -369,13 +381,13 @@
 		<table id="calendar" align="center">
         	<thead>
             	<tr>
-                	<th>일
+                	<th style="color:tomato;">일
                     <th>월
                     <th>화
                     <th>수
                     <th>목
                     <th>금
-                    <th>토
+                    <th style="color:rgb(68, 122, 223);">토
                 </tr>
  			</thead> 
             <tbody id="tbody">

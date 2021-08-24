@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import kh.spring.config.XSSFillterConfig;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.St_MailDTO;
 import kh.spring.service.ExcelService;
@@ -41,14 +42,13 @@ public class MailController {
 	@Autowired
 	private HttpSession hsession;
 
-
 	@RequestMapping("sendmail") 
 	private String sendmail(Model model) { 
-		System.out.println("mail");
+		System.out.println("mail main이동");
 		// session에 있는 학교 값 뽑아서 넣기
 		MemberDTO dto = (MemberDTO)hsession.getAttribute("login");
 		
-		List<St_MailDTO> studentList = service.studentList(dto.getSchool());
+		List<St_MailDTO> studentList = service.studentList(dto.getEmail());
 		model.addAttribute("studentList", studentList);
 		return "mail/sendmail"; 
 	}
@@ -58,7 +58,7 @@ public class MailController {
 	public String sendMailTest(String title, String content, String month, String payment, HttpServletResponse response) throws Exception{
 		System.out.println("메일보내기");
 		System.out.println(title + " : " + month + " : " + payment + " : " + content);
-		String finContent = content 
+		String finContent = XSSFillterConfig.XSSFilter(content)
 				+ "\n http://localhost//sdt/researchHome?month="+month+"&payment="+payment;
 		//String content = "메일 테스트 내용" + "<img src=\"이미지 경로\">";
 		//String from = "zlxl_3041@naver.com";
@@ -67,7 +67,7 @@ public class MailController {
 		// 주희
 		MemberDTO dto = (MemberDTO)hsession.getAttribute("login");
 		String from = dto.getEmail();
-		List<String> to = service.mailList(dto.getSchool());
+		List<String> to = service.mailList(dto.getEmail());
 		
 		System.out.println(finContent);
 		System.out.println(from);
@@ -103,7 +103,7 @@ public class MailController {
 			
 			mailHelper.setFrom(from);
 			mailHelper.setTo(toAddr);
-			mailHelper.setSubject(title);
+			mailHelper.setSubject(XSSFillterConfig.XSSFilter(title));
 			mailHelper.setText(finContent, true);
 			
 			//FileSystemResource file = new FileSystemResource(new File("경로\업로드할파일.형식")); 
@@ -113,14 +113,14 @@ public class MailController {
 			
 			// 찐 FileSystemResource file = new FileSystemResource(new File("C:\\Users\\SeoSeunghee\\Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
 			String realPath = hsession.getServletContext().getRealPath("excelDownMail");
-			exservice.excelDownloadMail(month, dto.getSchool(), realPath, response);
+			exservice.excelDownloadMail(XSSFillterConfig.XSSFilter(month), dto.getSchool(), realPath, response);
 			
-			FileSystemResource file = new FileSystemResource(new File(realPath+"\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
-            mailHelper.addAttachment(month+"월+"+dto.getSchool()+"+식단표.xlsx", file);
+			FileSystemResource file = new FileSystemResource(new File(realPath+"\\"+XSSFillterConfig.XSSFilter(month)+"월+"+dto.getSchool()+"+식단표.xlsx"));
+            mailHelper.addAttachment(XSSFillterConfig.XSSFilter(month)+"월+"+dto.getSchool()+"+식단표.xlsx", file);
 			
 			mailSender.send(mail);
 			
-			exservice.deleteExcel(realPath, month+"월+"+dto.getSchool()+"+식단표.xlsx"); // 보내고 저장된 파일 삭제
+			exservice.deleteExcel(realPath, XSSFillterConfig.XSSFilter(month)+"월+"+dto.getSchool()+"+식단표.xlsx"); // 보내고 저장된 파일 삭제
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -132,16 +132,33 @@ public class MailController {
 		System.out.println("학생등록");
 		
 		MemberDTO m = (MemberDTO)hsession.getAttribute("login");
-		dto.setSchool(m.getSchool());
+		
+		dto.setSchool(XSSFillterConfig.XSSFilter(m.getSchool()));
+		dto.setNu_email(XSSFillterConfig.XSSFilter(m.getEmail()));
 		
 		service.addStudent(dto);
+		
 		return "mail/sendmail"; 
 	}
 	
 	@RequestMapping(value="deleteStudentProc",method = RequestMethod.POST)
-	public String deleteStudentProc(String email) {
+	public String deleteStudentProc(int seq) {
 		System.out.println("학생 삭제");
-		service.deleteStudentProc(email);
+		service.deleteStudentProc(seq);
+		return "mail/sendmail"; 
+	}
+	
+	@RequestMapping(value="updateStudentProc",method = RequestMethod.POST)
+	public String updateStudentProc(int seq, String name, String email) {
+		System.out.println("학생 수정");
+		
+		St_MailDTO dto = new St_MailDTO();
+		dto.setSeq(seq);
+		dto.setStu_name(XSSFillterConfig.XSSFilter(name));
+		dto.setStu_email(XSSFillterConfig.XSSFilter(email));
+		
+		service.updateStudentProc(dto);
+		
 		return "mail/sendmail"; 
 	}
 }

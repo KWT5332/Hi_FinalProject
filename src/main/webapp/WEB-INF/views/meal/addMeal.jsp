@@ -183,7 +183,7 @@
             		tr.addClass("test");
             		
             		let date = $("<td>");
-            		date.addClass("p-2");
+            		date.addClass("p-2 date");
 					date.append(resp[i].meal_date);
             		
             		let menu = $("<td>");
@@ -315,10 +315,10 @@
                         <tr id="test">
                             <td class="p-2 date">${list.meal_date }</td>
                             <td class="p-2 menu">${list.menu1},${list.menu2}
-	                            <c:if test="${not empty list.menu3}">,${list.menu3}</c:if>
-								<c:if test="${not empty list.menu4}">,${list.menu4}</c:if>
-								<c:if test="${not empty list.menu5}">,${list.menu5}</c:if>
-								<c:if test="${not empty list.menu6}">,${list.menu6}</c:if>
+                            	<c:if test="${not empty list.menu3}">,${list.menu3}</c:if>
+                            	<c:if test="${not empty list.menu4}">,${list.menu4}</c:if>
+                            	<c:if test="${not empty list.menu5}">,${list.menu5}</c:if>
+                            	<c:if test="${not empty list.menu6}">,${list.menu6}</c:if>
                             </td>
                             <td class="p-2"><button class="btn use" id="use">사용</button></td>
                         </tr>	
