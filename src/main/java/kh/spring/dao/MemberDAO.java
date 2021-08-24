@@ -1,5 +1,6 @@
 package kh.spring.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -43,6 +44,12 @@ public class MemberDAO {
 	}
 	public int updateProfile(MemberDTO dto) {
 		return mybatis.update("Member.updateProfile",dto);
+	}
+	public int findIdProc(Map<String, String> map) {
+		return mybatis.selectOne("Member.findIdProc",map);
+	}
+	public List<MemberDTO> findIdMemebr(Map<String, String> map) {
+		return mybatis.selectList("Member.findIdMemebr",map);
 	}
 	
 }

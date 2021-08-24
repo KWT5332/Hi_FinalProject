@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.St_MailDTO;
 import kh.spring.service.ExcelService;
@@ -124,7 +126,6 @@ public class MailController {
 	}
 
 	@RequestMapping(value = "addStudentProc", method = RequestMethod.POST)
-	@ResponseBody
 	public String addStudent(St_MailDTO dto) {
 		System.out.println("학생등록");
 		
@@ -132,6 +133,13 @@ public class MailController {
 		dto.setSchool(m.getSchool());
 		
 		service.addStudent(dto);
+		return "mail/sendmail"; 
+	}
+	
+	@RequestMapping(value="deleteStudentProc",method = RequestMethod.POST)
+	public String deleteStudentProc(String email) {
+		System.out.println("학생 삭제");
+		service.deleteStudentProc(email);
 		return "mail/sendmail"; 
 	}
 }

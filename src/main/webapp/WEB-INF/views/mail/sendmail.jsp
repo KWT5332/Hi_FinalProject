@@ -114,72 +114,78 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 				}
 			})
 		})
+		
 		$(".delete").click(function(){
-			if (confirm("학생 이메일을 정말로 삭제하시겠습니까?"){
+			if(confirm("정말로 학생을 삭제하시겠습니까?")){
 				let st_email = $(this).parent().siblings(".email").text();
-				
-			$.ajax({
-				type : "POST",
-				url:"/mail/deleteStudentProc",
-				data:{"email",st_email}
-			}).done(function(resp){
-				if(resp>0){
+				$.ajax({
+					type:"POST",
+					url:"/mail/deleteStudentProc",
+					data:{"email" : st_email}
+				}).done(function() {
 					location.reload();
-				}
-			})
+				})
 			}
-			
 		})
 		
-		
-		
-		
-		
-		
+		/* $(".modify").click(function(){
+			if($(this).text() == "수정"){
+				$(this).text("완료");
+				$(this).parents(".student_list").children().attr("contenteditable", "true");
+				$(this).parents(".student_list").children(".name").focus();	
+			}else{
+				$(this).text("수정");
+				$(this).parents(".student_list").children("").attr("contenteditable", "false");
+				let name = $(this).parents(".student_list").children(".name").text();
+				let name = $(this).parents(".student_list").children(".school").text();
+				let name = $(this).parents(".student_list").children(".email").text();
+			}
+		})
+
 		/* 엑셀 업로드양식 다운 */
 		// 엑셀 업로드 양식 다운받기
-      $("#excelform").on("click",function(){
-         location.href = "/excel/excelformMail";
-      });
+		$("#excelform").on("click", function() {
+			location.href = "/excel/excelformMail";
+		});
 		// 파일이름 출력
-	    var fileTarget = $(".filebox .upload-hidden"); 
-	         
-	    fileTarget.on("change", function(){ // 값이 변경되면 
-	           // 추출한 파일명 삽입 
-	         //jsp에서 FORM을 생성하여 넘기지 않았을때 스크립트에서 formData로 file을 가져올 수 있다.
-	           var form = $("#excelfrm")[0];       
-	          var formData = new FormData(form); 
-	          //formData.append("file", $(this)[0].files[0]); //배열로 되어있음 / formData는 Map과 같은 형태
-	              
-	          var fileName = formData.get('file').name;
-	          // 추출한 파일명 삽입 
-	           $(this).siblings(".upload-name").val(fileName); 
-	          
-	          if(formData.get('file').size >= 1048576) {
-	             alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
-	             return false;
-	          }
+		var fileTarget = $(".filebox .upload-hidden");
 
-	          let regex = /(.*?)\.xlsx/;
-	          if(!regex.test(fileName)){
-	             alert("확장자가 .xlsx인 파일만 업로드 가능합니다.");
-	             return false;
-	          }
-	         
-	           if(confirm("선택하신 파일을 업로드 하시겠습니까?")){
-	               $.ajax({
-	                  type:"POST",
-	                  url:"/excel/exceluploadMail",
-	                  data:formData,
-	                processData: false, // data가 서버에 전달될때 String 형식아니고 "multipart/form-data"로 보내야됨
-	                contentType: false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
-	                cache:false
-	               }).done(function(resp){
-	                  console.log(resp);
-	                  $(".upload-name").val("파일선택");
-	               })
-	           }
-	      });
+		fileTarget.on("change", function() { // 값이 변경되면 
+			// 추출한 파일명 삽입 
+			//jsp에서 FORM을 생성하여 넘기지 않았을때 스크립트에서 formData로 file을 가져올 수 있다.
+			var form = $("#excelfrm")[0];
+			var formData = new FormData(form);
+			//formData.append("file", $(this)[0].files[0]); //배열로 되어있음 / formData는 Map과 같은 형태
+
+			var fileName = formData.get('file').name;
+			// 추출한 파일명 삽입 
+			$(this).siblings(".upload-name").val(fileName);
+
+			if (formData.get('file').size >= 1048576) {
+				alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+				return false;
+			}
+
+			let regex = /(.*?)\.xlsx/;
+			if (!regex.test(fileName)) {
+				alert("확장자가 .xlsx인 파일만 업로드 가능합니다.");
+				return false;
+			}
+
+			if (confirm("선택하신 파일을 업로드 하시겠습니까?")) {
+				$.ajax({
+					type : "POST",
+					url : "/excel/exceluploadMail",
+					data : formData,
+					processData : false, // data가 서버에 전달될때 String 형식아니고 "multipart/form-data"로 보내야됨
+					contentType : false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
+					cache : false
+				}).done(function(resp) {
+					console.log(resp);
+					$(".upload-name").val("파일선택");
+				})
+			}
+		});
 	})
 </script>
 </head>
@@ -227,10 +233,10 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 					<td scope="col">이메일</td>
 				</tr>
 				<c:forEach var="i" items="${studentList}" varStatus="status">
-				<tr>
+				<tr class="student_list">
 					<td scope="col">${status.count}</td>
-					<td scope="col">${i.stu_name}</td>
-					<td scope="col">${i.school}</td>
+					<td scope="col" class="name">${i.stu_name}</td>
+					<td scope="col" class="school">${i.school}</td>
 					<td scope="col" class="email">${i.stu_email}</td>
 					<td scope="col"><button type="button" class="modify">수정</button><button type="button" class="delete">삭제</button>
 				</tr>

@@ -26,4 +26,8 @@ public class MailService {
 	public List<St_MailDTO> studentList(String school){
 		return dao.studentList(school);
 	}
+	
+	public int deleteStudentProc(String email) {
+		return dao.deleteStudentProc(email);
+	}
 }

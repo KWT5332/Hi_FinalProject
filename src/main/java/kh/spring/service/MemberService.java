@@ -2,6 +2,7 @@ package kh.spring.service;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.dao.MemberDAO;
-import kh.spring.dto.MealDTO;
 import kh.spring.dto.MemberDTO;
 
 @Service
@@ -73,5 +73,19 @@ public class MemberService {
 			
 			return sysName;
 		}
+	
+	public int findIdProc(String name, String phone) {
+		Map<String, String> map = new HashMap<>();
+		map.put("name", name);
+		map.put("phone", phone);
+		return dao.findIdProc(map);
+	}
+	
+	public List<MemberDTO> findIdMemebr(String name, String phone) {
+		Map<String, String> map = new HashMap<>();
+		map.put("name", name);
+		map.put("phone", phone);
+		return dao.findIdMemebr(map);
+	}
 	
 }
