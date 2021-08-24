@@ -7,9 +7,44 @@
 <meta charset="UTF-8">
 <title>Index</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <style>
+
+@font-face {
+    font-family: 'GowunDodum-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+	font-family:'GowunDodum-Regular';
+} 
+
+/* @font-face {
+    font-family: 'SpoqaHanSansNeo-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+	font-family: 'SpoqaHanSansNeo-Regular';
+} */
+* {box-sizing: border-box;}
+.container {width:500px; height:400px; position:absolute; top:50%; left:50%; margin:-200px 0px 0px -250px; background:white;}
+
+.box {margin:0 auto; font-size:20px; padding:10px 0px 10px 0px;}
+#title {background:#17a2b8; color:#fff;}
+.main {margin-top: 10px;}
+.title {text-align:right;}
+.input {text-align:left;}
+
+input[class=form-control]{width:220px;}
+input[id=payment]{width:200px; display:inline-block;}
+
 </style>
 
 <script>
@@ -17,9 +52,10 @@
 	function iamport(){
 		
 		let st_name = $("#st_name").val();
-		let school = $("#school").val();
-		let money = $("#money").val();
 		let st_email = $("#st_email").val();
+		let st_school = $("#st_school").val();
+		let payment = ${pay};
+		let month = $("#month").val();
 		
 			//가맹점 식별코드
 		IMP.init('imp47415302');
@@ -28,12 +64,12 @@
 		pay_method : 'card',
 		merchant_uid : 'merchant_' + new Date().getTime(),
 		name : '급식비 결제' , //결제창에서 보여질 이름
-		amount : money, //실제 결제되는 가격
+		amount : payment, //실제 결제되는 가격
 		buyer_email : st_email,
 		buyer_name : st_name,
-		buyer_tel : '010-1234-5678',
+		/* buyer_tel : '010-1234-5678',
 		buyer_addr : '서울 강남구 도곡동',
-		buyer_postcode : '123-456'
+		buyer_postcode : '123-456' */
 	}, function(rsp) {
 		console.log(rsp);
 		if ( rsp.success ) {
@@ -42,12 +78,20 @@
 		    msg += '\n 상점 거래ID : ' + rsp.merchant_uid;
 		    msg += '\n 결제 금액 : ' + rsp.paid_amount;
 		    msg += '\n 카드 승인번호 : ' + rsp.apply_num;
- 		    location.href="/sdt/payInfo?st_name="+st_name+"&school="+school+"&pay="+money+"&st_email="+st_email+"&pay_num="+rsp.apply_num
+		    $.ajax({
+				type : "POST",
+				url : "/sdt/payInfo", 
+				data:{"st_name":st_name, "st_email":st_email, "st_school":st_school, "payment":payment, "apply_num":rsp.apply_num, "month":month}
+				}).done(function(resp) {
+					location.href="/sdt/researchHome";
+			}) 
+ 		    /* location.href="/sdt/payInfo?st_name="+st_name+"&school="+school+"&pay="+money+"&st_email="+st_email+"&pay_num="+rsp.apply_num */
 		} else {
 			 var msg = '결제에 실패하였습니다. \n 결제 페이지로 돌아갑니다.';
 		     msg += '\n 에러내용 : ' + rsp.error_msg;
-		     location.href="/sdt/payHome"
-			}
+		     javascript:history.back();
+/* 		     location.href="/sdt/payHome";
+ */			}
 			alert(msg);
 			});
 		}
@@ -63,33 +107,86 @@
 
 <body>
 
-	<table align="center">
+	<div class="container shadow-lg p-3 mb-5 bg-white rounded" align="center">
+		<div class="row box">
+			<div class="col main">
+			<h3 id="title"><strong>${month}월 결제정보</strong>
+				<input type="hidden" id="month" value="${month}"></h3>
+			</div>
+		</div>
+		
+		<div class="row box">
+			<div class="col-4 title">
+				학생 이름
+			</div>
+			<div class="col-8 input">
+				<input class="form-control" type="text" name="st_name" id="st_name">
+			</div>
+		</div>
+		
+		<div class="row box">
+			<div class="col-4 title">
+				학생 이메일
+			</div>
+			
+			<div class="col-8 input">
+				<input class="form-control" type="text" name="st_email" id="st_email">
+			</div>
+		</div>
+		
+		<div class="row box">
+			<div class="col-4 title">
+				소속 학교
+			</div>
+			
+			<div class="col-8 input">
+				<input class="form-control" type="text" name="st_school" id="st_school">
+			</div>
+		</div>
+		
+		<div class="row box">
+			<div class="col-4 title">
+				결제 금액
+			</div>
+			
+			<div class="col-8 input">
+				<input class="form-control" type="text" id="payment" name="payment" value="${pay}" readonly>  원
+			</div>
+		</div>
+		
+		<div class="row box">
+			<div class="col-12">
+				<button id="pay" class="btn btn-outline-info">결제하기</button>
+			</div>
+		</div>
+	
+	</div>
+
+	<%-- <table align="center">
 		<tr>
-			<th colspan="">결제정보
+			<th colspan="2">${month}월 결제정보
+			<input type="hidden" id="month" value="${month}">
 		</tr>
 		<tr>
 			<td>학생이름
 			<td><input type="text" name="st_name" id="st_name">
 		</tr>
 		<tr>
-			<td>소속학교
-			<td><input type="text" name="school" id="school">
-		</tr>
-		<tr>
-			<td>결제금액
-			<td>${pay}
-			<!-- <input type="text" id="money" name="pay"> -->
-		</tr>
-		
-		<tr>
 			<td>학생 이메일
 			<td><input type="text" name="st_email" id="st_email">
 		</tr>
-		
+		<tr>
+			<td>소속학교
+			<td><input type="text" name="st_school" id="school">
+		</tr>
+		<tr>
+			<td>결제금액
+			<td><input type="text" id="payment" name="payment" value="${pay}">
+		</tr>		
 		<tr>
 			<td><button id="pay">결제하기</button>
 		</tr>
-	</table>
+	</table> --%>
 
 </body>
 </html>
