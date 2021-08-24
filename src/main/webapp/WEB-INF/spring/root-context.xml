@@ -8,54 +8,66 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="username" value="kh" />
 		<property name="password" value="kh" />
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="driverClassName"
+			value="oracle.jdbc.OracleDriver" />
 		<property name="initialSize" value="30" />
 	</bean>
 
 	<!-- gmail설정 -->
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
-     	<property name="host" value="smtp.gmail.com" />
-     	<property name="port" value="587" />
- 		<property name="username" value="project.hi.final@gmail.com"/> <!-- 자신의 이메일 아이디 -->
- 		<property name="password" value="3whgkdlrmqtlr"/> <!-- 자신의 비밀번호 -->
- 		  <!-- 보안연결 SSL과 관련된 설정 -->
-     	<property name="javaMailProperties">
-      	<props>
-      		<prop key="mail.smtp.auth">true</prop>
-      		<prop key="mail.smtp.starttls.enable">true</prop>
-      		<prop key="mail.smtps.checkserveridentity">true</prop>
-      		<prop key="mail.smtps.ssl.trust">*</prop>
-      		<prop key="mail.debug">true</prop>
-      		<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
-      	</props>
-     </property>
-    </bean>
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="project.hi.final@gmail.com" /> <!-- 자신의 이메일 아이디 -->
+		<property name="password" value="3whgkdlrmqtlr" /> <!-- 자신의 비밀번호 -->
+		<!-- 보안연결 SSL과 관련된 설정 -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtps.checkserveridentity">true</prop>
+				<prop key="mail.smtps.ssl.trust">*</prop>
+				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+			</props>
+		</property>
+	</bean>
 
 
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-      <property name="dataSource" ref="dataSource"></property>
-   </bean>
-   
-	<tx:annotation-driven/>
-    <context:component-scan base-package="kh.spring.dao" />
-    <context:component-scan base-package="kh.spring.service" />
-    
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-   		<property name="dataSource" ref="dataSource"/>
-   		<property name="mapperLocations" value="classpath:/mappers/*-mapper.xml"/>
-   </bean>
-   
-   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-   		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
-   </bean>	
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<tx:annotation-driven />
+	<context:component-scan
+		base-package="kh.spring.dao" />
+	<context:component-scan
+		base-package="kh.spring.service" />
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:/mappers/*-mapper.xml" />
+	</bean>
+
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory"
+			ref="sqlSessionFactory" />
+	</bean>
+
 </beans>

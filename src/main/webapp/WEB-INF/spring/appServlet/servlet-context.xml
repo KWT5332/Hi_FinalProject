@@ -32,6 +32,4 @@
 	
 	<context:component-scan base-package="kh.spring" />
 	
-	
-	
 </beans:beans>

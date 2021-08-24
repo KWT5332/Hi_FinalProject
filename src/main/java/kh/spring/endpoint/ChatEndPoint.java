@@ -16,6 +16,7 @@ import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.JsonObject;
 
+import kh.spring.config.XSSFillterConfig;
 import kh.spring.configurator.ApplicationContextProvider;
 import kh.spring.configurator.HttpSessionConfigurator;
 import kh.spring.dto.Chat_MessageDTO;
@@ -54,14 +55,14 @@ public class ChatEndPoint {
 		MemberDTO receiverInfo = (MemberDTO)hsession.getAttribute("receiver");
 		String receiver = receiverInfo.getEmail();
 		
-		service.messageInsert(new Chat_MessageDTO(0,sender,receiver,message,null,room_number));
+		service.messageInsert(new Chat_MessageDTO(0,sender,receiver,XSSFillterConfig.XSSFilter(message),null,room_number));
 		synchronized(clients) {
 			for(Session client : clients) {
 				if(client != self) {
 					
 					JsonObject json = new JsonObject();
 					json.addProperty("name", sender_name);
-					json.addProperty("message", message);
+					json.addProperty("message", XSSFillterConfig.XSSFilter(message));
 					json.addProperty("sysName",sender_sysname);
 					try {
 						client.getBasicRemote().sendText(json.toString());

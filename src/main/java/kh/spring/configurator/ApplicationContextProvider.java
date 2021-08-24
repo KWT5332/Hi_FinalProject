@@ -18,4 +18,5 @@ public class ApplicationContextProvider implements ApplicationContextAware{
 	public static ApplicationContext getApplicationContext() {
 		return spring;
 	}
+	
 }
