@@ -155,24 +155,33 @@
 		});
 		/* 비번 재설정 */
 		$("#btn_newpw").on("click",function(){
+			var inp_pw1 = $('.inp_pw1').val();
+			var inp_pw2 = $('.inp_pw2').val(); //새비번
 			var email= $("#pw_email_input").val();
-			var pw = $('.inp_pw2').val(); //새비번
+			let pwReg = /^[a-z0-9]{6,15}$/;
 		    var checkResult = $("#mail_check_input_box_warn");    // 비교 결과 
-		    $.ajax({
-				type:"GET",
-				url:"/mem/newPwProc",
-				data:{"email":email,"pw": pw},
-				dataType:"json"
-				}).done(function(resp){
-					console.log(resp);
-					if(resp>0){
-						alert("비밀번호가 재설정 되었습니다.");
-					}else{
-						alert("비밀번호 제설정에 실패했습니다. \n다시 시도해주세요.");
-					}
-					
-				})
-				
+		    
+		    if (inp_pw1 == inp_pw2) {
+				if (!(pwReg.test(inp_pw2))){
+					alert("형식에 맞지 않습니다.\n a-z,0-9로만 6~15자로 설정합니다.");
+				}else{
+				    $.ajax({
+						type:"GET",
+						url:"/mem/newPwProc",
+						data:{"email":email,"pw": inp_pw2},
+						dataType:"json"
+						}).done(function(resp){
+							console.log(resp);
+							if(resp>0){
+								alert("비밀번호가 재설정 되었습니다.");
+							}else{
+								alert("비밀번호 제설정에 실패했습니다. \n다시 시도해주세요.");
+							}
+						})
+				}
+			}else{
+				alert("비밀번호가 일치하지 않습니다.");
+			}
 		});
 		
 	})
@@ -250,6 +259,9 @@
                     
                         <h5 class="col-12 ">새로운 비밀번호 설정</h5>
                    		<div class="id_pw_con incon row p-3" id="">
+                   		<p class="col-12 mb-4">
+						- 비밀번호는 <mark>a-z</mark> 그리고 <mark>0-9</mark>로만<mark>6자에서 15자 사이</mark>로 설정합니다.
+						</p>
                             <div class="col-12">
                                 <div class="row mail_check_wrap">
                                     <div class="col-12 col-md-5  p-3 " id="">

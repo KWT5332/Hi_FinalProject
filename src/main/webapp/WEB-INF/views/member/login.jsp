@@ -89,18 +89,38 @@
 			background-color: #FAF1E6;
 			border-left: 1px solid #FAF1E6;
 		}
-	</style>
-	<script>
+</style>
+<script>
 	$(function(){
 		$("#btn_home").on("click",function(){
 			location.href="/";
 		})
-		
+	//로그인
+		$("#btn_rogin").click(function() {
+			
+			$.ajax({
+				type : "post",
+				url : "/mem/loginProc",
+				data : {"email" : $("#email").val(),"pw" : $("#pw").val()},
+				success : function(result) {
+					console.log("성공 여부" + result);
+					if (result != 'fail') {
+						location.href="/";
+					} else {//사용가능
+						/* Swal.fire({
+							  icon: 'error',
+							  title: '비밀번호가 일치하지않습니다.',
+							  text: '확인 후 다시 시도해주세요.' 	})*/
+						 alert("비밀번호가 일치하지않습니다.\n확인 후 다시 시도해주세요.");
+					}
+				}
+			});
+		})
 	})
-	</script>
+</script>
 </head>
 <body>
-	<form action="/mem/loginProc">
+	<form action="">
 		<div class="join_container container-fluid">
 			<div class="innercon">
 				<div class="empty"></div>
@@ -109,13 +129,13 @@
 				</div>
 				<div class="rogincon">
 					<div class="minicon p-2">
-						<input type="text" class="form-control inp_id " name="email" placeholder="example@mail.com">
+						<input type="text" class="form-control inp_id " id="email" name="email" placeholder="example@mail.com">
 					</div>
 					<div class="minicon p-2">
-						<input type="password" class="form-control inp_id" name="pw" placeholder="비밀번호">
+						<input type="password" class="form-control inp_id" id="pw" name="pw" placeholder="비밀번호">
 					</div>
 					<div class="minicon p-2">
-						<button class="btn  btn_rogin">로그인</button>
+						<button type="button" id="btn_rogin" class="btn  btn_rogin">로그인</button>
 					</div>
 					<div class="minicon p-2">
 						<a style="cursor:pointer" class="under" href="/mem/findMember">아이디 / 비밀번호 찾기</a>
