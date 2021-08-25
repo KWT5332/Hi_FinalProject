@@ -1,6 +1,8 @@
 package kh.spring.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,66 +41,112 @@ public class ChartService {
 		return cdao.allStd(school);
 	}
 	
-	public int allPay(String school) {
-		return cdao.allPay(school);
+	public int allPay(String school, String month) {
+		Map<String, String> param = new HashMap<>();
+		param.put("school", school);
+		param.put("month", month);
+		return cdao.allPay(param);
 	}
+	
+//	public int allPay(String school) {
+//		return cdao.allPay(school);
+//	}
 	
 	
 	// feedback
-	public int feed01(String parent_email) {
-		return cdao.feed01(parent_email);
+	public int feed01(String parent_email, String month) {
+		Map<String, String> param = new HashMap<>();
+		param.put("parent_email", parent_email);
+		param.put("month", month);
+		return cdao.feed01(param);
 	}
 	
-	public int feed02(String parent_email) {
-		return cdao.feed02(parent_email);
+	public int feed02(String parent_email, String month) {
+		Map<String, String> param = new HashMap<>();
+		param.put("parent_email", parent_email);
+		param.put("month", month);
+		return cdao.feed02(param);
 	}
 	
-	public int feed03(String parent_email) {
-		return cdao.feed03(parent_email);
+	public int feed03(String parent_email, String month) {
+		Map<String, String> param = new HashMap<>();
+		param.put("parent_email", parent_email);
+		param.put("month", month);
+		return cdao.feed03(param);
 	}
 	
-	public int feed04(String parent_email) {
-		return cdao.feed04(parent_email);
+	public int feed04(String parent_email, String month) {
+		Map<String, String> param = new HashMap<>();
+		param.put("parent_email", parent_email);
+		param.put("month", month);
+		return cdao.feed04(param);
 	}
 	
-	public int feed05(String parent_email) {
-		return cdao.feed05(parent_email);
+	public int feed05(String parent_email, String month) {
+		Map<String, String> param = new HashMap<>();
+		param.put("parent_email", parent_email);
+		param.put("month", month);
+		return cdao.feed05(param);
 	}
 	
 	
 	// taste
-	public int taste01(String parent_email) {
-		return cdao.taste01(parent_email);
+	public int taste01(String parent_email, String month) {
+		Map<String, String> param = new HashMap<>();
+		param.put("parent_email", parent_email);
+		param.put("month", month);
+		return cdao.taste01(param);
 	}
 	
-	public int taste02(String parent_email) {
-		return cdao.taste02(parent_email);
+	public int taste02(String parent_email, String month) {
+		Map<String, String> param = new HashMap<>();
+		param.put("parent_email", parent_email);
+		param.put("month", month);
+		return cdao.taste02(param);
 	}
 	
-	public int taste03(String parent_email) {
-		return cdao.taste03(parent_email);
+	public int taste03(String parent_email, String month) {
+		Map<String, String> param = new HashMap<>();
+		param.put("parent_email", parent_email);
+		param.put("month", month);
+		return cdao.taste03(param);
 	}
 	
 	
 	// amount
-	public int amount01(String parent_email) {
-		return cdao.amount01(parent_email);
+	public int amount01(String parent_email, String month) {
+		Map<String, String> param = new HashMap<>();
+		param.put("parent_email", parent_email);
+		param.put("month", month);
+		return cdao.amount01(param);
 	}
 	
-	public int amount02(String parent_email) {
-		return cdao.amount02(parent_email);
+	public int amount02(String parent_email, String month) {
+		Map<String, String> param = new HashMap<>();
+		param.put("parent_email", parent_email);
+		param.put("month", month);
+		return cdao.amount02(param);
 	}
 	
-	public int amount03(String parent_email) {
-		return cdao.amount03(parent_email);
+	public int amount03(String parent_email, String month) {
+		Map<String, String> param = new HashMap<>();
+		param.put("parent_email", parent_email);
+		param.put("month", month);
+		return cdao.amount03(param);
 	}
 	
-	public int amount04(String parent_email) {
-		return cdao.amount04(parent_email);
+	public int amount04(String parent_email, String month) {
+		Map<String, String> param = new HashMap<>();
+		param.put("parent_email", parent_email);
+		param.put("month", month);
+		return cdao.amount04(param);
 	}
 	
-	public int amount05(String parent_email) {
-		return cdao.amount05(parent_email);
+	public int amount05(String parent_email, String month) {
+		Map<String, String> param = new HashMap<>();
+		param.put("parent_email", parent_email);
+		param.put("month", month);
+		return cdao.amount05(param);
 	}
 	
 	

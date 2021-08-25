@@ -20,69 +20,69 @@
 	
 	<!-- 결제인원 -->
 	<select id="all" resultType="Integer">
-		select count(*) from st_mail where school=#{school}
+		select count(*) from st_mail where school=#{school} 
 	</select>
 	
 	<select id="pay" resultType="Integer">
-		select count(*) from st_payment where st_school=#{school}
+		select count(*) from st_payment where st_school=#{school} and month=#{month}
 	</select>
 	
 	
 	<!-- 만족도 / feedback -->
 	<select id="feed01" resultType="Integer">
-		select count(*) from st_feedback where feedback='매우만족' and parent_email=#{parent_email}
+		select count(*) from st_feedback where feedback='매우만족' and parent_email=#{parent_email} and b_month=#{month}
 	</select>
 	
 	<select id="feed02" resultType="Integer">
-		select count(*) from st_feedback where feedback='만족' and parent_email=#{parent_email} 
+		select count(*) from st_feedback where feedback='만족' and parent_email=#{parent_email} and b_month=#{month} 
 	</select>
 	
 	<select id="feed03" resultType="Integer">
-		select count(*) from st_feedback where feedback='보통' and parent_email=#{parent_email} 
+		select count(*) from st_feedback where feedback='보통' and parent_email=#{parent_email} and b_month=#{month} 
 	</select>
 	
 	<select id="feed04" resultType="Integer">
-		select count(*) from st_feedback where feedback='불만족' and parent_email=#{parent_email}
+		select count(*) from st_feedback where feedback='불만족' and parent_email=#{parent_email} and b_month=#{month}
 	</select>
 	
 	<select id="feed05" resultType="Integer">
-		select count(*) from st_feedback where feedback='매우불만족' and parent_email=#{parent_email} 
+		select count(*) from st_feedback where feedback='매우불만족' and parent_email=#{parent_email} and b_month=#{month} 
 	</select>
 	
 	
 	<!-- 음식 간 / taste -->
 	<select id="taste01" resultType="Integer">
-		select count(*) from st_feedback where taste='적당하다' and parent_email=#{parent_email}
+		select count(*) from st_feedback where taste='적당하다' and parent_email=#{parent_email} and b_month=#{month}
 	</select>
 	
 	<select id="taste02" resultType="Integer">
-		select count(*) from st_feedback where taste='짜다' and parent_email=#{parent_email}
+		select count(*) from st_feedback where taste='짜다' and parent_email=#{parent_email} and b_month=#{month}
 	</select> 
 	
 	<select id="taste03" resultType="Integer">
-		select count(*) from st_feedback where taste='싱겁다' and parent_email=#{parent_email}
+		select count(*) from st_feedback where taste='싱겁다' and parent_email=#{parent_email} and b_month=#{month}
 	</select>
 	
 	
 	<!-- 음식 양 / amount -->
 	<select id="amount01" resultType="Integer">
-		select count(*) from st_feedback where amount='매우만족' and parent_email=#{parent_email} 
+		select count(*) from st_feedback where amount='매우만족' and parent_email=#{parent_email} and b_month=#{month} 
 	</select>
 	
 	<select id="amount02" resultType="Integer">
-		select count(*) from st_feedback where amount='만족' and parent_email=#{parent_email} 
+		select count(*) from st_feedback where amount='만족' and parent_email=#{parent_email} and b_month=#{month} 
 	</select>
 	
 	<select id="amount03" resultType="Integer">
-		select count(*) from st_feedback where amount='보통' and parent_email=#{parent_email}
+		select count(*) from st_feedback where amount='보통' and parent_email=#{parent_email} and b_month=#{month}
 	</select>
 	
 	<select id="amount04" resultType="Integer">
-		select count(*) from st_feedback where amount='불만족' and parent_email=#{parent_email} 
+		select count(*) from st_feedback where amount='불만족' and parent_email=#{parent_email} and b_month=#{month} 
 	</select>
 	
 	<select id="amount05" resultType="Integer">
-		select count(*) from st_feedback where amount='매우불만족' and parent_email=#{parent_email} 
+		select count(*) from st_feedback where amount='매우불만족' and parent_email=#{parent_email} and b_month=#{month} 
 	</select>
 	
 	

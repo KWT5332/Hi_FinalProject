@@ -46,17 +46,18 @@ public class StudentController {
 	}
 	
 	@RequestMapping("researchResult")
-	public String reserchResult(String b_month, String month, String payment, ChartDTO dto) {
+	public String reserchResult(String school, String b_month, String month, String payment, ChartDTO dto) {
 		System.out.println(b_month + " : " + month);
 		int result = Ssv.researchInsert(dto);
 		return "forward:/sdt/payHome";
 	}
 	
 	@RequestMapping("payHome")
-	public String payHome(String month, String payment, Model m) {
+	public String payHome(String school, String month, String payment, Model m) {
 		
 		int pay = Integer.parseInt(payment);
 		
+		m.addAttribute("school", school);
 		m.addAttribute("month", month);
 		m.addAttribute("pay", pay);
 		
