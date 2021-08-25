@@ -37,6 +37,7 @@
 	outline: 0 none;
 }
 .mypage_container button[type] {background-color: #A9CCB3;border: #A9CCB3;color:white;}
+.mypage_container #btn_pro_basic {background-color: #A9CCB3;border: #A9CCB3;color:white; width: 178.77px;height: 39px;}
 .mypage_container #btn_modi_ck {background-color: #7AB08A;border: #7AB08A;color:white; width: 250px;height: 50px;font-size: 19px;}
 .mypage_container button[type]:focus {box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px rgb(184, 223, 216, 0.6);outline: 0 none;}
 .mypage_container button[type]::hover {background:#7AB08A;box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px rgb(184, 223, 216, 0.6);outline: 0 none;}
@@ -46,6 +47,7 @@
 .mypage_container .exex {border: none;}
 .mypage_container .con_btn_modify {text-align: center;}
 .mypage_container .empty {height: 100px;}
+.mypage_container #hidden {display: none;}
 /* 비번변경위해 확인 안맞을시 */
 .mypage_container .pw_input_reg_1 {color: red;display: none;}
 .img_con {width: 150px !important;height: 150px !important;border-radius: 70%;overflow: hidden;}
@@ -242,6 +244,31 @@
 	             $(".img_profile").attr("src","/mem/display?fileName="+resp);
 	          })
         });
+		/* 기본이미지로 */
+		$("#btn_pro_basic").on("click",function(){
+			var email = $('#email').val();
+			var sysnull = "";
+			//setdto();
+		    $.ajax({
+				type:"GET",
+				url:"/mem/profileBasic",
+				data:{"email":email,"sysnull":sysnull},
+				dataType:"json"
+				}).done(function(resp){
+					console.log(resp);
+					if(resp>0){
+						alert("기본이미지로 재설정 되었습니다.");
+						setdto();
+						//${login.sysName} == null
+						location.href  ="/mem/mypage"
+						
+					}else{
+						alert("기본이미지로 변경을 실패했습니다. \n다시 시도해주세요.");
+					}
+					
+				})
+				
+		});
      })
 </script>
 </head>
@@ -272,19 +299,12 @@
 <!-- 						<img class="img_profile" src="/img/profile.png"> -->
 					</div>
 				</div>
-				<div class="id_pw_con incon row m-5 hidden">
-					<div>
-						<button type="button" class="btn btn-success   ">기본 이미지로
-							변경</button>
-						<button type="button" class="btn btn-success" id="btn_profileUplode">프로필 이미지
-							변경</button>
-					</div>
-				</div>
 				<div class="id_pw_con incon row m-5 ">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-9 p-0"
 						id="excleupload">
 							<div class="filebox w-100" style="text-align: left;">
-								<input class="upload-name hidden" value="파일선택" disabled="disabled">
+								<button type="button" class="btn btn-success  btn_pro_basic " id="btn_pro_basic">기본 이미지로 변경</button>
+								<input class="upload-name hidden" id="hidden" value="파일선택" disabled="disabled">
 								<label for="excelName" class="mb-0">프로필 이미지 업로드</label> 
 								<input type="file" id="excelName" name="file" class="upload-hidden">
 							</div>
@@ -293,15 +313,12 @@
 				<div class="id_pw_con incon row m-5 ">
 					<h5 class="col-12">이메일</h5>
 					<p class="col-12 mb-4">
-						-
-						<mark>아이디</mark>
-						로 사용되는 이메일은 변경이 불가합니다.
+						- <mark>아이디</mark>로 사용되는 이메일은 변경이 불가합니다.
 					</p>
 					<div class="col-12">
 						<div class="row">
 							<div class="col-sm-6 col-md-6 col-lg-4">
-								<input type="text" class="form-control inp_id mail_input"
-									id="Email_input" disabled value=${login.email}>
+								<input type="text" class="form-control inp_id mail_input" id="Email_input" disabled value=${login.email}>
 							</div>
 						</div>
 					</div>
@@ -443,7 +460,7 @@
 				<button type="button" class="btn btn-success btn_modi_ck" id="btn_modi_ck">수정 된 정보 확인하기</button>
 			</div>
 			<div class="empty">
-				<input type="hidden" name="email" id="email"> 
+				<input type="hidden" name="email" id="email" value=${login.email}> 
 				<input type="hidden" name="pw" id="pw" value=${login.pw}> 
 				<input type="hidden" name="name" id="name"> 
 				<input type="hidden" name="school" id="school"> 

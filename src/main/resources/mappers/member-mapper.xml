@@ -50,4 +50,10 @@
 	<update id="newPwProc">
 		update hi_member set pw=#{pw} where email=#{email}
 	</update>
+	<update id="profileBasic">
+		update hi_member set oriName=#{sysnull}, sysName=#{sysnull} where email=#{email}
+	</update>
+	<select id="memberInfo" resultType="kh.spring.dto.MemberDTO">
+		select * from hi_member where email=#{value}
+	</select>
 </mapper>

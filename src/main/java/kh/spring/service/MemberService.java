@@ -99,5 +99,19 @@ public class MemberService {
 		map.put("pw", pw);
 		return dao.newPwProc(map);
 	}
+	public int profileBasic(String email, String sysnull) {
+		
+		 Map<String, String> map = new HashMap<>(); map.put("email", email);
+		 map.put("sysnull", sysnull);
+		
+		/*
+		 * Map<String , Object> map = new HashMap<>(); map.put("sysnull", sysnull);
+		 * map.put("dto",dto );
+		 */
+		return dao.profileBasic(map);
+	}
+	public MemberDTO memberInfo(String email) {
+		return dao.memberInfo(email);
+	}
 	
 }
