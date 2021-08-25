@@ -40,10 +40,10 @@ public class ChartController {
 		m.addAttribute("etcList", list);
 		
 		// 한달 전 날짜
-//		Calendar mon = Calendar.getInstance();
-//		mon.add(Calendar.MONTH , -1);
-//		String b_month = new java.text.SimpleDateFormat("MM").format(mon.getTime());
-//		System.out.println(b_month);
+		Calendar mon = Calendar.getInstance();
+		mon.add(Calendar.MONTH , -1);
+		String month = new java.text.SimpleDateFormat("MM").format(mon.getTime());
+		System.out.println(month);
 //				
 //		List<MealDTO> bestList = Csv.bestList(b_month);
 //		m.addAttribute("bestList", bestList);
@@ -55,49 +55,49 @@ public class ChartController {
 		int allStd = Csv.allStd(school);
 		m.addAttribute("allStd", allStd);
 		
-		int allPay = Csv.allPay(school);
+		int allPay = Csv.allPay(school, month);
 		m.addAttribute("allPay", allPay);
 		
 		// feedback
-		int feed01 = Csv.feed01(parent_email);
+		int feed01 = Csv.feed01(parent_email, month);
 		m.addAttribute("feed01", feed01);
 		
-		int feed02= Csv.feed02(parent_email);
+		int feed02= Csv.feed02(parent_email, month);
 		m.addAttribute("feed02", feed02);
 		
-		int feed03 = Csv.feed03(parent_email);
+		int feed03 = Csv.feed03(parent_email, month);
 		m.addAttribute("feed03", feed03);
 		
-		int feed04 = Csv.feed04(parent_email);
+		int feed04 = Csv.feed04(parent_email, month);
 		m.addAttribute("feed04", feed04);
 		
-		int feed05 = Csv.feed05(parent_email);
+		int feed05 = Csv.feed05(parent_email, month);
 		m.addAttribute("feed05", feed05);
 		
 		// taste
-		int taste01 = Csv.taste01(parent_email);
+		int taste01 = Csv.taste01(parent_email, month);
 		m.addAttribute("taste01", taste01);
 		
-		int taste02 = Csv.taste02(parent_email);
+		int taste02 = Csv.taste02(parent_email, month);
 		m.addAttribute("taste02", taste02);
 		
-		int taste03 = Csv.taste03(parent_email);
+		int taste03 = Csv.taste03(parent_email, month);
 		m.addAttribute("taste03", taste03);
 		
 		// amount
-		int amount01 = Csv.amount01(parent_email);
+		int amount01 = Csv.amount01(parent_email, month);
 		m.addAttribute("amount01", amount01);
 		
-		int amount02 = Csv.amount02(parent_email);
+		int amount02 = Csv.amount02(parent_email, month);
 		m.addAttribute("amount02", amount02);
 		
-		int amount03 = Csv.amount03(parent_email);
+		int amount03 = Csv.amount03(parent_email, month);
 		m.addAttribute("amount03", amount03);
 		
-		int amount04 = Csv.amount04(parent_email);
+		int amount04 = Csv.amount04(parent_email, month);
 		m.addAttribute("amount04", amount04);
 		
-		int amount05 = Csv.amount05(parent_email);
+		int amount05 = Csv.amount05(parent_email, month);
 		m.addAttribute("amount05", amount05);
 		
 		// menu

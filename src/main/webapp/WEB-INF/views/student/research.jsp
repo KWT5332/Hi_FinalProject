@@ -20,18 +20,7 @@
 
 body{
 	font-family:'GowunDodum-Regular';
-} 
-
-/* @font-face {
-    font-family: 'SpoqaHanSansNeo-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
 }
-
-body{
-	font-family: 'SpoqaHanSansNeo-Regular';
-} */
 
 .box-radio-input input[type="radio"]{
   display:none;

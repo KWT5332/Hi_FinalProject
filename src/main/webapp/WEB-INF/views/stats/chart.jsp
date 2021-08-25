@@ -26,16 +26,6 @@ body{
 	font-family:'GowunDodum-Regular';
 } 
 
-/* @font-face {
-    font-family: 'SpoqaHanSansNeo-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-body{
-	font-family: 'SpoqaHanSansNeo-Regular';
-} */
 </style>
 
 <!--Load the AJAX API-->
@@ -213,7 +203,7 @@ body{
 	margin:20px 0px 20px 0px;
 	padding-top:10px;
 	font-size:20px;
-	background-color:pink;
+	border:1px solid #1A8763;
 }
     	
 </style>
@@ -281,7 +271,7 @@ body{
 	
 	<!-- Modal -->
 	<div class="modal fade pay" id="staticBackdrop01" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-scrollable">
+	  <div class="modal-dialog modal-dialog-scrollable modal-xl text-center">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="staticBackdropLabel">결제인원 목록</h5>
@@ -290,8 +280,8 @@ body{
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	        	<strong>결제 인원 목록입니다.</strong>	        
-				<%-- <table class="table table-hover">
+	        	<strong>결제 인원 목록입니다.</strong><br>	        
+				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th scope="col">#</th>
@@ -307,19 +297,18 @@ body{
 				  	<tbody>
 				  		<c:forEach var="p" items="${payList}" varStatus="a">
 					    	<tr>
-								<th scope="row">1</th>
 								<td>${a.count}
 								<td>${p.st_name}
 								<td>${p.st_email}
 								<td>${p.st_school}
-								<td>${p.payment}
+								<td>${p.payment} 원
 								<td>${p.apply_num}
 								<td>${p.pay_date}
 								<td>${p.month}
 							</tr>
 						</c:forEach>
 					</tbody>
-				</table> --%>
+				</table>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -331,7 +320,7 @@ body{
 	
 	<!-- Modal -->
 	<div class="modal fade etc" id="staticBackdrop02" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-scrollable">
+	  <div class="modal-dialog modal-dialog-scrollable text-center">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="staticBackdropLabel">기타 의견</h5>
@@ -341,7 +330,7 @@ body{
 	      </div>
 	      <div class="modal-body">
 	        <ul class="list-group list-group-flush">
-	        	<strong>학교 급식과 관련하여 의견이 있다면 적어주시기 바랍니다.</strong>	        
+	        	<strong>학교 급식과 관련하여 의견이 있다면 적어주시기 바랍니다.</strong><hr>	        
 	        	<c:forEach var="i" items="${etcList}" varStatus="s">
 					<c:if test="${not empty i.etc}">
 						<li class="list-group-item">${i.etc}</li>
