@@ -202,7 +202,8 @@
     ws.onmessage = function(event){
         	let data = JSON.parse(event.data);
         	
-        	let ul = $("<ul>");
+        	if(data.room_number==room_number){
+        		let ul = $("<ul>");
         	let li_left = $("<li>");
         	li_left.addClass("left pr-4")
         	
@@ -239,10 +240,9 @@
         	ul.append(li_left);
         	$("#chat_contents").append(ul);
         	updateScroll();
-        } 
-    	
-    	
-    	
+        	}
+        	
+        } 	
 })
 </script>
 <body>
