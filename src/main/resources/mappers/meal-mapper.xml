@@ -39,7 +39,7 @@
 	</select>
 	
 	<select id="excelDownload" resultType="kh.spring.dto.MealDTO">
-		select * from meal_menu where month=#{month} and school=#{school} order by 2
+		select * from meal_menu where month=#{month} and writer=#{writer} and school=#{school} order by 2
 	</select>
 	
 	<select id="search" resultType="kh.spring.dto.MealDTO">

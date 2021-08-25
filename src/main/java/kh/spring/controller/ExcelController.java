@@ -33,9 +33,8 @@ public class ExcelController {
 		System.out.println("엑셀 다운로드");
 		
 		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
-		String school = mdto.getSchool();
 		
-		service.excelDownload(month, school, response);
+		service.excelDownload(month, mdto, response);
 	}
 	
 	// 청아 엑셀 업로드양식 다운
