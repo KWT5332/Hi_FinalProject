@@ -15,6 +15,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 <style>
 #mail{background-color: #124352;}
 * {box-sizing: border-box;}
@@ -91,6 +94,22 @@ input[type] {border-color: #b2dabd;}
 </style>
 <script>
 	$(function() {
+      	$('#dataTable').DataTable({ // DataTables API 적용
+      		"columns":[
+      			{"data" : "번호"},
+      			{"data" : "학생이름"},
+      			{"data" : "소속학교"},
+      			{"data" : "이메일"},
+      			{"data" : "수정"},
+      			{"data" : "삭제"}
+      		],
+   			order:[0,"desc"], // 정렬 초기화 작업 "asc"
+   			ordering:false,
+   			lengthMenu:[10,20,30], // 표시 건수 단위
+   			lengthChange:false, // 표시건수 기능 숨기기
+   			displayLength:10 // 기본적으로 1페이지당 표시될 게시물의 개수
+      	});
+		
 	    function strNum(num){ // 8월달 08로 출력하기 만드는 함수.
 	        if(num<10){
 	            return "0" + num;
@@ -103,7 +122,14 @@ input[type] {border-color: #b2dabd;}
 			$("#modal").modal("show");
 			
 			$("#send").on("click",function(){
-				alert("전체 학생에게 메일을 발송합니다.\n발송 완료 후 메일보내기 작은 창이 나가게 됩니다. \n잠시 기다려 주세요.");
+				//alert("전체 학생에게 메일을 발송합니다.\n발송 완료 후 메일보내기 작은 창이 나가게 됩니다. \n잠시 기다려 주세요.");
+				Swal.fire({
+					icon:'success',
+					title:'전체 학생에게 메일을 발송합니다.\n발송 완료 후 메일보내기 작은 창이 나가게 됩니다.',
+					text:'잠시 기다려 주세요.',
+					showConfirmButton: false,
+					timer: 2000
+				})
 				let month = $("#month").val();
 				let strMonth = strNum(month);
 
@@ -133,7 +159,7 @@ input[type] {border-color: #b2dabd;}
 			})
 		})
 		
-		$(".delete").click(function(){
+		/*$(".delete").click(function(){
 			if(confirm("정말로 학생을 삭제하시겠습니까?")){
 				let seq = $(this).parent().siblings(".seq").val();
 				$.ajax({
@@ -144,6 +170,28 @@ input[type] {border-color: #b2dabd;}
 					location.reload();
 				})
 			}
+		})*/
+		$(".delete").click(function(){
+			Swal.fire({ 
+	    		  title:'정말로 학생을 삭제하시겠습니까?', 
+	    		  icon: 'warning', 
+	    		  showCancelButton: true, 
+	    		  confirmButtonColor: '#3085d6', 
+	    		  cancelButtonColor: '#d33', 
+	    		  confirmButtonText: '삭제', 
+	    		  cancelButtonText: '취소' 
+	    	}).then((result) => {
+	    		if(result.value){
+	    			let seq = $(this).parent().siblings(".seq").val();
+					$.ajax({
+						type:"POST",
+						url:"/mail/deleteStudentProc",
+						data:{"seq" : seq}
+					}).done(function() {
+						location.reload();
+					})	
+	    		}
+	    	})
 		})
 		
 		$(".modify").click(function(){
@@ -189,17 +237,26 @@ input[type] {border-color: #b2dabd;}
 			$(this).siblings(".upload-name").val(fileName);
 
 			if (formData.get('file').size >= 1048576) {
-				alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+				//alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+				 Swal.fire({
+					icon: 'warning',
+					title: '업로드 할 수 있는 \n파일 사이즈를 초과했습니다.',
+					text: '파일크기를 확인해주세요.'
+				 })
 				return false;
 			}
 
 			let regex = /(.*?)\.xlsx/;
 			if (!regex.test(fileName)) {
-				alert("확장자가 .xlsx인 파일만 업로드 가능합니다.");
+				//alert("확장자가 .xlsx인 파일만 업로드 가능합니다.");
+				Swal.fire({
+					icon: 'warning',
+					title: '확장자가 .xlsx인 파일만 업로드 가능합니다.'
+				 })
 				return false;
 			}
 
-			if (confirm("선택하신 파일을 업로드 하시겠습니까?")) {
+			/*if (confirm("선택하신 파일을 업로드 하시겠습니까?")) {
 				$.ajax({
 					type : "POST",
 					url : "/excel/exceluploadMail",
@@ -211,7 +268,30 @@ input[type] {border-color: #b2dabd;}
 					console.log(resp);
 					$(".upload-name").val("파일선택");
 				})
-			}
+			}*/
+			Swal.fire({ 
+	    		  title:"선택하신 파일을\n업로드 하시겠습니까?",
+	    		  icon: 'question', 
+	    		  showCancelButton: true, 
+	    		  confirmButtonColor: '#3085d6', 
+	    		  cancelButtonColor: '#d33', 
+	    		  confirmButtonText: '업로드', 
+	    		  cancelButtonText: '취소' 
+	    		}).then((result) => {
+	    			if(result.value){
+	    				$.ajax({
+	    					type : "POST",
+	    					url : "/excel/exceluploadMail",
+	    					data : formData,
+	    					processData : false, // data가 서버에 전달될때 String 형식아니고 "multipart/form-data"로 보내야됨
+	    					contentType : false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
+	    					cache : false
+	    				}).done(function(resp) {
+	    					console.log(resp);
+	    					$(".upload-name").val("파일선택");
+	    				})	
+	    			}
+	    		})
 		});
 	})
 </script>
@@ -254,8 +334,9 @@ input[type] {border-color: #b2dabd;}
     </div>
 		
 	<div class="container studentcon p-5" style="text-align:center">
-		<h3 class="mb-4">학생 이메일 주소록</h3>
-		<table class="table">
+		<h2 class="mb-3">학생 이메일 주소록</h2>
+		<table class="table m-0 mb-1 w-100" id="dataTable">
+			<thead>
 			<tr>
 				<td scope="col">번호</td>
 				<td scope="col">학생이름</td>
@@ -264,15 +345,17 @@ input[type] {border-color: #b2dabd;}
 				<td scope="col">수정</td>
 				<td scope="col">삭제</td>
 			</tr>
+			</thead>
+			<tbody>
 			<c:choose>
 				<c:when test="${not empty studentList }" >
 					<c:forEach var="i" items="${studentList}" varStatus="status">
-						<tr class="student_list">
-							<td scope="col">${status.count}</td>
+						<tr class="student_list pt-1 pb-1">
+							<td scope="col" style="line-height:35px;">${status.count}</td>
 							<input type="hidden" class="seq" name="seq" value="${i.seq }">
-							<td scope="col" class="name">${i.stu_name}</td>
-							<td scope="col" class="school">${i.school}</td>
-							<td scope="col" class="email">${i.stu_email}</td>
+							<td scope="col" class="name" style="line-height:35px;">${i.stu_name}</td>
+							<td scope="col" class="school" style="line-height:35px;">${i.school}</td>
+							<td scope="col" class="email" style="line-height:35px;">${i.stu_email}</td>
 							<td scope="col"><button type="button" class="modify btn">수정</button></td>
 							<td scope="col"><button type="button" class="delete btn">삭제</button></td>
 						</tr>
@@ -286,6 +369,7 @@ input[type] {border-color: #b2dabd;}
 					</tr>
 				</c:otherwise>	
 			</c:choose>
+			</tbody>
 		</table>
 	</div>
 	

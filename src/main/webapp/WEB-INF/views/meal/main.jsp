@@ -12,6 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <style>
 	#meal{background-color: #124352;}
 	*{text-align: center;box-sizing: border-box;}
@@ -109,8 +110,6 @@
 		    //formData.append("file", $(this)[0].files[0]); //배열로 되어있음 / formData는 Map과 같은 형태
 		        
 		    var fileName = formData.get('file').name;
-		    // 추출한 파일명 삽입 
-	        $(this).siblings(".upload-name").val(fileName); 
 		    
 		    if(formData.get('file').size >= 1048576) {
 		    	alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
@@ -122,6 +121,9 @@
 		    	alert("확장자가 .xlsx인 파일만 업로드 가능합니다.");
 		    	return false;
 		    }
+		    
+		    // 추출한 파일명 삽입 
+	        $(this).siblings(".upload-name").val(fileName); 
 			
 	        if(confirm("선택하신 파일을 업로드 하시겠습니까?")){
 	            $.ajax({

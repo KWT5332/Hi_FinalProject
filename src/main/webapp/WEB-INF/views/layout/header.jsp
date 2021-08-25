@@ -24,6 +24,8 @@ navcon * {
     #loginNavi>a:hover{background-color: #124352;}
     #loginNavi>a:visited{color: #FDFAF6;}
     #mypage{color:#FDFAF6;}
+    #swal2-title{font-size:25px;}
+    #swal2-content{font-size:18px;}
 </style>
 <script>
    $(function(){
@@ -36,8 +38,21 @@ navcon * {
       }) */
       
       $(".before").on("click",function(){
-    	  
-      })
+    	  Swal.fire({ 
+    		  title:'로그인이 필요한 서비스 입니다.', 
+    		  text: "로그인 화면으로 이동하시겠습니까?",
+    		  icon: 'info', 
+    		  showCancelButton: true, 
+    		  confirmButtonColor: '#3085d6', 
+    		  cancelButtonColor: '#d33', 
+    		  confirmButtonText: '로그인', 
+    		  cancelButtonText: '취소' 
+    		}).then((result) => {
+    			if(result.value){
+    				location.href = "/mem/loginForm";
+    			}
+    		})
+      	})
    })
 </script>
 </head>

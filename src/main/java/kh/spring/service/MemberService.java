@@ -87,5 +87,17 @@ public class MemberService {
 		map.put("phone", phone);
 		return dao.findIdMemebr(map);
 	}
+	public int findPwProc(String name, String email) {
+		Map<String, String> map = new HashMap<>();
+		map.put("name", name);
+		map.put("email", email);
+		return dao.findPwProc(map);
+	}
+	public int newPwProc(String email, String pw) {
+		Map<String, String> map = new HashMap<>();
+		map.put("email", email);
+		map.put("pw", pw);
+		return dao.newPwProc(map);
+	}
 	
 }

@@ -21,107 +21,50 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <style>
-* {
-	box-sizing: border-box;
-}
-
-/* div {
-            border: 1px solid black;
-        } */
-select[type]:focus {
+* {box-sizing: border-box;}
+.mypage_container select[type]:focus {
 	border-color: rgba(184, 223, 216, 0.5);
 	box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px
-		rgb(184, 223, 216, 0.6);
+	rgb(184, 223, 216, 0.6);
 	outline: 0 none;
 }
-
-input[type]:focus {
+.mypage_container input[type]:focus {
 	border-color: rgba(184, 223, 216, 0.5);
 	box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px
-		rgb(184, 223, 216, 0.6);
+	rgb(184, 223, 216, 0.6);
 	outline: 0 none;
 }
-
-input[type] {
-	border-color: rgba(184, 223, 216, 0.5);
-}
-
-.mypage_container .incon {
-	overflow: hidden;
-}
-
-.mypage_container .btn_pw {
-	width: 127px;
-}
-
-.mypage_container .exex {
-	border: none;
-}
-
-.mypage_container .con_btn_modify {
-	text-align: center;
-}
-
-.mypage_container .empty {
-	height: 100px;
-}
-
+.mypage_container button[type] {background-color: #A9CCB3;border: #A9CCB3;color:white;}
+.mypage_container #btn_modi_ck {background-color: #7AB08A;border: #7AB08A;color:white; width: 250px;height: 50px;font-size: 19px;}
+.mypage_container button[type]:focus {box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px rgb(184, 223, 216, 0.6);outline: 0 none;}
+.mypage_container button[type]::hover {background:#7AB08A;box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px rgb(184, 223, 216, 0.6);outline: 0 none;}
+.mypage_container input[type] {border-color: rgba(184, 223, 216, 0.5);}
+.mypage_container .incon {overflow: hidden;}
+.mypage_container .btn_pw {width: 127px;}
+.mypage_container .exex {border: none;}
+.mypage_container .con_btn_modify {text-align: center;}
+.mypage_container .empty {height: 100px;}
 /* 비번변경위해 확인 안맞을시 */
-.mypage_container .pw_input_reg_1 {
-	color: red;
-	display: none;
-}
-.img_con {
-	width: 150px !important;
-	height: 150px !important;
-	border-radius: 70%;
-	overflow: hidden;
-}
-.img_profile {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
+.mypage_container .pw_input_reg_1 {color: red;display: none;}
+.img_con {width: 150px !important;height: 150px !important;border-radius: 70%;overflow: hidden;}
+.img_profile {width: 100%;height: 100%;object-fit: cover;}
 /* 비번일치 */
-.mypage_container .pw_input_re_1 {
-	color: green;
-	display: none;
-}
+.mypage_container .pw_input_re_1 {color: green;display: none;}
 /* 비번불일치 */
-.mypage_container .pw_input_re_2 {
-	color: red;
-	display: none;
-}
-.mypage_container .btn_modi_name_02 {
-	display: none;
-}
-.mypage_container .btn_modi_school_02 {
-	display: none;
-}
-.btn_modi_phone_02 {
-	display: none;
-}
-.mypage_container .btn_modi_age_02 {
-	display: none;
-}
+.mypage_container .pw_input_re_2 {color: red;display: none;}
+.mypage_container .btn_modi_name_02 {display: none;}
+.mypage_container .btn_modi_school_02 {display: none;}
+.btn_modi_phone_02 {display: none;}
+.mypage_container .btn_modi_age_02 {display: none;}
 /* 새비번 설정 */
-.mypage_container .new_pw_con {
-	display: none;
-}
+.mypage_container .new_pw_con {display: none;}
 /* 모든 비활성 <input> 선택 */
-.mypage_container input:disabled {
-	background: #E4EFE7;
-}
-
+.mypage_container input:disabled {background: #E4EFE7;}
 /* 이미지 청아꺼 */
- #excelName{ 
-      position: absolute; width: 1px; height: 1px; 
-       padding: 0; margin: -1px; 
-       overflow: hidden; 
-       clip:rect(0,0,0,0); border: 0; 
-    } 
-    .filebox label { 
+ #excelName{ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; } 
+.filebox label { 
       display: inline-block; 
       padding: .5em .75em; 
       color: white;
@@ -153,25 +96,17 @@ input[type] {
 </style>
 <script>
 	$(function() {
-		/* AOS.init();
-		$("#main").addClass("active"); */
 		function setdto() {
 			$('#email').val($('.mail_input').val());
-			//$('#pw').val($('.inp_modi_pw').val());
 			$('#name').val($('.inp_modi_name').val());
 			$('#school').val($('.inp_modi_school').val());
-			//$('#gender').val($('.inp_modi_gender').val());
 			$('#age').val($('.age_show').val());
-			//$('#oriName').val($('.inp_modi_oriName').val());
-			//$('#sysName').val($('.inp_modi_sysName').val());
 			$('#phone').val($('.inp_modi_phone').val());
-			//$('#reg_date').val($('.inp_modi_reg_date').val());
 		}
 		;
 		//비번변경
 		$(".btn_pw").click(function() {
 			$('#pw').val($('.inp_modi_pw').val());
-
 			$.ajax({
 				type : "post",
 				url : "/mem/pwck",
@@ -184,7 +119,12 @@ input[type] {
 					if (result != 'fail') {
 						$('.new_pw_con').css("display", "inline-block");
 					} else {//사용가능
-						alert("비밀번호가 일치하지않습니다.\n확인 후 다시 시도해주세요.");
+						Swal.fire({
+							  icon: 'error',
+							  title: '비밀번호가 일치하지않습니다.',
+							  text: '확인 후 다시 시도해주세요.'
+							})
+						// alert("비밀번호가 일치하지않습니다.\n확인 후 다시 시도해주세요.");
 					}
 				}
 			});
@@ -193,7 +133,6 @@ input[type] {
 		$(".inp_pw2").on("propertychange change keyup paste input", function() {
 			var inp_pw1 = $('.inp_pw1').val();
 			var inp_pw2 = $('.inp_pw2').val();
-
 			if (inp_pw1 != inp_pw2) {//불일치
 				$('.pw_input_re_2').css("display", "inline-block");
 				$('.pw_input_re_1').css("display", "none");
@@ -207,7 +146,6 @@ input[type] {
 			$('#pw').val($('.inp_pw2').val());
 			$("#frm_modi").attr("action", "/mem/modiPw").submit();
 		})
-
 		//이름변경
 		$(".btn_modi_name_01").click(function() {
 			$('.btn_modi_name_01').css("display", "none");
@@ -265,7 +203,6 @@ input[type] {
 		$(".btn_modi_ck").click(function() {
 			location.href = "/mem/mypage";
 		})
-		
 		//청아파일코드
 	    $(".upload-hidden").on("change", function(){ // 값이 변경되면 
 	         var file = $(this)[0].files[0];
@@ -273,16 +210,24 @@ input[type] {
 			 var formData = new FormData(form); 
 
 	         if(file.size >= 1048576) {
-	             alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+	             // alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+	             Swal.fire({
+					icon: 'warning',
+					title: '업로드 할 수 있는 \n파일 사이즈를 초과했습니다.',
+					text: '파일크기를 확인해주세요.'
+				 })
 	             return false;
 	         }
-	
 	         let regex = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
 	         if(!regex.test(file.name)){
-	             alert("이미지 파일만 업로드 가능합니다.");
+	             // alert("이미지 파일만 업로드 가능합니다.");
+	             Swal.fire({
+					icon: 'warning',
+					title: '이미지 파일만 업로드 가능합니다.',
+					text: '파일 형식을 확인해주세요'
+				})
 	             return false;
 	         }
-	
 	        $(".upload-name").val(file.name); // 추출한 파일명 삽입
 	         
 	        $.ajax({
@@ -301,7 +246,6 @@ input[type] {
 </script>
 </head>
 <body>
-
 	<jsp:include page="../layout/header.jsp" />
 
 	<form action="" method="post" id="frm_modi" enctype="multipart/form-data">
@@ -343,7 +287,6 @@ input[type] {
 								<input class="upload-name hidden" value="파일선택" disabled="disabled">
 								<label for="excelName" class="mb-0">프로필 이미지 업로드</label> 
 								<input type="file" id="excelName" name="file" class="upload-hidden">
-								
 							</div>
 					</div>
 				</div>
@@ -366,9 +309,7 @@ input[type] {
 				<div class="id_pw_con incon row m-5">
 					<h5 class="col-12 mb-4">비밀번호 변경</h5>
 					<p class="col-12 mb-4">
-						-
-						<mark>기존 비밀번호</mark>
-						를 입력하여 확인합니다.
+						-<mark>기존 비밀번호</mark>를 입력하여 확인합니다.
 					</p>
 					<div class="col-12">
 						<div class="row">
@@ -377,14 +318,12 @@ input[type] {
 
 							</div>
 							<div class="col-sm-5 col-md-3 col-lg-2 ">
-								<button type="button" class="btn btn-success btn_pw  ">비밀번호
-									확인</button>
+								<button type="button" class="btn btn-success btn_pw  ">비밀번호 확인</button>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-12">
-								<div class="form-control  exex pw_input_reg_1">비밀번호가 불일치
-									합니다.</div>
+								<div class="form-control  exex pw_input_reg_1">비밀번호가 불일치 합니다.</div>
 							</div>
 						</div>
 					</div>
@@ -392,13 +331,7 @@ input[type] {
 				<div class="id_pw_con incon row m-5 new_pw_con">
 					<h5 class="col-12 mb-4">새 비밀번호 설정</h5>
 					<p class="col-12 mb-4">
-						- 비밀번호는
-						<mark>a-z</mark>
-						그리고
-						<mark>0-9</mark>
-						로만
-						<mark>6자에서 15자 사이</mark>
-						로 설정합니다.
+						- 비밀번호는 <mark>a-z</mark> 그리고 <mark>0-9</mark>로만<mark>6자에서 15자 사이</mark>로 설정합니다.
 					</p>
 					<div class="col-12 col-sm-5 col-lg-5">
 						<input type="text" class="form-control inp_pw1 ">
@@ -409,17 +342,14 @@ input[type] {
 								<input type="text" class="form-control inp_pw2 mt-3">
 							</div>
 							<div class="col-12 col-sm-7 col-lg-6">
-								<!-- <div class="form-control  exex">비번일치 여부</div> -->
 								<div class="form-control  exex pw_input_re_1">비밀번호가 일치합니다.</div>
-								<div class="form-control  exex pw_input_re_2">비밀번호가
-									불일치합니다.</div>
+								<div class="form-control  exex pw_input_re_2">비밀번호가 불일치합니다.</div>
 								<div class="col-md-1 col-lg-none"></div>
 							</div>
 						</div>
 					</div>
 					<div class="col-12 mt-3">
-						<button type="button" class="btn btn-success btn_modi_pw">비밀번호
-							변경하기</button>
+						<button type="button" class="btn btn-success btn_modi_pw">비밀번호 변경하기</button>
 					</div>
 				</div>
 			</div>
@@ -433,14 +363,11 @@ input[type] {
 					<div class="col-12">
 						<div class="row">
 							<div class="col-sm-12 col-md-6 col-lg-3">
-								<input type="text" class="form-control inp_modi_name"
-									value=${login.name } disabled>
+								<input type="text" class="form-control inp_modi_name" value=${login.name } disabled>
 							</div>
 							<div class="col-sm-12 col-md-6 col-lg-8 ">
-								<button type="button" class="btn btn-success btn_modi_name_01 ">이름
-									변경하기</button>
-								<button type="button" class="btn btn-primary btn_modi_name_02 ">이름
-									저장하기</button>
+								<button type="button" class="btn btn-success btn_modi_name_01 ">이름 변경하기</button>
+								<button type="button" class="btn btn-primary btn_modi_name_02 ">이름 저장하기</button>
 							</div>
 						</div>
 					</div>
@@ -452,22 +379,16 @@ input[type] {
 							<div class="col-12 mt-3">
 								<div class="row">
 									<div class="col-12 col-md-6 col-lg-4">
-										<input type="text" class="form-control inp_modi_school "
-											value=${login.school } disabled>
+										<input type="text" class="form-control inp_modi_school " value=${login.school } disabled>
 									</div>
 									<div class="col-12 col-md-6 col-lg-8 ">
-										<button type="button"
-											class="btn btn-success btn_modi_school_01 ">소속 학교
-											변경하기</button>
-										<button type="button"
-											class="btn btn-primary btn_modi_school_02 ">소속 학교
-											저장하기</button>
+										<button type="button" class="btn btn-success btn_modi_school_01 ">소속 학교 변경하기</button>
+										<button type="button" class="btn btn-primary btn_modi_school_02 ">소속 학교 저장하기</button>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-12 col-md-12">
-										<div class="form-control  exex pb-5">예시 - 무학여고, 마산중
-											(공백없이 입력해주세요)</div>
+										<div class="form-control  exex pb-5">예시 - 무학여고, 마산중 (공백없이 입력해주세요)</div>
 									</div>
 								</div>
 							</div>
@@ -478,11 +399,9 @@ input[type] {
 					<h5 class="col-12 mb-4">나이대</h5>
 					<div class="input-group row">
 						<div class="col-sm-2 col-md-2">
-							<input type="text" class="form-control age_show"
-								value=${login.age } disabled>
+							<input type="text" class="form-control age_show" value=${login.age } disabled>
 						</div>
-						<select type="select"
-							class=" custom-select col-sm-5 col-md-2 sel_modi_age" disabled>
+						<select type="select" class=" custom-select col-sm-5 col-md-2 sel_modi_age" disabled>
 							<option selected disabled>선택</option>
 							<option value="20대">20대</option>
 							<option value="30대">30대</option>
@@ -491,31 +410,24 @@ input[type] {
 							<option value="60대">60대</option>
 						</select>
 						<div class="col-sm-5 col-md-6">
-							<button type="button" class="btn btn-success btn_modi_age_01 ">나이대
-								변경하기</button>
-							<button type="button" class="btn btn-primary btn_modi_age_02 ">나이대
-								저장하기</button>
+							<button type="button" class="btn btn-success btn_modi_age_01 ">나이대 변경하기</button>
+							<button type="button" class="btn btn-primary btn_modi_age_02 ">나이대 저장하기</button>
 						</div>
 					</div>
 				</div>
 				<div class="id_pw_con incon row m-5">
 					<h5 class="col-12 mb-4">연락처</h5>
 					<p class="col-12">
-						-
-						<mark>비밀번호 찾기</mark>
-						시 이용 됩니다
+						- <mark>비밀번호 찾기</mark> 시 이용 됩니다
 					</p>
 					<div class="col-12">
 						<div class="row">
 							<div class="col-3 col-md-5">
-								<input type="text" class="form-control inp_modi_phone "
-									value=${login.phone } disabled>
+								<input type="text" class="form-control inp_modi_phone " value=${login.phone } disabled>
 							</div>
 							<div class="col-6 col-md-5">
-								<button type="button" class="btn btn-success btn_modi_phone_01 ">연락처
-									변경하기</button>
-								<button type="button" class="btn btn-primary btn_modi_phone_02 ">연락처
-									저장하기</button>
+								<button type="button" class="btn btn-success btn_modi_phone_01 ">연락처 변경하기</button>
+								<button type="button" class="btn btn-primary btn_modi_phone_02 ">연락처 저장하기</button>
 							</div>
 						</div>
 					</div>
@@ -528,24 +440,22 @@ input[type] {
 			</div>
 			<div class="empty"></div>
 			<div class="con_btn_modify m-5">
-				<button type="button" class="btn btn-success btn_modi_ck">수정
-					된 정보 확인하기</button>
+				<button type="button" class="btn btn-success btn_modi_ck" id="btn_modi_ck">수정 된 정보 확인하기</button>
 			</div>
 			<div class="empty">
-				<input type="hidden" name="email" id="email"> <input
-					type="hidden" name="pw" id="pw" value=${login.pw}> <input
-					type="hidden" name="name" id="name"> <input type="hidden"
-					name="school" id="school"> <input type="hidden"
-					name="gender" id="gender" value=${login.gender}> <input
-					type="hidden" name="age" id="age"> <input type="hidden"
-					name="oriName" id="oriName" value=${login.oriName}> <input
-					type="hidden" name="sysName" id="sysName" value=${login.sysName}>
-				<input type="hidden" name="phone" id="phone"> <input
-					type="hidden" name="reg_date" id="reg_date" value=${login.reg_date}>
+				<input type="hidden" name="email" id="email"> 
+				<input type="hidden" name="pw" id="pw" value=${login.pw}> 
+				<input type="hidden" name="name" id="name"> 
+				<input type="hidden" name="school" id="school"> 
+				<input type="hidden" name="gender" id="gender" value=${login.gender}> 
+				<input type="hidden" name="age" id="age"> 
+				<input type="hidden" name="oriName" id="oriName" value=${login.oriName}> 
+				<input type="hidden" name="sysName" id="sysName" value=${login.sysName}>
+				<input type="hidden" name="phone" id="phone"> 
+				<input type="hidden" name="reg_date" id="reg_date" value=${login.reg_date}>
 			</div>
 		</div>
 	</form>
-
 	<jsp:include page="../layout/footer.jsp" />
 </body>
 </html>

@@ -114,7 +114,7 @@ public class MemberController {
 		/* 이메일 보내기 */
 		String setFrom = "project.hi.final@gmail.com";
 		String toMail = email;
-		String title = "회원가입 인증 이메일 입니다.";
+		String title = "하이!급식 인증 이메일 입니다.";
 		String content = 
 				"홈페이지를 방문해주셔서 감사합니다." +
 						"<br><br>" + 
@@ -256,7 +256,7 @@ public class MemberController {
 	public String findMember() {
 		return "member/findMember";
 	}
-	
+	//아이디찾기
 	@RequestMapping(value="findIdProc", produces="text/html;charset=utf8")
 	@ResponseBody
 	public String findIdProc(String name, String phone) {
@@ -271,4 +271,24 @@ public class MemberController {
 		}
 		return String.valueOf(findDTO);
 	}
+	//비번찾기
+	@RequestMapping(value="findPwProc", produces="text/html;charset=utf8")
+	@ResponseBody
+	public String findPwProc(String name, String email) {
+		int result = service.findPwProc(name,email);
+		Gson g = new Gson();
+		g.toJson(result);
+		return String.valueOf(result);
+	}
+	//비번 재설정
+	@RequestMapping(value="newPwProc", produces="text/html;charset=utf8")
+	@ResponseBody
+	public String newPwProc(String email, String pw) {
+		int result = service.newPwProc(email, pw);
+		Gson g = new Gson();
+		g.toJson(result);
+		return String.valueOf(result);
+	}
+	
+	
 }

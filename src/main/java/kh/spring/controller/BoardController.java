@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kh.spring.config.XSSFillterConfig;
 import kh.spring.dto.BoardDTO;
 import kh.spring.dto.Board_CommentsDTO;
 import kh.spring.dto.MemberDTO;
@@ -32,21 +33,11 @@ public class BoardController {
 	@Autowired
 	private BoardService bservice;
 	
-	
-	@Autowired
-	private FileService fservice;
-	
 	@RequestMapping("boardWrite")
 	public String boardWrite() {
 		return "board/boardWrite";
 	}
 	
-//	@RequestMapping("boardList") 리스트 페이지 확인용
-//	public String boardList() {
-//		System.out.println(" hi");
-//		return "board/boardList";
-//	}
-//	
 	@RequestMapping(value="writeProc")
 	public String writeProc(String title, String content) {
 		  System.out.println(title + ":" + content);
@@ -74,11 +65,6 @@ public class BoardController {
 		model.addAttribute("commentsList",commentsList);
 		return "board/boardView";
 	}
-	
-//	@RequestMapping("boardView")
-//	public String boardView() {
-//		return "bod/viewProc";
-//	}
 	
 	@RequestMapping("updateView")
 	public String boardModify(int seq, Model model) {
@@ -117,41 +103,7 @@ public class BoardController {
 
 		return "/summers/"+sysName;
 	}
-	
-//	@RequestMapping(value="uploadSummernoteImageFile", produces = "application/json; charset=utf8")
-//	@ResponseBody
-//	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
-//		System.out.println("dd");
-//		JsonObject jsonObject = new JsonObject();
-//		
-//        /*
-//		 * String fileRoot = "C:\\summernote_image\\"; // 외부경로로 저장을 희망할때.
-//		 */
-//		
-//		// 내부경로로 저장
-//		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-//		String fileRoot = contextRoot+"resources/fileupload/";
-//		
-//		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-//		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-//		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-//		
-//		File targetFile = new File(fileRoot + savedFileName);	
-//		try {
-//			InputStream fileStream = multipartFile.getInputStream();
-//			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-//			jsonObject.addProperty("url", "/summernote/resources/fileupload/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
-//			jsonObject.addProperty("responseCode", "success");
-//				
-//		} catch (IOException e) {
-//			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
-//			jsonObject.addProperty("responseCode", "error");
-//			e.printStackTrace();
-//		}
-//		String a = jsonObject.toString();
-//		return a;
-//	}
-	
+
 	   @RequestMapping(value = "addCommnetnsProc", method = RequestMethod.POST) // ajax 로 보낼때는  method = RequestMethod.POST 꼭 써야한다
 	   @ResponseBody // ajax를 받은 결과값을 보내줄때 쓰는 어노테이션 꼭 붙여줘야한다
 	   public String addComments(String contents, int board_seq){
@@ -161,7 +113,7 @@ public class BoardController {
 	      
 		  MemberDTO mmdto = (MemberDTO)session.getAttribute("login");
 		  String writer = mmdto.getEmail();
-	      bservice.addCommnetnsProc(new Board_CommentsDTO(0,writer,contents,null,board_seq));
+	      bservice.addCommnetnsProc(new Board_CommentsDTO(0,writer,XSSFillterConfig.XSSFilter(contents),null,board_seq));
 	      return ""; 
 	   }
 	   
@@ -176,8 +128,7 @@ public class BoardController {
 	   
 	   @RequestMapping("updateCommnetns")
 		public String updateCommnetns (String contents, int seq, int board_seq) {
-			bservice.updateCommnetns(contents, seq);
-
+			bservice.updateCommnetns(XSSFillterConfig.XSSFilter(contents), seq);
 			return "redirect:/bod/viewProc?seq="+board_seq;
 		}
 }

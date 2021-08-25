@@ -44,4 +44,10 @@
 		select replace(substr(email,1,instr(email,'@',1)-1),substr(substr(email,1,instr(email,'@',1)-1),1,2),'**')||substr(email,instr(email,'@',1),length(email))as email 
 		from hi_member where name=#{name} and phone=#{phone}
 	</select>
+	<select id="findPwProc" resultType="int">
+		select count(*) from hi_member where name=#{name} and email = #{email}
+	</select>
+	<update id="newPwProc">
+		update hi_member set pw=#{pw} where email=#{email}
+	</update>
 </mapper>
