@@ -20,21 +20,19 @@
 .join_container input[type]:focus, .join_container select[type]:focus {
 	border-color: rgba(184, 223, 216, 0.5);
 	box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px
-		rgb(184, 223, 216, 0.6);
+	rgb(184, 223, 216, 0.6);
 	outline: 0 none;
 }
-.join_container select[type]:hover {
-	cursor:pointer
-}
+.join_container select[type]:hover {cursor:pointer}
 .join_container .btn_join:focus, .join_container .btn_email:focus {
-			box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px rgb(184, 223, 216, 0.6);
-			outline: 0 none;
-		}
+	box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px rgb(184, 223, 216, 0.6);
+	outline: 0 none;
+}
 .join_container .btn_join:hover, .join_container .btn_email:hover{
-			background:#7AB08A;
-			box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px rgb(184, 223, 216, 0.6);
-			outline: 0 none;
-		}
+	background:#7AB08A;
+	box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px rgb(184, 223, 216, 0.6);
+	outline: 0 none;
+}
 .join_container input[type] {border-color: rgba(184, 223, 216, 0.5);}
 .join_container select {border-color: rgba(184, 223, 216, 0.5);}
 .join_container .incon {overflow: hidden;}

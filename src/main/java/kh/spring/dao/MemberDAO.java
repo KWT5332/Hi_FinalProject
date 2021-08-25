@@ -57,4 +57,13 @@ public class MemberDAO {
 	public int newPwProc(Map<String, String> map) {
 		return mybatis.update("Member.newPwProc", map);
 	}
-}
+	public int profileBasic(Map<String, String> map) {
+		return mybatis.update("Member.profileBasic", map);
+	}
+	public MemberDTO memberInfo(String email) {
+		return mybatis.selectOne("Member.memberInfo",email);
+	}
+	/*
+	 * public int profileBasic(Map<String, String> map) { return
+	 * mybatis.update("Member.profileBasic", map); }
+	 */}

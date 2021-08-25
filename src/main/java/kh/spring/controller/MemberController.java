@@ -289,6 +289,22 @@ public class MemberController {
 		g.toJson(result);
 		return String.valueOf(result);
 	}
+	//프사 기본으로 설정
+	@RequestMapping(value="profileBasic", produces="text/html;charset=utf8")
+	@ResponseBody
+	public String profileBasic(MemberDTO dto,String email, String sysnull) {
+		int result = service.profileBasic(email,sysnull);
+		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
+		MemberDTO updto = service.memberInfo(email);
+		String oriName = updto.getOriName();
+		String sysName = updto.getSysName();
+		mdto.setOriName(oriName);
+		mdto.setSysName(sysName);
+		session.setAttribute("login",mdto);
+		Gson g = new Gson();
+		g.toJson(result);
+		return String.valueOf(result);
+	}
 	
 	
 }
