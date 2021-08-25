@@ -99,7 +99,7 @@ input[type] {border-color: #b2dabd;}
    		    "language": {
      		   "emptyTable": "등록된 학생 주소록이 없습니다.",
   	   		   "search": "검색 : ",
-  	           "zeroRecords": "일치하는 데이터가 업ㄱ습니다.",
+  	           "zeroRecords": "일치하는 데이터가 없습니다.",
   	           "paginate": {
   	               "next": "다음",
   	               "previous": "이전"
