@@ -61,7 +61,7 @@ public class ExcelService {
 	}
 
 	// db저장되어있는 식단 엑셀 다운로드
-	public void excelDownload(String month, String school, HttpServletResponse response) throws IOException {		
+	public void excelDownload(String month, MemberDTO mdto, HttpServletResponse response) throws IOException {		
 		XSSFWorkbook wb = new XSSFWorkbook();
 		Sheet sheet = wb.createSheet(month + "월 식단표");
 		Row row = null;
@@ -88,7 +88,7 @@ public class ExcelService {
 		row = sheet.createRow(rowNum++);
 		cell = row.createCell(0);
 		cell.setCellStyle(titleStyle); // title 셀 스타일 적용
-		cell.setCellValue(month + "월 " + school + " 식단표");
+		cell.setCellValue(month + "월 " + mdto.getSchool() + " 식단표");
 
 		// 빈행 추가
 		sheet.createRow(rowNum++); 
@@ -126,7 +126,8 @@ public class ExcelService {
 
 		Map<String, String> param = new HashMap<>();
 		param.put("month", month);
-		param.put("school", school);
+		param.put("writer", mdto.getEmail());
+		param.put("school", mdto.getSchool());
 
 		List<MealDTO> list = dao.excelDownloadList(param);
 
@@ -166,7 +167,7 @@ public class ExcelService {
 
 		// 컨텐츠 타입과 파일명 지정
 		response.reset();
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(month + "월 " + school + " 식단표", "UTF-8") + ".xlsx");
+		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(month + "월 " +mdto.getSchool() + " 식단표", "UTF-8") + ".xlsx");
 		response.setContentType("ms-vnd/excel");
 
 		// Excel File Output
@@ -460,7 +461,7 @@ public class ExcelService {
 	}
 
 	// 승희 메일보낼때 엑셀 원하는 곳에 저장하기
-	public void excelDownloadMail(String month, String school, String realPath, HttpServletResponse response) throws IOException {		
+	public void excelDownloadMail(String month, MemberDTO dto, String realPath, HttpServletResponse response) throws IOException {		
 		XSSFWorkbook wb = new XSSFWorkbook();
 		Sheet sheet = wb.createSheet(month + "월 식단표");
 		Row row = null;
@@ -487,7 +488,7 @@ public class ExcelService {
 		row = sheet.createRow(rowNum++);
 		cell = row.createCell(0);
 		cell.setCellStyle(titleStyle); // title 셀 스타일 적용
-		cell.setCellValue(month + "월 " + school + " 식단표");
+		cell.setCellValue(month + "월 " + dto.getSchool() + " 식단표");
 
 		// 빈행 추가
 		sheet.createRow(rowNum++); 
@@ -525,35 +526,36 @@ public class ExcelService {
 
 		Map<String, String> param = new HashMap<>();
 		param.put("month", month);
-		param.put("school", school);
+		param.put("writer", dto.getEmail());
+		param.put("school", dto.getSchool());
 
 		List<MealDTO> list = dao.excelDownloadList(param);
 
-		for (MealDTO dto : list) {
+		for (MealDTO m : list) {
 			row = sheet.createRow(rowNum++);
 
 			cell = row.createCell(0);
 			cell.setCellStyle(dateStyle);
-			cell.setCellValue(dto.getMeal_date());
+			cell.setCellValue(m.getMeal_date());
 
 			cell = row.createCell(1);
 			cell.setCellStyle(commonStyle);
-			cell.setCellValue(dto.getMenu1());
+			cell.setCellValue(m.getMenu1());
 			cell = row.createCell(2);
 			cell.setCellStyle(commonStyle);
-			cell.setCellValue(dto.getMenu2());
+			cell.setCellValue(m.getMenu2());
 			cell = row.createCell(3);
 			cell.setCellStyle(commonStyle);
-			cell.setCellValue(dto.getMenu3());
+			cell.setCellValue(m.getMenu3());
 			cell = row.createCell(4);
 			cell.setCellStyle(commonStyle);
-			cell.setCellValue(dto.getMenu4());
+			cell.setCellValue(m.getMenu4());
 			cell = row.createCell(5);
 			cell.setCellStyle(commonStyle);
-			cell.setCellValue(dto.getMenu5());
+			cell.setCellValue(m.getMenu5());
 			cell = row.createCell(6);
 			cell.setCellStyle(commonStyle);
-			cell.setCellValue(dto.getMenu6());
+			cell.setCellValue(m.getMenu6());
 		}
 
 		sheet.setColumnWidth(0, 4000);
@@ -565,7 +567,7 @@ public class ExcelService {
 
 		// 컨텐츠 타입과 파일명 지정
 		response.reset();
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(month + "월 " + school + " 식단표", "UTF-8") + ".xlsx");
+		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(month + "월 " + dto.getSchool() + " 식단표", "UTF-8") + ".xlsx");
 		response.setContentType("ms-vnd/excel");
 
 		File filesPath = new File(realPath);
@@ -573,7 +575,7 @@ public class ExcelService {
 			filesPath.mkdir();
 		}
 
-		File file = new File(realPath+"/", month+"월+"+school+"+식단표.xlsx");
+		File file = new File(realPath+"/", month+"월+"+dto.getSchool()+"+식단표.xlsx");
 
 		FileOutputStream fileOutput = new FileOutputStream(file);
 

@@ -259,30 +259,8 @@
 	    			contentType: false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
 	    			cache:false
             	}).done(function(resp){
-            		console.log("수정완료" + resp);
-            		thismenu.html("");
-			        thismenu.append($("#menu1").val()+"<br>"+$("#menu2").val());
-			        
-            		if($("#menu3").val() != null && $("#menu3").val() != ""){
-            			thismenu.append("<br>"+$("#menu3").val());
-            		}else{thismenu.append("<br>");}
-            		
-            		if($("#menu4").val() != null && $("#menu4").val() != ""){
-            			thismenu.append("<br>"+$("#menu4").val());
-            		}else{thismenu.append("<br>");}
-            		
-            		if($("#menu5").val() != null && $("#menu5").val() != ""){
-            			thismenu.append("<br>"+$("#menu5").val());
-            		}else{thismenu.append("<br>");}
-            		
-            		if($("#menu6").val() != null && $("#menu6").val() != ""){
-            			thismenu.append("<br>"+$("#menu6").val());
-            		}else{thismenu.append("<br><br>");}
-            		
-            		thismenu.next(".sysname").val(resp);
-            		$(".savImg").remove();
-
-            		$("#modal").modal("hide");
+            		alert("수정완료");
+            		location.reload();
             	}) 
             })
         })

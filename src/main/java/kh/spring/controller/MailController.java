@@ -58,11 +58,11 @@ public class MailController {
 	public String sendMailTest(String title, String content, String month, String payment, HttpServletResponse response) throws Exception{
 		System.out.println("메일보내기");
 		System.out.println(title + " : " + month + " : " + payment + " : " + content);
-		//String finContent = XSSFillterConfig.XSSFilter(content)
-				//+ "\n http://localhost//sdt/researchHome?month="+month+"&payment="+payment;
-		
 		String finContent = XSSFillterConfig.XSSFilter(content)
-				+ "\n http://59.6.83.84//sdt/researchHome?month="+month+"&payment="+payment;
+				+ "\n http://localhost//sdt/researchHome?month="+month+"&payment="+payment;
+		
+//		String finContent = XSSFillterConfig.XSSFilter(content)
+//				+ "\n http://59.6.83.84//sdt/researchHome?month="+month+"&payment="+payment;
 		//String content = "메일 테스트 내용" + "<img src=\"이미지 경로\">";
 		//String from = "zlxl_3041@naver.com";
 		//String to = "project.hi.final@gmail.com";
@@ -105,7 +105,6 @@ public class MailController {
 			}
 			
 			mailHelper.setFrom(from);
-			System.out.println("중간에 넣고 나서 " + from);
 			mailHelper.setTo(toAddr);
 			mailHelper.setSubject(XSSFillterConfig.XSSFilter(title));
 			mailHelper.setText(finContent, true);
@@ -117,7 +116,7 @@ public class MailController {
 			
 			// 찐 FileSystemResource file = new FileSystemResource(new File("C:\\Users\\SeoSeunghee\\Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
 			String realPath = hsession.getServletContext().getRealPath("excelDownMail");
-			exservice.excelDownloadMail(XSSFillterConfig.XSSFilter(month), dto.getSchool(), realPath, response);
+			exservice.excelDownloadMail(XSSFillterConfig.XSSFilter(month), dto, realPath, response);
 			
 			FileSystemResource file = new FileSystemResource(new File(realPath+"\\"+XSSFillterConfig.XSSFilter(month)+"월+"+dto.getSchool()+"+식단표.xlsx"));
             mailHelper.addAttachment(XSSFillterConfig.XSSFilter(month)+"월+"+dto.getSchool()+"+식단표.xlsx", file);

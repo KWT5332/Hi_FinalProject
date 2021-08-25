@@ -91,10 +91,20 @@ input[type] {border-color: #b2dabd;}
         rgb(170, 170, 170);
         outline: 0 none;
     }
+    td{height:25px;}
 </style>
 <script>
 	$(function() {
       	$('#dataTable').DataTable({ // DataTables API 적용
+   		    "language": {
+     		   "emptyTable": "등록된 학생 주소록이 없습니다.",
+  	   		   "search": "검색 : ",
+  	           "zeroRecords": "일치하는 데이터가 업ㄱ습니다.",
+  	           "paginate": {
+  	               "next": "다음",
+  	               "previous": "이전"
+  	           }
+     		},
       		"columns":[
       			{"data" : "번호"},
       			{"data" : "학생이름"},
@@ -108,6 +118,7 @@ input[type] {border-color: #b2dabd;}
    			lengthMenu:[10,20,30], // 표시 건수 단위
    			lengthChange:false, // 표시건수 기능 숨기기
    			displayLength:10 // 기본적으로 1페이지당 표시될 게시물의 개수
+
       	});
 		
 	    function strNum(num){ // 8월달 08로 출력하기 만드는 함수.
@@ -346,9 +357,9 @@ input[type] {border-color: #b2dabd;}
 				<td scope="col">삭제</td>
 			</tr>
 			</thead>
-			<tbody>
-			<c:choose>
-				<c:when test="${not empty studentList }" >
+<%--  			<c:choose>
+				<c:when test="${not empty studentList }" > --%>
+					<tbody>
 					<c:forEach var="i" items="${studentList}" varStatus="status">
 						<tr class="student_list pt-1 pb-1">
 							<td scope="col" style="line-height:35px;">${status.count}</td>
@@ -360,16 +371,7 @@ input[type] {border-color: #b2dabd;}
 							<td scope="col"><button type="button" class="delete btn">삭제</button></td>
 						</tr>
 					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<tr>
-						<td colspan="6" class="p-4">
-						    <h5>저장된 학생 주소록이 없습니다.</h5>
-                    	</td>
-					</tr>
-				</c:otherwise>	
-			</c:choose>
-			</tbody>
+				</tbody>
 		</table>
 	</div>
 	

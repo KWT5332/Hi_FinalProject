@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.MealDTO;
+import kh.spring.dto.MemberDTO;
 
 @Repository
 public class MealDAO {
