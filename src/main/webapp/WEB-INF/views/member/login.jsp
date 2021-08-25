@@ -112,7 +112,7 @@
 						<input type="text" class="form-control inp_id " name="email" placeholder="example@mail.com">
 					</div>
 					<div class="minicon p-2">
-						<input type="text" class="form-control inp_id" name="pw" placeholder="비밀번호">
+						<input type="password" class="form-control inp_id" name="pw" placeholder="비밀번호">
 					</div>
 					<div class="minicon p-2">
 						<button class="btn  btn_rogin">로그인</button>
