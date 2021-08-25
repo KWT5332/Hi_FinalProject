@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -12,22 +11,20 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 <style>
-.container {
-	border: 1px solid #ddd;
-	margin: auto;
-	align: center;
-}
+.container {align: center;}
+#free{background-color: #124352;}
 #doardcon #main {width: 100%;}
 #doardcon h2 {width: 100%; text-align: center;}
 #doardcon table {width: 90%; text-align: center;}
-#doardcon #head {height: 50px; background-color: rgba(100, 148, 237, 0.699);}
-#doardcon #body {height: 40p}
+#doardcon #head {height: 50px; background-color: rgb(255, 241, 224, 0.8);}
+#doardcon #body {height: 50px;}
 #doardcon #footer {width: 90%;margin: auto;}
 #doardcon #navi {line-height: 35px;}
 #doardcon #backdiv {text-align: right;}
 #doardcon #search {text-align: right;}
-#free{background-color: #124352;}
 #doardcon .hit {
 	animation-name: blink;
 	animation-duration: 1.0s;
@@ -37,13 +34,49 @@
 }
 /* 애니메이션 지점 설정하기 */ /* 익스플로러 10 이상, 최신 모던 브라우저에서 지원 */
  @keyframes blink { from {color: white;} 30% {color: yellow;} to {color: red; font-weight: bold;} /* 0% {color:white;} 30% {color: yellow;} 100% {color:red; font-weight: bold;} */ }
+#dataTable_filter{width:100%;}
+ 
 </style>
 <script>
 	$(function(){
+      	$('#dataTable').DataTable({
+      		"columns":[
+      			{"data" : "번호"},
+      			{"data" : "제목"},
+      			{"data" : "작성자"},
+      			{"data" : "작성일"},
+      			{"data" : "조회수"}
+      		],
+   			order:[0,"desc"], // 정렬 초기화 작업 "asc"
+   			lengthMenu:[10,20,30], // 표시 건수 단위
+   			lengthChange:false, // 표시건수 기능 숨기기
+   			displayLength:10 // 기본적으로 1페이지당 표시될 게시물의 개수
+      	});
+		let filter = $("#dataTable_filter").html();
+		$("#dataTable_filter").html("");
+		$("#dataTable_filter").addClass("row m-0"); // 일단 비우고, row주고
+      	
+		let div1 = $("<div>");
+		div1.addClass("col-6");
+		div1.attr("text-align","left");
+		
+		let addbtn = $("<button>");
+		addbtn.addClass("btn btn-primary");
+		addbtn.append("글 쓰기");
+		addbtn.attr("id","addwrite");
+	
+		div1.append(addbtn); 
+		
+		let div2 = $("<div>");
+		div2.addClass("col-6 p-0");
+		div2.append(filter);
+		
+		$("#dataTable_filter").append(div1);
+		$("#dataTable_filter").append(div2);
+		
 		$("#addwrite").on("click",function(){
 			location.href="/bod/boardWrite";
 		})
-		
 	})
 </script>
 </head>
@@ -51,8 +84,8 @@
 <!-- header -->
  <jsp:include page="../layout/header.jsp"/>
  
-<div id="doardcon">
-	<div class="container p-3 mb-5 mt-5">
+	<div id="doardcon">
+	<div class="container p-5 mb-5">
 		<div class="row pt-4" id="main">
 			<h2>
 				<strong>자유게시판</strong>
@@ -77,7 +110,8 @@
 				</form>
 			</div>
 		</div>
-		<table border="1" align="center">
+		<table class="m-0 w-100" align="center" id="dataTable">
+			<thead>
 			<tr id="head">
 				<th width=10%>번호</th>
 				<th align="center" width=50%>제목</th>
@@ -85,6 +119,8 @@
 				<th align="center" width=15%>작성일</th>
 				<th align="center" width=10%>조회</th>
 			</tr>
+			</thead>
+			<tbody>
 			<c:forEach var="list" items="${list}">
 				<tr id="body">
 					<td>${list.seq}</td>
@@ -97,11 +133,11 @@
 					<td>${list.view_count}</td>
 				</tr>
 			</c:forEach>
+			</tbody>
 		</table>
 		<div id="footer" class="row pt-2">
 			<div class="col-12 p-0" id="write" style="text-align: right;">
-				<input type="button" value="글 쓰기" id="addwrite"
-					class="btn btn-primary">
+				
 			</div>
 		</div>
 	</div>
