@@ -58,16 +58,32 @@ public class MemberController {
 		System.out.println("로그인 화면");
 		return "member/login";
 	}
-	@RequestMapping("loginProc")
+	
+//	@RequestMapping("loginProc")
+//	public String loginProc(String email, String pw) {
+//		System.out.println("로그인");
+//		MemberDTO dto  = service.login(email, pw);
+//		if(dto != null) {
+//			session.setAttribute("login",dto);
+//			// 세션 유지시간 1시간
+//		    session.setMaxInactiveInterval(60*60) ;
+//		}
+//		return "redirect:/";
+//	}
+//로그인수정
+	@RequestMapping(value = "loginProc", method = RequestMethod.POST)
+	@ResponseBody
 	public String loginProc(String email, String pw) {
-		System.out.println("로그인");
-		MemberDTO dto  = service.login(email, pw);
+		MemberDTO dto = service.login(email, pw);
+				
 		if(dto != null) {
 			session.setAttribute("login",dto);
 			// 세션 유지시간 1시간
-		    session.setMaxInactiveInterval(60*60) ;
+			session.setMaxInactiveInterval(60*60) ;
+			return "success";	
+		} else {
+			return "fail";	
 		}
-		return "redirect:/";
 	}
 	@RequestMapping("mypage")
 	public String mypage() {

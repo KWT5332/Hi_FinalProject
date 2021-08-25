@@ -132,7 +132,7 @@
 			});
 		})
 		//비번일치여부
-		$(".inp_pw2").on("propertychange change keyup paste input", function() {
+		$(".inp_pw2,.inp_pw1").on("propertychange change keyup paste input", function() {
 			var inp_pw1 = $('.inp_pw1').val();
 			var inp_pw2 = $('.inp_pw2').val();
 			if (inp_pw1 != inp_pw2) {//불일치
@@ -144,9 +144,20 @@
 			}
 		});
 		$(".btn_modi_pw").click(function() {
-			setdto();
-			$('#pw').val($('.inp_pw2').val());
-			$("#frm_modi").attr("action", "/mem/modiPw").submit();
+			var inp_pw1 = $('.inp_pw1').val();
+			var inp_pw2 = $('.inp_pw2').val();
+			let pwReg = /^[a-z0-9]{6,15}$/;
+			if (inp_pw1 == inp_pw2) {
+				if (!(pwReg.test(inp_pw2))){
+					alert("형식에 맞지 않습니다.\n a-z,0-9로만 6~15자로 설정합니다.");
+				}else{
+					setdto();
+					$('#pw').val($('.inp_pw2').val());
+					$("#frm_modi").attr("action", "/mem/modiPw").submit();
+				}
+			}else{
+				alert("비밀번호가 일치하지 않습니다.");
+			}
 		})
 		//이름변경
 		$(".btn_modi_name_01").click(function() {
@@ -331,7 +342,7 @@
 					<div class="col-12">
 						<div class="row">
 							<div class="col-sm-6 col-md-6 col-lg-4">
-								<input type="text" class="form-control inp_modi_pw">
+								<input type="password" class="form-control inp_modi_pw">
 
 							</div>
 							<div class="col-sm-5 col-md-3 col-lg-2 ">
@@ -351,14 +362,14 @@
 						- 비밀번호는 <mark>a-z</mark> 그리고 <mark>0-9</mark>로만<mark>6자에서 15자 사이</mark>로 설정합니다.
 					</p>
 					<div class="col-12 col-sm-5 col-lg-5">
-						<input type="text" class="form-control inp_pw1 ">
+						<input type="password" class="form-control inp_pw1 ">
 					</div>
 					<div class="col-12">
 						<div class="row">
 							<div class="col-12 col-sm-5 col-lg-5">
-								<input type="text" class="form-control inp_pw2 mt-3">
+								<input type="password" class="form-control inp_pw2 mt-3">
 							</div>
-							<div class="col-12 col-sm-7 col-lg-6">
+							<div class="col-12 col-sm-7 col-lg-6 pt-3">
 								<div class="form-control  exex pw_input_re_1">비밀번호가 일치합니다.</div>
 								<div class="form-control  exex pw_input_re_2">비밀번호가 불일치합니다.</div>
 								<div class="col-md-1 col-lg-none"></div>
