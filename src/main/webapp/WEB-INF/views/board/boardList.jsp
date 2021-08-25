@@ -34,8 +34,9 @@
 }
 /* 애니메이션 지점 설정하기 */ /* 익스플로러 10 이상, 최신 모던 브라우저에서 지원 */
  @keyframes blink { from {color: white;} 30% {color: yellow;} to {color: red; font-weight: bold;} /* 0% {color:white;} 30% {color: yellow;} 100% {color:red; font-weight: bold;} */ }
-#dataTable_filter{width:100%;}
- 
+#dataTable_filter{width:100%;padding-right:2px;}
+#addwrite{width:100%;background-color:#dff1e4;color:rgb(105, 105, 105);border:1px solid #dff1e4;}
+#addwrite:hover{font-weight:700;color:rgb(94, 94, 94);background-color:#cbebd4;}
 </style>
 <script>
 	$(function(){
@@ -54,21 +55,19 @@
       	});
 		let filter = $("#dataTable_filter").html();
 		$("#dataTable_filter").html("");
-		$("#dataTable_filter").addClass("row m-0"); // 일단 비우고, row주고
+		$("#dataTable_filter").addClass("row m-0 mb-3"); // 일단 비우고, row주고
       	
 		let div1 = $("<div>");
-		div1.addClass("col-6");
-		div1.attr("text-align","left");
-		
+		div1.addClass("col-2 p-0");
+
 		let addbtn = $("<button>");
 		addbtn.addClass("btn btn-primary");
 		addbtn.append("글 쓰기");
 		addbtn.attr("id","addwrite");
-	
 		div1.append(addbtn); 
 		
 		let div2 = $("<div>");
-		div2.addClass("col-6 p-0");
+		div2.addClass("col-10 p-0");
 		div2.append(filter);
 		
 		$("#dataTable_filter").append(div1);
@@ -91,7 +90,7 @@
 				<strong>자유게시판</strong>
 			</h2>
 		</div>
-		<div class="row p-2">
+<%-- 		<div class="row p-2">
 			<div class="col-5 pt-2">
 				<c:choose>
 					<c:when test="${key!=null}">
@@ -109,9 +108,9 @@
 						name="cpage" value="1">
 				</form>
 			</div>
-		</div>
+		</div> --%>
 		<table class="m-0 w-100" align="center" id="dataTable">
-			<thead>
+			<thead style="border-top:1px solid black;">
 			<tr id="head">
 				<th width=10%>번호</th>
 				<th align="center" width=50%>제목</th>
