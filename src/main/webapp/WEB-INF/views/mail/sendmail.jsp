@@ -402,7 +402,7 @@ input[type] {border-color: #b2dabd;}
                         <div class="col-6"><input type="text" class="pl-2 form-control" id="month" name="month"></div>
                     </div>
                     <div class="row m-0">
-                        <div class="col-7 pr-0"><p class="m-0" style="text-align:left;line-height:38px;font-size:15px;">이번달 급식비(숫자로 적어주세요.)</p></div>
+                        <div class="col-7 pr-0"><p class="m-0" style="text-align:left;line-height:38px;font-size:15px;">이번달 급식비(숫자만 적어주세요.)</p></div>
                         <div class="col-5"><input type="text" class="pl-2 form-control" id="payment" name="payment"></div>
                     </div>
                     <hr>
