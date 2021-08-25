@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <style>
 	#meal{background-color: #124352;}
 	*{text-align:center;}
@@ -45,13 +46,23 @@
 			var file = $(this)[0].files[0];
 			
 			if(file.size >= 1048576) {
-			    alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+			    //alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+			    Swal.fire({
+					icon: 'warning',
+					title: '업로드 할 수 있는 \n파일 사이즈를 초과했습니다.',
+					text: '파일크기를 확인해주세요.'
+				 })
 			    return false;
 			}
 
 			let regex = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
 			if(!regex.test(file.name)){
-			    alert("이미지 파일만 업로드 가능합니다.");
+			    //alert("이미지 파일만 업로드 가능합니다.");
+			    Swal.fire({
+					icon: 'warning',
+					title: '이미지 파일만 업로드 가능합니다.',
+					text: '파일 형식을 확인해주세요'
+				})
 			    return false;
 			}
 			
@@ -83,7 +94,11 @@
                 $("#menu"+i).focus();
                 i++;
             }else{
-                alert("식단은 최대 6개 까지만 추가 가능합니다.");
+                //alert("식단은 최대 6개 까지만 추가 가능합니다.");
+                Swal.fire({
+					icon: 'warning',
+					title: '식단은 최대 6개 까지만\n추가 가능합니다.'
+				})
             }
         });
 
@@ -94,7 +109,11 @@
         		data:{"meal_date":$("#meal_date").val()}
         	}).done(function(resp){
         		if(resp=="1"){
-        			alert("이미 식단이 짜여져 있는 날짜입니다. 다른 날짜를 선택해주세요.");
+        			//alert("이미 식단이 짜여져 있는 날짜입니다. 다른 날짜를 선택해주세요.");
+        		Swal.fire({
+					icon: 'warning',
+					title: '이미 식단이 짜여져 있는 날짜입니다.\n다른 날짜를 선택해주세요.'
+				})
         			return false;
         		}else{
         			return true;
@@ -110,7 +129,11 @@
         $("#submit").on("click",function(){
         	let result = isDateOk();
         	if(result==false){
-        		alert("이미 식단이 짜여져 있는 날짜입니다. 다른 날짜를 선택해주세요.");
+        		//alert("이미 식단이 짜여져 있는 날짜입니다. 다른 날짜를 선택해주세요.");
+        		Swal.fire({
+					icon: 'warning',
+					title: '이미 식단이 짜여져 있는 날짜입니다.\n다른 날짜를 선택해주세요.'
+				})
         	}else if($("#meal_date").val() == null || $("#meal_date").val() == "") {
         		alert("날짜를 선택해주세요.");
         	}else if($("#menu1").val() == null || $("#menu1").val() == "" || $("#menu1").val() == " " 

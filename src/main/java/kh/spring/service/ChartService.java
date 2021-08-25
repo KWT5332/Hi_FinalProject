@@ -32,8 +32,8 @@ public class ChartService {
 		return cdao.bestOp(b_month);
 	}
 		
-	public List<PayDTO> payList(){
-		return pdao.payList();
+	public List<PayDTO> payList(String school){
+		return pdao.payList(school);
 	}
 	
 	// 급식비 인원

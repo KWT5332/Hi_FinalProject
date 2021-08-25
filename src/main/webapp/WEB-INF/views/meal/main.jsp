@@ -112,20 +112,29 @@
 		    var fileName = formData.get('file').name;
 		    
 		    if(formData.get('file').size >= 1048576) {
-		    	alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+		    	//alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+		    	Swal.fire({
+					icon: 'warning',
+					title: '업로드 할 수 있는 \n파일 사이즈를 초과했습니다.',
+					text: '파일크기를 확인해주세요.'
+				 })
 		    	return false;
 		    }
 
 		    let regex = /(.*?)\.xlsx/;
 		    if(!regex.test(fileName)){
-		    	alert("확장자가 .xlsx인 파일만 업로드 가능합니다.");
+		    	//alert("확장자가 .xlsx인 파일만 업로드 가능합니다.");
+		    	Swal.fire({
+					icon: 'warning',
+					title: '확장자가 .xlsx인 파일만 업로드 가능합니다.'
+				 })
 		    	return false;
 		    }
 		    
 		    // 추출한 파일명 삽입 
 	        $(this).siblings(".upload-name").val(fileName); 
 			
-	        if(confirm("선택하신 파일을 업로드 하시겠습니까?")){
+	        /* if(confirm("선택하신 파일을 업로드 하시겠습니까?")){
 	            $.ajax({
 	            	type:"POST",
 	            	url:"/excel/excelupload",
@@ -139,7 +148,33 @@
 		            $(".menu").remove(); // menu내용지우고
 			       	calAjax(resp); // 다시 내용 넣기
 	            })
-	        }
+	        }*/
+	        
+	        Swal.fire({ 
+	    		  title:'선택하신 파일을 업로드 하시겠습니까?', 
+	    		  icon: 'question', 
+	    		  showCancelButton: true, 
+	    		  confirmButtonColor: '#3085d6', 
+	    		  cancelButtonColor: '#d33', 
+	    		  confirmButtonText: '업로드', 
+	    		  cancelButtonText: '취소' 
+	    	}).then((result) => {
+	    		if(result.value){
+					$.ajax({
+						type:"POST",
+		            	url:"/excel/excelupload",
+		            	data:formData,
+		    			processData: false, // data가 서버에 전달될때 String 형식아니고 "multipart/form-data"로 보내야됨
+		    			contentType: false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
+		    			cache:false
+					}).done(function(resp) {
+						console.log(resp);
+			            $(".upload-name").val("파일선택");
+			            $(".menu").remove(); // menu내용지우고
+				       	calAjax(resp); // 다시 내용 넣기
+					})	
+	    		}
+	    	})
 		});
 
 	    // 엑셀 업로드 양식 다운받기
@@ -268,7 +303,7 @@
 		$("#delete").on("click",function(){ // 삭제버튼
 			let date = $("#exampleModalLabel").text(); // 날짜가져오기
 			console.log(date);
-        	if(confirm("정말 삭제 하시겠습니까?")){
+        	/* if(confirm("정말 삭제 하시겠습니까?")){
             	$.ajax({
                 	url:"/meal/delete",
                 	data:{"meal_date":date},
@@ -279,7 +314,29 @@
                 })
             }else {
             	$("#modal").modal("hide");
-            }
+            }*/
+            Swal.fire({ 
+	    		  title:'정말 삭제 하시겠습니까?', 
+	    		  icon: 'warning', 
+	    		  showCancelButton: true, 
+	    		  confirmButtonColor: '#3085d6', 
+	    		  cancelButtonColor: '#d33', 
+	    		  confirmButtonText: '삭제', 
+	    		  cancelButtonText: '취소' 
+	    	}).then((result) => {
+	    		if(result.value){
+	    			$.ajax({
+	                	url:"/meal/delete",
+	                	data:{"meal_date":date},
+	                	cache:false,
+	                	success : function() {
+	                		$("."+date).children(".menu").remove();
+	        			}
+	                })
+	    		}else{
+	    			$("#modal").modal("hide");
+	    		}
+	    	})
 		})
 		
 		// 모달 사진 변경
@@ -287,13 +344,23 @@
 			var file = $(this)[0].files[0];
 			
 			if(file.size >= 1048576) {
-			    alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+			    //alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
+			    Swal.fire({
+					icon: 'warning',
+					title: '업로드 할 수 있는 \n파일 사이즈를 초과했습니다.',
+					text: '파일크기를 확인해주세요.'
+				 })
 			    return false;
 			}
 
 			let regex = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
 			if(!regex.test(file.name)){
-			    alert("이미지 파일만 업로드 가능합니다.");
+			    //alert("이미지 파일만 업로드 가능합니다.");
+			     Swal.fire({
+					icon: 'warning',
+					title: '이미지 파일만 업로드 가능합니다.',
+					text: '파일 형식을 확인해주세요'
+				})
 			    return false;
 			}
 			

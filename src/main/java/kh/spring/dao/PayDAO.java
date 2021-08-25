@@ -18,8 +18,8 @@ public class PayDAO {
 		return mybatis.insert("Pay.insert", dto);
 	}
 	
-	public List<PayDTO> payList() {
-		return mybatis.selectList("Pay.payList");
+	public List<PayDTO> payList(String school) {
+		return mybatis.selectList("Pay.payList", school);
 	}
 	
 }
