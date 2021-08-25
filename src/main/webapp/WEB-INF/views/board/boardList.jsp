@@ -34,13 +34,35 @@
 }
 /* 애니메이션 지점 설정하기 */ /* 익스플로러 10 이상, 최신 모던 브라우저에서 지원 */
  @keyframes blink { from {color: white;} 30% {color: yellow;} to {color: red; font-weight: bold;} /* 0% {color:white;} 30% {color: yellow;} 100% {color:red; font-weight: bold;} */ }
-#dataTable_filter{width:100%;padding-right:2px;}
-#addwrite{width:100%;background-color:#dff1e4;color:rgb(105, 105, 105);border:1px solid #dff1e4;}
+#dataTable_filter{width:100%;padding-right:2px;margin-bottom:7px;}
+#addwrite{height:45px;background-color:#dff1e4;color:rgb(90, 90, 90);border:1px solid #dff1e4;font-weight:700;}
 #addwrite:hover{font-weight:700;color:rgb(94, 94, 94);background-color:#cbebd4;}
+.seqlink{color:black;}
+#text{position:relative;}
+#text:after{
+	content:'';
+	display:block;
+	width:105%;
+	height:10px;
+	position:absolute;
+	bottom:3px;
+	left:-5px;
+	background:rgb(255, 196, 119, 0.8);
+	z-index: -5;
+}
 </style>
 <script>
 	$(function(){
       	$('#dataTable').DataTable({
+   		    "language": {
+      		   "emptyTable": "등록된 글이이 없습니다.",
+   	   		   "search": "검색 : ",
+   	           "zeroRecords": "일치하는 데이터가 없습니다.",
+   	           "paginate": {
+   	               "next": "다음",
+   	               "previous": "이전"
+   	           }
+      		},
       		"columns":[
       			{"data" : "번호"},
       			{"data" : "제목"},
@@ -53,26 +75,7 @@
    			lengthChange:false, // 표시건수 기능 숨기기
    			displayLength:10 // 기본적으로 1페이지당 표시될 게시물의 개수
       	});
-		let filter = $("#dataTable_filter").html();
-		$("#dataTable_filter").html("");
-		$("#dataTable_filter").addClass("row m-0 mb-3"); // 일단 비우고, row주고
       	
-		let div1 = $("<div>");
-		div1.addClass("col-2 p-0");
-
-		let addbtn = $("<button>");
-		addbtn.addClass("btn btn-primary");
-		addbtn.append("글 쓰기");
-		addbtn.attr("id","addwrite");
-		div1.append(addbtn); 
-		
-		let div2 = $("<div>");
-		div2.addClass("col-10 p-0");
-		div2.append(filter);
-		
-		$("#dataTable_filter").append(div1);
-		$("#dataTable_filter").append(div2);
-		
 		$("#addwrite").on("click",function(){
 			location.href="/bod/boardWrite";
 		})
@@ -86,9 +89,13 @@
 	<div id="doardcon">
 	<div class="container p-5 mb-5">
 		<div class="row pt-4" id="main">
-			<h2>
-				<strong>자유게시판</strong>
-			</h2>
+			<h1 class="col-12 mb-3" style="text-align:center" >
+				<strong id=text>자유게시판</strong>
+			</h1>
+		</div>
+		
+			<div class="col-12" style="text-align:left;">
+				<button class="btn" id="addwrite">글 작성하기</button>
 		</div>
 <%-- 		<div class="row p-2">
 			<div class="col-5 pt-2">
@@ -109,12 +116,12 @@
 				</form>
 			</div>
 		</div> --%>
-		<table class="m-0 w-100" align="center" id="dataTable">
+		<table class="m-0 w-100 hover" align="center" id="dataTable">
 			<thead style="border-top:1px solid black;">
 			<tr id="head">
 				<th width=10%>번호</th>
-				<th align="center" width=50%>제목</th>
-				<th align="center" width=15%>작성자</th>
+				<th align="center" width=45%>제목</th>
+				<th align="center" width=20%>작성자</th>
 				<th align="center" width=15%>작성일</th>
 				<th align="center" width=10%>조회</th>
 			</tr>
@@ -123,8 +130,8 @@
 			<c:forEach var="list" items="${list}">
 				<tr id="body">
 					<td>${list.seq}</td>
-					<td id="title"><a href="/bod/viewProc?seq=${list.seq}">${list.title}</a>
-						<c:if test="${list.view_count >= 10 }">
+					<td id="title"><a class="seqlink" href="/bod/viewProc?seq=${list.seq}">${list.title}</a>
+						<c:if test="${list.view_count >= 30 }">
 							<span class="hit">hit!</span>
 						</c:if></td>
 					<td>${list.writer}</td>
