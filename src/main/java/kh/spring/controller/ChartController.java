@@ -48,7 +48,7 @@ public class ChartController {
 //		List<MealDTO> bestList = Csv.bestList(b_month);
 //		m.addAttribute("bestList", bestList);
 		
-		List<PayDTO> payList = Csv.payList();
+		List<PayDTO> payList = Csv.payList(school);
 		m.addAttribute("payList", payList);
 		
 		// 결제인원

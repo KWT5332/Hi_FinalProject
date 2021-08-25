@@ -11,7 +11,7 @@
 	</insert>
 	
 	<select id="payList" resultType="kh.spring.dto.PayDTO">
-		select * from st_payment order by month, pay_date desc
+		select * from st_payment where st_school=#{school} order by month, pay_date desc
 	</select>
 	
 </mapper>
