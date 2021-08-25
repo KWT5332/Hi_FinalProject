@@ -16,7 +16,6 @@
 <style>
 	#meal{background-color: #124352;}
 	*{text-align: center;box-sizing: border-box;}
-	
 	#excelName{ 
 		position: absolute; width: 1px; height: 1px; 
 	    padding: 0; margin: -1px; 

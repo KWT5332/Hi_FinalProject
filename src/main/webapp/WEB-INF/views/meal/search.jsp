@@ -23,14 +23,11 @@ $(function(){
   	$("#search").on("keydown",function(e){
     	if(e.keyCode==13 && e.shiftKey == false){ 
         	let keyword = $("#search").val();
-          	
         	location.href = "/meal/searchlist?keyword=" + keyword;
-        	
             return false;
     	}
   	})
-  	
-
+  
   	$('#table_id').DataTable({
   		lengthChange:false,
   		searching:false

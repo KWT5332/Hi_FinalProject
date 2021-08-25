@@ -27,7 +27,6 @@ select[type]:focus {
 		rgb(184, 223, 216, 0.6);
 	outline: 0 none;
 }
-
 input[type]:focus {
 	border-color: rgba(184, 223, 216, 0.5);
 	box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px
@@ -118,7 +117,6 @@ input[type] {border-color: #b2dabd;}
    			lengthMenu:[10,20,30], // 표시 건수 단위
    			lengthChange:false, // 표시건수 기능 숨기기
    			displayLength:10 // 기본적으로 1페이지당 표시될 게시물의 개수
-
       	});
 		
 	    function strNum(num){ // 8월달 08로 출력하기 만드는 함수.
@@ -128,6 +126,7 @@ input[type] {border-color: #b2dabd;}
 	             return num;
 	        }
 	    }
+	    
 		/* 메일전체발송 */
 		$(".btn_sendmail").click(function() {
 			$("#modal").modal("show");
@@ -151,23 +150,30 @@ input[type] {border-color: #b2dabd;}
 					url : "/mail/sendMailProc", 
 					data:{"title":$("#title").val(), "content":$("#content").val(), "month":strMonth, "payment":$("#payment").val()}
  				}).done(function(resp) {
- 						$("#modal").modal("hide");
-						console.log("확인");
+ 					alert("메일 발송 완료!");
+ 					$("#modal").modal("hide");
 				}) 
 			})
 		})
+		
 		/* 학생정보추가 */
 		$("#add").click(function(){
-			$.ajax({
-				type : "POST",
-				url : "/mail/addStudentProc",
-				data: $("#frm").serialize(),
-				success : function(){
-					$("#stu_name").val("");
-					$("#stu_email").val("");
-					location.reload();
-				}
-			})
+			if($("#stu_name").val() == null || $("#stu_name").val() == "") {
+				alert("학생 이름을 입력해주세요.");
+			}else if($("#stu_email").val() == null || $("#stu_email").val() == "") {
+				alert("학생 이메일을 입력해주세요.");
+			}else{
+				$.ajax({
+					type : "POST",
+					url : "/mail/addStudentProc",
+					data: $("#frm").serialize(),
+					success : function(){
+						$("#stu_name").val("");
+						$("#stu_email").val("");
+						location.reload();
+					}
+				})
+			}
 		})
 		
 		/*$(".delete").click(function(){
