@@ -110,8 +110,6 @@
 		    //formData.append("file", $(this)[0].files[0]); //배열로 되어있음 / formData는 Map과 같은 형태
 		        
 		    var fileName = formData.get('file').name;
-		    // 추출한 파일명 삽입 
-	        $(this).siblings(".upload-name").val(fileName); 
 		    
 		    if(formData.get('file').size >= 1048576) {
 		    	alert("업로드 할 수 있는 파일 사이즈를 초과했습니다.");
@@ -123,6 +121,9 @@
 		    	alert("확장자가 .xlsx인 파일만 업로드 가능합니다.");
 		    	return false;
 		    }
+		    
+		    // 추출한 파일명 삽입 
+	        $(this).siblings(".upload-name").val(fileName); 
 			
 	        if(confirm("선택하신 파일을 업로드 하시겠습니까?")){
 	            $.ajax({

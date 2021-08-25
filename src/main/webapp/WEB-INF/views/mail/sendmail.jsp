@@ -16,6 +16,8 @@
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 <style>
 #mail{background-color: #124352;}
 * {box-sizing: border-box;}
@@ -92,6 +94,22 @@ input[type] {border-color: #b2dabd;}
 </style>
 <script>
 	$(function() {
+      	$('#dataTable').DataTable({ // DataTables API 적용
+      		"columns":[
+      			{"data" : "번호"},
+      			{"data" : "학생이름"},
+      			{"data" : "소속학교"},
+      			{"data" : "이메일"},
+      			{"data" : "수정"},
+      			{"data" : "삭제"}
+      		],
+   			order:[0,"desc"], // 정렬 초기화 작업 "asc"
+   			ordering:false,
+   			lengthMenu:[10,20,30], // 표시 건수 단위
+   			lengthChange:false, // 표시건수 기능 숨기기
+   			displayLength:10 // 기본적으로 1페이지당 표시될 게시물의 개수
+      	});
+		
 	    function strNum(num){ // 8월달 08로 출력하기 만드는 함수.
 	        if(num<10){
 	            return "0" + num;
@@ -316,8 +334,9 @@ input[type] {border-color: #b2dabd;}
     </div>
 		
 	<div class="container studentcon p-5" style="text-align:center">
-		<h3 class="mb-4">학생 이메일 주소록</h3>
-		<table class="table">
+		<h2 class="mb-3">학생 이메일 주소록</h2>
+		<table class="table m-0 mb-1 w-100" id="dataTable">
+			<thead>
 			<tr>
 				<td scope="col">번호</td>
 				<td scope="col">학생이름</td>
@@ -326,15 +345,17 @@ input[type] {border-color: #b2dabd;}
 				<td scope="col">수정</td>
 				<td scope="col">삭제</td>
 			</tr>
+			</thead>
+			<tbody>
 			<c:choose>
 				<c:when test="${not empty studentList }" >
 					<c:forEach var="i" items="${studentList}" varStatus="status">
-						<tr class="student_list">
-							<td scope="col">${status.count}</td>
+						<tr class="student_list pt-1 pb-1">
+							<td scope="col" style="line-height:35px;">${status.count}</td>
 							<input type="hidden" class="seq" name="seq" value="${i.seq }">
-							<td scope="col" class="name">${i.stu_name}</td>
-							<td scope="col" class="school">${i.school}</td>
-							<td scope="col" class="email">${i.stu_email}</td>
+							<td scope="col" class="name" style="line-height:35px;">${i.stu_name}</td>
+							<td scope="col" class="school" style="line-height:35px;">${i.school}</td>
+							<td scope="col" class="email" style="line-height:35px;">${i.stu_email}</td>
 							<td scope="col"><button type="button" class="modify btn">수정</button></td>
 							<td scope="col"><button type="button" class="delete btn">삭제</button></td>
 						</tr>
@@ -348,6 +369,7 @@ input[type] {border-color: #b2dabd;}
 					</tr>
 				</c:otherwise>	
 			</c:choose>
+			</tbody>
 		</table>
 	</div>
 	
