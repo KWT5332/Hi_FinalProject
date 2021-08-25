@@ -23,16 +23,6 @@ body{
 	font-family:'GowunDodum-Regular';
 } 
 
-/* @font-face {
-    font-family: 'SpoqaHanSansNeo-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-body{
-	font-family: 'SpoqaHanSansNeo-Regular';
-} */
 * {box-sizing: border-box;}
 .container {width:500px; height:400px; position:absolute; top:50%; left:50%; margin:-200px 0px 0px -250px; background:white;}
 
@@ -90,8 +80,8 @@ input[id=payment]{width:200px; display:inline-block;}
 			 var msg = '결제에 실패하였습니다. \n 결제 페이지로 돌아갑니다.';
 		     msg += '\n 에러내용 : ' + rsp.error_msg;
 		     javascript:history.back();
-/* 		     location.href="/sdt/payHome";
- */			}
+ 		     /*location.href="/sdt/payHome";*/
+ 		     }
 			alert(msg);
 			});
 		}
@@ -100,6 +90,22 @@ input[id=payment]{width:200px; display:inline-block;}
 		$("#pay").on("click", function(){
 			iamport();
 		})
+		
+		/* let name = $("#st_name").val();
+		let email = $("#st_email").val();
+		
+		$("#pay").on("click", function(){
+			if(name==""){
+				alert("이름을 입력해주세요.");
+				$("#st_name").focus();
+				return;
+			} else(email==""){
+				alert("이메일을 입력해주세요.");
+				$("#st_email").focus();
+				
+			}
+		}) */
+		
 	})
 
 </script>
@@ -120,7 +126,7 @@ input[id=payment]{width:200px; display:inline-block;}
 				학생 이름
 			</div>
 			<div class="col-8 input">
-				<input class="form-control" type="text" name="st_name" id="st_name">
+				<input class="form-control" type="text" name="st_name" id="st_name" required>
 			</div>
 		</div>
 		
@@ -130,7 +136,7 @@ input[id=payment]{width:200px; display:inline-block;}
 			</div>
 			
 			<div class="col-8 input">
-				<input class="form-control" type="text" name="st_email" id="st_email">
+				<input class="form-control" type="text" name="st_email" id="st_email" required>
 			</div>
 		</div>
 		
@@ -140,7 +146,7 @@ input[id=payment]{width:200px; display:inline-block;}
 			</div>
 			
 			<div class="col-8 input">
-				<input class="form-control" type="text" name="st_school" id="st_school">
+				<input class="form-control" type="text" name="st_school" id="st_school" value="${school}" readonly>
 			</div>
 		</div>
 		
@@ -161,32 +167,6 @@ input[id=payment]{width:200px; display:inline-block;}
 		</div>
 	
 	</div>
-
-	<%-- <table align="center">
-		<tr>
-			<th colspan="2">${month}월 결제정보
-			<input type="hidden" id="month" value="${month}">
-		</tr>
-		<tr>
-			<td>학생이름
-			<td><input type="text" name="st_name" id="st_name">
-		</tr>
-		<tr>
-			<td>학생 이메일
-			<td><input type="text" name="st_email" id="st_email">
-		</tr>
-		<tr>
-			<td>소속학교
-			<td><input type="text" name="st_school" id="school">
-		</tr>
-		<tr>
-			<td>결제금액
-			<td><input type="text" id="payment" name="payment" value="${pay}">
-		</tr>		
-		<tr>
-			<td><button id="pay">결제하기</button>
-		</tr>
-	</table> --%>
 
 </body>
 </html>

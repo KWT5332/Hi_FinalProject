@@ -44,68 +44,73 @@ public class ChartDAO {
 		return result;
 	}
 	
-	public int allPay(String school) {
-		int result = mybatis.selectOne("Chart.pay", school);
-		//System.out.println(school + " : " + result);
+	public int allPay(Map<String, String> param) {
+		int result = mybatis.selectOne("Chart.pay", param);
 		return result;
 	}
 	
+//	public int allPay(String school) {
+//		int result = mybatis.selectOne("Chart.pay", school);
+//		//System.out.println(school + " : " + result);
+//		return result;
+//	}
+	
 	
 	// feedback counting
-	public int feed01(String parent_email) {
-		return mybatis.selectOne("Chart.feed01", parent_email);
+	public int feed01(Map<String, String> param) {
+		return mybatis.selectOne("Chart.feed01", param);
 	}
 
-	public int feed02(String parent_email) {
-		return mybatis.selectOne("Chart.feed02", parent_email);
+	public int feed02(Map<String, String> param) {
+		return mybatis.selectOne("Chart.feed02", param);
 	}
 	
-	public int feed03(String parent_email) {
-		return mybatis.selectOne("Chart.feed03", parent_email);
+	public int feed03(Map<String, String> param) {
+		return mybatis.selectOne("Chart.feed03", param);
 	}
 	
-	public int feed04(String parent_email) {
-		return mybatis.selectOne("Chart.feed04", parent_email);
+	public int feed04(Map<String, String> param) {
+		return mybatis.selectOne("Chart.feed04", param);
 	}
 	
-	public int feed05(String parent_email) {
-		return mybatis.selectOne("Chart.feed05", parent_email);
+	public int feed05(Map<String, String> param) {
+		return mybatis.selectOne("Chart.feed05", param);
 	}
 	
 	
 	// taste counting
-	public int taste01(String parent_email) {
-		return mybatis.selectOne("Chart.taste01", parent_email);
+	public int taste01(Map<String, String> param) {
+		return mybatis.selectOne("Chart.taste01", param);
 	}
 	
-	public int taste02(String parent_email) {
-		return mybatis.selectOne("Chart.taste02", parent_email);
+	public int taste02(Map<String, String> param) {
+		return mybatis.selectOne("Chart.taste02", param);
 	}
 	
-	public int taste03(String parent_email) {
-		return mybatis.selectOne("Chart.taste03", parent_email);
+	public int taste03(Map<String, String> param) {
+		return mybatis.selectOne("Chart.taste03", param);
 	}
 	
 	
 	// amount counting
-	public int amount01(String parent_email) {
-		return mybatis.selectOne("Chart.amount01", parent_email);
+	public int amount01(Map<String, String> param) {
+		return mybatis.selectOne("Chart.amount01", param);
 	}
 	
-	public int amount02(String parent_email) {
-		return mybatis.selectOne("Chart.amount02", parent_email);
+	public int amount02(Map<String, String> param) {
+		return mybatis.selectOne("Chart.amount02", param);
 	}
 	
-	public int amount03(String parent_email) {
-		return mybatis.selectOne("Chart.amount03", parent_email);
+	public int amount03(Map<String, String> param) {
+		return mybatis.selectOne("Chart.amount03", param);
 	}
 	
-	public int amount04(String parent_email) {
-		return mybatis.selectOne("Chart.amount04", parent_email);
+	public int amount04(Map<String, String> param) {
+		return mybatis.selectOne("Chart.amount04", param);
 	}
 	
-	public int amount05(String parent_email) {
-		return mybatis.selectOne("Chart.amount05", parent_email);
+	public int amount05(Map<String, String> param) {
+		return mybatis.selectOne("Chart.amount05", param);
 	}
 	
 	
