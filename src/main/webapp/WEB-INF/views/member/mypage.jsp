@@ -520,6 +520,7 @@
 		</div>
 	</form>
 	<jsp:include page="../layout/footer.jsp" />
+	
 </body>
 </html>
 
