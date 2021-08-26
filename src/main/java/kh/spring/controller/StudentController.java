@@ -26,54 +26,58 @@ public class StudentController {
 	@Autowired
 	private HttpSession session;
 	
+	// 설문조사 페이지
 	@RequestMapping("researchHome")
-	public String researchHome(String month, String pm, String school, String email, Model m) {
+	public String researchHome(String school, String email, String pm, Model m) {
+
+		// 이번 달 기준 한달 전, 한달 후 날짜
+		Calendar b_mon = Calendar.getInstance();
+		b_mon.add(Calendar.MONTH , -1);
 		
-		// 한달 전 날짜
 		Calendar mon = Calendar.getInstance();
-		mon.add(Calendar.MONTH , -1);
-		String b_month = new java.text.SimpleDateFormat("MM").format(mon.getTime());
-		System.out.println(b_month);
-		System.out.println(month);
+		mon.add(Calendar.MONTH, +1);
 		
-		List<MealDTO> list = Ssv.bestOp(b_month);
+		String b_month = new java.text.SimpleDateFormat("MM").format(b_mon.getTime());
+		String month = new java.text.SimpleDateFormat("MM").format(mon.getTime());
+		
+		List<MealDTO> list = Ssv.bestOp(b_month, school);
 		m.addAttribute("bestOp", list);
 		m.addAttribute("b_month", b_month);
 		m.addAttribute("month", month);
-		m.addAttribute("payment", pm);
 		m.addAttribute("school", school);
 		m.addAttribute("parent_email", email);
-		System.out.println(pm + " : " + school + " : " + email);
-		
+		m.addAttribute("payment", pm);
+		System.out.println("설문조사 페이지 : " + b_month + " : " + month + " : " + school + " : " + email + " : " + pm);
+
 		return "student/research";
 	}
 	
+	// 설문조사 결과 저장
 	@RequestMapping("researchResult")
-	public String reserchResult(String school, String b_month, String month, String payment, String email, ChartDTO dto) {
-		System.out.println(b_month + " : " + month + " : " + school + " : " + payment + " : " + email);
+	public String reserchResult(String b_month, String month, String email, String school, String payment, ChartDTO dto) {
 		int result = Ssv.researchInsert(dto);
+		System.out.println("설문조사 결과 저장 : " + b_month + " : " + month + " : " + email + " : " + school + " : " + payment);
 		return "forward:/sdt/payHome";
 	}
 	
+	// 결제 페이지
 	@RequestMapping("payHome")
-	public String payHome(String school, String month, String payment, Model m) {
-		System.out.println(school + " : " + month + " : " + payment);
+	public String payHome(String month, String school, String payment, Model m) {
 		int pay = Integer.parseInt(payment);
 		
 		m.addAttribute("school", school);
 		m.addAttribute("month", month);
 		m.addAttribute("pay", pay);
-		
-		System.out.println(month + "월 급식비 : " + pay);
-		
+		System.out.println("결제 페이지 : " + month + " : " + school +" : " + payment);
+
 		return "student/payment";
 	}
 	
 	
 	@RequestMapping("payInfo")
 	public String payInfo(PayDTO dto) {
-		System.out.println();
 		int result = Ssv.payInsert(dto);
+		System.out.println("결제 정보 저장");
 		return "redirect:/";
 	}
 	

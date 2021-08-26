@@ -92,14 +92,14 @@ select > option {text-align:center;}
 <body>
 
 	<form action="/sdt/researchResult" method="post" align="center">
-		<div class="container">
+		<div class="container shadow-lg p-3 mb-5 bg-white rounded">
 		
 			<div class="row">
 				<div class="col">
-					<h1 id="title">급식 만족도 설문조사</h1>
+					<h1 id="title"><strong>급식 만족도 설문조사</strong></h1>
 					<br>
-					지난 달 급식 만족도 설문조사를 진행합니다.
-					<br> 설문조사 종료 뒤, 다음 달 급식비 결제 링크로 넘어갑니다.
+					${b_month}월 급식 만족도 설문조사를 진행합니다.
+					<br> 설문조사 종료 뒤, ${month}월 급식비 결제 링크로 넘어갑니다.
 					
 				</div>
 			</div>
@@ -203,13 +203,14 @@ select > option {text-align:center;}
 			<hr>
 			<div class="row">
 				<div class="col question">
-					<strong>이번 달 급식 중 가장 선호하는 급식은 무엇입니까?</strong>
+					<strong>${b_month}월 급식 중 가장 선호하는 급식은 무엇입니까?</strong>
 				</div>
 			</div>
 	
 			<div class="row answer">
 				<div class="col">				
 					<select class="custom-select" name="bestmenu" style="width:700px;">
+					  <option selected>${b_month}월 메뉴입니다.</option>
 						<c:forEach var="i" items="${bestOp}" varStatus="s">
 							<option value="(${s.count})${i.menu1}/${i.menu2}/${i.menu3}/${i.menu4}/${i.menu5}/${i.menu6}">
 								${i.menu1}/${i.menu2}/${i.menu3}/${i.menu4}/${i.menu5}/${i.menu6}</option>
