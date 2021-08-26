@@ -35,7 +35,7 @@
 /* 애니메이션 지점 설정하기 */ /* 익스플로러 10 이상, 최신 모던 브라우저에서 지원 */
  @keyframes blink { from {color: white;} 30% {color: yellow;} to {color: red; font-weight: bold;} /* 0% {color:white;} 30% {color: yellow;} 100% {color:red; font-weight: bold;} */ }
 #dataTable_filter{width:100%;padding-right:2px;margin-bottom:7px;}
-#addwrite{height:45px;background-color:#dff1e4;color:rgb(90, 90, 90);border:1px solid #dff1e4;font-weight:700;}
+#addwrite{height:40px;background-color:#dff1e4;color:rgb(90, 90, 90);border:1px solid #dff1e4;font-weight:700;margin-left:30px;width:150px;}
 #addwrite:hover{font-weight:700;color:rgb(94, 94, 94);background-color:#cbebd4;}
 .seqlink{color:black;}
 #text{position:relative;}
@@ -76,6 +76,14 @@
    			displayLength:10 // 기본적으로 1페이지당 표시될 게시물의 개수
       	});
       	
+      	let btn = $("<button>");
+      	btn.addClass("col-6 ml-0");
+      	btn.append("글 작성하기");
+      	btn.attr("id","addwrite");
+      	
+      	$("#dataTable_filter").addClass("col-6");
+      	$("#dataTable_filter").after(btn);
+      	
 		$("#addwrite").on("click",function(){
 			location.href="/bod/boardWrite";
 		})
@@ -89,14 +97,14 @@
 	<div id="doardcon">
 	<div class="container p-5 mb-5">
 		<div class="row pt-4" id="main">
-			<h1 class="col-12 mb-3" style="text-align:center" >
+			<h1 class="col-12 mb-5" style="text-align:center" >
 				<strong id=text>자유게시판</strong>
 			</h1>
 		</div>
 		
-			<div class="col-12" style="text-align:left;">
+<!-- 			<div class="col-12 pr-0 pb-2" style="text-align:right;">
 				<button class="btn" id="addwrite">글 작성하기</button>
-		</div>
+			</div> -->
 <%-- 		<div class="row p-2">
 			<div class="col-5 pt-2">
 				<c:choose>
