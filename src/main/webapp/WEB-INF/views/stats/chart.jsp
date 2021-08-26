@@ -23,14 +23,30 @@
     font-style: normal;
 }
 body{font-family:'GowunDodum-Regular';} 
-
+.row {text-align:center;}
 .info{
 	margin:20px 0px 20px 0px;
-	padding-top:10px;
+	padding-top:20px;
 	font-size:20px;
-	border:1px solid #1A8763;
 }
+.info p{border: 1px solid #b2dabd; border-radius:5px;}
+.chart-box {text-align:center;}
 .chart {margin: 50px 0px 50px 0px;}
+.all #main {width: 100%;}
+.all #text{position:relative;}
+.all #text:after{
+	content:'';
+	display:block;
+	width:105%;
+	height:10px;
+	position:absolute;
+	bottom:3px;
+	left:-5px;
+	background:rgb(255, 196, 119, 0.8);
+	z-index: -5;
+}
+#btn {height:45px;background-color:#dff1e4;color:rgb(90, 90, 90);border:1px solid #dff1e4;font-weight:700;}
+#btn:hover {font-weight:700;color:rgb(94, 94, 94);background-color:#cbebd4;}
 
 </style>
 
@@ -54,7 +70,7 @@ body{font-family:'GowunDodum-Regular';}
 		]);
 
 		var options = {
-			title:'전체인원 대비 결제인원',
+			/* title:'전체인원 대비 결제인원', */
 			width:500, height:500,
 			chartArea:{width:"80%", height:"80%"}, /* 여백 */
 			pieSliceText:'label',
@@ -80,14 +96,14 @@ body{font-family:'GowunDodum-Regular';}
 		]);
 
 		var options = {
-			title:'[질문] 학교 급식에 대하여 어떻게 생각하십니까?',
+			/* title:'[질문] 학교 급식에 대하여 어떻게 생각하십니까?', */
 			width:500, height:500,
 			pieSliceText:'label',
 			chartArea:{width:"80%",height:"80%"}, /* 여백 */
 			legend: { position: 'bottom' },
 			is3D:'true',
 			slices: {
-				0: {color: '#f7786b', opacity: 0.6}, 
+				0: {color: '#f7786b', opacity: 0.6, offset: 0.1}, 
 				1: {color: '#f7cac9', offset: 0.1}, 
 				2: {color: '#91a8d0', opacity: 0.6}, 
 				3: {color: '#034f84', offset: 0.3}, 
@@ -112,12 +128,12 @@ body{font-family:'GowunDodum-Regular';}
 		]);
 
 		var options = {
-			title:'[질문] 음식의 간은 적당합니까?',
+			/* title:'[질문] 음식의 간은 적당합니까?', */
 			width:500, height:500,
-			pieHole: 0.3,
 			pieSliceText:'label',
 			chartArea:{width:"80%",height:"80%"}, /* 여백 */
 			legend: { position: 'bottom' },
+			is3D:'true',
 			slices: {
 				0: {color: '#ffe194', opacity: 0.6}, 
 				1: {color: '#b8dfd8', offset: 0.1}, 
@@ -144,14 +160,14 @@ body{font-family:'GowunDodum-Regular';}
 		]);
 
 		var options = {
-			title:'[질문] 급식되는 양은 만족스럽습니까?',
+			/* title:'[질문] 급식되는 양은 만족스럽습니까?', */
 			width:500, height:500,
 			pieSliceText:'label',
 			chartArea:{width:"80%",height:"80%"}, /* 여백 */
 			legend: { position: 'bottom' },
 			is3D:'true',
 			slices: {
-				0: {color: '#0c4c8a', opacity: 0.6}, 
+				0: {color: '#0c4c8a', opacity: 0.6, offset: 0.1}, 
 				1: {color: '#5587a2', opacity: 0.6}, 
 				2: {color: '#f6d258', offset: 0.1}, 
 				3: {color: '#d1af94', opacity: 0.6}, 
@@ -244,63 +260,84 @@ body{font-family:'GowunDodum-Regular';}
 <body>
 <jsp:include page="../layout/header.jsp"/>
 
-	<div class="container">
+	<div class="container p-5 mb-5 all">
+		<div class="row pt-4" id="main">
+			<h1 class="col-12 mb-3" style="text-align:center" >
+				<strong id=text>통계</strong>
+			</h1>
+		</div>
+
 		<div class="container info">
 			<div class="row">
-				<div class="col-12">
-					통계
-				</div>
-			</div>
-			
-			<div class="row">
 				<div class="col-6">
-					<p class="font-weight-bold text-center">소속학교 : ${login.school}</p>
+					<p class="font-weight-bold text-center" style="padding:7px 0px 7px 0px;">${login.school} / ${login.email} 님</p>
 				</div>
-				<div class="col-6">
-					<p class="font-weight-bold text-center">${login.email} 님의 급식 통계 정보입니다.</p>
-				</div>
-			</div>
-		</div>
-	
-		<div class="row">
-			<div class="col-6">
-				<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#staticBackdrop01" style="width:100%;">
+			<div class="col-3">
+				<button type="button" class="btn" data-toggle="modal" data-target="#staticBackdrop01" id="btn" style="width:100%;">
 					급식비 결제 인원 목록
 				</button>
 			</div>
-			<div class="col-6">
-				<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#staticBackdrop02" style="width:100%;">
+			<div class="col-3">
+				<button type="button" class="btn" data-toggle="modal" data-target="#staticBackdrop02" id="btn" style="width:100%;">
 					기타 의견 모아보기
 				</button>
 			</div>
+			</div>
 		</div>
 		
 		<hr>
-		<div class="row chart">
-			<div class="col-6">
-				<div id="allPay"></div>
+		<div class="chart-box">
+			<div class="row chart">
+				<div class="col-6">
+					<div class="row justify-content-center">
+						<strong>전체인원 대비 결제인원(이번달)</strong>
+					</div>
+					<div class="row">
+						<div id="allPay"></div>
+					</div>
+				</div>
+				
+				<div class="col-6">
+					<div class="row justify-content-center">
+						<strong>[질문] 학교 급식에 대하여 어떻게 생각하십니까?</strong>
+					</div>
+					<div class="row">
+						<div id="feedback"></div>
+					</div>
+				</div>
 			</div>
 			
-			<div class="col-6">
-				<div id="feedback"></div>
-			</div>
-		</div>
-		
-		<hr>
-		<div class="row chart">
-			<div class="col-6">
-				<div id="taste"></div>
+			<hr>
+			<div class="row chart">
+				<div class="col-6">
+					<div class="row justify-content-center">
+						<strong>[질문] 음식의 간은 적당합니까?</strong>
+					</div>
+					<div class="row">
+						<div id="taste"></div>
+					</div>
+				</div>
+				
+				<div class="col-6">
+				<div class="row justify-content-center">
+						<strong>[질문] 급식되는 양은 만족스럽습니까?</strong>
+					</div>
+					<div class="row">
+						<div id="amount"></div>
+					</div>
+				</div>
 			</div>
 			
-			<div class="col-6">
-				<div id="amount"></div>
-			</div>
-		</div>
-		
-		<hr>
-		<div class="row chart">
-			<div class="col-12">
-				<div id="bestmenu">여기 차트가 떠야해요ㅠㅠ</div>
+			<hr>
+			<div class="row chart">
+				<div class="col-12">
+				<div class="row justify-content-center">
+						<strong>전체인원 대비 결제인원(이번달)</strong>
+					</div>
+					<div class="row">
+						<div id="bestmenu"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

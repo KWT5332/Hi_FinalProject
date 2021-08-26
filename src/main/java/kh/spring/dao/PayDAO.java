@@ -1,6 +1,7 @@
 package kh.spring.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class PayDAO {
 		return mybatis.insert("Pay.insert", dto);
 	}
 	
-	public List<PayDTO> payList(String school) {
-		return mybatis.selectList("Pay.payList", school);
+	public List<PayDTO> payList(Map<String, String> param) {
+		return mybatis.selectList("Pay.payList", param);
 	}
 	
 }
