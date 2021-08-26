@@ -37,13 +37,12 @@ public class ChartController {
 		String parent_email = mdto.getEmail();
 		String school = mdto.getSchool();
 		
-		System.out.println(school + parent_email);
+		System.out.println("통계 페이지 : " + school + " : " + parent_email);
 		
 		// 한달 전 날짜
 		Calendar mon = Calendar.getInstance();
 		mon.add(Calendar.MONTH , -1);
 		String month = new java.text.SimpleDateFormat("MM").format(mon.getTime());
-		System.out.println(month);
 		
 		// 결제인원 목록
 		List<PayDTO> payList = Csv.payList(school);
@@ -209,17 +208,15 @@ public class ChartController {
 	
 	// 베스트메뉴 1~5 데이터
 	@ResponseBody
-	@RequestMapping("chartData")
+	@RequestMapping("chartData 전송")
 	public String chartData() {
-		
+		System.out.println("ChartData");
 		//테스트용 데이터
 		String parent_email = "cy3195@naver.com";
 		String b_month="07";
 		
 		List<ChartDTO> list = Csv.bestList(parent_email, b_month);
 		String json = new Gson().toJson(list);
-		System.out.println(json);
-		System.out.println(String.valueOf(json));
 		
 		return String.valueOf(json);
 	}
