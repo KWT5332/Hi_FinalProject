@@ -123,9 +123,10 @@ public class MailController {
 			String realPath = hsession.getServletContext().getRealPath("excelDownMail");
 			exservice.excelDownloadMail(XSSFillterConfig.XSSFilter(month), dto, realPath, response);
 			
-			FileSystemResource file = new FileSystemResource(new File(realPath+"\\"+XSSFillterConfig.XSSFilter(month)+"월+"+dto.getSchool()+"+식단표.xlsx"));
-            mailHelper.addAttachment(XSSFillterConfig.XSSFilter(month)+"월+"+dto.getSchool()+"+식단표.xlsx", file);
-			
+			String fileName = XSSFillterConfig.XSSFilter(month)+"월+"+dto.getSchool()+"+식단표.xlsx";
+			FileSystemResource file = new FileSystemResource(new File(realPath+"\\"+fileName));
+            mailHelper.addAttachment(new String(fileName.getBytes("UTF-8"), "8859_1"),file); // 메일 첨부파일 한국어로 바꾸기
+            
 			mailSender.send(mail);
 			
 			exservice.deleteExcel(realPath, XSSFillterConfig.XSSFilter(month)+"월+"+dto.getSchool()+"+식단표.xlsx"); // 보내고 저장된 파일 삭제

@@ -37,6 +37,13 @@
 </style>
 <script>
     $(function(){
+    	// input 엔터키 이벤트 막기
+    	document.addEventListener('keydown', function(event) {
+			if (event.keyCode === 13) {
+				event.preventDefault();
+			};
+		}, true);
+    	
 		$("#inputGroupFile").on("change", function(){ // 값이 변경되면 
 //            if(window.FileReader){ // modern browser 
 //            var filename = $(this)[0].files[0].name; 
@@ -145,7 +152,7 @@
         	}
         })
         
-        // 최근저장한 식단 사용
+        // 최근저장한 식단 사용 + 빈칸 제거
         $("body").on("click",".use",function(){
             for(let i=2;i<7;i++){
                 $("#menu"+i).remove();
@@ -153,9 +160,9 @@
 
             let str = $(this).parent().siblings(".menu").html();
             let menus = str.split(",");
-
+            
             for(let i=0;i<menus.length;i++){
-                $("#menu" + (i+1)).val(menus[i]);
+                $("#menu" + (i+1)).val($.trim(menus[i]));
 
                 if(i<(menus.length-1)){
                     let menu = $("#menu");
