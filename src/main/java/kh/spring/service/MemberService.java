@@ -113,5 +113,8 @@ public class MemberService {
 	public MemberDTO memberInfo(String email) {
 		return dao.memberInfo(email);
 	}
+	public int delMem(String email) {
+		return dao.delMem(email);
+	}
 	
 }

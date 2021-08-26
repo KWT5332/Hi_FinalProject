@@ -130,9 +130,20 @@ input[type] {border-color: #b2dabd;}
 		/* 메일전체발송 */
 		$(".btn_sendmail").click(function() {
 			$("#modal").modal("show");
-			
 			$("#send").on("click",function(){
-				//alert("전체 학생에게 메일을 발송합니다.\n발송 완료 후 메일보내기 작은 창이 나가게 됩니다. \n잠시 기다려 주세요.");
+				var payment = $('#payment').val();
+				let payReg = /^[1-9][0-9]{1,6}$/;
+				if(!(payReg.test(payment))){
+					Swal.fire({
+						icon:'warning',
+						title:'급식비는 필수항목입니다.',
+						text:'1~9999999 사이의 숫자로만 작성.',
+						showConfirmButton: false,
+						timer: 2000
+					})
+					$('#payment').focus();
+				}else{
+					//alert("전체 학생에게 메일을 발송합니다.\n발송 완료 후 메일보내기 작은 창이 나가게 됩니다. \n잠시 기다려 주세요.");
 				Swal.fire({
 					icon:'success',
 					title:'전체 학생에게 메일을 발송합니다.\n발송 완료 후 메일보내기 작은 창이 나가게 됩니다.',
@@ -142,9 +153,7 @@ input[type] {border-color: #b2dabd;}
 				})
 				let month = $("#month").val();
 				let strMonth = strNum(month);
-
                 $("#content").val($("#textarea").val());
-
   				$.ajax({
 					type : "GET",
 					url : "/mail/sendMailProc", 
@@ -153,6 +162,7 @@ input[type] {border-color: #b2dabd;}
  					alert("메일 발송 완료!");
  					$("#modal").modal("hide");
 				}) 
+				}
 			})
 		})
 		
@@ -163,19 +173,28 @@ input[type] {border-color: #b2dabd;}
 			}else if($("#stu_email").val() == null || $("#stu_email").val() == "") {
 				alert("학생 이메일을 입력해주세요.");
 			}else{
-				$.ajax({
-					type : "POST",
-					url : "/mail/addStudentProc",
-					data: $("#frm").serialize(),
-					success : function(){
-						$("#stu_name").val("");
-						$("#stu_email").val("");
-						location.reload();
-					}
-				})
+				var stu_email = $('#stu_email').val();			
+				var stu_name = $('#stu_name').val();			
+				let emailReg = /^[A-Za-z0-9_]+@[a-z]+[.][a-z]{2,3}$/;
+				let nameReg = /^[가-힣]{2,10}$/;
+				if (!(emailReg.test(stu_email))){
+					alert("이메일형식에 맞게 작성해주세요.");
+				}else if (!(nameReg.test(stu_name))){
+					alert("이름형식에 맞게 작성해주세요.\n2~10글자 한글로만 작성하세요.");
+				}else{
+						$.ajax({
+						type : "POST",
+						url : "/mail/addStudentProc",
+						data: $("#frm").serialize(),
+						success : function(){
+							$("#stu_name").val("");
+							$("#stu_email").val("");
+							location.reload();
+						}
+					})
+				}
 			}
 		})
-		
 		/*$(".delete").click(function(){
 			if(confirm("정말로 학생을 삭제하시겠습니까?")){
 				let seq = $(this).parent().siblings(".seq").val();
