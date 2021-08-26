@@ -69,7 +69,7 @@ input[id=payment]{width:200px; display:inline-block;}
 				url : "/sdt/payInfo", 
 				data:{"st_name":st_name, "st_email":st_email, "st_school":st_school, "payment":payment, "apply_num":rsp.apply_num, "month":month}
 				}).done(function(resp) {
-					location.href="/sdt/researchHome";}) 
+					location.href="/";}) 
 		} else {
 			var msg = '결제에 실패하였습니다. \n 결제 페이지로 돌아갑니다.';
 			msg += '\n 에러내용 : ' + rsp.error_msg;
@@ -77,28 +77,28 @@ input[id=payment]{width:200px; display:inline-block;}
 		alert(msg);
 		});
 	}
-
+	
 	$(function(){
 		$("#pay").on("click", function(){
-			let st_name = $("#st_name").val();
-			let st_email = $("#st_email").val();
-			console.log(st_name+"+"st_email")
-			if ($('#st_name').val()==" "){
-				alert("이름을 작성해주세요");
-				 $('#st_name').focus();
-				return;
-			}else if ($('#st_email').val()==" "){
-				alert("이메일을 입력 해주세요");
-				 $('#st_email').focus();
-				return;
-			}else{
-				iamport();
-			}
+			iamport();
 		})
 		
-		/* let name = $("#st_name").val();
-		let email = $("#st_email").val();
-		*/
+		/* $("#pay").on("click", function(){
+		let st_name = $("#st_name").val();
+		let st_email = $("#st_email").val();
+		console.log(st_name+"+"st_email")
+		if ($('#st_name').val()==" "){
+			alert("이름을 작성해주세요");
+			 $('#st_name').focus();
+			return;
+		}else if ($('#st_email').val()==" "){
+			alert("이메일을 입력 해주세요");
+			 $('#st_email').focus();
+			return;
+		}else{
+			iamport();
+		}
+	}) */
 	})
 
 </script>
