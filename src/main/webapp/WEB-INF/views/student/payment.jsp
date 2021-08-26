@@ -59,7 +59,7 @@ input[id=payment]{width:200px; display:inline-block;}
 		
 		if ( rsp.success ) {
 			var msg = '결제가 완료되었습니다.';
-			msg += '\n 고유ID : ' + rsp.imp_uid;
+			/* msg += '\n 고유ID : ' + rsp.imp_uid; */
 		    msg += '\n 상점 거래ID : ' + rsp.merchant_uid;
 		    msg += '\n 결제 금액 : ' + rsp.paid_amount;
 		    msg += '\n 카드 승인번호 : ' + rsp.apply_num;
@@ -85,18 +85,7 @@ input[id=payment]{width:200px; display:inline-block;}
 		
 		/* let name = $("#st_name").val();
 		let email = $("#st_email").val();
-		
-		$("#pay").on("click", function(){
-			if(name==""){
-				alert("이름을 입력해주세요.");
-				$("#st_name").focus();
-				return;
-			} else(email==""){
-				alert("이메일을 입력해주세요.");
-				$("#st_email").focus();
-				
-			}
-		}) */
+		*/
 	})
 
 </script>
@@ -156,6 +145,7 @@ input[id=payment]{width:200px; display:inline-block;}
 				<button id="pay" class="btn btn-outline-info">결제하기</button>
 			</div>
 		</div>
+	
 	</div>
 
 </body>

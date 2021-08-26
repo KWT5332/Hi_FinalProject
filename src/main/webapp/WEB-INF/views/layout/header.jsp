@@ -8,9 +8,14 @@
 <meta charset="UTF-8">
 <title>홈페이지</title>
 <style>
-navcon * {
-	text-align: center;
-}
+	@font-face {
+	    font-family: 'GowunDodum-Regular';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	body{font-family:'GowunDodum-Regular';} 
+	navcon * {text-align: center;}
     #navibar{
         background-color:/* #325288;*/ #114E60;
         border-bottom:4.5px solid #dff1e4 ;
