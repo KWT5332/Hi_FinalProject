@@ -6,8 +6,7 @@
 <mapper namespace="Chart">
 
 	<!-- 설문조사 결과 저장 -->
-	<insert id="insert">
-		<!-- insert into st_feedback values(feedback_seq.nextval, #{feedback}, #{bestmenu}, #{worstmenu}, #{parent_email}, #{school}) -->		
+	<insert id="insert">	
 		insert into st_feedback values(feedback_seq.nextval, #{b_month}, #{parent_email}, #{school}, #{feedback}, #{taste}, #{amount}, #{bestmenu}, #{etc} )
 	</insert>
 	

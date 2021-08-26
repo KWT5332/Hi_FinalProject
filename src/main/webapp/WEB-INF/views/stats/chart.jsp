@@ -290,7 +290,7 @@ body{
 		<!-- 구현해야할 부분 -->
 		<div class="row">
 			<div class="col-12">
-				<div id="bestmenu"></div>
+				<div id="bestmenu">여기 차트가 떠야해요ㅠㅠ</div>
 			</div>
 		</div>
 	</div>
