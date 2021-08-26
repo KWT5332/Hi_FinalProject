@@ -36,7 +36,7 @@ public class StudentController {
 		System.out.println(b_month);
 		System.out.println(month);
 		
-		List<MealDTO> list = Ssv.bestOp(b_month);
+		List<MealDTO> list = Ssv.bestOp(b_month, school);
 		m.addAttribute("bestOp", list);
 		m.addAttribute("b_month", b_month);
 		m.addAttribute("month", month);
