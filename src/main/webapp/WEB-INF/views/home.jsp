@@ -337,16 +337,10 @@
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" >
                     <div class="carousel-inner">
                       <div class="carousel-item active">
-                        <img src="<spring:url value='/resources/img_home/41.png'/>" class="d-block w-100">
+                        <img src="<spring:url value='/resources/img_home/mm11.png'/>" class="d-block w-100">
                       </div>
                       <div class="carousel-item">
-                        <img src="<spring:url value='/resources/img_home/42.png'/>" class="d-block w-100">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="<spring:url value='/resources/img_home/43.jpg'/>" class="d-block w-100">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="<spring:url value='/resources/img_home/44.jpg'/>" class="d-block w-100">
+                        <img src="<spring:url value='/resources/img_home/mm22.png'/>" class="d-block w-100">
                       </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -368,16 +362,13 @@
           <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" >
               <div class="carousel-inner">
                 <div class="carousel-item active">
-					<img src="<spring:url value='/resources/img_home/41.png'/>" class="d-block w-100">
+					<img src="<spring:url value='/resources/img_home/bb11.png'/>" class="d-block w-100">
                 </div>
                 <div class="carousel-item">
-					<img src="<spring:url value='/resources/img_home/42.png'/>" class="d-block w-100">
+					<img src="<spring:url value='/resources/img_home/cc33.png'/>" class="d-block w-100">
                 </div>
                 <div class="carousel-item">
-                  	<img src="<spring:url value='/resources/img_home/43.jpg'/>" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                  	<img src="<spring:url value='/resources/img_home/44.jpg'/>" class="d-block w-100">
+                  	<img src="<spring:url value='/resources/img_home/jj11.png'/>" class="d-block w-100">
                 </div>
               </div>
               <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -414,16 +405,13 @@
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" >
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-					<img src="<spring:url value='/resources/img_home/41.png'/>" class="d-block w-100">
+					<img src="<spring:url value='/resources/img_home/cc44.png'/>" class="d-block w-100">
                   </div>
                   <div class="carousel-item">
-					<img src="<spring:url value='/resources/img_home/42.png'/>" class="d-block w-100">
+					<img src="<spring:url value='/resources/img_home/cc11.png'/>" class="d-block w-100">
                   </div>
                   <div class="carousel-item">
-                  	<img src="<spring:url value='/resources/img_home/43.jpg'/>" class="d-block w-100">
-                  </div>
-                  <div class="carousel-item">
-                  	<img src="<spring:url value='/resources/img_home/44.jpg'/>" class="d-block w-100">
+                  	<img src="<spring:url value='/resources/img_home/cc22.png'/>" class="d-block w-100">
                   </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
