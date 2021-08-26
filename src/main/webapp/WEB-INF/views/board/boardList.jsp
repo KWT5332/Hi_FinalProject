@@ -49,7 +49,24 @@
 	left:-5px;
 	background:rgb(255, 196, 119, 0.8);
 	z-index: -5;
-}
+}   
+#dataTable_previous{
+ background: springgreen;
+    border-radius: 50%;
+    border: none;}
+    
+#dataTable_previous .current :hover {
+    background: springgreen;.important 
+    border-radius: 50%;
+    border: none;
+   }
+   
+   .current {
+    background: springgreen;
+    border-radius: 50%;
+    border: none;
+   }
+   
 </style>
 <script>
 	$(function(){
@@ -79,6 +96,9 @@
 		$("#addwrite").on("click",function(){
 			location.href="/bod/boardWrite";
 		})
+		
+	
+		
 	})
 </script>
 </head>

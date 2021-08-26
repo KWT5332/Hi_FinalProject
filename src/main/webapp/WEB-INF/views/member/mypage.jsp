@@ -100,8 +100,7 @@
 			$('#school').val($('.inp_modi_school').val());
 			$('#age').val($('.age_show').val());
 			$('#phone').val($('.inp_modi_phone').val());
-		}
-		;
+		};
 		//비번변경
 		$(".btn_pw").click(function() {
 			$('#pw').val($('.inp_modi_pw').val());
@@ -162,11 +161,19 @@
 			$('.inp_modi_name').attr("disabled", false).focus();
 		})
 		$(".btn_modi_name_02").click(function() {
-			$('.btn_modi_name_02').css("display", "none");
-			$('.btn_modi_name_01').css("display", "inline-block");
-			$('.inp_modi_name').attr("disabled", true).blur();
-			setdto();
-			$("#frm_modi").attr("action", "/mem/modiName").submit();
+			let nameReg = /^[가-힣]{2,10}$/;
+			var inp_modi_name = $('.inp_modi_name').val();
+			if (!(nameReg.test(inp_modi_name))){
+				alert("이름은 한글로 2~10자로 작성해주세요");
+				$('.inp_modi_name').focus();
+				return;
+			}else{
+				$('.btn_modi_name_02').css("display", "none");
+				$('.btn_modi_name_01').css("display", "inline-block");
+				$('.inp_modi_name').attr("disabled", true).blur();
+				setdto();
+				$("#frm_modi").attr("action", "/mem/modiName").submit();	
+			}
 		})
 		//학교변경
 		$(".btn_modi_school_01").click(function() {
@@ -175,11 +182,19 @@
 			$('.inp_modi_school').attr("disabled", false).focus();
 		})
 		$(".btn_modi_school_02").click(function() {
-			$('.btn_modi_school_02').css("display", "none");
-			$('.btn_modi_school_01').css("display", "inline-block");
-			$('.inp_modi_school').attr("disabled", true).blur();
-			setdto();
-			$("#frm_modi").attr("action", "/mem/modiSchool").submit();
+			let schoolReg = /^[가-힣]+[초중고대]$/;
+			var inp_modi_school = $('.inp_modi_school').val();
+			if (!(schoolReg.test(inp_modi_school))){
+				alert("학교명을 공백없이 초, 중, 고, 대 로 끝나도록 작성해주세요");
+				$('.inp_modi_school').focus();
+				return;
+			}else{
+				$('.btn_modi_school_02').css("display", "none");
+				$('.btn_modi_school_01').css("display", "inline-block");
+				$('.inp_modi_school').attr("disabled", true).blur();
+				setdto();
+				$("#frm_modi").attr("action", "/mem/modiSchool").submit();
+			}
 		})
 		//연락처변경
 		$(".btn_modi_phone_01").click(function() {
@@ -188,27 +203,41 @@
 			$('.inp_modi_phone').attr("disabled", false).focus();
 		})
 		$(".btn_modi_phone_02").click(function() {
-			$('.btn_modi_phone_02').css("display", "none");
-			$('.btn_modi_phone_01').css("display", "inline-block");
-			$('.inp_modi_phone').attr("disabled", true).blur();
-			setdto();
-			$("#frm_modi").attr("action", "/mem/modiPhone").submit();
+			let phoneReg = /^01[0-9]{1}-[0-9]{3,4}-[0-9]{4}$/;
+			var inp_modi_phone = $('.inp_modi_phone').val();
+			if (!(phoneReg.test(inp_modi_phone))){
+				alert("연락처가 형식에 맞지 않습니다.\n예시 010-1234-1234");
+				$('#phone').focus();
+				return;
+			}else{
+				$('.btn_modi_phone_02').css("display", "none");
+				$('.btn_modi_phone_01').css("display", "inline-block");
+				$('.inp_modi_phone').attr("disabled", true).blur();
+				setdto();
+				$("#frm_modi").attr("action", "/mem/modiPhone").submit();
+			}
 		})
 		//나이변경
 		$(".btn_modi_age_01").click(function() {
 			$('.btn_modi_age_01').css("display", "none");
 			$('.btn_modi_age_02').css("display", "inline-block");
 			$('.sel_modi_age').attr("disabled", false)
-
 		})
 		$(".btn_modi_age_02").click(function() {
-			$('.btn_modi_age_02').css("display", "none");
-			$('.btn_modi_age_01').css("display", "inline-block");
-			$('.age_show').val($('.sel_modi_age').val());
-			$('.sel_modi_age').attr("disabled", true)
-			setdto();
-			$("#frm_modi").attr("action", "/mem/modiAge").submit();
+			if ($('.sel_modi_age').val()==null){
+				alert("나이대를 선택해주세요");
+				 $('.sel_modi_age').focus();
+				return;
+			}else{
+				$('.btn_modi_age_02').css("display", "none");
+				$('.btn_modi_age_01').css("display", "inline-block");
+				$('.age_show').val($('.sel_modi_age').val());
+				$('.sel_modi_age').attr("disabled", true)
+				setdto();
+				$("#frm_modi").attr("action", "/mem/modiAge").submit();
+			}
 		})
+		//적용사항보기
 		$(".btn_modi_ck").click(function() {
 			location.href = "/mem/mypage";
 		})
@@ -272,7 +301,6 @@
 					}else{
 						alert("기본이미지로 변경을 실패했습니다. \n다시 시도해주세요.");
 					}
-					
 				})
 		});
 		/* 탈퇴 */
@@ -285,7 +313,6 @@
 	    		}else{
 	    			alert("ss");
 	    		}
-			
 		});
 })
 </script>
@@ -437,7 +464,7 @@
 							<input type="text" class="form-control age_show" value=${login.age } disabled>
 						</div>
 						<select type="select" class=" custom-select col-sm-5 col-md-2 sel_modi_age" disabled>
-							<option selected disabled>선택</option>
+							<option value="" selected disabled>선택</option>
 							<option value="20대">20대</option>
 							<option value="30대">30대</option>
 							<option value="40대">40대</option>
