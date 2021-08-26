@@ -80,7 +80,20 @@ input[id=payment]{width:200px; display:inline-block;}
 
 	$(function(){
 		$("#pay").on("click", function(){
-			iamport();
+			let st_name = $("#st_name").val();
+			let st_email = $("#st_email").val();
+			console.log(st_name+"+"st_email")
+			if ($('#st_name').val()==" "){
+				alert("이름을 작성해주세요");
+				 $('#st_name').focus();
+				return;
+			}else if ($('#st_email').val()==" "){
+				alert("이메일을 입력 해주세요");
+				 $('#st_email').focus();
+				return;
+			}else{
+				iamport();
+			}
 		})
 		
 		/* let name = $("#st_name").val();
