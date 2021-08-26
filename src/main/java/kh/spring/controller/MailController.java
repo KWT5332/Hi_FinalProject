@@ -125,7 +125,7 @@ public class MailController {
 			String realPath = hsession.getServletContext().getRealPath("excelDownMail");
 			
 			Calendar mon = Calendar.getInstance();
-			mon.add(Calendar.MONTH , +1);
+			mon.add(Calendar.MONTH , -1);
 			String month = new java.text.SimpleDateFormat("MM").format(mon.getTime());
 			exservice.excelDownloadMail(month, dto, realPath, response);
 			
