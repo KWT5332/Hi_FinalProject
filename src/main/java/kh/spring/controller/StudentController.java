@@ -80,8 +80,6 @@ public class StudentController {
 		System.out.println("결제 정보 저장");
 		return "redirect:/";
 	}
-	
-	
 	@ExceptionHandler
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();
