@@ -70,7 +70,7 @@ public class MailController {
 //		String finContent = enter+"\n\n<a href="+ st_link+">하이!급식 설문 및 급식비 결제페이지로 이동</a>"+enter+enter+XSSFillterConfig.XSSFilter(content);
 		
 		//서버용 세줄이 한묶음
-		String st_link="http://59.6.83.84//sdt/researchHome?&pm="+payment+"&email="+email+"&school"+school;
+		String st_link="http://59.6.83.84//sdt/researchHome?pm="+payment+"&email="+email+"&school="+school;
 		String enter = "<br>";
 		String finContent = enter+"\n\n<a href="+ st_link+">하이!급식 설문 및 급식비 결제페이지로 이동</a>"+enter+enter+XSSFillterConfig.XSSFilter(content);
 		

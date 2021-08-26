@@ -299,7 +299,7 @@ body{font-family:'GowunDodum-Regular';}
 				
 				<div class="col-6">
 					<div class="row justify-content-center">
-						<strong>[질문] 음식의 간은 적당합니까?</strong>
+						<strong>[질문] 급식의 만족도는 어떠십니까?</strong>
 					</div>
 					<div class="row">
 						<div id="feedback"></div>
