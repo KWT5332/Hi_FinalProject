@@ -60,8 +60,7 @@ body{font-family:'GowunDodum-Regular';}
 	google.charts.setOnLoadCallback(feedback);
 	google.charts.setOnLoadCallback(taste);
 	google.charts.setOnLoadCallback(amount);
-	google.charts.setOnLoadCallback(bestmenu);
-      
+/* 	google.charts.setOnLoadCallback(bestmenu);*/      
 	function allPay() {
 		var data = google.visualization.arrayToDataTable([
 	        ['people', 'count', { role: 'style' } ],
@@ -179,9 +178,9 @@ body{font-family:'GowunDodum-Regular';}
 		chart.draw(data, options);
 	}
       
-	function bestmenu() {
+	/* function bestmenu() {
            
-		/* var jsonData = $.ajax({
+		 var jsonData = $.ajax({
 			url:"/chart/chartData",
 			dataType:"json"
 		}).done(function(resp){
@@ -189,7 +188,7 @@ body{font-family:'GowunDodum-Regular';}
 			console.log(resp);
 		});
 		
-		var data = new google.visualization.DataTable(jsonData); */
+		var data = new google.visualization.DataTable(jsonData); 
 		
 		$.ajax({
 			url:"/chart/chartData",
@@ -216,7 +215,7 @@ body{font-family:'GowunDodum-Regular';}
         var chart = new google.visualization.PieChart(document.getElementById('bestmenu'));
         chart.draw(data, options);
       
-        }
+        } */
       
 	/*function bestmenu() {
           
@@ -249,10 +248,6 @@ body{font-family:'GowunDodum-Regular';}
       
 </script>
 <script>
-	
-	$(function(){
-		
-	})
 	
 </script>
 </head>
@@ -329,7 +324,7 @@ body{font-family:'GowunDodum-Regular';}
 			</div>
 			
 			<hr>
-			<div class="row chart">
+			<!-- <div class="row chart">
 				<div class="col-12">
 				<div class="row justify-content-center">
 						<strong>[질문] 이번 달 선호 급식 메뉴는?</strong>
@@ -338,7 +333,7 @@ body{font-family:'GowunDodum-Regular';}
 						<div id="bestmenu"></div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	
