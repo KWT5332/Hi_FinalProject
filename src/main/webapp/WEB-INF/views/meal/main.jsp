@@ -384,7 +384,7 @@
 	<jsp:include page="../layout/header.jsp"/>
     
     <!-- 메인 -->
-    <div class="container p-5">
+    <div class="container p-5 mb-5">
       <div class="row m-0 mb-4 mt-3">
         <div class="col-12 col-sm-6 col-md-6 col-lg-3 p-0" style="text-align: left;">
           <div class="input-group" style="text-align: left;">

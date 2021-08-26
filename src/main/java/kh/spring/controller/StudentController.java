@@ -30,14 +30,14 @@ public class StudentController {
 	@RequestMapping("researchHome")
 	public String researchHome(String school, String email, String pm, Model m) {
 
-		// 이번 달 기준 한달 전, 한달 후 날짜
+		// 이번 달 기준 한달 전 날짜
 		Calendar b_mon = Calendar.getInstance();
 		b_mon.add(Calendar.MONTH , -1);
-		
+		String b_month = new java.text.SimpleDateFormat("MM").format(b_mon.getTime());
+
+		// 이번 달 기준 한달 후 날짜
 		Calendar mon = Calendar.getInstance();
 		mon.add(Calendar.MONTH, +1);
-		
-		String b_month = new java.text.SimpleDateFormat("MM").format(b_mon.getTime());
 		String month = new java.text.SimpleDateFormat("MM").format(mon.getTime());
 		
 		List<MealDTO> list = Ssv.bestOp(b_month, school);

@@ -18,6 +18,111 @@
 <script>
    $(function(){
       AOS.init();
+      
+      $("#goMeal").on("click",function(){
+    	  if(${login.email==null || login.email==""}){
+        	  Swal.fire({ 
+        		  title:'로그인이 필요한 서비스 입니다.', 
+        		  text: "로그인 화면으로 이동하시겠습니까?",
+        		  icon: 'info', 
+        		  showCancelButton: true, 
+        		  confirmButtonColor: '#3085d6', 
+        		  cancelButtonColor: '#d33', 
+        		  confirmButtonText: '로그인', 
+        		  cancelButtonText: '취소' 
+        		}).then((result) => {
+        			if(result.value){
+        				location.href = "/mem/loginForm";
+        			}
+        		})
+    	  }else {
+    		  location.href = "meal/Main";
+    	  }
+      })
+      
+	$("#goChat").on("click",function(){
+    	  if(${login.email==null || login.email==""}){
+         	  Swal.fire({ 
+        		  title:'로그인이 필요한 서비스 입니다.', 
+        		  text: "로그인 화면으로 이동하시겠습니까?",
+        		  icon: 'info', 
+        		  showCancelButton: true, 
+        		  confirmButtonColor: '#3085d6', 
+        		  cancelButtonColor: '#d33', 
+        		  confirmButtonText: '로그인', 
+        		  cancelButtonText: '취소' 
+        		}).then((result) => {
+        			if(result.value){
+        				location.href = "/mem/loginForm";
+        			}
+        		})
+    	  }else {
+    		  location.href = "/chart/chartHome";
+    	  }
+      })
+
+      $("#goChat").on("click",function(){
+    	  if(${login.email==null || login.email==""}){
+         	  Swal.fire({ 
+        		  title:'로그인이 필요한 서비스 입니다.', 
+        		  text: "로그인 화면으로 이동하시겠습니까?",
+        		  icon: 'info', 
+        		  showCancelButton: true, 
+        		  confirmButtonColor: '#3085d6', 
+        		  cancelButtonColor: '#d33', 
+        		  confirmButtonText: '로그인', 
+        		  cancelButtonText: '취소' 
+        		}).then((result) => {
+        			if(result.value){
+        				location.href = "/mem/loginForm";
+        			}
+        		})/mail/sendmail
+    	  }else {
+    		  location.href = "/chat/myChatList";
+    	  }
+      })
+      
+	$("#goFree").on("click",function(){
+    	  if(${login.email==null || login.email==""}){
+         	  Swal.fire({ 
+        		  title:'로그인이 필요한 서비스 입니다.', 
+        		  text: "로그인 화면으로 이동하시겠습니까?",
+        		  icon: 'info', 
+        		  showCancelButton: true, 
+        		  confirmButtonColor: '#3085d6', 
+        		  cancelButtonColor: '#d33', 
+        		  confirmButtonText: '로그인', 
+        		  cancelButtonText: '취소' 
+        		}).then((result) => {
+        			if(result.value){
+        				location.href = "/mem/loginForm";
+        			}
+        		})/mail/sendmail
+    	  }else {
+    		  location.href = "/bod/boardList";
+    	  }
+      })
+      
+      $("#goStat").on("click",function(){
+    	  if(${login.email==null || login.email==""}){
+         	  Swal.fire({ 
+        		  title:'로그인이 필요한 서비스 입니다.', 
+        		  text: "로그인 화면으로 이동하시겠습니까?",
+        		  icon: 'info', 
+        		  showCancelButton: true, 
+        		  confirmButtonColor: '#3085d6', 
+        		  cancelButtonColor: '#d33', 
+        		  confirmButtonText: '로그인', 
+        		  cancelButtonText: '취소' 
+        		}).then((result) => {
+        			if(result.value){
+        				location.href = "/mem/loginForm";
+        			}
+        		})
+    	  }else {
+    		  location.href = "/chart/chartHome";
+    	  }
+      })
    })
 </script>
 <style>
@@ -58,7 +163,7 @@
       z-index: -5;
     }
 
-    .main-four{min-height:600px;background-color:#FDFAF6;}
+    .main-four{min-height:600px;}
     .main-four *{text-align: left;}
     #goMeal{
         text-align:center;
@@ -69,7 +174,7 @@
     }
     #goMeal:hover{background-color: #dff1e4;color:rgb(0, 0, 0);cursor:pointer;}
 
-    .main-five{min-height:600px;}
+    .main-five{min-height:600px;background-color:#FDFAF6;}
     .main-five *{text-align:right;}
     #goChat{
         text-align:center;
@@ -92,7 +197,7 @@
     }    
     #goFree:hover{background-color: #dff1e4;color:rgb(0, 0, 0);cursor:pointer;} 
 
-    .main-six{min-height:600px;background-color:#FDFAF6;}
+    .main-six{min-height:600px;}
     .main-six *{text-align: left;}
     #goStat{
         text-align:center;
@@ -222,7 +327,7 @@
         <div class="row m-0 p-3 pl-5 pr-5" data-aos="fade-up" data-aos-duration="1000">
             <div class="col-12 col-sm-8 p-3">
                 <p style="color:#aedfbc;font-weight:500;letter-spacing: 2px;font-size:23px;">THE PREMIUM MEAL SERVICE</p>
-                <h2 class="mb-5" style="letter-spacing: 2px;"><strong>하이!급식</strong></h2>
+                <h2 class="mb-5" style="letter-spacing: 2px;"><strong>급식표</strong></h2>
                 <p class="pt-3 mb-4" style="color:rgb(80, 80, 80);font-size:18px;;">다양한 메뉴개발을 통한 프리미엄화 & 건강하고 신선한 재료를 통한 프리미엄화</p>
                 <div id="goMeal">
                     식단 등록하러 가기
@@ -287,7 +392,7 @@
         </div>
           <div class="col-12 col-sm-8 p-3">
               <p style="color:#aedfbc;font-weight:500;letter-spacing: 2px;font-size:23px;">THE PREMIUM COMMUNITY SERVICE</p>
-              <h2 class="mb-5" style="letter-spacing: 2px;"><strong>하이!급식</strong></h2>
+              <h2 class="mb-5" style="letter-spacing: 2px;"><strong>커뮤니티</strong></h2>
               <p style="color:black;font-size:18px;;">실시간 채팅과 자유게시판을 통한 정보공유 및 커뮤니티 활성화</p>
               <div id="goChat">실시간 채팅하러 가기</div>
               <div id="goFree">자유게시판 이동</div>
@@ -299,7 +404,7 @@
     <div class="row m-0 p-3 pl-5 pr-5" data-aos="fade-up" data-aos-duration="1000">
         <div class="col-12 col-sm-8 p-3">
             <p style="color:#aedfbc;font-weight:500;letter-spacing: 2px;font-size:23px;">THE PREMIUM STATISTICS SERVICE</p>
-            <h2 class="mb-5" style="letter-spacing: 2px;"><strong>하이!급식</strong></h2>
+            <h2 class="mb-5" style="letter-spacing: 2px;"><strong>피드백</strong></h2>
             <p class="pt-3 mb-4" style="color:rgb(80, 80, 80);font-size:18px;;">학생들의 피드백을 받아 매달마다 제공되는 식단 만족도 통계 서비스</p>
             <div id="goStat">
                 통계 확인하러 가기

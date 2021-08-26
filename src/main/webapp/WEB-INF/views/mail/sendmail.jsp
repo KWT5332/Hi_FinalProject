@@ -335,7 +335,7 @@ input[type] {border-color: #b2dabd;}
 <body>
 	<jsp:include page="../layout/header.jsp" />
 
-<div class="sendmail_container container pt-5 pi-5 pr-5 mb-3">
+<div class="sendmail_container container pt-5 pl-5 pr-5 mb-3">
         <div class="row m-0 mb-3 mt-5">
 			<div class="col-6 ">
 				<button class="btn btn_sendmail">전체학생에게 이메일 보내기</button>
@@ -369,7 +369,7 @@ input[type] {border-color: #b2dabd;}
         </form>
     </div>
 		
-	<div class="container studentcon p-5" style="text-align:center">
+	<div class="container studentcon p-5 mb-5" style="text-align:center">
 		<h2 class="mb-3">학생 이메일 주소록</h2>
 		<table class="table m-0 mb-1 w-100" id="dataTable">
 			<thead>
