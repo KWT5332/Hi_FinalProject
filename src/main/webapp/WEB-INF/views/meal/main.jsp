@@ -279,26 +279,26 @@
             $("#fileName").text("이미지 업로드"); // 초기화
             
             $("#modal").modal("show");
-
-         	// 수정버튼
-            $("#update").on("click",function(){ 
-            	let form = $("#modal_frm")[0];
-            	let formData = new FormData(form);
-            	
-            	$.ajax({
-            		url:"/meal/update",
-            		type:"POST",
-            		data:formData,
-            		processData: false, // data가 서버에 전달될때 String 형식아니고 "multipart/form-data"로 보내야됨
-	    			contentType: false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
-	    			cache:false
-            	}).done(function(resp){
-            		alert("수정완료");
-            		location.reload();
-            	}) 
-            })
         })
         
+		// 수정버튼
+		$("#update").on("click",function(){ 
+       		let form = $("#modal_frm")[0];
+            let formData = new FormData(form);
+            	
+            $.ajax({
+            	url:"/meal/update",
+            	type:"POST",
+            	data:formData,
+            	processData: false, // data가 서버에 전달될때 String 형식아니고 "multipart/form-data"로 보내야됨
+	    		contentType: false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
+	    		cache:false
+            }).done(function(resp){
+            	alert("수정완료");
+            	location.reload();
+            }) 
+       })
+
 		$("#delete").on("click",function(){ // 삭제버튼
 			let date = $("#exampleModalLabel").text(); // 날짜가져오기
 			console.log(date);
