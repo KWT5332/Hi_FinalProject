@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Index</title>
+<title>급식비 결제 페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -18,14 +18,10 @@
     font-weight: normal;
     font-style: normal;
 }
-
-body{
-	font-family:'GowunDodum-Regular';
-} 
+body{font-family:'GowunDodum-Regular';} 
 
 * {box-sizing: border-box;}
 .container {width:500px; height:400px; position:absolute; top:50%; left:50%; margin:-200px 0px 0px -250px; background:white;}
-
 .box {margin:0 auto; font-size:20px; padding:10px 0px 10px 0px;}
 #title {background:#17a2b8; color:#fff;}
 .main {margin-top: 10px;}
@@ -47,7 +43,7 @@ input[id=payment]{width:200px; display:inline-block;}
 		let payment = ${pay};
 		let month = $("#month").val();
 		
-			//가맹점 식별코드
+		//가맹점 식별코드
 		IMP.init('imp47415302');
 		IMP.request_pay({
 		pg : 'html5_inicis',
@@ -56,35 +52,31 @@ input[id=payment]{width:200px; display:inline-block;}
 		name : '급식비 결제' , //결제창에서 보여질 이름
 		amount : payment, //실제 결제되는 가격
 		buyer_email : st_email,
-		buyer_name : st_name,
-		/* buyer_tel : '010-1234-5678',
-		buyer_addr : '서울 강남구 도곡동',
-		buyer_postcode : '123-456' */
+		buyer_name : st_name
+		
 	}, function(rsp) {
 		console.log(rsp);
+		
 		if ( rsp.success ) {
 			var msg = '결제가 완료되었습니다.';
-		    msg += '\n 고유ID : ' + rsp.imp_uid;
+			msg += '\n 고유ID : ' + rsp.imp_uid;
 		    msg += '\n 상점 거래ID : ' + rsp.merchant_uid;
 		    msg += '\n 결제 금액 : ' + rsp.paid_amount;
 		    msg += '\n 카드 승인번호 : ' + rsp.apply_num;
+		    
 		    $.ajax({
 				type : "POST",
 				url : "/sdt/payInfo", 
 				data:{"st_name":st_name, "st_email":st_email, "st_school":st_school, "payment":payment, "apply_num":rsp.apply_num, "month":month}
 				}).done(function(resp) {
-					location.href="/sdt/researchHome";
-			}) 
- 		    /* location.href="/sdt/payInfo?st_name="+st_name+"&school="+school+"&pay="+money+"&st_email="+st_email+"&pay_num="+rsp.apply_num */
+					location.href="/sdt/researchHome";}) 
 		} else {
-			 var msg = '결제에 실패하였습니다. \n 결제 페이지로 돌아갑니다.';
-		     msg += '\n 에러내용 : ' + rsp.error_msg;
-		     javascript:history.back();
- 		     /*location.href="/sdt/payHome";*/
- 		     }
-			alert(msg);
-			});
-		}
+			var msg = '결제에 실패하였습니다. \n 결제 페이지로 돌아갑니다.';
+			msg += '\n 에러내용 : ' + rsp.error_msg;
+			javascript:history.back();}
+		alert(msg);
+		});
+	}
 
 	$(function(){
 		$("#pay").on("click", function(){
@@ -105,7 +97,6 @@ input[id=payment]{width:200px; display:inline-block;}
 				
 			}
 		}) */
-		
 	})
 
 </script>
@@ -165,7 +156,6 @@ input[id=payment]{width:200px; display:inline-block;}
 				<button id="pay" class="btn btn-outline-info">결제하기</button>
 			</div>
 		</div>
-	
 	</div>
 
 </body>

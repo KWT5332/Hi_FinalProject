@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Index</title>
+<title>통계 페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -15,137 +15,154 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <style>
+
 @font-face {
     font-family: 'GowunDodum-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
+body{font-family:'GowunDodum-Regular';} 
 
-body{
-	font-family:'GowunDodum-Regular';
-} 
+.info{
+	margin:20px 0px 20px 0px;
+	padding-top:10px;
+	font-size:20px;
+	border:1px solid #1A8763;
+}
+.chart {width: 100%; min-height: 450px;}
+.row {margin:0 !important;}    
 
 </style>
 
 <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
 
-	// Load the Visualization API and the corechart package.
 	google.charts.load('current', {'packages':['corechart']});
       
-      google.charts.setOnLoadCallback(chart_div);
-      google.charts.setOnLoadCallback(feedback);
-      google.charts.setOnLoadCallback(taste);
-      google.charts.setOnLoadCallback(amount);
-      google.charts.setOnLoadCallback(bestmenu);
+	google.charts.setOnLoadCallback(allPay);
+	google.charts.setOnLoadCallback(feedback);
+	google.charts.setOnLoadCallback(taste);
+	google.charts.setOnLoadCallback(amount);
+	google.charts.setOnLoadCallback(bestmenu);
       
-      function chart_div() {
+	function allPay() {
+		var data = google.visualization.arrayToDataTable([
+	        ['people', 'count', { role: 'style' } ],
+	        ['전체인원', ${allStd}, 'color: #f5cebe'],
+	        ['결제인원', ${allPay}, 'color: #e4efe7'],
+		]);
 
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['전체인원', ${allStd}],
-          ['결제인원', ${allPay}]
-        ]);
+		var options = {
+			title:'전체인원 대비 결제인원',
+			width:500, height:500,
+			chartArea:{width:"80%", height:"80%"}, /* 여백 */
+			pieSliceText:'label',
+			legend:'none'
+		};
 
-        var options = {title:'전체인원 대비 결제인원',
-                       width:500,
-                       height:400,
-                       pieHole: 0.3,
-                       pieSliceText:'label',
-                       legend:'none' };
+		var chart = new google.visualization.BarChart(document.getElementById('allPay'));
+		chart.draw(data, options);
+	}
 
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-        
-        /* var data = google.visualization.arrayToDataTable([
-            ['month', '전체인원', '결제인원'],
-            ['07월', 10, 4],
-            ['08월', 17, 6]
-          ]);
+	
+	function feedback() {
 
-          var options = {
-            chart: {title:'전체인원 대비 결제인원',
-              subtitle: 'Sales, Expenses',
-            },
-            bars: 'horizontal' // Required for Material Bar Charts.
-          };
-
-          var chart = new google.charts.Bar(document.getElementById('chart_div'));
-
-          chart.draw(data, google.charts.Bar.convertOptions(options)); */
-      }
-
-
-      function feedback() {
-
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-        	['매우 만족', ${feed01}],
-      		['만족', ${feed02}],
-      		['보통', ${feed03}],
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Topping');
+		data.addColumn('number', 'Slices');
+		data.addRows([
+			['매우 만족', ${feed01}],
+			['만족', ${feed02}],
+			['보통', ${feed03}],
       		['불만족', ${feed04}],
-      		['매우 불만족', ${feed05}]
-        ]);
+			['매우 불만족', ${feed05}]
+		]);
 
-        var options = {title:'학교 급식에 대하여 어떻게 생각하십니까?',
-        				width:500,
-                		height:400,
-                       pieHole: 0.3,
-                       pieSliceText:'label'};
+		var options = {
+			title:'[질문] 학교 급식에 대하여 어떻게 생각하십니까?',
+			width:500, height:500,
+			pieSliceText:'label',
+			chartArea:{width:"80%",height:"80%"}, /* 여백 */
+			legend: { position: 'bottom' },
+			is3D:'true',
+			slices: {
+				0: {color: '#f7786b', opacity: 0.6}, 
+				1: {color: '#f7cac9', offset: 0.1}, 
+				2: {color: '#91a8d0', opacity: 0.6}, 
+				3: {color: '#034f84', offset: 0.3}, 
+				4: {color: '#f3e7db', opacity: 0.6}
+			}
+		};
 
-        var chart = new google.visualization.PieChart(document.getElementById('feedback'));
-        chart.draw(data, options);
-      }
+		var chart = new google.visualization.PieChart(document.getElementById('feedback'));
+		chart.draw(data, options);
+		}
       
 
 	function taste() {
 
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-        	['적당하다', ${taste01}],
-        	['짜다', ${taste02}],
-    		['싱겁다', ${taste03}]
-        ]);
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Topping');
+		data.addColumn('number', 'Slices');
+		data.addRows([
+			['적당하다', ${taste01}],
+			['짜다', ${taste02}],
+			['싱겁다', ${taste03}]
+		]);
 
-        var options = {title:'음식의 간은 적당합니까?',
-                       width:500,
-                       height:400,
-                       pieSliceText:'label'};
+		var options = {
+			title:'[질문] 음식의 간은 적당합니까?',
+			width:500, height:500,
+			pieHole: 0.3,
+			pieSliceText:'label',
+			chartArea:{width:"80%",height:"80%"}, /* 여백 */
+			legend: { position: 'bottom' },
+			slices: {
+				0: {color: '#ffe194', opacity: 0.6}, 
+				1: {color: '#b8dfd8', offset: 0.1}, 
+				2: {color: '#4c4c6d', offset: 0.1}
+			}
+		};
 
-        var chart = new google.visualization.PieChart(document.getElementById('taste'));
-        chart.draw(data, options);
-      }
+		var chart = new google.visualization.PieChart(document.getElementById('taste'));
+		chart.draw(data, options);
+	}
 
       
-      function amount() {
+	function amount() {
 
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-        	['매우 만족', ${amount01}],
-      		['만족', ${amount02}],
-      		['보통', ${amount03}],
-      		['불만족', ${amount04}],
-      		['매우 불만족', ${amount05}]
-        ]);
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Topping');
+		data.addColumn('number', 'Slices');
+		data.addRows([
+			['매우 만족', ${amount01}],
+			['만족', ${amount02}],
+			['보통', ${amount03}],
+			['불만족', ${amount04}],
+			['매우 불만족', ${amount05}]
+		]);
 
-        var options = {title:'급식되는 양은 만족스럽습니까?',
-                       width:500,
-                       height:400,
-                       pieSliceText:'label'};
+		var options = {
+			title:'[질문] 급식되는 양은 만족스럽습니까?',
+			width:500, height:500,
+			pieSliceText:'label',
+			chartArea:{width:"80%",height:"80%"}, /* 여백 */
+			legend: { position: 'bottom' },
+			is3D:'true',
+			slices: {
+				0: {color: '#0c4c8a', opacity: 0.6}, 
+				1: {color: '#5587a2', opacity: 0.6}, 
+				2: {color: '#f6d258', offset: 0.1}, 
+				3: {color: '#d1af94', opacity: 0.6}, 
+				4: {color: '#97d5e0', offset: 0.2}
+			}
+		};
 
-        var chart = new google.visualization.PieChart(document.getElementById('amount'));
-        chart.draw(data, options);
-      }
+		var chart = new google.visualization.PieChart(document.getElementById('amount'));
+		chart.draw(data, options);
+	}
       
 	function bestmenu() {
            
@@ -166,7 +183,7 @@ body{
 			var data = new google.visualization.DataTable();
 
 			data.addColumn('string','Topping');
-			data.addColumn('number','Slices');
+			data.addColumn('number','Slices');s
 			
 			for(var i=0; i<resp.length;i++){
 				resp[i].rnum, resp[i].count, resp[i].bestmenu;
@@ -174,7 +191,7 @@ body{
 			console.log(resp);
 		});
           
-        var options = {title:'이번 달 선호 급식',
+        var options = {title:'[질문] 이번 달 선호 급식',
                        width:1000,
                        height:1000,
                        legend: { position: "none" },
@@ -186,11 +203,10 @@ body{
       
         }
       
-      
-      /* function bestmenu() {
+	/*function bestmenu() {
           
-          var data = google.visualization.arrayToDataTable([
-        	['no', 'counting', { role: 'style' }, { role: 'annotation' } ],
+		var data = google.visualization.arrayToDataTable([
+			['no', 'counting', { role: 'style' }, { role: 'annotation' } ],
             ['01', ${best01}, 'opacity: 0.5', '${menu01}'], ['02', ${best02}, 'opacity: 0.8', '${menu02}'],
             ['03', ${best03}, 'opacity: 0.5', '${menu03}'], ['04', ${best04}, 'opacity: 0.8', '${menu04}'],
             ['05', ${best05}, 'opacity: 0.5', '${menu05}'], ['06', ${best06}, 'opacity: 0.8', '${menu06}'],
@@ -203,46 +219,39 @@ body{
             ['19', ${best19}, 'opacity: 0.5', '${menu19}'], ['20', ${best18}, 'opacity: 0.8', '${menu20}'],
             ['21', ${best21}, 'opacity: 0.5', '${menu21}'], ['22', ${best20}, 'opacity: 0.8', '${menu22}'],
             ['23', ${best23}, 'opacity: 0.5', '${menu23}']
-          ]);
+		]);
           
-          var options = {title:'이번 달 선호 급식',
-                         width:1000,
-                         height:1000,
-                         legend: { position: "none" },
-                         series: [{'color': '#1A8763'}]
-                         };
+		var options = {
+			title:'[질문] 이번 달 선호 급식',
+			width:1000, height:1000,
+			legend: { position: "none" },
+			series: [{'color': '#1A8763'}]
+		};
           
-          
-          var chart = new google.visualization.BarChart(document.getElementById('bestmenu'));
-          chart.draw(data, options);
-        } */
+		var chart = new google.visualization.BarChart(document.getElementById('bestmenu'));
+		chart.draw(data, options);
+	} */
       
-    </script>
-<script>
-    $(function(){
-    	$("#btn").on("click", function(){
-			$("#modal").modal("show");
-    	})
-    })
 </script>
-    
-<style>
-.info{
-	margin:20px 0px 20px 0px;
-	padding-top:10px;
-	font-size:20px;
-	border:1px solid #1A8763;
-}
-    	
-</style>
-    
-  </head>
+<script>
+	
+	$(function(){
+		$(window).resize(function(){
+            drawChart1(allPay);
+            drawChart2(feedback);
+            drewChart3(taste);
+            drewChart4(amount);
+            drewChart5(bestmenu);
+          });
+	})
+	
+</script>
+</head>
 
 <body>
 <jsp:include page="../layout/header.jsp"/>
 
 	<div class="container">
-	
 		<div class="container info">
 			<div class="row">
 				<div class="col-6">
@@ -266,16 +275,18 @@ body{
 				</button>
 			</div>
 		</div>
+		
 		<hr>
 		<div class="row">
 			<div class="col-6">
-				<div id="chart_div"></div>
+				<div id="allPay"></div>
 			</div>
 			
 			<div class="col-6">
 				<div id="feedback"></div>
 			</div>
 		</div>
+		
 		<hr>
 		<div class="row">
 			<div class="col-6">
@@ -286,8 +297,8 @@ body{
 				<div id="amount"></div>
 			</div>
 		</div>
+		
 		<hr>
-		<!-- 구현해야할 부분 -->
 		<div class="row">
 			<div class="col-12">
 				<div id="bestmenu">여기 차트가 떠야해요ㅠㅠ</div>
@@ -295,7 +306,7 @@ body{
 		</div>
 	</div>
 	
-	<!-- 결제인원 -->
+	<!-- 결제인원 목록 모달-->
 	<div class="modal fade pay" id="staticBackdrop01" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-scrollable modal-xl text-center">
 	    <div class="modal-content">
@@ -305,8 +316,7 @@ body{
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-	      <div class="modal-body">
-	        	<strong>결제 인원 목록입니다.</strong><br>	        
+	      <div class="modal-body">	        
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -344,7 +354,7 @@ body{
 	  </div>
 	</div>
 	
-	<!-- 기타의견 -->
+	<!-- 기타의견 모달 -->
 	<div class="modal fade etc" id="staticBackdrop02" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-scrollable text-center">
 	    <div class="modal-content">

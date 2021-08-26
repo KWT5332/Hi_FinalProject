@@ -38,12 +38,10 @@ public class ChartDAO {
 	
 	// 급식비 인원
 	public int allStd(String school) {
-		int result = mybatis.selectOne("Chart.all", school);
-		return result;
+		return mybatis.selectOne("Chart.all", school);
 	}
 	public int allPay(Map<String, String> param) {
-		int result = mybatis.selectOne("Chart.pay", param);
-		return result;
+		return mybatis.selectOne("Chart.pay", param);
 	}
 	
 	// feedback counting
