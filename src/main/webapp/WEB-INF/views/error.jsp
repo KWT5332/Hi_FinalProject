@@ -41,12 +41,11 @@ input[type] {border-color: rgba(184, 223, 216, 0.5);}
 			<img class="error_rogo" src="/img/logo01_light.png" id="logo">
 		</div>
 		<div class="error_ment">
-			존재하지 않는 주소이거나,<br>요청하신 페이지의 주소가 변경, 삭제되어 찾을 수 없습니다.
 		</div>
 
 		<div class="error_btn_con ">
-			<a href="">
-				<button type="button" class="btn  error_btn_home ff">홈으로 돌아가기</button>
+			<a href="/">
+				<button type="button" class="btn error_btn_home ff">홈으로 돌아가기</button>
 			</a>
 		</div>
 	</div>

@@ -22,9 +22,9 @@ public class ChartDAO {
 	}
 	
 	// 베스트메뉴 1~5
-	public List<ChartDTO> bestList(Map<String, String> param){
-		return mybatis.selectList("Chart.bestList", param);
-	}
+//	public List<ChartDTO> bestList(Map<String, String> param){
+//		return mybatis.selectList("Chart.bestList", param);
+//	}
 	
 	// 베스트메뉴 셀렉트 옵션
 	public List<MealDTO> bestOp(Map<String, String> param) {

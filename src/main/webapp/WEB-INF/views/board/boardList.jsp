@@ -57,7 +57,7 @@
 	$(function(){
       	$('#dataTable').DataTable({
    		    "language": {
-      		   "emptyTable": "등록된 글이이 없습니다.",
+      		   "emptyTable": "등록된 글이 없습니다.",
    	   		   "search": "검색 : ",
    	           "zeroRecords": "일치하는 데이터가 없습니다.",
    	           "paginate": {
