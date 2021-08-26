@@ -67,7 +67,7 @@ public class StudentController {
 		
 		m.addAttribute("school", school);
 		m.addAttribute("month", month);
-		m.addAttribute("pay", pay);
+		m.addAttribute("pay", payment);
 		System.out.println("결제 페이지 : " + month + " : " + school +" : " + payment);
 
 		return "student/payment";
@@ -78,7 +78,7 @@ public class StudentController {
 	public String payInfo(PayDTO dto) {
 		int result = Ssv.payInsert(dto);
 		System.out.println("결제 정보 저장");
-		return "redirect:payHome";
+		return "redirect:/";
 	}
 	
 	
