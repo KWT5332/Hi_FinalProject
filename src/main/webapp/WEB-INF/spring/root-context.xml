@@ -22,8 +22,7 @@
 	</bean>
 
 	<!-- gmail설정 -->
-	<bean id="mailSender"
-		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 		<property name="username" value="project.hi.final@gmail.com" /> <!-- 자신의 이메일 아이디 -->
@@ -40,7 +39,6 @@
 			</props>
 		</property>
 	</bean>
-
 
 	<bean id="jdbcTemplate"
 		class="org.springframework.jdbc.core.JdbcTemplate">

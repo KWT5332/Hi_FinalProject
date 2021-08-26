@@ -54,6 +54,8 @@
 	.contents {
 	text-align: center;
 	line-height: 80px;
+	overflow-y :auto;
+	max-height:80px;
 	}
 	.chat_link{color:#064420; font-size:18px; font-weight:bold;}
 	.to_chat {text-align: center; min-width: 198px;}
@@ -93,8 +95,8 @@
 					<c:forEach var="infoList" items="${infoList}">
 						<c:choose>
 							<c:when test="${infoList.user1 == login.email}">
-								<div class="row chat_list m-0">
-									<div class="col-3 p-4 ${infoList.room_number}"></div>
+								<div class="row chat_list pl-5 m-0">
+									<div class="col-2 p-4 ${infoList.room_number}"></div>
 									<script>
         				 			 $.ajax({
         				 		    	  url:"/chat/lastChatProc",
@@ -102,7 +104,7 @@
         				 		    	  dataType:"json",
         				 		    	  type:"POST"
         				 		      }).done(function(resp){
-        				 		    		let div = $("<div class='d-none d-sm-block col-sm-4 contents'>");
+        				 		    		let div = $("<div class='d-none d-sm-block col-sm-5 contents'>");
         				 		    		if(resp != null){
         				 		    	  		div.append(resp.contents);
         				 		    	  		let sub = $("<sub class='p-1'>");
@@ -123,7 +125,7 @@
         				 				 if(resp.email == "${infoList.user2}" ){
         				 					$("."+${infoList.room_number}).text(resp.name);
         				 					
-        				 					let div = $("<div class='col-6 col-md-2 p-0 img_box'>");
+        				 					let div = $("<div class='col-6 col-sm-2 p-0 img_box'>");
         				 					let img = $("<img class='img_profile'>")
         				 					
         				 					if(resp.sysName != null){
@@ -142,8 +144,8 @@
 								</div>
 							</c:when>
 							<c:otherwise>
-								<div class="row chat_list m-0">
-									<div class="col-3 p-4 ${infoList.room_number}">${infoList.user1}</div>
+								<div class="row chat_list pl-5 m-0">
+									<div class="col-2 p-4 ${infoList.room_number}">${infoList.user1}</div>
 									<script>
         				 			 $.ajax({
         				 		    	  url:"/chat/lastChatProc",
@@ -151,7 +153,7 @@
         				 		    	  dataType:"json",
         				 		    	  type:"POST"
         				 		      }).done(function(resp){
-        				 		    		let div = $("<div class='d-none d-sm-block col-sm-4 contents'>");
+        				 		    		let div = $("<div class='d-none d-sm-block col-sm-5 contents'>");
         				 		    		
         				 		    		if(resp != null){
         				 		    			div.append(resp.contents);

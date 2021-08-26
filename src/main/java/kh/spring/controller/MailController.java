@@ -110,6 +110,7 @@ public class MailController {
 			}
 			
 			mailHelper.setFrom(new InternetAddress(from));
+			
 			mailHelper.setTo(toAddr);
 			mailHelper.setSubject(XSSFillterConfig.XSSFilter(title));
 			mailHelper.setText(finContent, true);
