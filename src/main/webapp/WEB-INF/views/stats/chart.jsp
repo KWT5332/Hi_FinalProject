@@ -30,8 +30,7 @@ body{font-family:'GowunDodum-Regular';}
 	font-size:20px;
 	border:1px solid #1A8763;
 }
-.chart {width: 100%; min-height: 450px;}
-.row {margin:0 !important;}    
+.chart {margin: 50px 0px 50px 0px;}
 
 </style>
 
@@ -62,7 +61,7 @@ body{font-family:'GowunDodum-Regular';}
 			legend:'none'
 		};
 
-		var chart = new google.visualization.BarChart(document.getElementById('allPay'));
+		var chart = new google.visualization.ColumnChart(document.getElementById('allPay'));
 		chart.draw(data, options);
 	}
 
@@ -236,13 +235,7 @@ body{font-family:'GowunDodum-Regular';}
 <script>
 	
 	$(function(){
-		$(window).resize(function(){
-            drawChart1(allPay);
-            drawChart2(feedback);
-            drewChart3(taste);
-            drewChart4(amount);
-            drewChart5(bestmenu);
-          });
+		
 	})
 	
 </script>
@@ -253,6 +246,12 @@ body{font-family:'GowunDodum-Regular';}
 
 	<div class="container">
 		<div class="container info">
+			<div class="row">
+				<div class="col-12">
+					통계
+				</div>
+			</div>
+			
 			<div class="row">
 				<div class="col-6">
 					<p class="font-weight-bold text-center">소속학교 : ${login.school}</p>
@@ -277,7 +276,7 @@ body{font-family:'GowunDodum-Regular';}
 		</div>
 		
 		<hr>
-		<div class="row">
+		<div class="row chart">
 			<div class="col-6">
 				<div id="allPay"></div>
 			</div>
@@ -288,7 +287,7 @@ body{font-family:'GowunDodum-Regular';}
 		</div>
 		
 		<hr>
-		<div class="row">
+		<div class="row chart">
 			<div class="col-6">
 				<div id="taste"></div>
 			</div>
@@ -299,7 +298,7 @@ body{font-family:'GowunDodum-Regular';}
 		</div>
 		
 		<hr>
-		<div class="row">
+		<div class="row chart">
 			<div class="col-12">
 				<div id="bestmenu">여기 차트가 떠야해요ㅠㅠ</div>
 			</div>
