@@ -27,8 +27,8 @@ public class ChartDAO {
 	}
 	
 	// 베스트메뉴 셀렉트 옵션
-	public List<MealDTO> bestOp(String b_month) {
-		return mybatis.selectList("Chart.bestOp", b_month);
+	public List<MealDTO> bestOp(Map<String, String> param) {
+		return mybatis.selectList("Chart.bestOp", param);
 	}
 	
 	// 기타 의견

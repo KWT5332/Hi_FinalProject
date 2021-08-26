@@ -1,6 +1,8 @@
 package kh.spring.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +28,11 @@ public class StudentService {
 	}
 	
 	// 베스트메뉴 셀렉트 옵션
-	public List<MealDTO> bestOp(String b_month){
-		return cdao.bestOp(b_month);
+	public List<MealDTO> bestOp(String b_month, String school){
+		Map<String, String> param = new HashMap<>();
+		param.put("b_month", b_month);
+		param.put("school", school);
+		return cdao.bestOp(param);
 	}
 	
 	// 결제 정보 저장

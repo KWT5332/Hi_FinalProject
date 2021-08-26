@@ -20,7 +20,7 @@
 
 	<!-- 베스트메뉴 option -->
 	<select id="bestOp" resultType="kh.spring.dto.MealDTO">
-		select * from meal_menu where month=#{b_month}
+		select * from meal_menu where month=#{b_month} and school=#{school}
 	</select>
 	
 	
