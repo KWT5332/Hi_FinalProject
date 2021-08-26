@@ -103,10 +103,10 @@ body{font-family:'GowunDodum-Regular';}
 			legend: { position: 'bottom' },
 			is3D:'true',
 			slices: {
-				0: {color: '#f7786b', opacity: 0.6, offset: 0.1}, 
+				0: {color: '#f7786b', opacity: 0.6}, 
 				1: {color: '#f7cac9', offset: 0.1}, 
 				2: {color: '#91a8d0', opacity: 0.6}, 
-				3: {color: '#034f84', offset: 0.3}, 
+				3: {color: '#034f84', offset: 0.1}, 
 				4: {color: '#f3e7db', opacity: 0.6}
 			}
 		};
@@ -167,11 +167,11 @@ body{font-family:'GowunDodum-Regular';}
 			legend: { position: 'bottom' },
 			is3D:'true',
 			slices: {
-				0: {color: '#0c4c8a', opacity: 0.6, offset: 0.1}, 
+				0: {color: '#0c4c8a', opacity: 0.6}, 
 				1: {color: '#5587a2', opacity: 0.6}, 
 				2: {color: '#f6d258', offset: 0.1}, 
 				3: {color: '#d1af94', opacity: 0.6}, 
-				4: {color: '#97d5e0', offset: 0.2}
+				4: {color: '#97d5e0', offset: 0.1}
 			}
 		};
 
@@ -198,7 +198,7 @@ body{font-family:'GowunDodum-Regular';}
 			var data = new google.visualization.DataTable();
 
 			data.addColumn('string','Topping');
-			data.addColumn('number','Slices');s
+			data.addColumn('number','Slices');
 			
 			for(var i=0; i<resp.length;i++){
 				resp[i].rnum, resp[i].count, resp[i].bestmenu;
@@ -299,7 +299,7 @@ body{font-family:'GowunDodum-Regular';}
 				
 				<div class="col-6">
 					<div class="row justify-content-center">
-						<strong>[질문] 학교 급식에 대하여 어떻게 생각하십니까?</strong>
+						<strong>[질문] 음식의 간은 적당합니까?</strong>
 					</div>
 					<div class="row">
 						<div id="feedback"></div>
@@ -332,7 +332,7 @@ body{font-family:'GowunDodum-Regular';}
 			<div class="row chart">
 				<div class="col-12">
 				<div class="row justify-content-center">
-						<strong>전체인원 대비 결제인원(이번달)</strong>
+						<strong>[질문] 이번 달 선호 급식 메뉴는?</strong>
 					</div>
 					<div class="row">
 						<div id="bestmenu"></div>
