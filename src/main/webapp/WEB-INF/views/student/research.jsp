@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Research</title>
+<title>급식 만족도 조사</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 
@@ -17,15 +17,9 @@
     font-weight: normal;
     font-style: normal;
 }
+body{font-family:'GowunDodum-Regular';}
 
-body{
-	font-family:'GowunDodum-Regular';
-}
-
-.box-radio-input input[type="radio"]{
-  display:none;
-}
-
+.box-radio-input input[type="radio"]{display:none;}
 .box-radio-input input[type="radio"] + span{
   display:inline-block;
   background:none;
@@ -38,53 +32,28 @@ body{
   cursor:pointer;
   margin-right:10px;
 }
+.box-radio-input input[type="radio"]:checked + span{border:1px solid #23a3a7; background:#23a3a7;}
 
-.box-radio-input input[type="radio"]:checked + span{
-  border:1px solid #23a3a7;
-  background:#23a3a7;
-  color:#fff;
-}
-
-.container{
-	border-radius:5px;
-	margin-top:50px;
-	margin-bottom:50px;
-	padding:10px;
-}
-
-.question{
-	margin-top:30px;
-	margin-bottom:20px;
-}
-
-.question > strong{
-	font-size:20px;
-}
-
-.answer{
-	margin-bottom:50px;
-}
-
-#title{
-	background:#dfdfdf;
-}
-
+.container{border-radius:5px; margin-top:50px; margin-bottom:50px; padding:10px;}
+.question{margin-top:30px; margin-bottom:20px;}
+.question > strong{font-size:20px;}
+.answer{margin-bottom:50px;}
+#title{background:#dfdfdf;}
 select > option {text-align:center;}
 
 </style>
 
 <script>
 		
-	$(document).ready(function() {
-	    $('#etc').on('keyup', function() {
-	        $('#etc_cnt').html("("+$(this).val().length+" / 200)");
-	 
-	        if($(this).val().length > 200) {
-	            $(this).val($(this).val().substring(0, 200));
-	            $('#etc_cnt').html("(200 / 200)");
-	        }
-	    });
-	});
+	$(function(){
+		$('#etc').on('keyup', function() {
+			$('#etc_cnt').html("("+$(this).val().length+" / 200)");
+			if($(this).val().length > 200) {
+				$(this).val($(this).val().substring(0, 200));
+				$('#etc_cnt').html("(200 / 200)");
+			}
+		});
+	})
 	
 </script>
 </head>
@@ -209,7 +178,7 @@ select > option {text-align:center;}
 	
 			<div class="row answer">
 				<div class="col">				
-					<select class="custom-select" name="bestmenu" style="width:700px;">
+					<select class="custom-select" name="bestmenu" style="max-width:700px;">
 					  <option selected>${b_month}월 메뉴입니다.</option>
 						<c:forEach var="i" items="${bestOp}" varStatus="s">
 							<option value="(${s.count})${i.menu1}/${i.menu2}/${i.menu3}/${i.menu4}/${i.menu5}/${i.menu6}">
@@ -243,7 +212,6 @@ select > option {text-align:center;}
 					<button class="btn btn-outline-info">설문완료</button>
 				</div>
 			</div>
-	
 		</div>
 	</form>
 
