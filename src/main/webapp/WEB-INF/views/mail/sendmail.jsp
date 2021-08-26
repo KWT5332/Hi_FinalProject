@@ -416,13 +416,12 @@ input[type] {border-color: #b2dabd;}
                         <div class="col-9"><input type="text" class="form-control" id="title" name="title"></div>
                     </div>
                     <hr>
-                    <div class="row m-0 mb-3">
-                        <div class="col-6"><p class="m-0" style="text-align:left;line-height:38px;font-size:15px;">몇월달 식단표를 보낼까요?</p></div>
-                        <div class="col-6"><input type="text" class="pl-2 form-control" id="month" name="month" placeholder="8"></div>
-                    </div>
                     <div class="row m-0">
-                        <div class="col-7 pr-0"><p class="m-0" style="text-align:left;line-height:38px;font-size:15px;" >이번달 급식비(숫자만 적어주세요.)</p></div>
-                        <div class="col-5"><input type="text" class="pl-2 form-control" id="payment" name="payment" placeholder="50000" ></div>
+                        <div class="col-4 pr-0"><p class="m-0" style="text-align:left;line-height:38px;font-size:15px;">다음달 급식비</p></div>
+                        <div class="col-7 p-0 pl-2">
+                        	<input type="text" class="pl-2 form-control" id="payment" name="payment" placeholder="숫자만 입력해주세요. 예) 50000">
+                        </div>
+                        <div class="col-1 pr-0" style="padding-left:7px;"><span style="line-height:38px;">원</span></div>
                     </div>
                     <hr>
                     <div class="row m-0">

@@ -128,7 +128,7 @@ public class MemberController {
 		System.out.println("인증번호 " + checkNum);
 
 		/* 이메일 보내기 */
-		String setFrom = "project.hi.final@gmail.com";
+		String setFrom = email;
 		String toMail = email;
 		String title = "하이!급식 인증 이메일 입니다.";
 		String content = 

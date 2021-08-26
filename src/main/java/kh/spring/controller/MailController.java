@@ -1,6 +1,9 @@
 package kh.spring.controller;
 
 import java.io.File;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.mail.internet.InternetAddress;
@@ -17,8 +20,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.google.gson.Gson;
 
 import kh.spring.config.XSSFillterConfig;
 import kh.spring.dto.MemberDTO;
@@ -55,16 +56,16 @@ public class MailController {
 
 	@ResponseBody
 	@RequestMapping(value = "sendMailProc", method = RequestMethod.GET, produces="text/html;charset=utf8")
-	public String sendMailTest(String title, String content, String month, String payment, HttpServletResponse response) throws Exception{
+	public String sendMailTest(String title, String content, String payment, HttpServletResponse response) throws Exception{
 		System.out.println("메일보내기");
-		System.out.println(title + " : " + month + " : " + payment + " : " + content);
+		System.out.println(title + " : " + payment + " : " + content);
 		MemberDTO dto = (MemberDTO)hsession.getAttribute("login");
 		String email = dto.getEmail();
 		String school = dto.getSchool();
 		System.out.println(email+school);
 		
 		//로컬호스트테스트용
-		String st_link=" http://localhost//sdt/researchHome?month="+month+"&pm="+payment+"&email="+email+"&school="+school;
+		String st_link=" http://localhost//sdt/researchHome?pm="+payment+"&email="+email+"&school="+school;
 		String enter = "<br>";
 		String finContent = enter+"\n\n<a href="+ st_link+">하이!급식 설문 및 급식비 결제페이지로 이동</a>"+enter+enter+XSSFillterConfig.XSSFilter(content);
 		
@@ -109,7 +110,8 @@ public class MailController {
 				toAddr[i] = new InternetAddress(to.get(i));
 			}
 			
-			mailHelper.setFrom(from);
+			mailHelper.setFrom(new InternetAddress(from));
+			
 			mailHelper.setTo(toAddr);
 			mailHelper.setSubject(XSSFillterConfig.XSSFilter(title));
 			mailHelper.setText(finContent, true);
@@ -121,9 +123,13 @@ public class MailController {
 			
 			// 찐 FileSystemResource file = new FileSystemResource(new File("C:\\Users\\SeoSeunghee\\Downloads\\"+month+"월+"+dto.getSchool()+"+식단표.xlsx"));
 			String realPath = hsession.getServletContext().getRealPath("excelDownMail");
-			exservice.excelDownloadMail(XSSFillterConfig.XSSFilter(month), dto, realPath, response);
 			
-			String fileName = XSSFillterConfig.XSSFilter(month)+"월+"+dto.getSchool()+"+식단표.xlsx";
+			Calendar mon = Calendar.getInstance();
+			mon.add(Calendar.MONTH , -1);
+			String month = new java.text.SimpleDateFormat("MM").format(mon.getTime());
+			exservice.excelDownloadMail(month, dto, realPath, response);
+			
+			String fileName = month+"월+"+dto.getSchool()+"+식단표.xlsx";
 			FileSystemResource file = new FileSystemResource(new File(realPath+"\\"+fileName));
             mailHelper.addAttachment(new String(fileName.getBytes("UTF-8"), "8859_1"),file); // 메일 첨부파일 한국어로 바꾸기
             

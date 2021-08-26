@@ -374,7 +374,7 @@ public class ExcelService {
 		row = sheet.createRow(rowNum++);//로우 한칸 내려오면서 한줄 만든 느낌
 		cell = row.createCell(0);//한칸 만들어줌
 		//만든거에 선택 헤서 내용 삽입
-		cell.setCellValue("학생 이메일 업로드");
+		cell.setCellValue("학생 이름과 이메일을 작성해 주세요. 이메일은 형식에 맞게 작성부탁드립니다.");
 		//cell.setCellValue("월은 06,11 형식, 날짜는 2021-07-21 (월) 형식으로 작성 부탁드립니다. 메뉴는 최소 2개부터 최대 6개까지만 등록가능합니다.");
 
 		// 빈행 추가-2열 추가 빈공간
