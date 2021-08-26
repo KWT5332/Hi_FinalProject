@@ -50,6 +50,7 @@
 	background:rgb(255, 196, 119, 0.8);
 	z-index: -5;
 }
+.seqlink:hover{font-weight:700;text-decoration:none;}
 </style>
 <script>
 	$(function(){
