@@ -56,4 +56,7 @@
 	<select id="memberInfo" resultType="kh.spring.dto.MemberDTO">
 		select * from hi_member where email=#{value}
 	</select>
+	<delete id="delMem">
+		delete from hi_member where email=#{email}
+	</delete>
 </mapper>

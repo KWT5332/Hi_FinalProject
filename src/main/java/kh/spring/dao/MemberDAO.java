@@ -63,6 +63,9 @@ public class MemberDAO {
 	public MemberDTO memberInfo(String email) {
 		return mybatis.selectOne("Member.memberInfo",email);
 	}
+	public int delMem(String email) {
+		return mybatis.delete("Member.delMem", email);
+	}
 	/*
 	 * public int profileBasic(Map<String, String> map) { return
 	 * mybatis.update("Member.profileBasic", map); }

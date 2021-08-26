@@ -201,6 +201,14 @@ public class MemberController {
 		return "member/mypage";
 	}
 	
+	@RequestMapping("delMem")
+	public String delMem(String email) {
+		System.out.println("회원탈퇴");
+		service.delMem(email);
+		session.invalidate();
+		return "redirect:/";
+	}
+	
 	//
 //	@RequestMapping(value = "imguploas", method = RequestMethod.POST)
 //	@ResponseBody
