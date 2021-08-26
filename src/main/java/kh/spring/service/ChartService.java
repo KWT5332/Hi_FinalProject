@@ -32,8 +32,11 @@ public class ChartService {
 	
 	
 	// 결제인원 목록
-	public List<PayDTO> payList(String school){
-		return pdao.payList(school);
+	public List<PayDTO> payList(String school, String month){
+		Map<String, String> param = new HashMap<>();
+		param.put("school", school);
+		param.put("month", month);
+		return pdao.payList(param);
 	}
 	
 	// 기타 의견
