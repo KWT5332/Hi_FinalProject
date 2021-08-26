@@ -7,18 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -38,9 +33,10 @@
 }
 .mypage_container button[type] {background-color: #A9CCB3;border: #A9CCB3;color:white;}
 .mypage_container #btn_pro_basic {background-color: #A9CCB3;border: #A9CCB3;color:white; width: 178.77px;height: 39px;}
-.mypage_container #btn_modi_ck {background-color: #7AB08A;border: #7AB08A;color:white; width: 250px;height: 50px;font-size: 19px;}
+.mypage_container #btn_modi_ck {margin: 30px;background-color: #7AB08A;border: #7AB08A;color:white; width: 250px;height: 50px;font-size: 19px;}
+.mypage_container #btn_del_mem {margin: 30px; background-color: #A9A9A9;;border: #A9A9A9;;color:white; width: 250px;height: 50px;font-size: 19px;}
 .mypage_container button[type]:focus {box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px rgb(184, 223, 216, 0.6);outline: 0 none;}
-.mypage_container button[type]::hover {background:#7AB08A;box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px rgb(184, 223, 216, 0.6);outline: 0 none;}
+.mypage_container button[type]:hover {background:#7AB08A;box-shadow: 0 1px 1px rgb(184, 223, 216, 0.904) inset, 0 0 20px rgb(184, 223, 216, 0.6);outline: 0 none;}
 .mypage_container input[type] {border-color: rgba(184, 223, 216, 0.5);}
 .mypage_container .incon {overflow: hidden;}
 .mypage_container .btn_pw {width: 127px;}
@@ -278,9 +274,20 @@
 					}
 					
 				})
-				
 		});
-     })
+		/* 탈퇴 */
+		$("#btn_del_mem").on("click",function(){
+			var email = $('#email').val();
+			
+			var result = confirm("정말로 탈퇴하시겠습니까?");
+	    		if(result){
+	    			location.href = "/mem/delMem?email="+email;
+	    		}else{
+	    			alert("ss");
+	    		}
+			
+		});
+})
 </script>
 </head>
 <body>
@@ -425,7 +432,7 @@
 				</div>
 				<div class="id_pw_con incon row m-5">
 					<h5 class="col-12 mb-4">나이대</h5>
-					<div class="input-group row">
+					<div class="input-group row pl-3">
 						<div class="col-sm-2 col-md-2">
 							<input type="text" class="form-control age_show" value=${login.age } disabled>
 						</div>
@@ -468,7 +475,8 @@
 			</div>
 			<div class="empty"></div>
 			<div class="con_btn_modify m-5">
-				<button type="button" class="btn btn-success btn_modi_ck" id="btn_modi_ck">수정 된 정보 확인하기</button>
+				<button type="button" class="btn  btn_modi_ck" id="btn_modi_ck">수정 된 정보 확인하기</button>
+				<button type="button" class="btn  btn_modi_ck" id="btn_del_mem">회원탈퇴</button>
 			</div>
 			<div class="empty">
 				<input type="hidden" name="email" id="email" value=${login.email}> 
