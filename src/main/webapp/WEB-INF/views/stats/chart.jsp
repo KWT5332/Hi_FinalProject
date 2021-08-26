@@ -104,7 +104,7 @@ body{
       }
       
 
-      function taste() {
+	function taste() {
 
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Topping');
@@ -147,19 +147,47 @@ body{
         chart.draw(data, options);
       }
       
-      function bestmenu() {
+	function bestmenu() {
+           
+		/* var jsonData = $.ajax({
+			url:"/chart/chartData",
+			dataType:"json"
+		}).done(function(resp){
+			[resp[0].rnum, resp[0].count, resp[0].bestmenu];
+			console.log(resp);
+		});
+		
+		var data = new google.visualization.DataTable(jsonData); */
+		
+		$.ajax({
+			url:"/chart/chartData",
+			dataType:"json"
+		}).done(function(resp){
+			var data = new google.visualization.DataTable();
 
-          /* var data = new google.visualization.DataTable();
-          data.addColumn('string', 'Topping');
-          data.addColumn('number', 'Slices');
-          data.addRows([
-            ['${menu01}', ${best01}], ['${menu02}', ${best02}], ['${menu03}', ${best03}], ['${menu04}', ${best04}],
-            ['${menu05}', ${best05}], ['${menu06}', ${best06}], ['${menu07}', ${best07}], ['${menu08}', ${best08}],
-            ['${menu09}', ${best09}], ['${menu10}', ${best10}], ['${menu11}', ${best11}], ['${menu12}', ${best12}],
-            ['${menu13}', ${best13}], ['${menu14}', ${best14}], ['${menu15}', ${best15}], ['${menu16}', ${best16}],
-            ['${menu17}', ${best17}], ['${menu18}', ${best18}], ['${menu19}', ${best19}], ['${menu20}', ${best20}],
-            ['${menu21}', ${best21}], ['${menu22}', ${best22}], ['${menu23}', ${best23}], ['${menu24}', ${best24}],          
-          ]); */
+			data.addColumn('string','Topping');
+			data.addColumn('number','Slices');
+			
+			for(var i=0; i<resp.length;i++){
+				resp[i].rnum, resp[i].count, resp[i].bestmenu;
+			}
+			console.log(resp);
+		});
+          
+        var options = {title:'이번 달 선호 급식',
+                       width:1000,
+                       height:1000,
+                       legend: { position: "none" },
+                       series: [{'color': '#1A8763'}]
+                       };
+        
+        var chart = new google.visualization.PieChart(document.getElementById('bestmenu'));
+        chart.draw(data, options);
+      
+        }
+      
+      
+      /* function bestmenu() {
           
           var data = google.visualization.arrayToDataTable([
         	['no', 'counting', { role: 'style' }, { role: 'annotation' } ],
@@ -187,7 +215,7 @@ body{
           
           var chart = new google.visualization.BarChart(document.getElementById('bestmenu'));
           chart.draw(data, options);
-        }
+        } */
       
     </script>
 <script>
@@ -229,12 +257,12 @@ body{
 		<div class="row">
 			<div class="col-6">
 				<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#staticBackdrop01" style="width:100%;">
-					결제 인원 목록
+					급식비 결제 인원 목록
 				</button>
 			</div>
 			<div class="col-6">
 				<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#staticBackdrop02" style="width:100%;">
-					기타 의견
+					기타 의견 모아보기
 				</button>
 			</div>
 		</div>
@@ -259,6 +287,7 @@ body{
 			</div>
 		</div>
 		<hr>
+		<!-- 구현해야할 부분 -->
 		<div class="row">
 			<div class="col-12">
 				<div id="bestmenu"></div>
@@ -266,10 +295,7 @@ body{
 		</div>
 	</div>
 	
-	<!-- Scrollable modal -->
-	<!-- Button trigger modal -->
-	
-	<!-- Modal -->
+	<!-- 결제인원 -->
 	<div class="modal fade pay" id="staticBackdrop01" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-scrollable modal-xl text-center">
 	    <div class="modal-content">
@@ -318,19 +344,21 @@ body{
 	  </div>
 	</div>
 	
-	<!-- Modal -->
+	<!-- 기타의견 -->
 	<div class="modal fade etc" id="staticBackdrop02" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-scrollable text-center">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="staticBackdropLabel">기타 의견</h5>
+	        <h5 class="modal-title" id="staticBackdropLabel">기타 의견 모아보기</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
 	        <ul class="list-group list-group-flush">
-	        	<strong>학교 급식과 관련하여 의견이 있다면 적어주시기 바랍니다.</strong><hr>	        
+	        	<strong>[질문] 학교 급식과 관련하여 의견이 있다면 적어주시기 바랍니다.</strong>
+	        	<br><h6>아래는 학생들의 의견입니다.</h6>
+	        	<hr>	        
 	        	<c:forEach var="i" items="${etcList}" varStatus="s">
 					<c:if test="${not empty i.etc}">
 						<li class="list-group-item">${i.etc}</li>

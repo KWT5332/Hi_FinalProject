@@ -11,6 +11,13 @@
 		insert into st_feedback values(feedback_seq.nextval, #{b_month}, #{parent_email}, #{school}, #{feedback}, #{taste}, #{amount}, #{bestmenu}, #{etc} )
 	</insert>
 	
+	<!-- 베스트메뉴 1~5 -->
+	<select id="bestList" resultType="kh.spring.dto.newChartDTO">
+		select * from (select row_number() over (order by count desc) rnum, count, bestmenu from 
+        (select count(bestmenu) as count, bestmenu from (select * from st_feedback where parent_email=#{parent_email} and b_month=#{b_month}) 
+        group by bestmenu order by 1 desc)) where rnum between 1 and 5
+	</select>
+
 
 	<!-- 베스트메뉴 option -->
 	<select id="bestOp" resultType="kh.spring.dto.MealDTO">
@@ -26,6 +33,12 @@
 	<select id="pay" resultType="Integer">
 		select count(*) from st_payment where st_school=#{school} and month=#{month}
 	</select>
+	
+	
+	<!-- 기타 의견 -->
+	<select id="selectEtc" resultType="kh.spring.dto.ChartDTO">
+		select * from st_feedback where parent_email=#{parent_email}
+	</select> 
 	
 	
 	<!-- 만족도 / feedback -->
@@ -86,14 +99,8 @@
 	</select>
 	
 	
-	<!-- 기타 의견 -->
-	<select id="selectEtc" resultType="kh.spring.dto.ChartDTO">
-		select * from st_feedback where parent_email=#{parent_email}
-	</select> 
-	
-	
 	<!-- 베스트메뉴 목록 -->
-	<select id="menu01" resultType="String">
+	<!-- <select id="menu01" resultType="String">
 		select bestmenu from st_feedback where bestmenu like '(1)%' and parent_email=#{parent_email} and rowid in (select max(rowid) from st_feedback group by bestmenu)
 	</select>
 	
@@ -187,13 +194,11 @@
 	
 	<select id="menu24" resultType="string">
 		select bestmenu from st_feedback where bestmenu like '(24)%' and parent_email=#{parent_email} and rowid in (select max(rowid) from st_feedback group by bestmenu)
-	</select>
-	
-	
+	</select> -->
 	
 	
 	<!-- 베스트메뉴 카운팅 -->
-	<select id="best01" resultType="Integer">
+	<!-- <select id="best01" resultType="Integer">
 		select count(bestmenu) from st_feedback where bestmenu like '(1)%' and parent_email=#{parent_email}
 	</select>
 	
@@ -287,6 +292,6 @@
 	
 	<select id="best24" resultType="Integer">
 		select count(bestmenu) from st_feedback where bestmenu like '(24)%' and parent_email=#{parent_email}
-	</select>
+	</select> -->
 	
 </mapper>
