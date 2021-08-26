@@ -481,7 +481,7 @@
 	            </div>
 	            <div class="modal-footer">
 		            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="delete">삭제</button>
-		            <button type="button" class="btn btn-primary" id="update">수정</button>
+		            <button type="button" class="btn btn-primary" id="update">수정 적용하기</button>
 	            </div>
 	        </div>
         </div>

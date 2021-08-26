@@ -17,7 +17,7 @@
 	</select>
 	
 	<update id="createRoom">
-		insert into chat_room values(chat_room_seq.nextval,#{user1},#{user2},null,null,null,null,sysdate)
+		insert into chat_room values(chat_room_seq.nextval,#{user1},#{user2},sysdate)
 	</update>
 	
 	<select id="searchRoomNumber" resultType="int">
