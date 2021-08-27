@@ -175,7 +175,7 @@ input[type] {border-color: #b2dabd;}
 			}else{
 				var stu_email = $('#stu_email').val();			
 				var stu_name = $('#stu_name').val();			
-				let emailReg = /^[A-Za-z0-9_]+@[a-z]+[.][a-z]{2,3}$/;
+				let emailReg = /^[A-Za-z0-9\_\.\-]+@[a-z]+[.][a-z]{2,3}$/;
 				let nameReg = /^[가-힣]{2,10}$/;
 				if (!(emailReg.test(stu_email))){
 					alert("이메일형식에 맞게 작성해주세요.");
