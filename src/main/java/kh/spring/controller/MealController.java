@@ -137,13 +137,15 @@ public class MealController {
 		return "meal/search"; 
 	}
 	
-	// 수정
+	// 야 이날짜 있냐?
 	@ResponseBody
 	@RequestMapping("isDateOk")
 	public String isDateOk(Date meal_date) {
 		System.out.println("이 날짜있냐 " + meal_date);
+		
+		MemberDTO dto = (MemberDTO)session.getAttribute("login");
 
-		int result = service.isdateOk(meal_date);
+		int result = service.isdateOk(meal_date, dto.getEmail());
 		if(result>0) {
 			return "1";
 		}else {
@@ -151,12 +153,16 @@ public class MealController {
 		}
 	}
 	
+	// 수정
 	@ResponseBody
 	@RequestMapping("update")
 	public String update(MultipartHttpServletRequest multi) throws Exception {
 		System.out.println("수정");
 		
+		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
+		
 		MealDTO dto = new MealDTO();
+		dto.setWriter(mdto.getEmail());
 		dto.setMenu1(XSSFillterConfig.XSSFilter(multi.getParameter("menu1")));
 		dto.setMenu2(XSSFillterConfig.XSSFilter(multi.getParameter("menu2")));
 		dto.setMenu3(XSSFillterConfig.XSSFilter(multi.getParameter("menu3")));
@@ -178,7 +184,8 @@ public class MealController {
 	public String delte(String meal_date) {
 		System.out.println("삭제할 날짜" + meal_date);
 
-		service.delete(meal_date);
+		MemberDTO dto = (MemberDTO)session.getAttribute("login");
+		service.delete(meal_date, dto.getEmail());
 		
 		return "1"; 
 	}

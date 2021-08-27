@@ -30,8 +30,12 @@ public class MealService {
 	}
 	
 	// 이 날짜 있뉘?
-	public int isdateOk(Date meal_date) {
-		return dao.isdateOk(meal_date);
+	public int isdateOk(Date meal_date, String email) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("meal_date", meal_date);
+		map.put("email", email);
+		
+		return dao.isdateOk(map);
 	}
 	
 	// 식단 추가
@@ -153,7 +157,11 @@ public class MealService {
 		return sysName;
 	}
 	
-	public int delete(String meal_date) {
-		return dao.delete(meal_date);
+	public int delete(String meal_date, String email) {
+		Map<String, String> map = new HashMap<>();
+		map.put("meal_date", meal_date);
+		map.put("email", email);
+
+		return dao.delete(map);
 	}
 }
