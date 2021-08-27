@@ -31,7 +31,7 @@
 	</select>
 	
 	<select id="isdateOk" resultType="int">
-		select count(*) from meal_menu where meal_date=#{meal_date} 
+		select count(*) from meal_menu where meal_date=#{meal_date} and writer=#{writer}
 	</select>
 	
 	<select id="listCount" resultType="int">
@@ -53,10 +53,10 @@
 		<if test="dto.oriName!=''">
 			,oriName=#{dto.oriName},sysName=#{dto.sysName}
 		</if>
-			where meal_date=#{meal_date}
+			where meal_date=#{meal_date} and writer=#{writer}
 	</update>
 	
 	<delete id="delete">
-		delete from meal_menu where meal_date=#{meal_date}
+		delete from meal_menu where meal_date=#{meal_date} and writer=#{writer}
 	</delete>
 </mapper>

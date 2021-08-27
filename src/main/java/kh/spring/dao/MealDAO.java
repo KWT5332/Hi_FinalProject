@@ -21,8 +21,8 @@ public class MealDAO {
 		return mybatis.selectList("Meal.selectAll", map);
 	}
 	
-	public int isdateOk(Date meal_date) {
-		return mybatis.selectOne("Meal.isdateOk", meal_date);
+	public int isdateOk(Map<String, Object> map) {
+		return mybatis.selectOne("Meal.isdateOk", map);
 	}
 	
 	public int insert(MealDTO dto) {
@@ -53,7 +53,7 @@ public class MealDAO {
 		return mybatis.update("Meal.update", map);
 	}
 	
-	public int delete(String meal_date) {
-		return mybatis.delete("Meal.delete", meal_date);
+	public int delete(Map<String, String> map) {
+		return mybatis.delete("Meal.delete", map);
 	}
 }
