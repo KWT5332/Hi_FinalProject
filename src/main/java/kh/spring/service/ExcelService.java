@@ -415,13 +415,13 @@ public class ExcelService {
 		List<St_MailDTO> list = readExcelMail(dto, filesPath.getAbsolutePath()+"/"+sysName);
 
 		for(St_MailDTO m : list) {
-			System.out.println(m.getSchool() + " : " + m.getStu_name() + " : " + m.getStu_email());
+			System.out.println(m.getSchool() + " : " + m.getStu_name() + " : " + m.getStu_email() + " : " + m.getNu_email());
 		}
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 
-		st_dao.excelupload(map);
+//		st_dao.excelupload(map);
 	}
 
 	// 승희 엑셀 읽는 코드(학생 주소록)
@@ -451,7 +451,9 @@ public class ExcelService {
 				dto.setSchool(m.getSchool());
 				dto.setStu_name(curRow.getCell(0).getStringCellValue());
 				dto.setStu_email(curRow.getCell(1).getStringCellValue());
-
+				dto.setNu_email(m.getEmail());
+				
+				st_dao.addStudent(dto); // oracle은 insert all에서 seq.nextval이 안먹어서 한줄씩 넣어준다.
 				list.add(dto);
 			}
 		}

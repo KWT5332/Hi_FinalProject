@@ -54,9 +54,9 @@ public class StudentController {
 	
 	// 설문조사 결과 저장
 	@RequestMapping("researchResult")
-	public String reserchResult(String b_month, String month, String email, String school, String payment, ChartDTO dto) {
+	public String reserchResult(String b_month, String month, String parent_email, String school, String payment, ChartDTO dto) {
 		int result = Ssv.researchInsert(dto);
-		System.out.println("설문조사 결과 저장 : " + b_month + " : " + month + " : " + email + " : " + school + " : " + payment);
+		System.out.println("설문조사 결과 저장 : " + b_month + " : " + month + " : " + parent_email + " : " + school + " : " + payment);
 		return "forward:/sdt/payHome";
 	}
 	
@@ -67,7 +67,7 @@ public class StudentController {
 		
 		m.addAttribute("school", school);
 		m.addAttribute("month", month);
-		m.addAttribute("pay", pay);
+		m.addAttribute("pay", payment);
 		System.out.println("결제 페이지 : " + month + " : " + school +" : " + payment);
 
 		return "student/payment";
@@ -80,8 +80,6 @@ public class StudentController {
 		System.out.println("결제 정보 저장");
 		return "redirect:/";
 	}
-	
-	
 	@ExceptionHandler
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();

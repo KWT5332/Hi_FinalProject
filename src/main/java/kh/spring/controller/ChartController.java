@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import kh.spring.dto.ChartDTO;
-import kh.spring.dto.MealDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.PayDTO;
 import kh.spring.service.ChartService;
@@ -212,19 +211,25 @@ public class ChartController {
 	}
 	
 	// 베스트메뉴 1~5 데이터
-	@ResponseBody
-	@RequestMapping("chartData 전송")
-	public String chartData() {
-		System.out.println("ChartData");
-		//테스트용 데이터
-		String parent_email = "cy3195@naver.com";
-		String b_month="07";
-		
-		List<ChartDTO> list = Csv.bestList(parent_email, b_month);
-		String json = new Gson().toJson(list);
-		
-		return String.valueOf(json);
-	}
+//	@ResponseBody
+//	@RequestMapping("chartData")
+//	public String chartData() {
+//		
+//		System.out.println("ChartData 전송");
+//
+//		MemberDTO mdto = (MemberDTO)session.getAttribute("login");
+//		String parent_email = mdto.getEmail();
+//		
+//		// 이번 달 기준 한달 전 날짜
+//		Calendar b_mon = Calendar.getInstance();
+//		b_mon.add(Calendar.MONTH , -1);
+//		String b_month = new java.text.SimpleDateFormat("MM").format(b_mon.getTime());
+//		
+//		List<ChartDTO> list = Csv.bestList(parent_email, b_month);
+//		String json = new Gson().toJson(list);
+//		
+//		return String.valueOf(json);
+//	}
 
 	@ExceptionHandler
 	public String exceptionHandler(Exception e) {

@@ -7,6 +7,13 @@
 <meta charset="UTF-8">
 <title>홈페이지</title>
 <style>
+	@font-face {
+	    font-family: 'GowunDodum-Regular';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	body{font-family:'GowunDodum-Regular';} 
     .footer{width:100%;min-height:220px;background-color:#fff8f4;padding-top:38px;text-align:center;}
     .footer *{color:gray;}
     .footerimg{width:240px;}

@@ -11,11 +11,11 @@
 	</insert>
 	
 	<!-- 베스트메뉴 1~5 -->
-	<select id="bestList" resultType="kh.spring.dto.newChartDTO">
+	<!-- <select id="bestList" resultType="kh.spring.dto.newChartDTO">
 		select * from (select row_number() over (order by count desc) rnum, count, bestmenu from 
         (select count(bestmenu) as count, bestmenu from (select * from st_feedback where parent_email=#{parent_email} and b_month=#{b_month}) 
         group by bestmenu order by 1 desc)) where rnum between 1 and 5
-	</select>
+	</select> -->
 
 
 	<!-- 베스트메뉴 option -->

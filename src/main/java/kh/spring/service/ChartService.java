@@ -23,12 +23,12 @@ public class ChartService {
 	private PayDAO pdao;
 	
 	// 베스트메뉴 1~5
-	public List<ChartDTO> bestList(String parent_email, String b_month){
-		Map<String, String> param = new HashMap<>();
-		param.put("parent_email", parent_email);
-		param.put("b_month", b_month);
-		return cdao.bestList(param);
-	}
+//	public List<ChartDTO> bestList(String parent_email, String b_month){
+//		Map<String, String> param = new HashMap<>();
+//		param.put("parent_email", parent_email);
+//		param.put("b_month", b_month);
+//		return cdao.bestList(param);
+//	}
 	
 	
 	// 결제인원 목록
