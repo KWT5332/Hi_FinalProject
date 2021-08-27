@@ -71,7 +71,7 @@
 	$('#btn_email_ck').on("click", function(){
 		var memberId = $('#Email_input').val();			// .id_input에 입력되는 값
 		var data = {memberId : memberId}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
-		let emailReg = /^[A-Za-z0-9_]+@[a-z]+[.][a-z]{2,3}$/;//이메일 정규식
+		let emailReg = /^[A-Za-z0-9\_\.\-]+@[a-z]+[.][a-z]{2,3}$/;//이메일 정규식
 		if (!(emailReg.test(memberId))){
 			$('.id_input_reg_1').css("display","inline-block");
 			$('.id_input_re_1').css("display", "none");
