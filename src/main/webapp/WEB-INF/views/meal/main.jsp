@@ -167,10 +167,7 @@
 		    			contentType: false, // "application/x-www-form-urlencoded; charset=UTF-8"이것이 아니라 "multipart/form-data"로 보내야됩니다.
 		    			cache:false
 					}).done(function(resp) {
-						console.log(resp);
-			            $(".upload-name").val("파일선택");
-			            $(".menu").remove(); // menu내용지우고
-				       	calAjax(resp); // 다시 내용 넣기
+						location.reload();
 					})	
 	    		}
 	    	})
